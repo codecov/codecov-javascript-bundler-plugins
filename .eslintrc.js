@@ -15,7 +15,7 @@ const config = {
     project: [
       "./tsconfig.json",
       "./packages/esbuild-stats/tsconfig.json",
-      "./packages/rollup-stats/tsconfig.json",
+      "./packages/vite-stats/tsconfig.json",
       "./packages/webpack-stats/tsconfig.json",
     ],
   },
