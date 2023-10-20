@@ -124,7 +124,7 @@ export const rollupStatsPlugin = (
 
     this.emitFile({
       type: "asset",
-      fileName: options?.fileName || "stats.json",
+      fileName: options?.fileName ?? "stats.json",
       source: JSON.stringify(output),
     });
   },
