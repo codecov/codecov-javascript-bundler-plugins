@@ -1,1 +1,1 @@
-# bundle-stats-plugin
+# Codecov Bundle Stats Plugin
