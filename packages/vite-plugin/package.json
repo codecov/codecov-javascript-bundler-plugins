@@ -1,5 +1,5 @@
 {
-  "name": "rollup-stats",
+  "name": "@codecov/vite-plugin",
   "version": "0.0.1",
   "description": "",
   "main": "dist/index.js",
@@ -21,7 +21,6 @@
   "type": "module",
   "devDependencies": {
     "@types/node": "^20.8.6",
-    "rollup": "^4.1.4",
     "tsup": "^7.2.0",
     "typescript": "^5.0.4",
     "vite": "^4.4.11"
