@@ -48,37 +48,7 @@ importers:
         specifier: ^5.2.2
         version: 5.2.2
 
-  packages/esbuild-stats:
-    devDependencies:
-      '@types/node':
-        specifier: ^20.8.6
-        version: 20.8.6
-      tsup:
-        specifier: ^7.2.0
-        version: 7.2.0(typescript@5.2.2)
-      typescript:
-        specifier: ^5.0.4
-        version: 5.2.2
-
-  packages/rollup-stats:
-    devDependencies:
-      '@types/node':
-        specifier: ^20.8.6
-        version: 20.8.6
-      rollup:
-        specifier: ^4.1.4
-        version: 4.1.4
-      tsup:
-        specifier: ^7.2.0
-        version: 7.2.0(typescript@5.2.2)
-      typescript:
-        specifier: ^5.0.4
-        version: 5.2.2
-      vite:
-        specifier: ^4.4.11
-        version: 4.4.11(@types/node@20.8.6)
-
-  packages/unplugin-stats:
+  packages/bundler-plugin-core:
     dependencies:
       unplugin:
         specifier: ^1.5.0
@@ -94,7 +64,19 @@ importers:
         specifier: ^5.0.4
         version: 5.2.2
 
-  packages/vite-stats:
+  packages/esbuild-plugin:
+    devDependencies:
+      '@types/node':
+        specifier: ^20.8.6
+        version: 20.8.6
+      tsup:
+        specifier: ^7.2.0
+        version: 7.2.0(typescript@5.2.2)
+      typescript:
+        specifier: ^5.0.4
+        version: 5.2.2
+
+  packages/rollup-plugin:
     devDependencies:
       '@types/node':
         specifier: ^20.8.6
@@ -108,11 +90,23 @@ importers:
       typescript:
         specifier: ^5.0.4
         version: 5.2.2
+
+  packages/vite-plugin:
+    devDependencies:
+      '@types/node':
+        specifier: ^20.8.6
+        version: 20.8.6
+      tsup:
+        specifier: ^7.2.0
+        version: 7.2.0(typescript@5.2.2)
+      typescript:
+        specifier: ^5.0.4
+        version: 5.2.2
       vite:
         specifier: ^4.4.11
         version: 4.4.11(@types/node@20.8.6)
 
-  packages/webpack-stats:
+  packages/webpack-plugin:
     devDependencies:
       '@types/node':
         specifier: ^20.8.6
