@@ -4,6 +4,6 @@
   </a>
 </p>
 
-# Codecov Bundler Plugins
+# Codecov Vite Plugin
 
 TODO
