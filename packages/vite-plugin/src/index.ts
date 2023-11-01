@@ -37,10 +37,10 @@ export const viteStatsPlugin = (
 
     const assets: Asset[] = [];
     const chunks: Chunk[] = [];
-
+    const moduleByFileName = new Map<string, Module>();
     const items = Object.values(bundle);
 
-    const moduleByFileName = new Map<string, Module>();
+    const cwd = process.cwd();
 
     for (const item of items) {
       if (item?.type === "asset") {
@@ -64,7 +64,6 @@ export const viteStatsPlugin = (
       }
 
       if (item?.type === "chunk") {
-        const cwd = process.cwd();
         const chunkId = item?.name;
         const fileName = item?.fileName ?? "";
         const moduleEntries = Object.entries(item?.modules ?? {});
@@ -84,6 +83,7 @@ export const viteStatsPlugin = (
         });
 
         for (const [modulePath, moduleInfo] of moduleEntries) {
+          console.debug(modulePath);
           const normalizedModulePath = modulePath.replace("\u0000", "");
           const relativeModulePath = path.relative(cwd, normalizedModulePath);
           const relativeModulePathWithPrefix = relativeModulePath.match(/^\.\./)
