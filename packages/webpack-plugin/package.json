@@ -40,6 +40,9 @@
     "unbuild": "^2.0.0"
   },
   "volta": {
-    "node": "20.9.0"
+    "extends": "../../package.json"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }
