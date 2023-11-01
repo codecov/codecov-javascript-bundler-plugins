@@ -14,9 +14,11 @@ const config = {
     tsconfigRootDir: __dirname,
     project: [
       "./tsconfig.json",
-      "./packages/esbuild-stats/tsconfig.json",
-      "./packages/vite-stats/tsconfig.json",
-      "./packages/webpack-stats/tsconfig.json",
+      "./packages/bundler-plugin-core/tsconfig.json",
+      "./packages/esbuild-plugin/tsconfig.json",
+      "./packages/rollup-plugin/tsconfig.json",
+      "./packages/vite-plugin/tsconfig.json",
+      "./packages/webpack-plugin/tsconfig.json",
     ],
   },
   rules: {

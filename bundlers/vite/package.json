@@ -23,7 +23,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "rollup": "^4.1.4",
-    "rollup-stats": "workspace:^",
+    "@codecov/vite-plugin": "workspace:^",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
   }
