@@ -83,7 +83,6 @@ export const viteStatsPlugin = (
         });
 
         for (const [modulePath, moduleInfo] of moduleEntries) {
-          console.debug(modulePath);
           const normalizedModulePath = modulePath.replace("\u0000", "");
           const relativeModulePath = path.relative(cwd, normalizedModulePath);
           const relativeModulePathWithPrefix = relativeModulePath.match(/^\.\./)
@@ -116,6 +115,7 @@ export const viteStatsPlugin = (
     );
 
     const output = {
+      testing: 123,
       builtAt: Date.now(),
       assets,
       chunks,

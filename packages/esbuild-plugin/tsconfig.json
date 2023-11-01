@@ -1,6 +1,6 @@
 {
   "extends": "../../tsconfig.json",
-  "include": ["src", "tsup.config.ts", "../../reset.d.ts"],
+  "include": ["src", "build.config.ts", "../../reset.d.ts"],
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
