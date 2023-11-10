@@ -48,19 +48,6 @@ importers:
         specifier: ^5.2.2
         version: 5.2.2
 
-  bundlers/esbuild:
-    dependencies:
-      react:
-        specifier: ^18.2.0
-        version: 18.2.0
-      react-dom:
-        specifier: ^18.2.0
-        version: 18.2.0(react@18.2.0)
-    devDependencies:
-      esbuild:
-        specifier: 0.19.4
-        version: 0.19.4
-
   bundlers/vite:
     dependencies:
       react:
@@ -125,18 +112,6 @@ importers:
       unplugin:
         specifier: ^1.5.0
         version: 1.5.0
-    devDependencies:
-      '@types/node':
-        specifier: ^20.8.6
-        version: 20.8.6
-      typescript:
-        specifier: ^5.0.4
-        version: 5.2.2
-      unbuild:
-        specifier: ^2.0.0
-        version: 2.0.0(typescript@5.2.2)
-
-  packages/esbuild-plugin:
     devDependencies:
       '@types/node':
         specifier: ^20.8.6
