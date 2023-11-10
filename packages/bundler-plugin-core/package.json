@@ -22,7 +22,7 @@
     "dist"
   ],
   "scripts": {
-    "typecheck": "tsc",
+    "type-check": "tsc --noEmit",
     "build": "unbuild",
     "dev": "unbuild --stub && node --watch-path=src dist/index.mjs",
     "clean": "rm -rf dist .turbo node_modules",
@@ -35,12 +35,16 @@
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
-    "unplugin": "^1.5.0"
+    "unplugin": "^1.5.0",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/node": "^20.8.6",
     "typescript": "^5.0.4",
     "unbuild": "^2.0.0"
+  },
+  "peerDependencies": {
+    "zod": "^3.22.4"
   },
   "volta": {
     "extends": "../../package.json"
