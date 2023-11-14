@@ -8,6 +8,7 @@ const config = {
     "plugin:@typescript-eslint/stylistic-type-checked",
     "plugin:prettier/recommended",
   ],
+  ignorePatterns: ["**/bundlers/**"],
   parserOptions: {
     ecmaVersion: "latest",
     sourceType: "module",
@@ -15,7 +16,6 @@ const config = {
     project: [
       "./tsconfig.json",
       "./packages/bundler-plugin-core/tsconfig.json",
-      "./packages/esbuild-plugin/tsconfig.json",
       "./packages/rollup-plugin/tsconfig.json",
       "./packages/vite-plugin/tsconfig.json",
       "./packages/webpack-plugin/tsconfig.json",
