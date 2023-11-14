@@ -112,6 +112,9 @@ importers:
       unplugin:
         specifier: ^1.5.0
         version: 1.5.0
+      zod:
+        specifier: ^3.22.4
+        version: 3.22.4
     devDependencies:
       '@types/node':
         specifier: ^20.8.6
@@ -139,6 +142,13 @@ importers:
         version: 2.0.0(typescript@5.2.2)
 
   packages/vite-plugin:
+    dependencies:
+      '@codecov/bundler-plugin-core':
+        specifier: workspace:^
+        version: link:../bundler-plugin-core
+      unplugin:
+        specifier: ^1.5.0
+        version: 1.5.0
     devDependencies:
       '@types/node':
         specifier: ^20.8.6
@@ -4509,3 +4519,7 @@ packages:
   /yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
+
+  /zod@3.22.4:
+    resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
+    dev: false
