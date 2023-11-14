@@ -164,13 +164,6 @@ importers:
         version: 4.4.11(@types/node@20.8.6)
 
   packages/webpack-plugin:
-    dependencies:
-      '@codecov/bundler-plugin-core':
-        specifier: workspace:^
-        version: link:../bundler-plugin-core
-      unplugin:
-        specifier: ^1.5.0
-        version: 1.5.0
     devDependencies:
       '@types/node':
         specifier: ^20.8.6
