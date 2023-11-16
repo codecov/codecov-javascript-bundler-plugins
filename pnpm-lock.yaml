@@ -50,6 +50,9 @@ importers:
 
   bundlers/rollup:
     dependencies:
+      '@codecov/rollup-plugin':
+        specifier: workspace:^
+        version: link:../../packages/rollup-plugin
       date-fns:
         specifier: ^2.16.1
         version: 2.30.0
@@ -152,6 +155,10 @@ importers:
         version: 2.0.0(typescript@5.2.2)
 
   packages/rollup-plugin:
+    dependencies:
+      '@codecov/bundler-plugin-core':
+        specifier: workspace:^
+        version: link:../bundler-plugin-core
     devDependencies:
       '@types/node':
         specifier: ^20.8.6

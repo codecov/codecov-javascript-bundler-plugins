@@ -13,7 +13,7 @@ export interface Asset {
 
 export interface Chunk {
   id: string;
-  preliminaryFileName: string;
+  uniqueId: string;
   entry: boolean;
   initial: boolean;
   files: string[];
@@ -24,7 +24,7 @@ export interface Module {
   name: string;
   size?: number;
   chunks: (string | number)[];
-  chunkPreliminaryFileNames: string[];
+  chunkUniqueIds: string[];
 }
 
 export interface Output {
