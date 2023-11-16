@@ -32,6 +32,7 @@ const codecovUnplugin = codecovUnpluginFactory({
 
           const cwd = process.cwd();
 
+          let counter = 0;
           for (const item of items) {
             if (item?.type === "asset") {
               if (typeof item.source === "string") {
@@ -58,23 +59,21 @@ const codecovUnplugin = codecovUnpluginFactory({
             }
 
             if (item?.type === "chunk") {
-              const chunkId = item?.name;
+              const chunkId = item?.name ?? "";
               const fileName = item?.fileName ?? "";
               const moduleEntries = Object.entries(item?.modules ?? {});
               const size = Buffer.from(item?.code).byteLength;
-
-              console.debug("\n");
-              console.debug(item.preliminaryFileName);
+              const uniqueId = `${counter}-${chunkId}`;
 
               assets.push({
                 name: fileName,
                 size: size,
-                fileName: item?.name ?? "",
+                fileName: chunkId,
               });
 
               chunks.push({
                 id: chunkId,
-                preliminaryFileName: item?.preliminaryFileName,
+                uniqueId: uniqueId,
                 entry: item?.isEntry,
                 initial: item?.isDynamicEntry,
                 files: [item?.fileName],
@@ -102,9 +101,7 @@ const codecovUnplugin = codecovUnpluginFactory({
                 // else create a new module and create a new entry in the map
                 if (moduleEntry) {
                   moduleEntry.chunks.push(chunkId);
-                  moduleEntry.chunkPreliminaryFileNames.push(
-                    item?.preliminaryFileName,
-                  );
+                  moduleEntry.chunkUniqueIds.push(uniqueId);
                 } else {
                   const size = customOptions.moduleOriginalSize
                     ? moduleInfo.originalLength
@@ -114,12 +111,13 @@ const codecovUnplugin = codecovUnpluginFactory({
                     name: relativeModulePathWithPrefix,
                     size: size,
                     chunks: [chunkId],
-                    chunkPreliminaryFileNames: [item?.preliminaryFileName],
+                    chunkUniqueIds: [uniqueId],
                   };
 
                   moduleByFileName.set(relativeModulePathWithPrefix, module);
                 }
               }
+              counter += 1;
             }
           }
 
