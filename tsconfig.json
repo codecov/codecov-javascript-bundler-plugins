@@ -2,10 +2,10 @@
   "include": [".eslintrc.js", "prettier.config.mjs"],
   "compilerOptions": {
     /* LANGUAGE COMPILATION OPTIONS */
-    "target": "ES2020",
+    "target": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ES2020"],
-    "module": "Node16",
-    "moduleResolution": "nodenext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "resolveJsonModule": true,
     "allowJs": true,
     "checkJs": true,

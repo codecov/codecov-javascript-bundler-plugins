@@ -51,8 +51,51 @@ export interface BundleAnalysisUploadPluginArgs {
 }
 
 export interface Options {
+  /**
+   * The upload token to use for uploading the bundle analysis information.
+   *
+   * `globalUploadToken` and `repoName` must be set if this is not set.
+   */
+  globalUploadToken?: string;
+
+  /**
+   * The name of the repository to upload the bundle analysis information to.
+   *
+   * `globalUploadToken` and `repoName` must be set if this is not set.
+   */
+  repoName?: string;
+
+  /**
+   * The upload token to use for uploading the bundle analysis information.
+   *
+   * Mutually exclusive to using `globalUploadToken` and `repoName`.
+   */
+  repoToken?: string;
+
+  /**
+   * The commit hash to use for uploading the bundle analysis information.
+   *
+   * Defaults package.json name field.
+   */
+  namespace?: string;
+
+  // TODO: Update the default value here
+  /**
+   * The api url used to fetch the upload url.
+   *
+   * Only required if self-hosting codecov.
+   *
+   * Defaults to 'https://api.codecov.io'.
+   */
+  apiUrl?: string;
+
+  // not 100% sure we want this, if we're just uploading the files directly
+  // I guess if this is set then we can also emit a json file with the stats
   statsFileName?: string;
+
+  /** Whether you would like bundle analysis to be enabled. */
   enableBundleAnalysis?: boolean;
+
   uploaderOverrides?: UploadOverrides;
 }
 
