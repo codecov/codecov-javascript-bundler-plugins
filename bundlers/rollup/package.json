@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@codecov/rollup-plugin": "workspace:^",
     "date-fns": "^2.16.1"
   },
   "devDependencies": {
