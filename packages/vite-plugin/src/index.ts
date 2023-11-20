@@ -36,24 +36,20 @@ const codecovUnplugin = codecovUnpluginFactory({
           for (const item of items) {
             if (item?.type === "asset") {
               if (typeof item.source === "string") {
-                const name = item?.name ?? "";
                 const fileName = item?.fileName ?? "";
                 const size = Buffer.from(item.source).byteLength;
 
                 assets.push({
                   name: fileName,
                   size: size,
-                  fileName: name,
                 });
               } else {
-                const name = item?.name ?? "";
                 const fileName = item?.fileName ?? "";
                 const size = item?.source.byteLength;
 
                 assets.push({
                   name: fileName,
                   size: size,
-                  fileName: name,
                 });
               }
             }
@@ -68,7 +64,6 @@ const codecovUnplugin = codecovUnpluginFactory({
               assets.push({
                 name: fileName,
                 size: size,
-                fileName: chunkId,
               });
 
               chunks.push({
