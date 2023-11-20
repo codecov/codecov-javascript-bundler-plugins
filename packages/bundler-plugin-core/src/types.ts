@@ -8,7 +8,6 @@ export interface Dependency {
 export interface Asset {
   name: string;
   size: number;
-  fileName?: string;
 }
 
 export interface Chunk {
