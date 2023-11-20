@@ -183,6 +183,12 @@ importers:
 
   packages/bundler-plugin-core:
     dependencies:
+      chalk:
+        specifier: 4.1.2
+        version: 4.1.2
+      semver:
+        specifier: ^7.5.4
+        version: 7.5.4
       unplugin:
         specifier: ^1.5.0
         version: 1.5.0
@@ -193,6 +199,9 @@ importers:
       '@types/node':
         specifier: ^20.8.6
         version: 20.8.6
+      '@types/semver':
+        specifier: ^7.5.5
+        version: 7.5.5
       typescript:
         specifier: ^5.0.4
         version: 5.2.2
@@ -1523,6 +1532,10 @@ packages:
 
   /@types/semver@7.5.3:
     resolution: {integrity: sha512-OxepLK9EuNEIPxWNME+C6WwbRAOOI2o2BaQEGzz5Lu2e4Z5eDnEo+/aVEDMIXywoJitJ7xWd641wrGLZdtwRyw==}
+
+  /@types/semver@7.5.5:
+    resolution: {integrity: sha512-+d+WYC1BxJ6yVOgUgzK8gWvp5qF8ssV5r4nsDcZWKRWcDQLQ619tvWAxJQYGgBrO1MnLJC7a5GtiYsAoQ47dJg==}
+    dev: true
 
   /@types/webpack@5.28.5:
     resolution: {integrity: sha512-wR87cgvxj3p6D0Crt1r5avwqffqPXUkNlnQ1mjU93G7gCuFjufZR4I6j8cz5g1F1tTYpfOOFvly+cmIQwL9wvw==}

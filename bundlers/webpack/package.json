@@ -16,5 +16,8 @@
   "dependencies": {
     "@codecov/webpack-plugin": "workspace:^",
     "lodash": "^4.17.21"
+  },
+  "volta": {
+    "extends": "../../package.json"
   }
 }

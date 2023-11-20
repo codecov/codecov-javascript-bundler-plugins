@@ -1,4 +1,7 @@
 import { type UnpluginOptions, createUnplugin } from "unplugin";
+import { satisfies } from "semver";
+import { z } from "zod";
+
 import {
   type BundleAnalysisUploadPlugin,
   type Asset,
@@ -9,7 +12,10 @@ import {
 } from "./types.js";
 
 import { jsonSchema } from "./schemas.js";
-import { z } from "zod";
+import { red } from "./utils/logging.js";
+
+const NODE_VERSION_RANGE = ">=18.18.0";
+
 interface CodecovUnpluginFactoryOptions {
   bundleAnalysisUploadPlugin: BundleAnalysisUploadPlugin;
 }
@@ -17,8 +23,15 @@ interface CodecovUnpluginFactoryOptions {
 export function codecovUnpluginFactory({
   bundleAnalysisUploadPlugin,
 }: CodecovUnpluginFactoryOptions) {
-  return createUnplugin<Options, true>((userOptions, _unpluginMetaContext) => {
+  return createUnplugin<Options, true>((userOptions, unpluginMetaContext) => {
     const plugins: UnpluginOptions[] = [];
+
+    if (!satisfies(process.version, NODE_VERSION_RANGE)) {
+      red(
+        `Codecov ${unpluginMetaContext.framework} bundler plugin requires Node.js ${NODE_VERSION_RANGE}. You are using Node.js ${process.version}. Please upgrade your Node.js version.`,
+      );
+      process.exit(1);
+    }
 
     if (userOptions?.enableBundleAnalysis) {
       const statsFileName = z
