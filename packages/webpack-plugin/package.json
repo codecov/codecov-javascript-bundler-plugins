@@ -34,8 +34,13 @@
   "keywords": [],
   "author": "",
   "license": "Apache-2.0",
+  "dependencies": {
+    "@codecov/bundler-plugin-core": "workspace:^",
+    "webpack": "^5.89.0"
+  },
   "devDependencies": {
     "@types/node": "^20.8.6",
+    "@types/webpack": "^5.28.5",
     "typescript": "^5.0.4",
     "unbuild": "^2.0.0"
   },
