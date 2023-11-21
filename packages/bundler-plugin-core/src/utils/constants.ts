@@ -1,0 +1,1 @@
+export const SPAWN_PROCESS_BUFFER_SIZE = 1_048_576 * 100; // 100 MiB
