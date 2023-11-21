@@ -9,6 +9,7 @@
     "resolveJsonModule": true,
     "allowJs": true,
     "checkJs": true,
+    "allowImportingTsExtensions": true,
 
     /* EMIT RULES */
     "outDir": "./dist",
