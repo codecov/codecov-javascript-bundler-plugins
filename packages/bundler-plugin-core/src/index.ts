@@ -49,6 +49,7 @@ export function codecovUnpluginFactory({
         bundleAnalysisUploadPlugin({
           output,
           statsFileName,
+          uploaderOverrides: userOptions?.uploaderOverrides,
         });
 
       plugins.push({
