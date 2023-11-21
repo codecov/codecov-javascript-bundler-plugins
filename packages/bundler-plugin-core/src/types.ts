@@ -47,12 +47,13 @@ export interface Output {
 export interface BundleAnalysisUploadPluginArgs {
   output: Output;
   statsFileName?: string;
+  uploaderOverrides?: UploadOverrides;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Options {
   statsFileName?: string;
   enableBundleAnalysis?: boolean;
+  uploaderOverrides?: UploadOverrides;
 }
 
 export type BundleAnalysisUploadPlugin = (
@@ -61,3 +62,56 @@ export type BundleAnalysisUploadPlugin = (
   pluginVersion: string;
   version: string;
 };
+
+export interface UploadOverrides {
+  /** Specify the branch manually. */
+  branch?: string;
+  /** Specify the build number manually. */
+  build?: string;
+  /** The commit SHA of the parent for which you are uploading coverage. */
+  parent?: string;
+  /** Specify the pull request number manually. */
+  pr?: string;
+  /** Specify the commit SHA manually. */
+  sha?: string;
+  /** Specify the slug manually. */
+  slug?: string;
+  /** Specify the tag manually. */
+  tag?: string;
+  /** Specify the upload token manually. */
+  token?: string;
+  /** Change the upload host (Enterprise use). */
+  url?: string;
+}
+
+export type UploadUtilEnvs = NodeJS.Dict<string>;
+
+export interface UploaderUtilInputs {
+  envs: UploadUtilEnvs;
+  args: Options["uploaderOverrides"];
+}
+
+export interface IProvider {
+  detect: (arg0: UploadUtilEnvs) => boolean;
+  getServiceName: () => string;
+  getServiceParams: (
+    arg0: UploaderUtilInputs,
+  ) => Promise<UploadUtilServiceParams>;
+  getEnvVarNames: () => string[];
+}
+
+export interface UploadUtilServiceParams {
+  branch: string;
+  build: string;
+  buildURL: string;
+  commit: string;
+  job: string;
+  pr: string;
+  service: string;
+  slug: string;
+  name?: string;
+  tag?: string;
+  parent?: string;
+  project?: string;
+  server_uri?: string;
+}
