@@ -78,29 +78,27 @@ export interface UploadOverrides {
   slug?: string;
   /** Specify the tag manually. */
   tag?: string;
-  /** Specify the upload token manually. */
-  token?: string;
   /** Change the upload host (Enterprise use). */
   url?: string;
 }
 
-export type UploadUtilEnvs = NodeJS.Dict<string>;
+export type ProviderEnvs = NodeJS.Dict<string>;
 
-export interface UploaderUtilInputs {
-  envs: UploadUtilEnvs;
+export interface ProviderUtilInputs {
+  envs: ProviderEnvs;
   args: Options["uploaderOverrides"];
 }
 
-export interface IProvider {
-  detect: (arg0: UploadUtilEnvs) => boolean;
+export interface ProviderUtil {
+  detect: (arg0: ProviderEnvs) => boolean;
   getServiceName: () => string;
   getServiceParams: (
-    arg0: UploaderUtilInputs,
-  ) => Promise<UploadUtilServiceParams>;
+    arg0: ProviderUtilInputs,
+  ) => Promise<ProviderServiceParams>;
   getEnvVarNames: () => string[];
 }
 
-export interface UploadUtilServiceParams {
+export interface ProviderServiceParams {
   branch: string;
   build: string;
   buildURL: string;
