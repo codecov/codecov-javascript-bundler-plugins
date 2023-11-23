@@ -3,9 +3,16 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "~/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@test-utils/*": ["./test-utils/*"]
     },
     "checkJs": true
   },
-  "include": ["src", "build.config.ts", "../../reset.d.ts"]
+  "include": [
+    "src",
+    "test-utils",
+    "build.config.ts",
+    "../../reset.d.ts",
+    "jest.config.ts"
+  ]
 }
