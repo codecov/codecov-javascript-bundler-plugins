@@ -27,7 +27,7 @@
     "eslint-plugin-isaacscript": "^3.5.6",
     "eslint-plugin-prettier": "^5.0.1",
     "prettier": "^3.0.3",
-    "typescript": "^5.2.2"
+    "typescript": "^5.3.2"
   },
   "volta": {
     "node": "20.9.0"
