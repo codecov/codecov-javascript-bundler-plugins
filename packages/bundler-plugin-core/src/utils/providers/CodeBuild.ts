@@ -1,14 +1,14 @@
 import {
-  type UploadUtilEnvs,
-  type UploadUtilServiceParams,
-  type UploaderUtilInputs,
-} from "~/types.ts";
+  type ProviderEnvs,
+  type ProviderServiceParams,
+  type ProviderUtilInputs,
+} from "@/types.ts";
 
-export function detect(envs: UploadUtilEnvs): boolean {
+export function detect(envs: ProviderEnvs): boolean {
   return Boolean(envs?.CODEBUILD_CI);
 }
 
-function _getBuild(inputs: UploaderUtilInputs): string {
+function _getBuild(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
   return args?.build ?? envs?.CODEBUILD_BUILD_ID ?? "";
 }
@@ -17,7 +17,7 @@ function _getBuildURL(): string {
   return "";
 }
 
-function _getBranch(inputs: UploaderUtilInputs): string {
+function _getBranch(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
   return (
     args?.branch ??
@@ -27,11 +27,11 @@ function _getBranch(inputs: UploaderUtilInputs): string {
   );
 }
 
-function _getJob(envs: UploadUtilEnvs): string {
+function _getJob(envs: ProviderEnvs): string {
   return envs?.CODEBUILD_BUILD_ID ?? "";
 }
 
-function _getPR(inputs: UploaderUtilInputs): string {
+function _getPR(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
   return (
     args?.pr ??
@@ -50,12 +50,12 @@ export function getServiceName(): string {
   return "AWS CodeBuild";
 }
 
-function _getSHA(inputs: UploaderUtilInputs): string {
+function _getSHA(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
   return args?.sha ?? envs?.CODEBUILD_RESOLVED_SOURCE_VERSION ?? "";
 }
 
-function _getSlug(inputs: UploaderUtilInputs): string {
+function _getSlug(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
   if (args?.slug && args?.slug !== "") return args?.slug;
   return envs?.CODEBUILD_SOURCE_REPO_URL
@@ -67,8 +67,8 @@ function _getSlug(inputs: UploaderUtilInputs): string {
 
 // eslint-disable-next-line @typescript-eslint/require-await
 export async function getServiceParams(
-  inputs: UploaderUtilInputs,
-): Promise<UploadUtilServiceParams> {
+  inputs: ProviderUtilInputs,
+): Promise<ProviderServiceParams> {
   return {
     branch: _getBranch(inputs),
     build: _getBuild(inputs),

@@ -1,16 +1,16 @@
 import {
-  type UploadUtilEnvs,
-  type UploadUtilServiceParams,
-  type UploaderUtilInputs,
-} from "~/types.ts";
+  type ProviderEnvs,
+  type ProviderServiceParams,
+  type ProviderUtilInputs,
+} from "@/types.ts";
 import { runExternalProgram } from "../runExternalProgram.ts";
 import { validateSHA } from "../validate.ts";
 
-export function detect(envs: UploadUtilEnvs): boolean {
+export function detect(envs: ProviderEnvs): boolean {
   return Boolean(envs?.CI) && Boolean(envs?.BITBUCKET_BUILD_NUMBER);
 }
 
-function _getBuild(inputs: UploaderUtilInputs): string {
+function _getBuild(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
   return args?.build ?? envs?.BITBUCKET_BUILD_NUMBER ?? "";
 }
@@ -20,16 +20,16 @@ function _getBuildURL(): string {
   return "";
 }
 
-function _getBranch(inputs: UploaderUtilInputs): string {
+function _getBranch(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
   return args?.branch ?? envs?.BITBUCKET_BRANCH ?? "";
 }
 
-function _getJob(envs: UploadUtilEnvs): string {
+function _getJob(envs: ProviderEnvs): string {
   return envs?.BITBUCKET_BUILD_NUMBER ?? "";
 }
 
-function _getPR(inputs: UploaderUtilInputs): string {
+function _getPR(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
   return args?.pr ?? envs?.BITBUCKET_PR_ID ?? "";
 }
@@ -42,9 +42,9 @@ export function getServiceName(): string {
   return "Bitbucket";
 }
 
-function _getSHA(inputs: UploaderUtilInputs): string {
+function _getSHA(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-  let commit = envs?.BITBUCKET_COMMIT ?? "";
+  let commit = envs.BITBUCKET_COMMIT ?? "";
 
   if (commit && validateSHA(commit, 12)) {
     commit = runExternalProgram("git", ["rev-parse", commit]);
@@ -53,16 +53,15 @@ function _getSHA(inputs: UploaderUtilInputs): string {
   return args?.sha ?? commit ?? "";
 }
 
-function _getSlug(inputs: UploaderUtilInputs): string {
+function _getSlug(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-  if (args?.slug && args.slug !== "") return args.slug;
-  return envs?.BITBUCKET_REPO_FULL_NAME ?? "";
+  return args?.slug ?? envs?.BITBUCKET_REPO_FULL_NAME ?? "";
 }
 
 // eslint-disable-next-line @typescript-eslint/require-await
 export async function getServiceParams(
-  inputs: UploaderUtilInputs,
-): Promise<UploadUtilServiceParams> {
+  inputs: ProviderUtilInputs,
+): Promise<ProviderServiceParams> {
   return {
     branch: _getBranch(inputs),
     build: _getBuild(inputs),

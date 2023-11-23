@@ -1,22 +1,22 @@
 import {
-  type UploadUtilEnvs,
-  type UploadUtilServiceParams,
-  type UploaderUtilInputs,
-} from "~/types.ts";
+  type ProviderEnvs,
+  type ProviderServiceParams,
+  type ProviderUtilInputs,
+} from "@/types.ts";
 
-export function detect(envs: UploadUtilEnvs): boolean {
+export function detect(envs: ProviderEnvs): boolean {
   return (
-    (envs?.CI === "true" ?? envs?.CI === "True") &&
-    (envs?.APPVEYOR === "true" ?? envs?.APPVEYOR === "True")
+    (envs?.CI === "true" || envs?.CI === "True") &&
+    (envs?.APPVEYOR === "true" || envs?.APPVEYOR === "True")
   );
 }
 
-function _getBuild(inputs: UploaderUtilInputs) {
+function _getBuild(inputs: ProviderUtilInputs) {
   const { args, envs } = inputs;
   return args?.build ?? envs?.APPVEYOR_JOB_ID ?? "";
 }
 
-function _getBuildURL(inputs: UploaderUtilInputs) {
+function _getBuildURL(inputs: ProviderUtilInputs) {
   const { envs } = inputs;
   if (
     envs?.APPVEYOR_URL &&
@@ -29,12 +29,16 @@ function _getBuildURL(inputs: UploaderUtilInputs) {
   return "";
 }
 
-function _getBranch(inputs: UploaderUtilInputs) {
+function _getBranch(inputs: ProviderUtilInputs) {
   const { args, envs } = inputs;
-  return args?.branch ?? envs?.APPVEYOR_REPO_BRANCH ?? "";
+  if (args?.branch && args?.branch !== "") {
+    return args?.branch;
+  }
+
+  return envs?.APPVEYOR_REPO_BRANCH ?? "";
 }
 
-function _getJob(envs: UploadUtilEnvs) {
+function _getJob(envs: ProviderEnvs) {
   if (
     envs?.APPVEYOR_ACCOUNT_NAME &&
     envs?.APPVEYOR_PROJECT_SLUG &&
@@ -45,7 +49,7 @@ function _getJob(envs: UploadUtilEnvs) {
   return "";
 }
 
-function _getPR(inputs: UploaderUtilInputs): string {
+function _getPR(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
   return args?.pr ?? envs?.APPVEYOR_PULL_REQUEST_NUMBER ?? "";
 }
@@ -58,7 +62,7 @@ export function getServiceName(): string {
   return "Appveyor CI";
 }
 
-function _getSHA(inputs: UploaderUtilInputs) {
+function _getSHA(inputs: ProviderUtilInputs) {
   const { args, envs } = inputs;
   return (
     args?.sha ??
@@ -68,16 +72,15 @@ function _getSHA(inputs: UploaderUtilInputs) {
   );
 }
 
-function _getSlug(inputs: UploaderUtilInputs) {
+function _getSlug(inputs: ProviderUtilInputs) {
   const { args, envs } = inputs;
-  if (args?.slug && args?.slug !== "") return args?.slug;
-  return envs?.APPVEYOR_REPO_NAME ?? "";
+  return args?.slug ?? envs?.APPVEYOR_REPO_NAME ?? "";
 }
 
 // eslint-disable-next-line @typescript-eslint/require-await
 export async function getServiceParams(
-  inputs: UploaderUtilInputs,
-): Promise<UploadUtilServiceParams> {
+  inputs: ProviderUtilInputs,
+): Promise<ProviderServiceParams> {
   return {
     branch: _getBranch(inputs),
     build: _getBuild(inputs),

@@ -1,25 +1,25 @@
 import {
-  type UploadUtilEnvs,
-  type UploadUtilServiceParams,
-  type UploaderUtilInputs,
-} from "~/types.ts";
+  type ProviderEnvs,
+  type ProviderServiceParams,
+  type ProviderUtilInputs,
+} from "@/types.ts";
 import { parseSlugFromRemoteAddr } from "../git.ts";
 
-export function detect(envs: UploadUtilEnvs): boolean {
+export function detect(envs: ProviderEnvs): boolean {
   return Boolean(envs?.CI) && Boolean(envs?.BITRISE_IO);
 }
 
-function _getBuild(inputs: UploaderUtilInputs): string {
+function _getBuild(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
   return args?.build ?? envs?.BITRISE_BUILD_NUMBER ?? "";
 }
 
-function _getBuildURL(inputs: UploaderUtilInputs): string {
+function _getBuildURL(inputs: ProviderUtilInputs): string {
   const { envs } = inputs;
   return envs?.BITRISE_BUILD_URL ?? "";
 }
 
-function _getBranch(inputs: UploaderUtilInputs): string {
+function _getBranch(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
   return args?.branch ?? envs?.BITRISE_GIT_BRANCH ?? "";
 }
@@ -28,7 +28,7 @@ function _getJob() {
   return "";
 }
 
-function _getPR(inputs: UploaderUtilInputs): string {
+function _getPR(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
   return args?.pr ?? envs?.BITRISE_PULL_REQUEST ?? "";
 }
@@ -41,20 +41,20 @@ export function getServiceName(): string {
   return "Bitrise CI";
 }
 
-function _getSHA(inputs: UploaderUtilInputs): string {
+function _getSHA(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
   return args?.sha ?? envs?.GIT_CLONE_COMMIT_HASH ?? "";
 }
 
-function _getSlug(inputs: UploaderUtilInputs): string {
+function _getSlug(inputs: ProviderUtilInputs): string {
   const { args } = inputs;
   return args?.slug ?? parseSlugFromRemoteAddr("") ?? "";
 }
 
 // eslint-disable-next-line @typescript-eslint/require-await
 export async function getServiceParams(
-  inputs: UploaderUtilInputs,
-): Promise<UploadUtilServiceParams> {
+  inputs: ProviderUtilInputs,
+): Promise<ProviderServiceParams> {
   return {
     branch: _getBranch(inputs),
     build: _getBuild(inputs),

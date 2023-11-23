@@ -1,20 +1,21 @@
 import {
-  type UploadUtilEnvs,
-  type UploadUtilServiceParams,
-  type UploaderUtilInputs,
-} from "~/types.ts";
+  type ProviderEnvs,
+  type ProviderServiceParams,
+  type ProviderUtilInputs,
+} from "@/types.ts";
+import { jsonSchema } from "../../schemas.ts";
 import { runExternalProgram } from "../runExternalProgram.ts";
 
-export function detect(envs: UploadUtilEnvs): boolean {
+export function detect(envs: ProviderEnvs): boolean {
   return Boolean(envs?.GITHUB_ACTIONS);
 }
 
-function _getBuild(inputs: UploaderUtilInputs): string {
+function _getBuild(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
   return args?.build ?? envs?.GITHUB_RUN_ID ?? "";
 }
 
-async function _getJobURL(inputs: UploaderUtilInputs): Promise<string> {
+async function _getJobURL(inputs: ProviderUtilInputs): Promise<string> {
   const url = `https://api.github.com/repos/${_getSlug(
     inputs,
   )}/actions/runs/${_getBuild(inputs)}/jobs`;
@@ -27,21 +28,34 @@ async function _getJobURL(inputs: UploaderUtilInputs): Promise<string> {
     return "";
   }
 
-  const data = await res.json();
+  const rawJson = await res.json();
+  const data = jsonSchema.parse(rawJson);
   const { envs } = inputs;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
-  for (const job of (data as any)?.jobs) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    if (job?.name == envs?.GITHUB_JOB) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
-      return job?.html_url;
+  if (
+    data &&
+    typeof data === "object" &&
+    "jobs" in data &&
+    Array.isArray(data?.jobs)
+  ) {
+    for (const job of data?.jobs) {
+      if (
+        job &&
+        typeof job === "object" &&
+        "name" in job &&
+        job?.name == envs?.GITHUB_JOB &&
+        "html_url" in job &&
+        typeof job?.html_url === "string"
+      ) {
+        return job?.html_url;
+      }
     }
   }
+
   return "";
 }
 
-async function _getBuildURL(inputs: UploaderUtilInputs): Promise<string> {
+async function _getBuildURL(inputs: ProviderUtilInputs): Promise<string> {
   const { envs } = inputs;
 
   const url = await _getJobURL(inputs);
@@ -53,7 +67,7 @@ async function _getBuildURL(inputs: UploaderUtilInputs): Promise<string> {
   )}/actions/runs/${_getBuild(inputs)}`;
 }
 
-function _getBranch(inputs: UploaderUtilInputs): string {
+function _getBranch(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
   const branchRegex = /refs\/heads\/(.*)/;
   const branchMatches = branchRegex.exec(envs?.GITHUB_REF ?? "");
@@ -68,11 +82,11 @@ function _getBranch(inputs: UploaderUtilInputs): string {
   return args?.branch ?? branch ?? "";
 }
 
-function _getJob(envs: UploadUtilEnvs): string {
+function _getJob(envs: ProviderEnvs): string {
   return envs?.GITHUB_WORKFLOW ?? "";
 }
 
-function _getPR(inputs: UploaderUtilInputs): string {
+function _getPR(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
   let match;
   if (envs?.GITHUB_HEAD_REF && envs?.GITHUB_HEAD_REF !== "") {
@@ -93,7 +107,7 @@ export function getServiceName(): string {
   return "GitHub Actions";
 }
 
-function _getSHA(inputs: UploaderUtilInputs): string {
+function _getSHA(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
   if (args?.sha && args?.sha !== "") return args.sha;
 
@@ -119,15 +133,15 @@ function _getSHA(inputs: UploaderUtilInputs): string {
   return args?.sha ?? commit ?? "";
 }
 
-function _getSlug(inputs: UploaderUtilInputs): string {
+function _getSlug(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
   if (args?.slug && args?.slug !== "") return args?.slug;
   return envs?.GITHUB_REPOSITORY ?? "";
 }
 
 export async function getServiceParams(
-  inputs: UploaderUtilInputs,
-): Promise<UploadUtilServiceParams> {
+  inputs: ProviderUtilInputs,
+): Promise<ProviderServiceParams> {
   return {
     branch: _getBranch(inputs),
     build: _getBuild(inputs),

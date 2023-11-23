@@ -1,7 +1,7 @@
 import {
-  type UploadUtilServiceParams,
-  type UploaderUtilInputs,
-} from "~/types.ts";
+  type ProviderServiceParams,
+  type ProviderUtilInputs,
+} from "@/types.ts";
 import { parseSlug } from "../git.ts";
 import { isProgramInstalled } from "../isProgramInstalled.ts";
 import { runExternalProgram } from "../runExternalProgram.ts";
@@ -11,7 +11,7 @@ export function detect(): boolean {
   return isProgramInstalled("git");
 }
 
-function _getBuild(inputs: UploaderUtilInputs): string {
+function _getBuild(inputs: ProviderUtilInputs): string {
   const { args } = inputs;
   return args?.build ?? "";
 }
@@ -20,12 +20,13 @@ function _getBuildURL(): string {
   return "";
 }
 
-function _getBranch(inputs: UploaderUtilInputs): string {
+function _getBranch(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
   const branch = args?.branch ?? envs?.GIT_BRANCH ?? envs?.BRANCH_NAME ?? "";
   if (branch !== "") {
     return branch;
   }
+
   try {
     const branchName = runExternalProgram("git", [
       "rev-parse",
@@ -44,7 +45,7 @@ function _getJob(): string {
   return "";
 }
 
-function _getPR(inputs: UploaderUtilInputs): string {
+function _getPR(inputs: ProviderUtilInputs): string {
   const { args } = inputs;
   return args?.pr ?? "";
 }
@@ -59,12 +60,13 @@ export function getServiceName(): string {
   return "Local";
 }
 
-function _getSHA(inputs: UploaderUtilInputs) {
+function _getSHA(inputs: ProviderUtilInputs) {
   const { args, envs } = inputs;
   const sha = args?.sha ?? envs?.GIT_COMMIT ?? "";
   if (sha !== "") {
     return sha;
   }
+
   try {
     const sha = runExternalProgram("git", ["rev-parse", "HEAD"]);
     return sha;
@@ -75,17 +77,19 @@ function _getSHA(inputs: UploaderUtilInputs) {
   }
 }
 
-function _getSlug(inputs: UploaderUtilInputs): string {
+function _getSlug(inputs: ProviderUtilInputs): string {
   const { args } = inputs;
-  if (args?.slug) {
+  if (args?.slug && args?.slug !== "") {
     return args.slug;
   }
+
   try {
     const slug = runExternalProgram("git", [
       "config",
       "--get",
       "remote.origin.url",
     ]);
+
     return parseSlug(slug);
   } catch (error) {
     throw new Error(`There was an error getting the slug from git: ${error}`);
@@ -94,8 +98,8 @@ function _getSlug(inputs: UploaderUtilInputs): string {
 
 // eslint-disable-next-line @typescript-eslint/require-await
 export async function getServiceParams(
-  inputs: UploaderUtilInputs,
-): Promise<UploadUtilServiceParams> {
+  inputs: ProviderUtilInputs,
+): Promise<ProviderServiceParams> {
   return {
     branch: _getBranch(inputs),
     build: _getBuild(inputs),

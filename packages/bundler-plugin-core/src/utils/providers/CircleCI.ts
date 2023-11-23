@@ -1,15 +1,15 @@
 import {
-  type UploadUtilEnvs,
-  type UploadUtilServiceParams,
-  type UploaderUtilInputs,
-} from "~/types.ts";
+  type ProviderEnvs,
+  type ProviderServiceParams,
+  type ProviderUtilInputs,
+} from "@/types.ts";
 import { setSlug } from "../provider.ts";
 
-export function detect(envs: UploadUtilEnvs): boolean {
+export function detect(envs: ProviderEnvs): boolean {
   return Boolean(envs?.CI) && Boolean(envs?.CIRCLECI);
 }
 
-function _getBuildURL(inputs: UploaderUtilInputs): string {
+function _getBuildURL(inputs: ProviderUtilInputs): string {
   return inputs.envs?.CIRCLE_BUILD_URL ?? "";
 }
 
@@ -23,24 +23,32 @@ export function getServiceName(): string {
   return "CircleCI";
 }
 
-function _getBranch(inputs: UploaderUtilInputs): string {
+function _getBranch(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-  return args?.branch ?? envs?.CIRCLE_BRANCH ?? "";
+  if (args?.branch && args?.branch !== "") {
+    return args?.branch;
+  }
+
+  return envs?.CIRCLE_BRANCH ?? "";
 }
 
-function _getSHA(inputs: UploaderUtilInputs): string {
+function _getSHA(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-  return args?.sha ?? envs?.CIRCLE_SHA1 ?? "";
+  if (args?.sha && args?.sha !== "") {
+    return args?.sha;
+  }
+
+  return envs?.CIRCLE_SHA1 ?? "";
 }
 
-function _getSlug(inputs: UploaderUtilInputs): string {
+function _getSlug(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-
   const slug = setSlug(
     args?.slug,
     envs?.CIRCLE_PROJECT_USERNAME,
     envs?.CIRCLE_PROJECT_REPONAME,
   );
+
   if (slug !== "") {
     return slug;
   }
@@ -51,24 +59,32 @@ function _getSlug(inputs: UploaderUtilInputs): string {
   return slug;
 }
 
-function _getBuild(inputs: UploaderUtilInputs): string {
+function _getBuild(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-  return args?.build ?? envs?.CIRCLE_BUILD_NUM ?? "";
+  if (args?.build && args?.build !== "") {
+    return args?.build;
+  }
+
+  return envs?.CIRCLE_BUILD_NUM ?? "";
 }
 
-function _getPR(inputs: UploaderUtilInputs): string {
+function _getPR(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-  return args?.pr ?? envs?.CIRCLE_PR_NUMBER ?? "";
+  if (args?.pr && args?.pr !== "") {
+    return args?.pr;
+  }
+
+  return envs?.CIRCLE_PR_NUMBER ?? "";
 }
 
-function _getJob(envs: UploadUtilEnvs): string {
+function _getJob(envs: ProviderEnvs): string {
   return envs?.CIRCLE_NODE_INDEX ?? "";
 }
 
 // eslint-disable-next-line @typescript-eslint/require-await
 export async function getServiceParams(
-  inputs: UploaderUtilInputs,
-): Promise<UploadUtilServiceParams> {
+  inputs: ProviderUtilInputs,
+): Promise<ProviderServiceParams> {
   return {
     branch: _getBranch(inputs),
     build: _getBuild(inputs),

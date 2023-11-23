@@ -1,21 +1,21 @@
 import childProcess from "child_process";
 import {
-  type UploadUtilEnvs,
-  type UploadUtilServiceParams,
-  type UploaderUtilInputs,
-} from "~/types.ts";
+  type ProviderEnvs,
+  type ProviderServiceParams,
+  type ProviderUtilInputs,
+} from "@/types.ts";
 import { parseSlugFromRemoteAddr } from "../git.ts";
 
-export function detect(envs: UploadUtilEnvs): boolean {
+export function detect(envs: ProviderEnvs): boolean {
   return Boolean(envs?.SYSTEM_TEAMFOUNDATIONSERVERURI);
 }
 
-function _getBuild(inputs: UploaderUtilInputs): string {
+function _getBuild(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
   return args?.build ?? envs?.BUILD_BUILDNUMBER ?? "";
 }
 
-function _getBuildURL(inputs: UploaderUtilInputs): string {
+function _getBuildURL(inputs: ProviderUtilInputs): string {
   const { envs } = inputs;
   if (envs?.SYSTEM_TEAMPROJECT && envs?.BUILD_BUILDID) {
     return `${envs?.SYSTEM_TEAMFOUNDATIONSERVERURI}${envs?.SYSTEM_TEAMPROJECT}/_build/results?buildId=${envs?.BUILD_BUILDID}`;
@@ -23,20 +23,24 @@ function _getBuildURL(inputs: UploaderUtilInputs): string {
   return "";
 }
 
-function _getBranch(inputs: UploaderUtilInputs): string {
+function _getBranch(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-  let branch = "";
-  if (envs?.BUILD_SOURCEBRANCH) {
-    branch = envs?.BUILD_SOURCEBRANCH.toString().replace("refs/heads/", "");
+  if (args?.branch && args?.branch !== "") {
+    return args?.branch;
   }
-  return args?.branch ?? branch;
+
+  if (envs?.BUILD_SOURCEBRANCH) {
+    return envs?.BUILD_SOURCEBRANCH.toString().replace("refs/heads/", "");
+  }
+
+  return "";
 }
 
-function _getJob(envs: UploadUtilEnvs): string {
+function _getJob(envs: ProviderEnvs): string {
   return envs?.BUILD_BUILDID ?? "";
 }
 
-function _getPR(inputs: UploaderUtilInputs): string {
+function _getPR(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
   return (
     args?.pr ??
@@ -54,8 +58,13 @@ export function getServiceName(): string {
   return "Azure Pipelines";
 }
 
-function _getSHA(inputs: UploaderUtilInputs): string {
+function _getSHA(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
+
+  if (args?.sha && args?.sha !== "") {
+    return args?.sha;
+  }
+
   let commit = envs?.BUILD_SOURCEVERSION ?? "";
 
   if (_getPR(inputs)) {
@@ -70,29 +79,34 @@ function _getSHA(inputs: UploaderUtilInputs): string {
     }
   }
 
-  return args?.sha ?? commit ?? "";
+  return commit ?? "";
 }
 
-function _getProject(inputs: UploaderUtilInputs): string {
+function _getProject(inputs: ProviderUtilInputs): string {
   const { envs } = inputs;
   return envs?.SYSTEM_TEAMPROJECT ?? "";
 }
 
-function _getServerURI(inputs: UploaderUtilInputs): string {
+function _getServerURI(inputs: ProviderUtilInputs): string {
   const { envs } = inputs;
   return envs?.SYSTEM_TEAMFOUNDATIONSERVERURI ?? "";
 }
 
-function _getSlug(inputs: UploaderUtilInputs): string {
+function _getSlug(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-  if (args?.slug && args?.slug !== "") return args?.slug;
-  return envs?.BUILD_REPOSITORY_NAME ?? parseSlugFromRemoteAddr("") ?? "";
+
+  return (
+    args?.slug ??
+    envs?.BUILD_REPOSITORY_NAME ??
+    parseSlugFromRemoteAddr("") ??
+    ""
+  );
 }
 
 // eslint-disable-next-line @typescript-eslint/require-await
 export async function getServiceParams(
-  inputs: UploaderUtilInputs,
-): Promise<UploadUtilServiceParams> {
+  inputs: ProviderUtilInputs,
+): Promise<ProviderServiceParams> {
   return {
     branch: _getBranch(inputs),
     build: _getBuild(inputs),

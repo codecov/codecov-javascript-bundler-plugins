@@ -1,10 +1,10 @@
 import {
-  type UploadUtilEnvs,
-  type UploadUtilServiceParams,
-  type UploaderUtilInputs,
-} from "~/types.ts";
+  type ProviderEnvs,
+  type ProviderServiceParams,
+  type ProviderUtilInputs,
+} from "@/types.ts";
 
-export function detect(envs: UploadUtilEnvs): boolean {
+export function detect(envs: ProviderEnvs): boolean {
   return (
     Boolean(envs?.CI) &&
     Boolean(envs?.TRAVIS) &&
@@ -12,7 +12,7 @@ export function detect(envs: UploadUtilEnvs): boolean {
   );
 }
 
-function _getBuild(inputs: UploaderUtilInputs): string {
+function _getBuild(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
   return args?.build ?? envs?.TRAVIS_JOB_NUMBER ?? "";
 }
@@ -21,7 +21,7 @@ function _getBuildURL(): string {
   return "";
 }
 
-function _getBranch(inputs: UploaderUtilInputs): string {
+function _getBranch(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
 
   let branch = "";
@@ -31,11 +31,11 @@ function _getBranch(inputs: UploaderUtilInputs): string {
   return args?.branch ?? branch;
 }
 
-function _getJob(envs: UploadUtilEnvs): string {
+function _getJob(envs: ProviderEnvs): string {
   return envs?.TRAVIS_JOB_ID ?? "";
 }
 
-function _getPR(inputs: UploaderUtilInputs): string {
+function _getPR(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
   return args?.pr ?? envs?.TRAVIS_PULL_REQUEST ?? "";
 }
@@ -48,14 +48,14 @@ export function getServiceName(): string {
   return "Travis CI";
 }
 
-function _getSHA(inputs: UploaderUtilInputs): string {
+function _getSHA(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
   return (
     args?.sha ?? envs?.TRAVIS_PULL_REQUEST_SHA ?? envs?.TRAVIS_COMMIT ?? ""
   );
 }
 
-function _getSlug(inputs: UploaderUtilInputs): string {
+function _getSlug(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
   if (args?.slug && args?.slug !== "") return args?.slug;
   return envs?.TRAVIS_REPO_SLUG ?? "";
@@ -63,8 +63,8 @@ function _getSlug(inputs: UploaderUtilInputs): string {
 
 // eslint-disable-next-line @typescript-eslint/require-await
 export async function getServiceParams(
-  inputs: UploaderUtilInputs,
-): Promise<UploadUtilServiceParams> {
+  inputs: ProviderUtilInputs,
+): Promise<ProviderServiceParams> {
   return {
     branch: _getBranch(inputs),
     build: _getBuild(inputs),
