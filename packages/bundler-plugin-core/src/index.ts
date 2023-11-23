@@ -9,10 +9,10 @@ import {
   type Module,
   type Options,
   type Output,
-} from "./types.js";
+} from "./types.ts";
 
-import { jsonSchema } from "./schemas.js";
-import { red } from "./utils/logging.js";
+import { jsonSchema } from "./schemas.ts";
+import { red } from "./utils/logging.ts";
 
 const NODE_VERSION_RANGE = ">=18.18.0";
 
@@ -49,6 +49,7 @@ export function codecovUnpluginFactory({
         bundleAnalysisUploadPlugin({
           output,
           statsFileName,
+          uploaderOverrides: userOptions?.uploaderOverrides,
         });
 
       plugins.push({
