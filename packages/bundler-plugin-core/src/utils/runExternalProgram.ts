@@ -8,6 +8,7 @@ export function runExternalProgram(
   const result = childprocess.spawnSync(programName, optionalArguments, {
     maxBuffer: SPAWN_PROCESS_BUFFER_SIZE,
   });
+
   if (result.error) {
     throw new Error(`Error running external program: ${result.error}`);
   }

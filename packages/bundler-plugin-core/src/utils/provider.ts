@@ -6,6 +6,7 @@ export function setSlug(
   if (typeof slugArg !== "undefined" && slugArg !== "") {
     return slugArg;
   }
+
   if (
     typeof orgEnv !== "undefined" &&
     typeof repoEnv !== "undefined" &&
@@ -14,5 +15,6 @@ export function setSlug(
   ) {
     return `${orgEnv}/${repoEnv}`;
   }
+
   return "";
 }
