@@ -96,6 +96,7 @@ export interface Options {
   /** Whether you would like bundle analysis to be enabled. */
   enableBundleAnalysis?: boolean;
 
+  /** Override values for passing custom information to API. */
   uploaderOverrides?: UploadOverrides;
 }
 
