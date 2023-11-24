@@ -76,8 +76,6 @@ export const getPreSignedURL = async ({
       return parsedData.data.url;
     }
 
-    console.info("ahh");
-
     red(`Failed to get pre-signed URL`);
     throw new FailedFetchError("Failed to get pre-signed URL");
   } catch (e) {
