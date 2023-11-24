@@ -1,14 +1,13 @@
+import { FailedUploadError } from "@/errors/FailedUploadError";
 import { ReadableStream, TextEncoderStream } from "node:stream/web";
+import { red } from "./logging";
 
-interface HandleUploadArgs {
+interface UploadStatsArgs {
   message: string;
   preSignedUrl: string;
 }
 
-export async function handleUpload({
-  message,
-  preSignedUrl,
-}: HandleUploadArgs) {
+export async function uploadStats({ message, preSignedUrl }: UploadStatsArgs) {
   const iterator = message[Symbol.iterator]();
   const stream = new ReadableStream({
     pull(controller) {
@@ -36,8 +35,7 @@ export async function handleUpload({
 
     return response;
   } catch (e) {
-    console.error(e);
+    red("Failed to upload stats");
+    throw new FailedUploadError("Failed to upload stats");
   }
-
-  return;
 }
