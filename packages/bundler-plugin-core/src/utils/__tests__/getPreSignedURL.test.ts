@@ -1,7 +1,6 @@
 import { HttpResponse, http } from "msw";
 import { setupServer } from "msw/node";
 
-import {} from "@/types.ts";
 import { getPreSignedURL } from "../getPreSignedURL.ts";
 import { FailedFetchError } from "@/errors/FailedFetchError.ts";
 import { NoUploadTokenError } from "@/errors/NoUploadTokenError.ts";
