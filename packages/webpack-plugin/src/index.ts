@@ -7,7 +7,7 @@ import * as webpack4or5 from "webpack";
 const PLUGIN_NAME = "codecov-webpack-bundle-analysis-plugin";
 
 const codecovUnplugin = codecovUnpluginFactory({
-  bundleAnalysisUploadPlugin: ({ output, statsFileName }) => {
+  bundleAnalysisUploadPlugin: ({ output }) => {
     return {
       version: "1",
       name: PLUGIN_NAME,
@@ -84,7 +84,7 @@ const codecovUnplugin = codecovUnpluginFactory({
 
               const { RawSource } = webpack4or5.sources;
               compilation.emitAsset(
-                statsFileName ?? "codecov-bundle-stats.json",
+                "codecov-bundle-stats.json",
                 new RawSource(JSON.stringify(output)),
               );
             },

@@ -46,7 +46,6 @@ export interface Output {
 
 export interface BundleAnalysisUploadPluginArgs {
   output: Output;
-  statsFileName?: string;
   uploaderOverrides?: UploadOverrides;
 }
 
@@ -88,10 +87,6 @@ export interface Options {
    * Defaults to 'https://api.codecov.io'.
    */
   apiUrl?: string;
-
-  // not 100% sure we want this, if we're just uploading the files directly
-  // I guess if this is set then we can also emit a json file with the stats
-  statsFileName?: string;
 
   /** Whether you would like bundle analysis to be enabled. */
   enableBundleAnalysis?: boolean;
