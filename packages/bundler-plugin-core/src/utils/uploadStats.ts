@@ -1,13 +1,20 @@
 import { FailedUploadError } from "@/errors/FailedUploadError";
 import { ReadableStream, TextEncoderStream } from "node:stream/web";
 import { red } from "./logging";
+import { fetchWithRetry } from "./fetchWithRetry";
+import { DEFAULT_RETRY_COUNT } from "./constants";
 
 interface UploadStatsArgs {
   message: string;
   preSignedUrl: string;
+  retryCount?: number;
 }
 
-export async function uploadStats({ message, preSignedUrl }: UploadStatsArgs) {
+export async function uploadStats({
+  message,
+  preSignedUrl,
+  retryCount = DEFAULT_RETRY_COUNT,
+}: UploadStatsArgs) {
   const iterator = message[Symbol.iterator]();
   const stream = new ReadableStream({
     pull(controller) {
@@ -22,16 +29,20 @@ export async function uploadStats({ message, preSignedUrl }: UploadStatsArgs) {
   }).pipeThrough(new TextEncoderStream());
 
   try {
-    const response = await fetch(preSignedUrl, {
-      method: "PUT",
-      headers: {
-        "Content-type": "application/json",
+    const response = await fetchWithRetry(
+      preSignedUrl,
+      {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+        duplex: "half",
+        // @ts-expect-error TypeScript doesn't know that fetch can accept a
+        // ReadableStream as the body
+        body: stream,
       },
-      duplex: "half",
-      // @ts-expect-error TypeScript doesn't know that fetch can accept a
-      // ReadableStream as the body
-      body: stream,
-    });
+      retryCount,
+    );
 
     return response;
   } catch (e) {
