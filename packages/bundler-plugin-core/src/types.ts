@@ -88,6 +88,9 @@ export interface Options {
    */
   apiUrl?: string;
 
+  /** The amount of times the upload function will retry. */
+  retryCount?: number;
+
   /** Whether you would like bundle analysis to be enabled. */
   enableBundleAnalysis?: boolean;
 
