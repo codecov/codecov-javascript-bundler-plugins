@@ -4,6 +4,7 @@ import { setupServer } from "msw/node";
 import { getPreSignedURL } from "../getPreSignedURL.ts";
 import { FailedFetchError } from "@/errors/FailedFetchError.ts";
 import { NoUploadTokenError } from "@/errors/NoUploadTokenError.ts";
+import { UploadLimitReachedError } from "@/errors/UploadLimitReachedError.ts";
 
 const server = setupServer();
 
@@ -27,26 +28,19 @@ interface SetupArgs {
 }
 
 describe("getPreSignedURL", () => {
-  function setup({
-    status = 200,
-    data = {},
-    retryCount = 0,
-    sendError = false,
-  }: SetupArgs) {
-    const consoleSpy = jest
-      .spyOn(console, "log")
-      .mockImplementation(() => null);
+  let consoleSpy: jest.SpyInstance;
+
+  function setup({ status = 200, data = {}, sendError = false }: SetupArgs) {
+    consoleSpy = jest.spyOn(console, "log").mockImplementation(() => null);
 
     server.use(
       http.post(
         "http://localhost/upload/service/commits/:commitSha/bundle_analysis",
         ({}) => {
-          if (retryCount === 0 && !sendError) {
-            return HttpResponse.json(data, { status });
+          if (sendError) {
+            return HttpResponse.error();
           }
-
-          retryCount -= 1;
-          return HttpResponse.error();
+          return HttpResponse.json(data, { status });
         },
       ),
     );
@@ -57,7 +51,7 @@ describe("getPreSignedURL", () => {
   }
 
   afterEach(() => {
-    jest.resetAllMocks();
+    consoleSpy.mockReset();
   });
 
   describe("successful request", () => {
@@ -96,25 +90,6 @@ describe("getPreSignedURL", () => {
 
           expect(url).toEqual("http://example.com");
         });
-      });
-    });
-
-    describe('when the initial response is "retryable"', () => {
-      it("returns the pre-signed URL after retrying", async () => {
-        setup({
-          data: { url: "http://example.com" },
-          retryCount: 2,
-        });
-
-        const url = await getPreSignedURL({
-          apiURL: "http://localhost",
-          globalUploadToken: "super-cool-token",
-          serviceParams: {
-            commit: "123",
-          },
-        });
-
-        expect(url).toEqual("http://example.com");
       });
     });
   });
@@ -172,11 +147,106 @@ describe("getPreSignedURL", () => {
       });
     });
 
-    describe("retry count exceeds limit", () => {
+    describe('http response is not "ok"', () => {
       it("throws an error", async () => {
         const { consoleSpy } = setup({
           data: { url: "http://example.com" },
-          retryCount: 3,
+          status: 400,
+        });
+
+        let error;
+        try {
+          await getPreSignedURL({
+            apiURL: "http://localhost",
+            globalUploadToken: "super-cool-token",
+            serviceParams: {
+              commit: "123",
+            },
+          });
+        } catch (e) {
+          error = e;
+        }
+
+        expect(consoleSpy).toHaveBeenCalled();
+        expect(error).toBeInstanceOf(FailedFetchError);
+      });
+    });
+
+    describe("returned data is undefined", () => {
+      let fetchSpy: jest.SpyInstance;
+      beforeAll(() => {
+        fetchSpy = jest
+          .spyOn(global, "fetch")
+          .mockResolvedValue(new Response(undefined, { status: 200 }));
+      });
+
+      afterAll(() => {
+        fetchSpy.mockRestore();
+      });
+
+      it("throws an error", async () => {
+        const { consoleSpy } = setup({
+          data: { url: undefined },
+        });
+
+        let error;
+        try {
+          await getPreSignedURL({
+            apiURL: "http://localhost",
+            globalUploadToken: "super-cool-token",
+            serviceParams: {
+              commit: "123",
+            },
+          });
+        } catch (e) {
+          error = e;
+        }
+
+        expect(consoleSpy).toHaveBeenCalled();
+        expect(error).toBeInstanceOf(FailedFetchError);
+      });
+    });
+
+    describe("http response status is 429", () => {
+      it("throws an error", async () => {
+        const { consoleSpy } = setup({
+          data: { url: "http://example.com" },
+          status: 429,
+        });
+
+        let error;
+        try {
+          await getPreSignedURL({
+            apiURL: "http://localhost",
+            globalUploadToken: "super-cool-token",
+            serviceParams: {
+              commit: "123",
+            },
+          });
+        } catch (e) {
+          error = e;
+        }
+
+        expect(consoleSpy).toHaveBeenCalled();
+        expect(error).toBeInstanceOf(UploadLimitReachedError);
+      });
+    });
+
+    describe("fetch throws an error", () => {
+      let fetchSpy: jest.SpyInstance;
+      beforeAll(() => {
+        fetchSpy = jest
+          .spyOn(global, "fetch")
+          .mockRejectedValue(new Error("Failed to fetch"));
+      });
+
+      afterAll(() => {
+        fetchSpy.mockRestore();
+      });
+
+      it("throws an error", async () => {
+        const { consoleSpy } = setup({
+          data: { url: undefined },
         });
 
         let error;

@@ -1,18 +1,19 @@
 import { z } from "zod";
-import { red } from "./logging.ts";
+import { red, yellow } from "./logging.ts";
 import { type ProviderServiceParams } from "@/types.ts";
 import { NoUploadTokenError } from "@/errors/NoUploadTokenError.ts";
 import { FailedFetchError } from "@/errors/FailedFetchError.ts";
+import { DEFAULT_RETRY_COUNT } from "./constants.ts";
+import { preProcessBody } from "./preProcessBody.ts";
+import { UploadLimitReachedError } from "@/errors/UploadLimitReachedError.ts";
+import { fetchWithRetry } from "./fetchWithRetry.ts";
 
 interface GetPreSignedURLArgs {
   apiURL: string;
   globalUploadToken?: string;
   repoToken?: string;
   serviceParams: Partial<ProviderServiceParams>;
-}
-
-interface SentServiceParams extends ProviderServiceParams {
-  token: string;
+  retryCount?: number;
 }
 
 const PreSignedURLSchema = z.object({
@@ -24,39 +25,22 @@ export const getPreSignedURL = async ({
   globalUploadToken,
   repoToken,
   serviceParams,
+  retryCount = DEFAULT_RETRY_COUNT,
 }: GetPreSignedURLArgs) => {
-  let token = "";
-  const commitSha = serviceParams?.commit ?? "";
-  const url = `${apiURL}/upload/service/commits/${commitSha}/bundle_analysis`;
-
-  if (globalUploadToken && !repoToken) {
-    token = globalUploadToken;
-  } else if (repoToken && !globalUploadToken) {
-    token = repoToken;
-  } else if (!globalUploadToken && !repoToken) {
-    red(`No upload token found`);
+  const token = getToken(globalUploadToken, repoToken);
+  if (!token) {
+    red("No upload token found");
     throw new NoUploadTokenError("No upload token found");
   }
 
-  const sentServiceParams: SentServiceParams = {
-    branch: serviceParams?.branch ?? "",
-    build: serviceParams?.build ?? "",
-    buildURL: serviceParams?.buildURL ?? "",
-    commit: commitSha,
-    job: serviceParams?.job ?? "",
-    name: serviceParams?.name ?? "",
-    parent: serviceParams?.parent ?? "",
-    project: serviceParams?.project ?? "",
-    pr: serviceParams?.pr ?? "",
-    slug: serviceParams?.slug ?? "",
-    server_uri: serviceParams?.server_uri ?? "",
-    service: serviceParams?.service ?? "",
-    tag: serviceParams?.tag ?? "",
-    token,
-  };
+  const commitSha = serviceParams?.commit ?? "";
+  const url = `${apiURL}/upload/service/commits/${commitSha}/bundle_analysis`;
 
+  const sentServiceParams = preProcessBody({ token, ...serviceParams });
+
+  let response: Response;
   try {
-    const response = await fetchRetry(
+    response = await fetchWithRetry(
       url,
       {
         method: "POST",
@@ -66,36 +50,58 @@ export const getPreSignedURL = async ({
         },
         body: JSON.stringify(sentServiceParams),
       },
-      3,
+      retryCount,
     );
-
-    const data = await response.json();
-    const parsedData = PreSignedURLSchema.safeParse(data);
-
-    if (parsedData.success) {
-      return parsedData.data.url;
-    }
-
-    red(`Failed to get pre-signed URL`);
-    throw new FailedFetchError("Failed to get pre-signed URL");
   } catch (e) {
     red(`Failed to get pre-signed URL: ${e}`);
     throw new FailedFetchError("Failed to get pre-signed URL");
   }
+
+  if (response.status === 429) {
+    red(`Upload limit reached`);
+    throw new UploadLimitReachedError("Upload limit reached");
+  }
+
+  if (!response.ok) {
+    red(`Failed to get pre-signed URL`);
+    throw new FailedFetchError("Failed to get pre-signed URL");
+  }
+
+  let data;
+  try {
+    data = await response.json();
+  } catch (e) {
+    red(`Failed to get pre-signed URL`);
+    throw new FailedFetchError("Failed to get pre-signed URL");
+  }
+
+  const parsedData = PreSignedURLSchema.safeParse(data);
+
+  if (!parsedData.success) {
+    red(`Failed to get pre-signed URL`);
+    throw new FailedFetchError("Failed to get pre-signed URL");
+  }
+
+  return parsedData.data.url;
 };
 
-const fetchRetry = async (url: string, options: RequestInit, n: number) => {
-  let response = new Response();
-  for (let i = 0; i < n; i++) {
-    try {
-      response = await fetch(url, options);
-      break;
-    } catch (err) {
-      const isLastAttempt = i + 1 === n;
-      if (isLastAttempt) {
-        throw err;
-      }
-    }
+const getToken = (
+  globalUploadToken: string | undefined,
+  repoToken: string | undefined,
+) => {
+  if (globalUploadToken && !repoToken) {
+    yellow(
+      "Both globalUploadToken and repoToken found, Using globalUploadToken",
+    );
   }
-  return response;
+
+  if (globalUploadToken) {
+    return globalUploadToken;
+  }
+
+  if (repoToken) {
+    return repoToken;
+  }
+
+  return undefined;
 };
