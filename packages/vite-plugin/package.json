@@ -35,7 +35,7 @@
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
-    "@codecov/bundler-plugin-core": "0.0.1",
+    "@codecov/bundler-plugin-core": "workspace:^",
     "unplugin": "^1.5.0"
   },
   "devDependencies": {
