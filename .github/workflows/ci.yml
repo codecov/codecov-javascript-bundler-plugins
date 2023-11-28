@@ -41,8 +41,7 @@ jobs:
         env:
           cache-name: cache-codecov-js-bundle-plugin-node-modules
         with:
-          path: |
-            node_modules
+          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-${{ env.cache-name }}-
@@ -80,8 +79,7 @@ jobs:
         env:
           cache-name: cache-codecov-js-bundle-plugin-node-modules
         with:
-          path: |
-            node_modules
+          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-${{ env.cache-name }}-
@@ -123,8 +121,7 @@ jobs:
         env:
           cache-name: cache-codecov-js-bundle-plugin-node-modules
         with:
-          path: |
-            node_modules
+          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-${{ env.cache-name }}-
@@ -166,8 +163,7 @@ jobs:
         env:
           cache-name: cache-codecov-js-bundle-plugin-node-modules
         with:
-          path: |
-            node_modules
+          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-${{ env.cache-name }}-
