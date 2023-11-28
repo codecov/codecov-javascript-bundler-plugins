@@ -187,7 +187,6 @@ jobs:
         run: pnpm run build
 
       - name: Run unit tests
-        env:
         run: pnpm run test:unit:ci --maxWorkers=2
 
 #   fossa:
