@@ -24,6 +24,12 @@ jobs:
         with:
           node-version: 18
 
+      - name: PNPM Action Setup
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+
       - name: Get pnpm store directory
         id: pnpm-cache
         run: |
@@ -40,12 +46,6 @@ jobs:
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-${{ env.cache-name }}-
-
-      - name: PNPM Action Setup
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
-          run_install: false
 
       - name: Install dependencies
         if: ${{ steps.cache-node-modules.outputs.cache-hit != 'true' }}
@@ -64,6 +64,12 @@ jobs:
         with:
           node-version: 18
 
+      - name: PNPM Action Setup
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+
       - name: Get pnpm store directory
         id: pnpm-cache
         run: |
@@ -80,12 +86,6 @@ jobs:
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-${{ env.cache-name }}-
-
-      - name: PNPM Action Setup
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
-          run_install: false
 
       - name: Run linter
         run: |
@@ -104,6 +104,12 @@ jobs:
         with:
           node-version: 18
 
+      - name: PNPM Setup Action
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+
       - name: Get pnpm store directory
         id: pnpm-cache
         run: |
@@ -120,12 +126,6 @@ jobs:
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-${{ env.cache-name }}-
-
-      - name: PNPM Setup Action
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
-          run_install: false
 
       - name: Run TSC
         run: |
@@ -144,6 +144,12 @@ jobs:
         with:
           node-version: 18
 
+      - name: PNPM Setup Action
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+
       - name: Get pnpm store directory
         id: pnpm-cache
         run: |
@@ -160,12 +166,6 @@ jobs:
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-${{ env.cache-name }}-
-
-      - name: PNPM Setup Action
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
-          run_install: false
 
       - name: Run test:unit:ci
         run: |
