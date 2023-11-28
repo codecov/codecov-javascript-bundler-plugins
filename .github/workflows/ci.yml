@@ -72,8 +72,8 @@ jobs:
 
       - name: PNPM Action Setup
         uses: pnpm/action-setup@v2
-          with:
-            version: 8
+        with:
+          version: 8
 
       - name: Run linter
         run: |
