@@ -186,8 +186,8 @@ jobs:
       - name: Build packages
         run: pnpm run build
 
-      - name: Run test:unit:ci
-        run: pnpm run test:unit:ci
+      - name: Run unit tests
+        run: pnpm run test:unit
 #   fossa:
 #     name: Run Fossa
 #     runs-on: ubuntu-latest
