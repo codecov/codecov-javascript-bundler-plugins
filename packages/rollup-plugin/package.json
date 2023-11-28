@@ -22,7 +22,7 @@
     "dist"
   ],
   "scripts": {
-    "typecheck": "tsc",
+    "type-check": "tsc --noEmit",
     "build": "unbuild",
     "dev": "unbuild --stub && node --watch-path=src dist/index.mjs",
     "clean": "rm -rf dist .turbo node_modules",
@@ -34,19 +34,19 @@
   "keywords": [],
   "author": "",
   "license": "Apache-2.0",
+  "dependencies": {
+    "@codecov/bundler-plugin-core": "workspace:^"
+  },
   "devDependencies": {
-    "@types/node": "^20.8.6",
-    "rollup": "^4.1.4",
-    "typescript": "^5.0.4",
+    "@types/node": "^20.10.0",
+    "rollup": "^4.6.0",
+    "typescript": "^5.3.2",
     "unbuild": "^2.0.0"
   },
   "volta": {
     "extends": "../../package.json"
   },
   "engines": {
-    "node": ">=20.0.0"
-  },
-  "dependencies": {
-    "@codecov/bundler-plugin-core": "workspace:^"
+    "node": ">=18.0.0"
   }
 }

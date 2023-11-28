@@ -17,6 +17,9 @@
     "@codecov/webpack-plugin": "workspace:^",
     "lodash": "^4.17.21"
   },
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "volta": {
     "extends": "../../package.json"
   }

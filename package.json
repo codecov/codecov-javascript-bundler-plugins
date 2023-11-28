@@ -3,36 +3,41 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "private": true,
   "scripts": {
     "build": "pnpm -r --filter='./packages/*' run build",
     "clean": "pnpm -r --filter='./packages/*' clean && rm -rf node_modules",
-    "lint": "pnpm -r --filter='./packages/*' lint && manypkg check",
-    "lint:fix": "pnpm -r --filter='./packages/*' lint:fix && manypkg fix",
+    "type-check": "pnpm -r --filter='./packages/*' run type-check",
+    "lint": "pnpm -r --filter='./packages/*' lint",
+    "lint:fix": "pnpm -r --filter='./packages/*' lint:fix",
     "format": "pnpm -r --filter='./packages/*' format && prettier --write '*.{cjs,json}' --ignore-unknown --no-error-on-unmatched-pattern",
-    "format:check": "pnpm -r --filter='./packages/*' format:check && prettier --check '*.{cjs,json}' --ignore-unknown --no-error-on-unmatched-pattern"
+    "format:check": "pnpm -r --filter='./packages/*' format:check && prettier --check '*.{cjs,json}' --ignore-unknown --no-error-on-unmatched-pattern",
+    "test:unit:ci": "pnpm -r --filter='./packages/*' run test:unit:ci"
   },
   "keywords": [],
   "author": "",
   "license": "Apache-2.0",
-  "dependencies": {
-    "@manypkg/cli": "^0.21.0",
+  "devDependencies": {
     "@total-typescript/ts-reset": "^0.5.1",
-    "@types/eslint": "^8.44.4",
-    "@types/node": "^20.8.6",
-    "@typescript-eslint/eslint-plugin": "^6.8.0",
-    "@typescript-eslint/parser": "^6.8.0",
-    "eslint": "^8.51.0",
+    "@types/eslint": "^8.44.7",
+    "@types/node": "^20.10.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.1",
+    "@typescript-eslint/parser": "^6.13.1",
+    "eslint": "^8.54.0",
     "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-import": "^2.28.1",
-    "eslint-plugin-isaacscript": "^3.5.6",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-isaacscript": "^3.5.8",
     "eslint-plugin-prettier": "^5.0.1",
-    "prettier": "^3.0.3",
+    "prettier": "^3.1.0",
     "typescript": "^5.3.2"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "volta": {
     "node": "20.9.0"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=18.0.0"
   }
 }
