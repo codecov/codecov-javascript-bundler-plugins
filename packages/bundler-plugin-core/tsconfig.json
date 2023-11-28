@@ -9,10 +9,11 @@
     "checkJs": true
   },
   "include": [
-    "src",
-    "test-utils",
+    "src/**/*",
+    "test-utils/**/*",
     "build.config.ts",
     "../../reset.d.ts",
     "jest.config.ts"
-  ]
+  ],
+  "exclude": ["coverage/**/*", "dist/**/*", "node_modules/**/*"]
 }

@@ -8,7 +8,12 @@ const config = {
     "plugin:@typescript-eslint/stylistic-type-checked",
     "plugin:prettier/recommended",
   ],
-  ignorePatterns: ["**/bundlers/**"],
+  ignorePatterns: [
+    "**/bundlers/**",
+    "**/coverage/**",
+    "**/dist/**",
+    "**/node_modules/**",
+  ],
   parserOptions: {
     ecmaVersion: "latest",
     sourceType: "module",
