@@ -12,24 +12,24 @@
     "lint:fix": "pnpm -r --filter='./packages/*' lint:fix && manypkg fix",
     "format": "pnpm -r --filter='./packages/*' format && prettier --write '*.{cjs,json}' --ignore-unknown --no-error-on-unmatched-pattern",
     "format:check": "pnpm -r --filter='./packages/*' format:check && prettier --check '*.{cjs,json}' --ignore-unknown --no-error-on-unmatched-pattern",
-    "test:unit:ci": "pnpm --filter='./packages/*' run test:unit:ci"
+    "test:unit:ci": "pnpm -r --filter='./packages/*' run test:unit:ci"
   },
   "keywords": [],
   "author": "",
   "license": "Apache-2.0",
-  "dependencies": {
+  "devDependencies": {
     "@manypkg/cli": "^0.21.0",
     "@total-typescript/ts-reset": "^0.5.1",
-    "@types/eslint": "^8.44.4",
-    "@types/node": "^20.8.6",
-    "@typescript-eslint/eslint-plugin": "^6.8.0",
-    "@typescript-eslint/parser": "^6.8.0",
-    "eslint": "^8.51.0",
+    "@types/eslint": "^8.44.7",
+    "@types/node": "^20.10.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.1",
+    "@typescript-eslint/parser": "^6.13.1",
+    "eslint": "^8.54.0",
     "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-import": "^2.28.1",
-    "eslint-plugin-isaacscript": "^3.5.6",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-isaacscript": "^3.5.8",
     "eslint-plugin-prettier": "^5.0.1",
-    "prettier": "^3.0.3",
+    "prettier": "^3.1.0",
     "typescript": "^5.3.2"
   },
   "workspaces": [

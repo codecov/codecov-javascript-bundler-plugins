@@ -36,13 +36,13 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@codecov/bundler-plugin-core": "workspace:^",
-    "unplugin": "^1.5.0"
+    "unplugin": "^1.5.1"
   },
   "devDependencies": {
-    "@types/node": "^20.8.6",
+    "@types/node": "^20.10.0",
     "typescript": "^5.3.2",
     "unbuild": "^2.0.0",
-    "vite": "^4.4.11"
+    "vite": "^5.0.3"
   },
   "volta": {
     "extends": "../../package.json"
