@@ -88,8 +88,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ env.cache-name }}-
 
-      #   - name: Install dependencies
-      #     run: pnpm install
+      - name: Install dependencies
+        run: pnpm install
 
       - name: Run linter
         run: |
@@ -132,8 +132,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ env.cache-name }}-
 
-      #   - name: Install dependencies
-      #     run: pnpm install
+      - name: Install dependencies
+        run: pnpm install
 
       - name: Run TSC
         run: |
@@ -176,8 +176,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ env.cache-name }}-
 
-      #   - name: Install dependencies
-      #     run: pnpm install
+      - name: Install dependencies
+        run: pnpm install
 
       - name: Run test:unit:ci
         run: |
