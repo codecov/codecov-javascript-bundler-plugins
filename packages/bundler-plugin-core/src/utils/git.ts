@@ -26,17 +26,18 @@ export function parseSlug(slug: unknown): string {
 }
 
 export function parseSlugFromRemoteAddr(remoteAddr?: string): string {
-  const addr =
-    remoteAddr ??
-    runExternalProgram("git", ["config", "--get", "remote.origin.url"]) ??
-    "";
-  if (!addr) {
-    return "";
+  let slug = "";
+  if (!remoteAddr) {
+    remoteAddr =
+      runExternalProgram("git", ["config", "--get", "remote.origin.url"]) || "";
   }
 
-  const slug = parseSlug(addr);
+  if (remoteAddr) {
+    slug = parseSlug(remoteAddr);
+  }
+
   if (slug === "/") {
-    return "";
+    slug = "";
   }
   return slug;
 }

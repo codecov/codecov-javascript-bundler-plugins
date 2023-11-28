@@ -13,7 +13,7 @@ export interface BundleTransformOptions {
 }
 
 const codecovUnplugin = codecovUnpluginFactory({
-  bundleAnalysisUploadPlugin: ({ output, statsFileName }) => {
+  bundleAnalysisUploadPlugin: ({ output }) => {
     return {
       version: "1",
       name: "codecov-vite-bundle-analysis-plugin",
@@ -81,6 +81,7 @@ const codecovUnplugin = codecovUnpluginFactory({
                   cwd,
                   normalizedModulePath,
                 );
+
                 const relativeModulePathWithPrefix = relativeModulePath.match(
                   /^\.\./,
                 )
@@ -127,11 +128,12 @@ const codecovUnplugin = codecovUnpluginFactory({
           output.chunks = chunks;
           output.modules = modules;
 
+          const message = JSON.stringify(output);
           // need to emit the file here as buildEnd is called before generateBundle
           this.emitFile({
             type: "asset",
-            fileName: statsFileName ?? "codecov-bundle-stats.json",
-            source: JSON.stringify(output),
+            fileName: "codecov-bundle-stats.json",
+            source: message,
           });
         },
       },

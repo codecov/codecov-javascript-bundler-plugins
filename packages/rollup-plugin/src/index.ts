@@ -13,7 +13,7 @@ export interface BundleTransformOptions {
 }
 
 const codecovUnplugin = codecovUnpluginFactory({
-  bundleAnalysisUploadPlugin: ({ output, statsFileName }) => {
+  bundleAnalysisUploadPlugin: ({ output }) => {
     return {
       version: "1",
       name: "codecov-rollup-bundle-analysis-plugin",
@@ -130,7 +130,7 @@ const codecovUnplugin = codecovUnpluginFactory({
           // need to emit the file here as buildEnd is called before generateBundle
           this.emitFile({
             type: "asset",
-            fileName: statsFileName ?? "codecov-bundle-stats.json",
+            fileName: "codecov-bundle-stats.json",
             source: JSON.stringify(output),
           });
         },

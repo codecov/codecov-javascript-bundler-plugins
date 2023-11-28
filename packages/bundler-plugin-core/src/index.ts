@@ -1,6 +1,5 @@
 import { type UnpluginOptions, createUnplugin } from "unplugin";
 import { satisfies } from "semver";
-import { z } from "zod";
 
 import {
   type BundleAnalysisUploadPlugin,
@@ -34,12 +33,6 @@ export function codecovUnpluginFactory({
     }
 
     if (userOptions?.enableBundleAnalysis) {
-      const statsFileName = z
-        .string()
-        .endsWith(".json")
-        .optional()
-        .parse(userOptions?.statsFileName);
-
       const output: Output = {
         version: "1",
       };
@@ -48,7 +41,6 @@ export function codecovUnpluginFactory({
       const { pluginVersion, version, ...pluginOpts } =
         bundleAnalysisUploadPlugin({
           output,
-          statsFileName,
           uploaderOverrides: userOptions?.uploaderOverrides,
         });
 
