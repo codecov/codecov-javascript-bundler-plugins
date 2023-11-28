@@ -48,7 +48,6 @@ jobs:
             ${{ runner.os }}-${{ env.cache-name }}-
 
       - name: Install dependencies
-        if: ${{ steps.cache-node-modules.outputs.cache-hit != 'true' }}
         run: |
           pnpm --filter "./packages/**" install
   lint:
@@ -83,9 +82,12 @@ jobs:
         with:
           path: |
             node_modules
-          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-${{ env.cache-name }}-
+
+    #   - name: Install dependencies
+    #     run: pnpm install
 
       - name: Run linter
         run: |
@@ -123,9 +125,12 @@ jobs:
         with:
           path: |
             node_modules
-          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-${{ env.cache-name }}-
+
+    #   - name: Install dependencies
+    #     run: pnpm install
 
       - name: Run TSC
         run: |
@@ -163,9 +168,12 @@ jobs:
         with:
           path: |
             node_modules
-          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-${{ env.cache-name }}-
+
+    #   - name: Install dependencies
+    #     run: pnpm install
 
       - name: Run test:unit:ci
         run: |
