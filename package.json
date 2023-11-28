@@ -6,10 +6,12 @@
   "scripts": {
     "build": "pnpm -r --filter='./packages/*' run build",
     "clean": "pnpm -r --filter='./packages/*' clean && rm -rf node_modules",
+    "type-check": "pnpm -r --filter='./packages/*' run type-check",
     "lint": "pnpm -r --filter='./packages/*' lint && manypkg check",
     "lint:fix": "pnpm -r --filter='./packages/*' lint:fix && manypkg fix",
     "format": "pnpm -r --filter='./packages/*' format && prettier --write '*.{cjs,json}' --ignore-unknown --no-error-on-unmatched-pattern",
-    "format:check": "pnpm -r --filter='./packages/*' format:check && prettier --check '*.{cjs,json}' --ignore-unknown --no-error-on-unmatched-pattern"
+    "format:check": "pnpm -r --filter='./packages/*' format:check && prettier --check '*.{cjs,json}' --ignore-unknown --no-error-on-unmatched-pattern",
+    "test:unit:ci": "pnpm -r --filter='./packages/*' run test:unit:ci"
   },
   "keywords": [],
   "author": "",

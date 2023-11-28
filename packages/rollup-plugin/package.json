@@ -22,7 +22,7 @@
     "dist"
   ],
   "scripts": {
-    "typecheck": "tsc",
+    "type-check": "tsc --noEmit",
     "build": "unbuild",
     "dev": "unbuild --stub && node --watch-path=src dist/index.mjs",
     "clean": "rm -rf dist .turbo node_modules",
