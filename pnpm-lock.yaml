@@ -236,7 +236,7 @@ importers:
   packages/rollup-plugin:
     dependencies:
       '@codecov/bundler-plugin-core':
-        specifier: 0.0.1
+        specifier: workspace:^
         version: link:../bundler-plugin-core
     devDependencies:
       '@types/node':
@@ -255,7 +255,7 @@ importers:
   packages/vite-plugin:
     dependencies:
       '@codecov/bundler-plugin-core':
-        specifier: 0.0.1
+        specifier: workspace:^
         version: link:../bundler-plugin-core
       unplugin:
         specifier: ^1.5.0
@@ -277,7 +277,7 @@ importers:
   packages/webpack-plugin:
     dependencies:
       '@codecov/bundler-plugin-core':
-        specifier: 0.0.1
+        specifier: workspace:^
         version: link:../bundler-plugin-core
       webpack:
         specifier: ^5.89.0
