@@ -18,22 +18,24 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Setup Node
+      - name: Setup node
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: PNPM Action Setup
+      - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 8
           run_install: false
 
       - name: Get pnpm store directory
-        id: pnpm-cache
+        shell: bash
         run: |
-          echo "pnpm_cache_dir=$(pnpm config get store)" >> $GITHUB_OUTPUT
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
       - name: Cache node_modules
         id: cache-node-modules
@@ -41,7 +43,7 @@ jobs:
         env:
           cache-name: cache-codecov-js-bundle-plugin-node-modules
         with:
-          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+          path: ${{ env.STORE_PATH }}
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-${{ env.cache-name }}-
@@ -56,22 +58,24 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Setup Node
+      - name: Setup node
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: PNPM Action Setup
+      - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 8
           run_install: false
 
       - name: Get pnpm store directory
-        id: pnpm-cache
+        shell: bash
         run: |
-          echo "pnpm_cache_dir=$(pnpm config get store)" >> $GITHUB_OUTPUT
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
       - name: Cache node_modules
         id: cache-node-modules
@@ -79,13 +83,13 @@ jobs:
         env:
           cache-name: cache-codecov-js-bundle-plugin-node-modules
         with:
-          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+          path: ${{ env.STORE_PATH }}
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-${{ env.cache-name }}-
 
-    #   - name: Install dependencies
-    #     run: pnpm install
+      #   - name: Install dependencies
+      #     run: pnpm install
 
       - name: Run linter
         run: |
@@ -98,22 +102,24 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Setup Node
+      - name: Setup node
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: PNPM Setup Action
+      - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 8
           run_install: false
 
       - name: Get pnpm store directory
-        id: pnpm-cache
+        shell: bash
         run: |
-          echo "pnpm_cache_dir=$(pnpm config get store)" >> $GITHUB_OUTPUT
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
       - name: Cache node_modules
         id: cache-node-modules
@@ -121,13 +127,13 @@ jobs:
         env:
           cache-name: cache-codecov-js-bundle-plugin-node-modules
         with:
-          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+          path: ${{ env.STORE_PATH }}
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-${{ env.cache-name }}-
 
-    #   - name: Install dependencies
-    #     run: pnpm install
+      #   - name: Install dependencies
+      #     run: pnpm install
 
       - name: Run TSC
         run: |
@@ -140,22 +146,24 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Setup Node
+      - name: Setup node
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: PNPM Setup Action
+      - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 8
           run_install: false
 
       - name: Get pnpm store directory
-        id: pnpm-cache
+        shell: bash
         run: |
-          echo "pnpm_cache_dir=$(pnpm config get store)" >> $GITHUB_OUTPUT
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
       - name: Cache node_modules
         id: cache-node-modules
@@ -163,13 +171,13 @@ jobs:
         env:
           cache-name: cache-codecov-js-bundle-plugin-node-modules
         with:
-          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+          path: ${{ env.STORE_PATH }}
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-${{ env.cache-name }}-
 
-    #   - name: Install dependencies
-    #     run: pnpm install
+      #   - name: Install dependencies
+      #     run: pnpm install
 
       - name: Run test:unit:ci
         run: |
