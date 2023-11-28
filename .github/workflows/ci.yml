@@ -28,7 +28,7 @@ jobs:
         id: cache-node-modules
         uses: actions/cache@v3
         env:
-          cache-name: cache-gazebo-node-modules
+          cache-name: cache-codecov-js-bundle-plugin-node-modules
         with:
           path: |
             node_modules
@@ -62,7 +62,7 @@ jobs:
         id: cache-node-modules
         uses: actions/cache@v3
         env:
-          cache-name: cache-gazebo-node-modules
+          cache-name: cache-codecov-js-bundle-plugin-node-modules
         with:
           path: |
             node_modules
@@ -96,7 +96,7 @@ jobs:
         id: cache-node-modules
         uses: actions/cache@v3
         env:
-          cache-name: cache-gazebo-node-modules
+          cache-name: cache-codecov-js-bundle-plugin-node-modules
         with:
           path: |
             node_modules
@@ -130,7 +130,7 @@ jobs:
         id: cache-node-modules
         uses: actions/cache@v3
         env:
-          cache-name: cache-gazebo-node-modules
+          cache-name: cache-codecov-js-bundle-plugin-node-modules
         with:
           path: |
             node_modules
