@@ -84,11 +84,15 @@ export interface Options {
    *
    * Only required if self-hosting codecov.
    *
-   * Defaults to 'https://api.codecov.io'.
+   * Defaults to `https://api.codecov.io`.
    */
   apiUrl?: string;
 
-  /** The amount of times the upload function will retry. */
+  /**
+   * The amount of times the upload function will retry.
+   *
+   * Defaults to 3
+   */
   retryCount?: number;
 
   /** Whether you would like bundle analysis to be enabled. */
