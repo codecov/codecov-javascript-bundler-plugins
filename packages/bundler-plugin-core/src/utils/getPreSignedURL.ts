@@ -1,12 +1,13 @@
 import { z } from "zod";
-import { red, yellow } from "./logging.ts";
-import { type ProviderServiceParams } from "@/types.ts";
-import { NoUploadTokenError } from "@/errors/NoUploadTokenError.ts";
+
 import { FailedFetchError } from "@/errors/FailedFetchError.ts";
-import { DEFAULT_RETRY_COUNT } from "./constants.ts";
-import { preProcessBody } from "./preProcessBody.ts";
+import { NoUploadTokenError } from "@/errors/NoUploadTokenError.ts";
 import { UploadLimitReachedError } from "@/errors/UploadLimitReachedError.ts";
+import { type ProviderServiceParams } from "@/types.ts";
+import { DEFAULT_RETRY_COUNT } from "./constants.ts";
 import { fetchWithRetry } from "./fetchWithRetry.ts";
+import { red, yellow } from "./logging.ts";
+import { preProcessBody } from "./preProcessBody.ts";
 
 interface GetPreSignedURLArgs {
   apiURL: string;
@@ -40,9 +41,10 @@ export const getPreSignedURL = async ({
 
   let response: Response;
   try {
-    response = await fetchWithRetry(
+    response = await fetchWithRetry({
       url,
-      {
+      retryCount,
+      requestData: {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -50,8 +52,7 @@ export const getPreSignedURL = async ({
         },
         body: JSON.stringify(sentServiceParams),
       },
-      retryCount,
-    );
+    });
   } catch (e) {
     red(`Failed to get pre-signed URL: ${e}`);
     throw new FailedFetchError("Failed to get pre-signed URL");

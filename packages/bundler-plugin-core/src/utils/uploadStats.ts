@@ -1,5 +1,6 @@
-import { FailedUploadError } from "@/errors/FailedUploadError";
 import { ReadableStream, TextEncoderStream } from "node:stream/web";
+
+import { FailedUploadError } from "@/errors/FailedUploadError";
 import { red } from "./logging";
 import { fetchWithRetry } from "./fetchWithRetry";
 import { DEFAULT_RETRY_COUNT } from "./constants";
@@ -29,9 +30,10 @@ export async function uploadStats({
   }).pipeThrough(new TextEncoderStream());
 
   try {
-    const response = await fetchWithRetry(
-      preSignedUrl,
-      {
+    const response = await fetchWithRetry({
+      url: preSignedUrl,
+      retryCount,
+      requestData: {
         method: "PUT",
         headers: {
           "Content-type": "application/json",
@@ -41,8 +43,7 @@ export async function uploadStats({
         // ReadableStream as the body
         body: stream,
       },
-      retryCount,
-    );
+    });
 
     return response;
   } catch (e) {
