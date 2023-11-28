@@ -34,6 +34,10 @@
   "keywords": [],
   "author": "",
   "license": "Apache-2.0",
+  "dependencies": {
+    "@codecov/bundler-plugin-core": "workspace:^",
+    "unplugin": "^1.5.0"
+  },
   "devDependencies": {
     "@types/node": "^20.8.6",
     "typescript": "^5.0.4",
@@ -44,10 +48,6 @@
     "extends": "../../package.json"
   },
   "engines": {
-    "node": ">=20.0.0"
-  },
-  "dependencies": {
-    "@codecov/bundler-plugin-core": "workspace:^",
-    "unplugin": "^1.5.0"
+    "node": ">=18.0.0"
   }
 }

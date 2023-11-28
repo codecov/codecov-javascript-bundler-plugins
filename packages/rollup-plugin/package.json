@@ -34,6 +34,9 @@
   "keywords": [],
   "author": "",
   "license": "Apache-2.0",
+  "dependencies": {
+    "@codecov/bundler-plugin-core": "workspace:^"
+  },
   "devDependencies": {
     "@types/node": "^20.8.6",
     "rollup": "^4.1.4",
@@ -44,9 +47,6 @@
     "extends": "../../package.json"
   },
   "engines": {
-    "node": ">=20.0.0"
-  },
-  "dependencies": {
-    "@codecov/bundler-plugin-core": "workspace:^"
+    "node": ">=18.0.0"
   }
 }
