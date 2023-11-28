@@ -187,7 +187,8 @@ jobs:
         run: pnpm run build
 
       - name: Run unit tests
-        run: pnpm run test:unit
+        run: pnpm run test:unit:ci --maxWorkers=2
+
 #   fossa:
 #     name: Run Fossa
 #     runs-on: ubuntu-latest
