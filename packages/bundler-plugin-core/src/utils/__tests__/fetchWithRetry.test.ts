@@ -27,12 +27,20 @@ interface SetupArgs {
 }
 
 describe("fetchWithRetry", () => {
+  let consoleSpy: jest.SpyInstance;
+
+  afterEach(() => {
+    consoleSpy.mockReset();
+  });
+
   function setup({
     status = 200,
     data = {},
     sendError = false,
     retryCount = 0,
   }: SetupArgs) {
+    consoleSpy = jest.spyOn(console, "log").mockImplementation(() => null);
+
     server.use(
       http.all("http://localhost", ({}) => {
         if (retryCount === 0 && !sendError) {
@@ -51,7 +59,11 @@ describe("fetchWithRetry", () => {
         retryCount: 0,
       });
 
-      const urlPromise = await fetchWithRetry("http://localhost", {}, 3);
+      const urlPromise = await fetchWithRetry({
+        url: "http://localhost",
+        requestData: {},
+        retryCount: 3,
+      });
       const data = (await urlPromise.json()) as { url: string };
 
       expect(data?.url).toBe("http://example.com");
@@ -65,7 +77,11 @@ describe("fetchWithRetry", () => {
         retryCount: 2,
       });
 
-      const urlPromise = await fetchWithRetry("http://localhost", {}, 3);
+      const urlPromise = await fetchWithRetry({
+        url: "http://localhost",
+        requestData: {},
+        retryCount: 3,
+      });
       const data = (await urlPromise.json()) as { url: string };
 
       expect(data?.url).toBe("http://example.com");
@@ -82,7 +98,11 @@ describe("fetchWithRetry", () => {
 
       let error;
       try {
-        await fetchWithRetry("http://localhost", {}, 1);
+        await fetchWithRetry({
+          url: "http://localhost",
+          requestData: {},
+          retryCount: 1,
+        });
       } catch (e) {
         error = e;
       }
