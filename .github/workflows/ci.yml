@@ -38,8 +38,8 @@ jobs:
 
       - name: PNPM Action Setup
         uses: pnpm/action-setup@v2
-          with:
-            version: 8
+        with:
+          version: 8
 
       - name: Install packages
         if: ${{ steps.cache-node-modules.outputs.cache-hit != 'true' }}
@@ -140,8 +140,8 @@ jobs:
 
       - name: PNPM Setup Action
         uses: pnpm/action-setup@v2
-          with:
-            version: 8
+        with:
+          version: 8
 
       - name: Run test:unit:ci
         run: |
