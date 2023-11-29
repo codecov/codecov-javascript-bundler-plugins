@@ -23,26 +23,24 @@ export const bundleAnalysisPluginFactory = ({
     version: "1",
   };
 
-  let startTime = NaN;
   const { pluginVersion, version, ...pluginOpts } = bundleAnalysisUploadPlugin({
     output,
     uploaderOverrides: userOptions?.uploaderOverrides,
   });
 
+  output.version = version;
+  output.plugin = {
+    name: pluginOpts.name,
+    version: pluginVersion,
+  };
+
   return {
     ...pluginOpts,
     buildStart() {
-      startTime = Date.now();
-      output.version = version;
-      output.plugin = {
-        name: pluginOpts.name,
-        version: pluginVersion,
-      };
-      output.builtAt = startTime;
+      output.builtAt = Date.now();
     },
     buildEnd(this) {
-      const duration = Date.now() - startTime;
-      output.duration = duration;
+      output.duration = Date.now() - (output.builtAt ?? 0);
     },
     writeBundle: async () => {
       const args: UploadOverrides = userOptions.uploaderOverrides ?? {};
