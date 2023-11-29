@@ -2,9 +2,9 @@ import { HttpResponse, http } from "msw";
 import { setupServer } from "msw/node";
 
 import { getPreSignedURL } from "../getPreSignedURL.ts";
-import { FailedFetchError } from "@/errors/FailedFetchError.ts";
-import { NoUploadTokenError } from "@/errors/NoUploadTokenError.ts";
-import { UploadLimitReachedError } from "@/errors/UploadLimitReachedError.ts";
+import { FailedFetchError } from "../../errors/FailedFetchError.ts";
+import { NoUploadTokenError } from "../../errors/NoUploadTokenError.ts";
+import { UploadLimitReachedError } from "../../errors/UploadLimitReachedError.ts";
 
 const server = setupServer();
 
