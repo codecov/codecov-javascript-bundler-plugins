@@ -91,7 +91,7 @@ export interface Options {
   /**
    * The amount of times the upload function will retry.
    *
-   * Defaults to 3
+   * Defaults to `3`
    */
   retryCount?: number;
 
@@ -100,6 +100,13 @@ export interface Options {
 
   /** Override values for passing custom information to API. */
   uploaderOverrides?: UploadOverrides;
+
+  /**
+   * When enabled information will not be uploaded to Codecov.
+   *
+   * Defaults to `false`
+   */
+  dryRun?: boolean;
 }
 
 export type BundleAnalysisUploadPlugin = (
