@@ -1,7 +1,7 @@
 import {
   type ProviderServiceParams,
   type ProviderUtilInputs,
-} from "@/types.ts";
+} from "../../types.ts";
 import { parseSlug } from "../git.ts";
 import { isProgramInstalled } from "../isProgramInstalled.ts";
 import { runExternalProgram } from "../runExternalProgram.ts";

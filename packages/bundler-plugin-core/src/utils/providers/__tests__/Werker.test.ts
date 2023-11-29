@@ -1,11 +1,11 @@
 import td from "testdouble";
 
+import { createEmptyArgs } from "@test-utils/helpers.ts";
 import {
   type ProviderServiceParams,
   type ProviderUtilInputs,
-} from "@/types.ts";
+} from "../../../types.ts";
 import * as Wercker from "../Wercker.ts";
-import { createEmptyArgs } from "@test-utils/helpers.ts";
 
 describe("Wercker CI Params", () => {
   afterEach(() => {

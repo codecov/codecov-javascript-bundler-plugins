@@ -1,10 +1,10 @@
+import { createEmptyArgs } from "@test-utils/helpers.ts";
 import td from "testdouble";
 import {
   type ProviderServiceParams,
   type ProviderUtilInputs,
-} from "@/types.ts";
+} from "../../../types.ts";
 import * as Buildkite from "../Buildkite.ts";
-import { createEmptyArgs } from "@test-utils/helpers.ts";
 
 describe("Buildkite Params", () => {
   afterEach(() => {

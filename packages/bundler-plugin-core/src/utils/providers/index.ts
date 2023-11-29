@@ -1,4 +1,4 @@
-import { type ProviderUtil } from "@/types.ts";
+import { type ProviderUtil } from "../../types.ts";
 
 import * as AppVeyorCI from "./AppVeyorCI.ts";
 import * as AzurePipelines from "./AzurePipelines.ts";

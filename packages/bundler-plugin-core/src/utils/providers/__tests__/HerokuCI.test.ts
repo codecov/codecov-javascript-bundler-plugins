@@ -1,13 +1,13 @@
 import childProcess from "child_process";
 import td from "testdouble";
 
+import { SPAWN_PROCESS_BUFFER_SIZE } from "../../constants.ts";
+import { createEmptyArgs } from "@test-utils/helpers.ts";
 import {
   type ProviderServiceParams,
   type ProviderUtilInputs,
-} from "@/types.ts";
-import { SPAWN_PROCESS_BUFFER_SIZE } from "@/utils/constants.ts";
+} from "../../../types.ts";
 import * as HerokuCI from "../HerokuCI.ts";
-import { createEmptyArgs } from "@test-utils/helpers.ts";
 
 describe("HerokuCI Params", () => {
   afterEach(() => {

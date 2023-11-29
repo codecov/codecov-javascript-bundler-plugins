@@ -7,11 +7,13 @@ import {
   type Chunk,
   type Module,
   type Options,
-  type Output,
+  type ProviderUtilInputs,
+  type UploadOverrides,
 } from "./types.ts";
 
 import { jsonSchema } from "./schemas.ts";
 import { red } from "./utils/logging.ts";
+import { bundleAnalysisPluginFactory } from "./bundle-analysis/bundleAnalysisPluginFactory.ts";
 
 const NODE_VERSION_RANGE = ">=18.18.0";
 
@@ -33,38 +35,25 @@ export function codecovUnpluginFactory({
     }
 
     if (userOptions?.enableBundleAnalysis) {
-      const output: Output = {
-        version: "1",
-      };
-
-      let startTime = NaN;
-      const { pluginVersion, version, ...pluginOpts } =
-        bundleAnalysisUploadPlugin({
-          output,
-          uploaderOverrides: userOptions?.uploaderOverrides,
-        });
-
-      plugins.push({
-        ...pluginOpts,
-        buildStart() {
-          startTime = Date.now();
-          output.version = version;
-          output.plugin = {
-            name: pluginOpts.name,
-            version: pluginVersion,
-          };
-          output.builtAt = startTime;
-        },
-        buildEnd(this) {
-          const duration = Date.now() - startTime;
-          output.duration = duration;
-        },
-      });
+      plugins.push(
+        bundleAnalysisPluginFactory({
+          userOptions,
+          bundleAnalysisUploadPlugin,
+        }),
+      );
     }
 
     return plugins;
   });
 }
 
-export type { BundleAnalysisUploadPlugin, Asset, Chunk, Module, Options };
+export type {
+  BundleAnalysisUploadPlugin,
+  Asset,
+  Chunk,
+  Module,
+  Options,
+  ProviderUtilInputs,
+  UploadOverrides,
+};
 export { jsonSchema };

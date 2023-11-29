@@ -3,7 +3,7 @@ import {
   type ProviderEnvs,
   type ProviderServiceParams,
   type ProviderUtilInputs,
-} from "@/types.ts";
+} from "../../types.ts";
 import { parseSlugFromRemoteAddr } from "../git.ts";
 
 export function detect(envs: ProviderEnvs): boolean {
