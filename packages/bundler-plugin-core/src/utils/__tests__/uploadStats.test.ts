@@ -2,7 +2,7 @@ import { HttpResponse, http } from "msw";
 import { setupServer } from "msw/node";
 
 import { uploadStats } from "../uploadStats";
-import { FailedUploadError } from "@/errors/FailedUploadError";
+import { FailedUploadError } from "../../errors/FailedUploadError";
 
 const server = setupServer();
 
