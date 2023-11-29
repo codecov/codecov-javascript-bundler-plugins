@@ -1,9 +1,9 @@
 import { HttpResponse, http } from "msw";
 import { setupServer } from "msw/node";
 
-import { type ProviderUtilInputs } from "@/types.ts";
-import { providerList } from "../index.ts";
 import { createEmptyArgs } from "@test-utils/helpers.ts";
+import { type ProviderUtilInputs } from "../../../types.ts";
+import { providerList } from "../index.ts";
 
 const server = setupServer(
   http.get("https://api.github.com/repos/:org/:repo/actions/runs//jobs", () => {

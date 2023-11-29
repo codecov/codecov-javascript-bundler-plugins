@@ -1,9 +1,9 @@
+import { createEmptyArgs } from "@test-utils/helpers.ts";
 import {
   type ProviderServiceParams,
   type ProviderUtilInputs,
-} from "@/types.ts";
+} from "../../../types.ts";
 import * as AppVeyorCI from "../AppVeyorCI.ts";
-import { createEmptyArgs } from "@test-utils/helpers.ts";
 
 describe("AppveyorCI Params", () => {
   describe("detect()", () => {

@@ -1,6 +1,6 @@
 import { ReadableStream, TextEncoderStream } from "node:stream/web";
 
-import { FailedUploadError } from "@/errors/FailedUploadError";
+import { FailedUploadError } from "../errors/FailedUploadError";
 import { red } from "./logging";
 import { fetchWithRetry } from "./fetchWithRetry";
 import { DEFAULT_RETRY_COUNT } from "./constants";

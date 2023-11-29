@@ -1,9 +1,9 @@
 import { z } from "zod";
 
-import { FailedFetchError } from "@/errors/FailedFetchError.ts";
-import { NoUploadTokenError } from "@/errors/NoUploadTokenError.ts";
-import { UploadLimitReachedError } from "@/errors/UploadLimitReachedError.ts";
-import { type ProviderServiceParams } from "@/types.ts";
+import { FailedFetchError } from "../errors/FailedFetchError.ts";
+import { NoUploadTokenError } from "../errors/NoUploadTokenError.ts";
+import { UploadLimitReachedError } from "../errors/UploadLimitReachedError.ts";
+import { type ProviderServiceParams } from "../types.ts";
 import { DEFAULT_RETRY_COUNT } from "./constants.ts";
 import { fetchWithRetry } from "./fetchWithRetry.ts";
 import { red, yellow } from "./logging.ts";

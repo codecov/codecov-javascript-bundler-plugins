@@ -2,7 +2,7 @@ import {
   type ProviderEnvs,
   type ProviderServiceParams,
   type ProviderUtilInputs,
-} from "@/types.ts";
+} from "../../types.ts";
 import { runExternalProgram } from "../runExternalProgram.ts";
 import { validateSHA } from "../validate.ts";
 

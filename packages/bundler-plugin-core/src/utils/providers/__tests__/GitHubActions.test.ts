@@ -4,13 +4,13 @@ import td from "testdouble";
 
 import childProcess from "child_process";
 
+import { SPAWN_PROCESS_BUFFER_SIZE } from "../../constants.ts";
+import { createEmptyArgs } from "@test-utils/helpers.ts";
 import {
   type ProviderServiceParams,
   type ProviderUtilInputs,
-} from "@/types.ts";
-import { SPAWN_PROCESS_BUFFER_SIZE } from "@/utils/constants.ts";
+} from "../../../types.ts";
 import * as GitHubActions from "../GitHubActions.ts";
-import { createEmptyArgs } from "@test-utils/helpers.ts";
 
 const server = setupServer();
 

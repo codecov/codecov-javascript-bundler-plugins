@@ -2,7 +2,7 @@ import {
   type ProviderEnvs,
   type ProviderServiceParams,
   type ProviderUtilInputs,
-} from "@/types.ts";
+} from "../../types.ts";
 
 export function detect(envs: ProviderEnvs): boolean {
   return Boolean(envs?.CODEBUILD_CI);

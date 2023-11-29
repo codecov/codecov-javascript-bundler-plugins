@@ -1,9 +1,9 @@
+import { jsonSchema } from "../../schemas.ts";
 import {
   type ProviderEnvs,
   type ProviderServiceParams,
   type ProviderUtilInputs,
-} from "@/types.ts";
-import { jsonSchema } from "../../schemas.ts";
+} from "../../types.ts";
 import { runExternalProgram } from "../runExternalProgram.ts";
 
 export function detect(envs: ProviderEnvs): boolean {
