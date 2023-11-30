@@ -6,7 +6,7 @@ import { UploadLimitReachedError } from "../errors/UploadLimitReachedError.ts";
 import { type ProviderServiceParams } from "../types.ts";
 import { DEFAULT_RETRY_COUNT } from "./constants.ts";
 import { fetchWithRetry } from "./fetchWithRetry.ts";
-import { red, yellow } from "./logging.ts";
+import { green, red, yellow } from "./logging.ts";
 import { preProcessBody } from "./preProcessBody.ts";
 
 interface GetPreSignedURLArgs {
@@ -44,6 +44,7 @@ export const getPreSignedURL = async ({
     response = await fetchWithRetry({
       url,
       retryCount,
+      name: "`get-pre-signed-url`",
       requestData: {
         method: "POST",
         headers: {
@@ -54,17 +55,17 @@ export const getPreSignedURL = async ({
       },
     });
   } catch (e) {
-    red(`Failed to get pre-signed URL: ${e}`);
-    throw new FailedFetchError("Failed to get pre-signed URL");
+    red("Failed to fetch pre-signed URL");
+    throw new FailedFetchError("Failed to fetch pre-signed URL");
   }
 
   if (response.status === 429) {
-    red(`Upload limit reached`);
+    red("Upload limit reached");
     throw new UploadLimitReachedError("Upload limit reached");
   }
 
   if (!response.ok) {
-    red(`Failed to get pre-signed URL`);
+    red("Failed to get pre-signed URL, bad response");
     throw new FailedFetchError("Failed to get pre-signed URL");
   }
 
@@ -72,17 +73,18 @@ export const getPreSignedURL = async ({
   try {
     data = await response.json();
   } catch (e) {
-    red(`Failed to get pre-signed URL`);
-    throw new FailedFetchError("Failed to get pre-signed URL");
+    red("Failed to parse pre-signed URL body");
+    throw new FailedFetchError("Failed to parse pre-signed URL body");
   }
 
   const parsedData = PreSignedURLSchema.safeParse(data);
 
   if (!parsedData.success) {
-    red(`Failed to get pre-signed URL`);
-    throw new FailedFetchError("Failed to get pre-signed URL");
+    red("Failed to validate pre-signed URL");
+    throw new FailedFetchError("Failed to validate pre-signed URL");
   }
 
+  green(`Successfully pre-signed URL fetched`);
   return parsedData.data.url;
 };
 
@@ -90,7 +92,7 @@ const getToken = (
   globalUploadToken: string | undefined,
   repoToken: string | undefined,
 ) => {
-  if (globalUploadToken && !repoToken) {
+  if (globalUploadToken && repoToken) {
     yellow(
       "Both globalUploadToken and repoToken found, Using globalUploadToken",
     );
