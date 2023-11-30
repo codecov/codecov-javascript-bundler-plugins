@@ -11,7 +11,6 @@ import {
   type UploadOverrides,
 } from "./types.ts";
 
-import { jsonSchema } from "./schemas.ts";
 import { red } from "./utils/logging.ts";
 import { bundleAnalysisPluginFactory } from "./bundle-analysis/bundleAnalysisPluginFactory.ts";
 
@@ -31,7 +30,8 @@ export function codecovUnpluginFactory({
       red(
         `Codecov ${unpluginMetaContext.framework} bundler plugin requires Node.js ${NODE_VERSION_RANGE}. You are using Node.js ${process.version}. Please upgrade your Node.js version.`,
       );
-      process.exit(1);
+
+      return plugins;
     }
 
     if (userOptions?.enableBundleAnalysis) {
@@ -56,4 +56,3 @@ export type {
   ProviderUtilInputs,
   UploadOverrides,
 };
-export { jsonSchema };

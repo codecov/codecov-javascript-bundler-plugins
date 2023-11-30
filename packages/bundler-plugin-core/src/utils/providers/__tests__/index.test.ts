@@ -55,6 +55,7 @@ describe("CI Providers", () => {
         args: {
           ...createEmptyArgs(),
           ...{
+            branch: "main",
             sha: "123",
             slug: "testOrg/testRepo",
           },

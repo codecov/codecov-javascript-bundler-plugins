@@ -46,7 +46,7 @@ export interface Output {
 
 export interface BundleAnalysisUploadPluginArgs {
   output: Output;
-  uploaderOverrides?: UploadOverrides;
+  userOptions: Options;
 }
 
 export interface Options {

@@ -7,6 +7,11 @@
     },
     "checkJs": true
   },
-  "include": ["src/**/*", "build.config.ts", "../../reset.d.ts"],
+  "include": [
+    "src/**/*",
+    "build.config.ts",
+    "../../reset.d.ts",
+    "jest.config.ts"
+  ],
   "exclude": ["coverage/**/*", "dist/**/*", "node_modules/**/*"]
 }

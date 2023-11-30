@@ -7,7 +7,8 @@ import {
   type UploadOverrides,
 } from "../types.ts";
 import { type UnpluginOptions } from "unplugin";
-import { debug } from "../utils/logging.ts";
+import { getPreSignedURL } from "../utils/getPreSignedURL.ts";
+import { uploadStats } from "../utils/uploadStats.ts";
 
 interface BundleAnalysisUploadPluginArgs {
   userOptions: Options;
@@ -25,7 +26,7 @@ export const bundleAnalysisPluginFactory = ({
 
   const { pluginVersion, version, ...pluginOpts } = bundleAnalysisUploadPlugin({
     output,
-    uploaderOverrides: userOptions?.uploaderOverrides,
+    userOptions,
   });
 
   output.version = version;
@@ -43,11 +44,34 @@ export const bundleAnalysisPluginFactory = ({
       output.duration = Date.now() - (output.builtAt ?? 0);
     },
     writeBundle: async () => {
+      // don't need to do anything here if dryRun is true
+      if (userOptions?.dryRun) return;
+
       const args: UploadOverrides = userOptions.uploaderOverrides ?? {};
       const envs = process.env;
       const inputs: ProviderUtilInputs = { envs, args };
       const provider = await detectProvider(inputs);
-      debug(`\nprovider: ${JSON.stringify(provider, null, 2)}`);
+
+      let sendStats = true;
+      let url = "";
+      try {
+        url = await getPreSignedURL({
+          apiURL: "http://localhost:3000",
+          globalUploadToken: "123",
+          serviceParams: provider,
+        });
+      } catch (error) {
+        sendStats = false;
+      }
+
+      try {
+        if (sendStats) {
+          await uploadStats({
+            preSignedUrl: url,
+            message: JSON.stringify(output),
+          });
+        }
+      } catch {}
     },
   };
 };
