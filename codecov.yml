@@ -15,12 +15,12 @@ component_management:
     - component_id: package_rollup
       name: Rollup plugin
       paths:
-        - packages/plugin-rollup/**
+        - packages/rollup-plugin/**
     - component_id: package_vite
       name: Vite plugin
       paths:
-        - packages/plugin-vite/**
+        - packages/vite-plugin/**
     - component_id: package_webpack
       name: Webpack plugin
       paths:
-        - packages/plugin-webpack/**
+        - packages/webpack-plugin/**
