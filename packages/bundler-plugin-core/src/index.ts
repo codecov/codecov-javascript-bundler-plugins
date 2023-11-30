@@ -24,17 +24,17 @@ export function codecovUnpluginFactory({
   bundleAnalysisUploadPlugin,
 }: CodecovUnpluginFactoryOptions) {
   return createUnplugin<Options, true>((userOptions, unpluginMetaContext) => {
-    let runUploadPlugins = true;
     const plugins: UnpluginOptions[] = [];
 
     if (!satisfies(process.version, NODE_VERSION_RANGE)) {
       red(
         `Codecov ${unpluginMetaContext.framework} bundler plugin requires Node.js ${NODE_VERSION_RANGE}. You are using Node.js ${process.version}. Please upgrade your Node.js version.`,
       );
-      runUploadPlugins = false;
+
+      return plugins;
     }
 
-    if (runUploadPlugins && userOptions?.enableBundleAnalysis) {
+    if (userOptions?.enableBundleAnalysis) {
       plugins.push(
         bundleAnalysisPluginFactory({
           userOptions,
