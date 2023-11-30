@@ -1,9 +1,11 @@
 import { ReadableStream, TextEncoderStream } from "node:stream/web";
 
 import { FailedUploadError } from "../errors/FailedUploadError";
-import { red } from "./logging";
+import { green, red } from "./logging";
 import { fetchWithRetry } from "./fetchWithRetry";
 import { DEFAULT_RETRY_COUNT } from "./constants";
+import { UploadLimitReachedError } from "../errors/UploadLimitReachedError";
+import { FailedFetchError } from "../errors/FailedFetchError";
 
 interface UploadStatsArgs {
   message: string;
@@ -29,10 +31,12 @@ export async function uploadStats({
     },
   }).pipeThrough(new TextEncoderStream());
 
+  let response: Response;
   try {
-    const response = await fetchWithRetry({
+    response = await fetchWithRetry({
       url: preSignedUrl,
       retryCount,
+      name: "`upload-stats`",
       requestData: {
         method: "PUT",
         headers: {
@@ -44,10 +48,21 @@ export async function uploadStats({
         body: stream,
       },
     });
-
-    return response;
   } catch (e) {
-    red("Failed to upload stats");
+    red("Failed to upload stats, fetch failed");
+    throw new FailedFetchError("Failed to upload stats");
+  }
+
+  if (response.status === 429) {
+    red("Upload limit reached");
+    throw new UploadLimitReachedError("Upload limit reached");
+  }
+
+  if (!response.ok) {
+    red("Failed to upload stats, bad response");
     throw new FailedUploadError("Failed to upload stats");
   }
+
+  green("Successfully uploaded stats");
+  return true;
 }

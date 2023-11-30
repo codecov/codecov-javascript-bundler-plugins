@@ -3,6 +3,8 @@ import { setupServer } from "msw/node";
 
 import { uploadStats } from "../uploadStats";
 import { FailedUploadError } from "../../errors/FailedUploadError";
+import { FailedFetchError } from "../../errors/FailedFetchError";
+import { UploadLimitReachedError } from "../../errors/UploadLimitReachedError";
 
 const server = setupServer();
 
@@ -20,10 +22,11 @@ afterAll(() => {
 
 interface SetupArgs {
   sendError?: boolean;
+  status?: number;
 }
 
 describe("uploadStats", () => {
-  function setup({ sendError = false }: SetupArgs) {
+  function setup({ sendError = false, status = 200 }: SetupArgs) {
     const consoleSpy = jest
       .spyOn(console, "log")
       .mockImplementation(() => null);
@@ -40,7 +43,7 @@ describe("uploadStats", () => {
         }
 
         if (!sendError) {
-          return HttpResponse.json({}, { status: 200 });
+          return HttpResponse.json({}, { status });
         }
 
         return HttpResponse.error();
@@ -52,33 +55,69 @@ describe("uploadStats", () => {
     };
   }
 
-  describe("on a successful upload", () => {
-    it("returns a 200", async () => {
-      setup({});
-      const preSignedUrl = "http://localhost/upload/stats/";
-      const message = JSON.stringify({ some: "cool", stats: true });
+  describe("on a successful request", () => {
+    it("returns true", async () => {
+      setup({ sendError: false });
 
-      const response = await uploadStats({ message, preSignedUrl });
+      const data = await uploadStats({
+        message: "cool-message",
+        preSignedUrl: "http://localhost/upload/stats/",
+      });
 
-      expect(response.status).toEqual(200);
+      expect(data).toBeTruthy();
     });
   });
 
-  describe("on a failed upload", () => {
-    it("throws a FailedUploadError", async () => {
-      const { consoleSpy } = setup({ sendError: true });
-      const preSignedUrl = "http://localhost/upload/stats/";
-      const message = JSON.stringify({ some: "cool", stats: true });
+  describe("on an unsuccessful request", () => {
+    describe("fetch fails", () => {
+      it("throws a FailedFetchError", async () => {
+        setup({ sendError: true });
 
-      let error;
-      try {
-        await uploadStats({ message, preSignedUrl });
-      } catch (e) {
-        error = e;
-      }
+        let error;
+        try {
+          await uploadStats({ message: "cool-message", preSignedUrl: "" });
+        } catch (e) {
+          error = e;
+        }
 
-      expect(consoleSpy).toHaveBeenCalled();
-      expect(error).toBeInstanceOf(FailedUploadError);
+        expect(error).toBeInstanceOf(FailedFetchError);
+      });
+    });
+
+    describe("upload limit is reached", () => {
+      it("throws an UploadLimitReachedError", async () => {
+        setup({ status: 429, sendError: false });
+
+        let error;
+        try {
+          await uploadStats({
+            message: "cool-message",
+            preSignedUrl: "http://localhost/upload/stats/",
+          });
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error).toBeInstanceOf(UploadLimitReachedError);
+      });
+    });
+
+    describe("response is not ok", () => {
+      it("throws a FailedUploadError", async () => {
+        setup({ sendError: false, status: 400 });
+
+        let error;
+        try {
+          await uploadStats({
+            message: "cool-message",
+            preSignedUrl: "http://localhost/upload/stats/",
+          });
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error).toBeInstanceOf(FailedUploadError);
+      });
     });
   });
 });
