@@ -1,0 +1,26 @@
+comment:
+  layout: "condensed_header, condensed_files, components, condensed_footer"
+component_management:
+  default_rules:
+    statuses:
+      - type: patch
+        target: auto
+        branches:
+          - "!main"
+  individual_components:
+    - component_id: package_core
+      name: Plugin core
+      paths:
+        - packages/bundler-plugin-core/**
+    - component_id: package_rollup
+      name: Rollup plugin
+      paths:
+        - packages/plugin-rollup/**
+    - component_id: package_vite
+      name: Vite plugin
+      paths:
+        - packages/plugin-vite/**
+    - component_id: package_webpack
+      name: Webpack plugin
+      paths:
+        - packages/plugin-webpack/**
