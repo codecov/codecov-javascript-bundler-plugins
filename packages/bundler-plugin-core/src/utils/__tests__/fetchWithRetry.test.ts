@@ -3,7 +3,7 @@ import { setupServer } from "msw/node";
 
 import { fetchWithRetry } from "../fetchWithRetry";
 
-jest.mock("@/utils/delay");
+jest.mock("../delay.ts");
 
 const server = setupServer();
 
