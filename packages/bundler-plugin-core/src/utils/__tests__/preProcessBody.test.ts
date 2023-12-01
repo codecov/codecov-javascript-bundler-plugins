@@ -11,6 +11,20 @@ describe("preProcessBody", () => {
 
       expect(result).toEqual({ key: "value" });
     });
+
+    describe('the key is "slug"', () => {
+      it('encodes the "slug" value', () => {
+        const body = {
+          slug: "codecov/engineering/applications-team/gazebo",
+        };
+
+        const result = preProcessBody(body);
+
+        expect(result).toEqual({
+          slug: "codecov:::engineering:::applications-team::::gazebo",
+        });
+      });
+    });
   });
 
   describe("there is an empty string", () => {
