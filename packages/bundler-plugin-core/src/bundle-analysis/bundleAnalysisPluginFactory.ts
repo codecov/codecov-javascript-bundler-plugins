@@ -52,25 +52,25 @@ export const bundleAnalysisPluginFactory = ({
       const inputs: ProviderUtilInputs = { envs, args };
       const provider = await detectProvider(inputs);
 
-      let sendStats = true;
       let url = "";
       try {
         url = await getPreSignedURL({
-          apiURL: "http://localhost:3000",
-          globalUploadToken: "123",
+          apiURL: userOptions?.apiUrl ?? "https://api.codecov.io",
+          globalUploadToken: userOptions?.globalUploadToken,
+          repoToken: userOptions?.repoToken,
           serviceParams: provider,
+          retryCount: userOptions?.retryCount,
         });
       } catch (error) {
-        sendStats = false;
+        return;
       }
 
       try {
-        if (sendStats) {
-          await uploadStats({
-            preSignedUrl: url,
-            message: JSON.stringify(output),
-          });
-        }
+        await uploadStats({
+          preSignedUrl: url,
+          message: JSON.stringify(output),
+          retryCount: userOptions?.retryCount,
+        });
       } catch {}
     },
   };
