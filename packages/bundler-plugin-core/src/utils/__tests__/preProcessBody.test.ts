@@ -1,6 +1,17 @@
+import { InvalidSlugError } from "../../errors/InvalidSlugError";
 import { preProcessBody } from "../preProcessBody";
 
 describe("preProcessBody", () => {
+  let consoleSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    consoleSpy = jest.spyOn(console, "log").mockImplementation(() => null);
+  });
+
+  afterEach(() => {
+    consoleSpy.mockReset();
+  });
+
   describe("there is a valid value", () => {
     it("does not change the `string`", () => {
       const body = {
@@ -13,15 +24,34 @@ describe("preProcessBody", () => {
     });
 
     describe('the key is "slug"', () => {
-      it('encodes the "slug" value', () => {
-        const body = {
-          slug: "codecov/engineering/applications-team/gazebo",
-        };
+      describe("value is not an empty string", () => {
+        it('encodes the "slug" value', () => {
+          const body = {
+            slug: "codecov/engineering/applications-team/gazebo",
+          };
 
-        const result = preProcessBody(body);
+          const result = preProcessBody(body);
 
-        expect(result).toEqual({
-          slug: "codecov:::engineering:::applications-team::::gazebo",
+          expect(result).toEqual({
+            slug: "codecov:::engineering:::applications-team::::gazebo",
+          });
+        });
+      });
+
+      describe("value is an empty string", () => {
+        it('throws an "InvalidSlugError"', () => {
+          const body = {
+            slug: "",
+          };
+
+          let error;
+          try {
+            preProcessBody(body);
+          } catch (e) {
+            error = e;
+          }
+
+          expect(error).toBeInstanceOf(InvalidSlugError);
         });
       });
     });
