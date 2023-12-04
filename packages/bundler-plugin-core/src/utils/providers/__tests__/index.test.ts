@@ -50,19 +50,19 @@ describe("CI Providers", () => {
     });
 
     describe(`${provider.getServiceName()} can return a ProviderServiceParams object that`, () => {
-      const inputs: ProviderUtilInputs = {
-        envs: {},
-        args: {
-          ...createEmptyArgs(),
-          ...{
-            branch: "main",
-            sha: "123",
-            slug: "testOrg/testRepo",
-          },
-        },
-      };
-
       it("has a sha", async () => {
+        const inputs: ProviderUtilInputs = {
+          envs: {},
+          args: {
+            ...createEmptyArgs(),
+            ...{
+              branch: "main",
+              sha: "123",
+              slug: "testOrg/testRepo",
+            },
+          },
+        };
+
         const serviceParams = await provider.getServiceParams(inputs);
 
         expect(serviceParams).not.toBeNull();
@@ -70,6 +70,18 @@ describe("CI Providers", () => {
       });
 
       it("has a slug", async () => {
+        const inputs: ProviderUtilInputs = {
+          envs: {},
+          args: {
+            ...createEmptyArgs(),
+            ...{
+              branch: "main",
+              sha: "123",
+              slug: "testOrg/testRepo",
+            },
+          },
+        };
+
         const serviceParams = await provider.getServiceParams(inputs);
 
         expect(serviceParams).not.toBeNull();

@@ -5,6 +5,7 @@ import { getPreSignedURL } from "../getPreSignedURL.ts";
 import { FailedFetchError } from "../../errors/FailedFetchError.ts";
 import { NoUploadTokenError } from "../../errors/NoUploadTokenError.ts";
 import { UploadLimitReachedError } from "../../errors/UploadLimitReachedError.ts";
+import { NoCommitShaError } from "../../errors/NoCommitShaError.ts";
 
 const server = setupServer();
 
@@ -56,6 +57,25 @@ describe("getPreSignedURL", () => {
 
   describe("successful request", () => {
     describe("when the initial response is successful", () => {
+      describe('"globalUploadToken" is provided and "repoToken" is', () => {
+        it("returns the pre-signed URL", async () => {
+          setup({
+            data: { url: "http://example.com" },
+          });
+
+          const url = await getPreSignedURL({
+            apiURL: "http://localhost",
+            globalUploadToken: "super-cool-token",
+            repoToken: "super-repo-token",
+            serviceParams: {
+              commit: "123",
+            },
+          });
+
+          expect(url).toEqual("http://example.com");
+        });
+      });
+
       describe('"globalUploadToken" is provided and "repoToken" is not', () => {
         it("returns the pre-signed URL", async () => {
           setup({
@@ -95,30 +115,6 @@ describe("getPreSignedURL", () => {
   });
 
   describe("unsuccessful request", () => {
-    describe("return body does not match schema", () => {
-      it("throws an error", async () => {
-        const { consoleSpy } = setup({
-          data: { randomValue: "random" },
-        });
-
-        let error;
-        try {
-          await getPreSignedURL({
-            apiURL: "http://localhost",
-            globalUploadToken: "cool-upload-token",
-            serviceParams: {
-              commit: "123",
-            },
-          });
-        } catch (e) {
-          error = e;
-        }
-
-        expect(consoleSpy).toHaveBeenCalled();
-        expect(error).toBeInstanceOf(FailedFetchError);
-      });
-    });
-
     describe("no upload token found", () => {
       it("throws an error", async () => {
         const { consoleSpy } = setup({
@@ -144,6 +140,52 @@ describe("getPreSignedURL", () => {
         //   Number of calls: 1
         // expect(consoleSpy).toHaveBeenCalledWith("No upload token found");
         expect(error).toBeInstanceOf(NoUploadTokenError);
+      });
+    });
+
+    describe("no commit sha found", () => {
+      it("throws an error", async () => {
+        const { consoleSpy } = setup({
+          data: { url: "http://example.com" },
+        });
+
+        let error;
+        try {
+          await getPreSignedURL({
+            apiURL: "http://localhost",
+            globalUploadToken: "global-upload-token",
+            serviceParams: {},
+          });
+        } catch (e) {
+          error = e;
+        }
+
+        expect(consoleSpy).toHaveBeenCalled();
+        expect(error).toBeInstanceOf(NoCommitShaError);
+      });
+    });
+
+    describe("return body does not match schema", () => {
+      it("throws an error", async () => {
+        const { consoleSpy } = setup({
+          data: { randomValue: "random" },
+        });
+
+        let error;
+        try {
+          await getPreSignedURL({
+            apiURL: "http://localhost",
+            globalUploadToken: "cool-upload-token",
+            serviceParams: {
+              commit: "123",
+            },
+          });
+        } catch (e) {
+          error = e;
+        }
+
+        expect(consoleSpy).toHaveBeenCalled();
+        expect(error).toBeInstanceOf(FailedFetchError);
       });
     });
 
