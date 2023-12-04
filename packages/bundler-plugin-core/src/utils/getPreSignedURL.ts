@@ -35,12 +35,13 @@ export const getPreSignedURL = async ({
     throw new NoUploadTokenError("No upload token found");
   }
 
-  if (!serviceParams?.commit) {
+  const commitSha = serviceParams?.commit;
+
+  if (!commitSha) {
     red("No commit found");
     throw new NoCommitShaError("No commit found");
   }
 
-  const commitSha = serviceParams?.commit;
   const url = `${apiURL}/upload/service/commits/${commitSha}/bundle_analysis`;
 
   let response: Response;
