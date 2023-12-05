@@ -1,7 +1,9 @@
 {
   "name": "@codecov/rollup-plugin",
   "version": "0.0.1",
-  "description": "",
+  "description": "Official Codecov Rollup plugin",
+  "author": "Codecov",
+  "license": "MIT",
   "type": "module",
   "exports": {
     ".": {
@@ -33,9 +35,6 @@
     "test:unit": "jest",
     "test:unit:ci": "jest --coverage"
   },
-  "keywords": [],
-  "author": "",
-  "license": "Apache-2.0",
   "dependencies": {
     "@codecov/bundler-plugin-core": "workspace:^"
   },
