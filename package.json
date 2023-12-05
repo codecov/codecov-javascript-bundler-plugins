@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "build": "pnpm -r --filter='./packages/*' run build",
     "clean": "pnpm -r --filter='./packages/*' clean && rm -rf node_modules",
@@ -13,7 +16,8 @@
     "format": "pnpm -r --filter='./packages/*' format && prettier --write '*.{cjs,json}' --ignore-unknown --no-error-on-unmatched-pattern",
     "format:check": "pnpm -r --filter='./packages/*' format:check && prettier --check '*.{cjs,json}' --ignore-unknown --no-error-on-unmatched-pattern",
     "test:unit": "pnpm -r --filter='./packages/*' run test:unit",
-    "test:unit:ci": "pnpm -r --filter='./packages/*' run test:unit:ci"
+    "test:unit:ci": "pnpm -r --filter='./packages/*' run test:unit:ci",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
@@ -29,12 +33,16 @@
     "eslint-plugin-import": "^2.29.0",
     "eslint-plugin-isaacscript": "^3.5.8",
     "eslint-plugin-prettier": "^5.0.1",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.2.0",
     "prettier": "^3.1.0",
     "typescript": "^5.3.2"
   },
-  "workspaces": [
-    "packages/*"
-  ],
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,css,scss,md,json}": [
+      "prettier --write"
+    ]
+  },
   "volta": {
     "node": "20.9.0"
   },
