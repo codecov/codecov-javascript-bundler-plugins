@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@codecov/vite-plugin": "workspace:^",
+    "lodash": "^4.17.21",
     "vite": "5.0.3"
   },
   "volta": {
