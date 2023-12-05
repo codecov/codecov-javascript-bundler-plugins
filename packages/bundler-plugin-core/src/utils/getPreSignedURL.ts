@@ -8,6 +8,7 @@ import { DEFAULT_RETRY_COUNT } from "./constants.ts";
 import { fetchWithRetry } from "./fetchWithRetry.ts";
 import { green, red, yellow } from "./logging.ts";
 import { preProcessBody } from "./preProcessBody.ts";
+import { NoCommitShaError } from "../errors/NoCommitShaError.ts";
 
 interface GetPreSignedURLArgs {
   apiURL: string;
@@ -34,10 +35,14 @@ export const getPreSignedURL = async ({
     throw new NoUploadTokenError("No upload token found");
   }
 
-  const commitSha = serviceParams?.commit ?? "";
-  const url = `${apiURL}/upload/service/commits/${commitSha}/bundle_analysis`;
+  const commitSha = serviceParams?.commit;
 
-  const sentServiceParams = preProcessBody({ token, ...serviceParams });
+  if (!commitSha) {
+    red("No commit found");
+    throw new NoCommitShaError("No commit found");
+  }
+
+  const url = `${apiURL}/upload/service/commits/${commitSha}/bundle_analysis`;
 
   let response: Response;
   try {
@@ -51,7 +56,7 @@ export const getPreSignedURL = async ({
           "Content-Type": "application/json",
           Authorization: `token ${token}`,
         },
-        body: JSON.stringify(sentServiceParams),
+        body: JSON.stringify(preProcessBody(serviceParams)),
       },
     });
   } catch (e) {

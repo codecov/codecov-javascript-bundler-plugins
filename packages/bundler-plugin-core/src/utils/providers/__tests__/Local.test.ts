@@ -20,11 +20,17 @@ describe("Local Params", () => {
       td.when(spawnSync("git")).thenReturn({
         error: new Error("Git is not installed!"),
       });
+
       const detected = Local.detect();
       expect(detected).toBeFalsy();
     });
 
     it("does run with git installed", () => {
+      const spawnSync = td.replace(childProcess, "spawnSync");
+      td.when(spawnSync("git")).thenReturn({
+        error: undefined,
+      });
+
       const detected = Local.detect();
       expect(detected).toBeTruthy();
     });
@@ -43,6 +49,7 @@ describe("Local Params", () => {
       },
       envs: {},
     };
+
     const expected: ProviderServiceParams = {
       branch: "main",
       build: "",
@@ -71,6 +78,7 @@ describe("Local Params", () => {
         GIT_BRANCH: "main",
       },
     };
+
     const expected: ProviderServiceParams = {
       branch: "main",
       build: "",
@@ -81,6 +89,7 @@ describe("Local Params", () => {
       service: "",
       slug: "owner/repo",
     };
+
     const params = await Local.getServiceParams(inputs);
     expect(params).toMatchObject(expected);
   });
@@ -120,6 +129,7 @@ describe("Local Params", () => {
 
     it("can get the slug from a git url", async () => {
       const spawnSync = td.replace(childProcess, "spawnSync");
+
       td.when(
         spawnSync("git", ["config", "--get", "remote.origin.url"], {
           maxBuffer: SPAWN_PROCESS_BUFFER_SIZE,
@@ -127,6 +137,7 @@ describe("Local Params", () => {
       ).thenReturn({
         stdout: Buffer.from("git@github.com:testOrg/testRepo.git"),
       });
+
       td.when(
         spawnSync("git", ["rev-parse", "--abbrev-ref", "HEAD"], {
           maxBuffer: SPAWN_PROCESS_BUFFER_SIZE,
@@ -134,6 +145,7 @@ describe("Local Params", () => {
       ).thenReturn({
         stdout: Buffer.from("main"),
       });
+
       td.when(
         spawnSync("git", ["rev-parse", "HEAD"], {
           maxBuffer: SPAWN_PROCESS_BUFFER_SIZE,
@@ -141,6 +153,7 @@ describe("Local Params", () => {
       ).thenReturn({
         stdout: Buffer.from("testSHA"),
       });
+
       const params = await Local.getServiceParams(inputs);
       expect(params.slug).toBe("testOrg/testRepo");
     });
@@ -154,6 +167,7 @@ describe("Local Params", () => {
       ).thenReturn({
         stdout: Buffer.from("notaurl"),
       });
+
       td.when(
         spawnSync("git", ["rev-parse", "--abbrev-ref", "HEAD"], {
           maxBuffer: SPAWN_PROCESS_BUFFER_SIZE,
@@ -161,6 +175,7 @@ describe("Local Params", () => {
       ).thenReturn({
         stdout: Buffer.from("main"),
       });
+
       td.when(
         spawnSync("git", ["rev-parse", "HEAD"], {
           maxBuffer: SPAWN_PROCESS_BUFFER_SIZE,
@@ -168,11 +183,13 @@ describe("Local Params", () => {
       ).thenReturn({
         stdout: Buffer.from("testSHA"),
       });
+
       await expect(Local.getServiceParams(inputs)).rejects.toThrow();
     });
 
     it("errors on a malformed slug", async () => {
       const spawnSync = td.replace(childProcess, "spawnSync");
+
       td.when(
         spawnSync("git", ["config", "--get", "remote.origin.url"], {
           maxBuffer: SPAWN_PROCESS_BUFFER_SIZE,
@@ -180,6 +197,7 @@ describe("Local Params", () => {
       ).thenReturn({
         stdout: Buffer.from("http://github.com/testOrg/testRepo.git"),
       });
+
       td.when(
         spawnSync("git", ["rev-parse", "--abbrev-ref", "HEAD"], {
           maxBuffer: SPAWN_PROCESS_BUFFER_SIZE,
@@ -187,6 +205,7 @@ describe("Local Params", () => {
       ).thenReturn({
         stdout: Buffer.from("main"),
       });
+
       td.when(
         spawnSync("git", ["rev-parse", "HEAD"], {
           maxBuffer: SPAWN_PROCESS_BUFFER_SIZE,
@@ -194,6 +213,7 @@ describe("Local Params", () => {
       ).thenReturn({
         stdout: Buffer.from("testSHA"),
       });
+
       const params = await Local.getServiceParams(inputs);
       expect(params.slug).toBe("testOrg/testRepo");
     });

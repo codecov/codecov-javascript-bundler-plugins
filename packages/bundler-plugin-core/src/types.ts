@@ -58,27 +58,12 @@ export interface Options {
   globalUploadToken?: string;
 
   /**
-   * The name of the repository to upload the bundle analysis information to.
-   *
-   * `globalUploadToken` and `repoName` must be set if this is not set.
-   */
-  repoName?: string;
-
-  /**
    * The upload token to use for uploading the bundle analysis information.
    *
    * Mutually exclusive to using `globalUploadToken` and `repoName`.
    */
   repoToken?: string;
 
-  /**
-   * The commit hash to use for uploading the bundle analysis information.
-   *
-   * Defaults package.json name field.
-   */
-  namespace?: string;
-
-  // TODO: Update the default value here
   /**
    * The api url used to fetch the upload url.
    *
