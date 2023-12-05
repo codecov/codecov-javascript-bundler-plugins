@@ -1,0 +1,19 @@
+{
+  "name": "webpack",
+  "version": "1.0.0",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "webpack --config webpack.config.cjs"
+  },
+  "dependencies": {
+    "@codecov/webpack-plugin": "workspace:^",
+    "webpack": "5.89.0"
+  },
+  "volta": {
+    "extends": "../../../package.json"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
