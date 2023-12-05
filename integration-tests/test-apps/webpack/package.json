@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@codecov/webpack-plugin": "workspace:^",
+    "lodash": "^4.17.21",
     "webpack": "5.89.0"
   },
   "volta": {
