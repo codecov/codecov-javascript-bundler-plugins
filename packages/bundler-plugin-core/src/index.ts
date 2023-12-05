@@ -9,6 +9,7 @@ import {
   type Options,
   type ProviderUtilInputs,
   type UploadOverrides,
+  type Output,
 } from "./types.ts";
 
 import { red } from "./utils/logging.ts";
@@ -55,4 +56,5 @@ export type {
   Options,
   ProviderUtilInputs,
   UploadOverrides,
+  Output,
 };
