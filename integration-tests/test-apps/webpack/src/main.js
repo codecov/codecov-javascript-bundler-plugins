@@ -9,4 +9,4 @@ const output = `Is ${randomNumber} between 0 and 5: ${_.inRange(
   5,
 )}`;
 
-console.log(randomNumber); // Outputs a random number between 1 and 10
+console.log(output); // Outputs a random number between 1 and 10
