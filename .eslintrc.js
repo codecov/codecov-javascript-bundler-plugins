@@ -13,6 +13,7 @@ const config = {
     "**/coverage/**",
     "**/dist/**",
     "**/node_modules/**",
+    "**/test-apps/**",
   ],
   parserOptions: {
     ecmaVersion: "latest",
@@ -20,6 +21,7 @@ const config = {
     tsconfigRootDir: __dirname,
     project: [
       "./tsconfig.json",
+      "./integration-tests/tsconfig.json",
       "./packages/bundler-plugin-core/tsconfig.json",
       "./packages/rollup-plugin/tsconfig.json",
       "./packages/vite-plugin/tsconfig.json",

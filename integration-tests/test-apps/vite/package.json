@@ -1,0 +1,21 @@
+{
+  "name": "vite",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "vite build"
+  },
+  "dependencies": {
+    "@codecov/vite-plugin": "workspace:^",
+    "lodash": "^4.17.21",
+    "vite": "5.0.3"
+  },
+  "volta": {
+    "extends": "../../../package.json"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

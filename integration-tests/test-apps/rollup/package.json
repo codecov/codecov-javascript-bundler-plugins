@@ -1,0 +1,23 @@
+{
+  "name": "rollup",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "dependencies": {
+    "@codecov/rollup-plugin": "workspace:^",
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-node-resolve": "^11.1.0",
+    "lodash": "^4.17.21",
+    "rollup": "^4.6.1"
+  },
+  "volta": {
+    "extends": "../../../package.json"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

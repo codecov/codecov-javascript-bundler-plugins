@@ -1,7 +1,9 @@
 {
   "name": "@codecov/vite-plugin",
   "version": "0.0.1",
-  "description": "",
+  "description": "Official Codecov Vite plugin",
+  "author": "Codecov",
+  "license": "MIT",
   "type": "module",
   "exports": {
     ".": {
@@ -33,12 +35,8 @@
     "test:unit": "jest",
     "test:unit:ci": "jest --coverage"
   },
-  "keywords": [],
-  "author": "",
-  "license": "Apache-2.0",
   "dependencies": {
-    "@codecov/bundler-plugin-core": "workspace:^",
-    "unplugin": "^1.5.1"
+    "@codecov/bundler-plugin-core": "workspace:^"
   },
   "devDependencies": {
     "@swc/core": "^1.3.99",
@@ -50,7 +48,7 @@
     "ts-node": "^10.9.1",
     "typescript": "^5.3.2",
     "unbuild": "^2.0.0",
-    "vite": "^5.0.3"
+    "vite": "5.0.3"
   },
   "volta": {
     "extends": "../../package.json"
