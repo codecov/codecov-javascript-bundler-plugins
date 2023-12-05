@@ -186,6 +186,9 @@ importers:
 
   integration-tests:
     dependencies:
+      '@codecov/bundler-plugin-core':
+        specifier: workspace:^
+        version: link:../packages/bundler-plugin-core
       '@swc/core':
         specifier: ^1.3.99
         version: 1.3.99
