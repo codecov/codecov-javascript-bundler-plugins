@@ -199,7 +199,7 @@ jobs:
     needs: install
     runs-on: ubuntu-latest
     strategy:
-      fail-fase: false
+      fail-fast: false
       matrix:
         node-version: [
             "18.19.0",
