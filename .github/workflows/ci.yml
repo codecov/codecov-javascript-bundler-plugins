@@ -194,6 +194,60 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
+  integration-test:
+    name: Run Integration Tests (Node ${{ matrix.node-version }})
+    needs: install
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fase: false
+      matrix:
+        node-version: [
+            "18.19.0",
+            "20.10.0"
+        ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Cache node_modules
+        id: cache-node-modules
+        uses: actions/cache@v3
+        env:
+            cache-name: cache-codecov-js-bundle-plugin-node-modules
+        with:
+            path: ${{ env.STORE_PATH }}
+            key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+            restore-keys: |
+            ${{ runner.os }}-${{ env.cache-name }}-
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build packages
+        run: pnpm run build
+
+      - name: Run unit tests
+        run: pnpm run test:e2e --maxWorkers=2
+
+
 #   fossa:
 #     name: Run Fossa
 #     runs-on: ubuntu-latest
