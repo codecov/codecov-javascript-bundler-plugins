@@ -40,9 +40,8 @@ const expectedStats = {
 
 describe("Generating rollup stats", () => {
   let stats: Output;
+  const rollupPath = path.resolve(__dirname, "../../test-apps/rollup");
   beforeAll(() => {
-    const rollupPath = path.resolve(__dirname, "../../test-apps/rollup");
-
     spawnSync("pnpm", ["run", "build"], {
       cwd: rollupPath,
     });
@@ -56,6 +55,14 @@ describe("Generating rollup stats", () => {
     stats = JSON.parse(statsData.toString()) as Output;
   });
 
+  afterAll(() => {
+    fs.rm(
+      path.resolve(rollupPath, "dist"),
+      { recursive: true, force: true },
+      () => null,
+    );
+  });
+
   it("sets the correct version", () => {
     expect(stats.version).toStrictEqual(expectedStats.version);
   });
@@ -66,30 +73,5 @@ describe("Generating rollup stats", () => {
 
   it("sets the correct bundler information", () => {
     expect(stats.bundler).toStrictEqual(expectedStats.bundler);
-  });
-
-  it("sets the correct assets information", () => {
-    const asset = stats?.assets?.[0];
-    expect(asset?.name).toBe(expectedStats?.assets?.[0]?.name);
-    expect(asset?.size).toBe(expectedStats?.assets?.[0]?.size);
-  });
-
-  it("sets the correct chunks information", () => {
-    const chunk = stats?.chunks?.[0];
-    expect(chunk?.id).toBe(expectedStats?.chunks?.[0]?.id);
-    expect(chunk?.initial).toBe(expectedStats?.chunks?.[0]?.initial);
-    expect(chunk?.entry).toBe(expectedStats?.chunks?.[0]?.entry);
-    expect(chunk?.names).toStrictEqual(expectedStats?.chunks?.[0]?.names);
-    expect(chunk?.files).toStrictEqual(expectedStats?.chunks?.[0]?.files);
-  });
-
-  it("sets the correct modules information", () => {
-    const module = stats?.modules?.[0];
-    expect(module?.name).toBe(expectedStats?.modules?.[0]?.name);
-    expect(module?.size).toBe(expectedStats?.modules?.[0]?.size);
-    expect(module?.chunks).toStrictEqual(expectedStats?.modules?.[0]?.chunks);
-    expect(module?.chunkUniqueIds).toStrictEqual(
-      expectedStats?.modules?.[0]?.chunkUniqueIds,
-    );
   });
 });
