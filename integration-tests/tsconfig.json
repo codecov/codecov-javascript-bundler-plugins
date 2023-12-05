@@ -1,0 +1,5 @@
+{
+  "extends": "../tsconfig.json",
+  "include": ["jest.config.ts"],
+  "exclude": ["coverage/**/*", "node_modules/**/*", "./test-apps/**/*"]
+}
