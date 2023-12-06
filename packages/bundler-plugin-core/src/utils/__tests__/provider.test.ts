@@ -46,8 +46,7 @@ describe("detectProvider", () => {
           envs: {},
         };
 
-        const result = await detectProvider(inputs);
-        console.info(result);
+        await detectProvider(inputs);
       } catch (e) {
         error = e;
       }
