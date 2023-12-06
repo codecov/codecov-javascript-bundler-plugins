@@ -101,7 +101,6 @@ describe("CircleCI Params", () => {
       args: {
         branch: "main",
         build: "2",
-        parent: "parent-build-sha",
         pr: "1",
         sha: "cool-commit-sha",
         slug: "testOrg/testRepo",

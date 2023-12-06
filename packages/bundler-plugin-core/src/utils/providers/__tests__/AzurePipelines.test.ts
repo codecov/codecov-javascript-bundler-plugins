@@ -46,8 +46,6 @@ describe("Azure Pipelines CI Params", () => {
       commit: "",
       job: "",
       pr: "",
-      project: "",
-      server_uri: "https://example.azure.com",
       service: "azure_pipelines",
       slug: "",
     };
@@ -84,8 +82,6 @@ describe("Azure Pipelines CI Params", () => {
       commit: "testingsha",
       job: "2",
       pr: "3",
-      project: "testOrg",
-      server_uri: "https://example.azure.com",
       service: "azure_pipelines",
       slug: "testOrg/testRepo",
     };
@@ -119,8 +115,6 @@ describe("Azure Pipelines CI Params", () => {
       commit: "testingsha",
       job: "2",
       pr: "3",
-      project: "testOrg",
-      server_uri: "https://example.azure.com",
       service: "azure_pipelines",
       slug: "testOrg/testRepo",
     };
@@ -152,8 +146,6 @@ describe("Azure Pipelines CI Params", () => {
       commit: "testingsha",
       job: "2",
       pr: "",
-      project: "testOrg",
-      server_uri: "https://example.azure.com",
       service: "azure_pipelines",
       slug: "testOrg/testRepo",
     };
@@ -192,8 +184,6 @@ describe("Azure Pipelines CI Params", () => {
       commit: "testingmergecommitsha2345678901234567890",
       job: "2",
       pr: "3",
-      project: "testOrg",
-      server_uri: "https://example.azure.com",
       service: "azure_pipelines",
       slug: "testOrg/testRepo",
     };
@@ -233,8 +223,6 @@ describe("Azure Pipelines CI Params", () => {
       commit: "testsha",
       job: "",
       pr: "2",
-      project: "",
-      server_uri: "https://example.azure.com",
       service: "azure_pipelines",
       slug: "testOrg/otherTestRepo",
     };

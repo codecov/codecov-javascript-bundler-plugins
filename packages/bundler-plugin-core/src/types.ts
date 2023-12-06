@@ -106,16 +106,12 @@ export interface UploadOverrides {
   branch?: string;
   /** Specify the build number manually. */
   build?: string;
-  /** The commit SHA of the parent for which you are uploading coverage. */
-  parent?: string;
   /** Specify the pull request number manually. */
   pr?: string;
   /** Specify the commit SHA manually. */
   sha?: string;
   /** Specify the slug manually. */
   slug?: string;
-  /** Specify the tag manually. */
-  tag?: string;
   /** Change the upload host (Enterprise use). */
   url?: string;
 }
@@ -145,9 +141,4 @@ export interface ProviderServiceParams {
   pr: string;
   service: string;
   slug: string;
-  name?: string;
-  tag?: string;
-  parent?: string;
-  project?: string;
-  server_uri?: string;
 }
