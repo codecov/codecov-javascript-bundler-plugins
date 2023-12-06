@@ -85,8 +85,6 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
             });
           }
 
-          console.info("webpackBundleAnalysisPlugin output", output);
-
           // only output file if running dry run
           if (userOptions?.dryRun) {
             const { RawSource } = webpack4or5.sources;
