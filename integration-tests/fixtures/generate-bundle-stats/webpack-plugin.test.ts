@@ -2,8 +2,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import path from "path";
 import fs from "fs";
-import { spawnSync } from "child_process";
 import { type Output } from "@codecov/bundler-plugin-core";
+import { webpack } from "webpack";
+import { codecovWebpackPlugin } from "@codecov/webpack-plugin";
 
 const expectedStats = {
   version: "1",
@@ -42,9 +43,27 @@ describe("Generating webpack stats", () => {
   let stats: Output;
   const webpackPath = path.resolve(__dirname, "../../test-apps/webpack");
   beforeAll(() => {
-    spawnSync("pnpm", ["run", "build"], {
-      cwd: webpackPath,
-    });
+    jest.useFakeTimers();
+
+    webpack(
+      {
+        cache: false,
+        entry: `${webpackPath}/src/main.js`,
+        output: {
+          path: `${webpackPath}/dist`,
+          filename: "main-[hash].js",
+        },
+        mode: "production",
+        // plugins: [
+        //   codecovWebpackPlugin({ enableBundleAnalysis: true, dryRun: true }),
+        // ],
+      },
+      (err) => {
+        if (err) {
+          throw err;
+        }
+      },
+    );
 
     const statsFilePath = path.resolve(
       webpackPath,
@@ -56,11 +75,11 @@ describe("Generating webpack stats", () => {
   });
 
   afterAll(() => {
-    fs.rm(
-      path.resolve(webpackPath, "dist"),
-      { recursive: true, force: true },
-      () => null,
-    );
+    // fs.rm(
+    //   path.resolve(webpackPath, "dist"),
+    //   { recursive: true, force: true },
+    //   () => null,
+    // );
   });
 
   it("sets the correct version", () => {

@@ -2,15 +2,18 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import path from "path";
 import fs from "fs";
-import { spawnSync } from "child_process";
 import { type Output } from "@codecov/bundler-plugin-core";
+import { rollup } from "rollup";
+import resolve from "@rollup/plugin-node-resolve";
+import commonjs from "@rollup/plugin-commonjs";
+import { codecovRollupPlugin } from "@codecov/rollup-plugin";
 
 const expectedStats = {
   version: "1",
-  plugin: { name: "codecov-vite-bundle-analysis-plugin", version: "1.0.0" },
+  plugin: { name: "codecov-rollup-bundle-analysis-plugin", version: "1.0.0" },
   builtAt: 1701788687217,
   duration: 7,
-  bundler: { name: "rollup", version: "4.6.1" },
+  bundler: { name: "rollup", version: "4.6.0" },
   assets: [{ name: "main-Kc6Ge1DG.js", size: 216 }],
   chunks: [
     {
@@ -38,16 +41,26 @@ const expectedStats = {
   ],
 };
 
-describe("Generating vite stats", () => {
+describe("Generating rollup stats", () => {
   let stats: Output;
-  const vitePath = path.resolve(__dirname, "../../test-apps/vite");
-  beforeAll(() => {
-    spawnSync("pnpm", ["run", "build"], {
-      cwd: vitePath,
-    });
+  const rollupPath = path.resolve(__dirname, "../../test-apps/rollup");
+  beforeAll(async () => {
+    await rollup({
+      input: `${rollupPath}/src/main.js`,
+      plugins: [
+        resolve(),
+        commonjs(),
+        codecovRollupPlugin({ enableBundleAnalysis: true, dryRun: true }),
+      ],
+    }).then((bundle) =>
+      bundle.write({
+        dir: `${rollupPath}/dist`,
+        entryFileNames: "[name]-[hash].js",
+      }),
+    );
 
     const statsFilePath = path.resolve(
-      vitePath,
+      rollupPath,
       "dist/codecov-bundle-stats.json",
     );
 
@@ -57,7 +70,7 @@ describe("Generating vite stats", () => {
 
   afterAll(() => {
     fs.rm(
-      path.resolve(vitePath, "dist"),
+      path.resolve(rollupPath, "dist"),
       { recursive: true, force: true },
       () => null,
     );
