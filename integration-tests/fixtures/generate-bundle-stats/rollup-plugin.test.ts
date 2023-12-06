@@ -4,6 +4,7 @@ import path from "path";
 import fs from "fs";
 import { type Output } from "@codecov/bundler-plugin-core";
 import { rollup } from "rollup";
+// @ts-expect-error - no types
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import { codecovRollupPlugin } from "@codecov/rollup-plugin";
@@ -48,6 +49,7 @@ describe("Generating rollup stats", () => {
     await rollup({
       input: `${rollupPath}/src/main.js`,
       plugins: [
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         resolve(),
         commonjs(),
         codecovRollupPlugin({ enableBundleAnalysis: true, dryRun: true }),
