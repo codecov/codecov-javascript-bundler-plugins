@@ -5,7 +5,6 @@ import { getPreSignedURL } from "../getPreSignedURL.ts";
 import { FailedFetchError } from "../../errors/FailedFetchError.ts";
 import { NoUploadTokenError } from "../../errors/NoUploadTokenError.ts";
 import { UploadLimitReachedError } from "../../errors/UploadLimitReachedError.ts";
-import { NoCommitShaError } from "../../errors/NoCommitShaError.ts";
 
 const server = setupServer();
 
@@ -35,15 +34,12 @@ describe("getPreSignedURL", () => {
     consoleSpy = jest.spyOn(console, "log").mockImplementation(() => null);
 
     server.use(
-      http.post(
-        "http://localhost/upload/service/commits/:commitSha/bundle_analysis",
-        ({}) => {
-          if (sendError) {
-            return HttpResponse.error();
-          }
-          return HttpResponse.json(data, { status });
-        },
-      ),
+      http.post("http://localhost/upload/bundle_analysis/v1", ({}) => {
+        if (sendError) {
+          return HttpResponse.error();
+        }
+        return HttpResponse.json(data, { status });
+      }),
     );
 
     return {
@@ -140,28 +136,6 @@ describe("getPreSignedURL", () => {
         //   Number of calls: 1
         // expect(consoleSpy).toHaveBeenCalledWith("No upload token found");
         expect(error).toBeInstanceOf(NoUploadTokenError);
-      });
-    });
-
-    describe("no commit sha found", () => {
-      it("throws an error", async () => {
-        const { consoleSpy } = setup({
-          data: { url: "http://example.com" },
-        });
-
-        let error;
-        try {
-          await getPreSignedURL({
-            apiURL: "http://localhost",
-            globalUploadToken: "global-upload-token",
-            serviceParams: {},
-          });
-        } catch (e) {
-          error = e;
-        }
-
-        expect(consoleSpy).toHaveBeenCalled();
-        expect(error).toBeInstanceOf(NoCommitShaError);
       });
     });
 

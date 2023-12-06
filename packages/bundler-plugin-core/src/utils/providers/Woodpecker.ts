@@ -51,11 +51,6 @@ function _getSHA(inputs: ProviderUtilInputs): string {
   return args?.sha ?? envs?.CI_COMMIT_SHA ?? "";
 }
 
-function _getTag(inputs: ProviderUtilInputs): string {
-  const { args, envs } = inputs;
-  return args?.tag ?? envs?.CI_COMMIT_TAG ?? "";
-}
-
 function _getSlug(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
   if (args?.slug && args?.slug !== "") return args?.slug;
@@ -71,7 +66,6 @@ export async function getServiceParams(
     build: _getBuild(inputs),
     buildURL: _getBuildURL(inputs),
     commit: _getSHA(inputs),
-    tag: _getTag(inputs),
     pr: _getPR(inputs),
     job: _getJob(inputs),
     service: _getService(),
