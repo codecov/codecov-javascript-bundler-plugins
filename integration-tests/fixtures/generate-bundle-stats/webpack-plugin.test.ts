@@ -42,28 +42,30 @@ const expectedStats = {
 describe("Generating webpack stats", () => {
   let stats: Output;
   const webpackPath = path.resolve(__dirname, "../../test-apps/webpack");
-  beforeAll(() => {
-    jest.useFakeTimers();
-
-    webpack(
-      {
-        cache: false,
-        entry: `${webpackPath}/src/main.js`,
-        output: {
-          path: `${webpackPath}/dist`,
-          filename: "main-[hash].js",
+  beforeAll(async () => {
+    await new Promise<void>((resolve) => {
+      webpack(
+        {
+          cache: false,
+          entry: `${webpackPath}/src/main.js`,
+          output: {
+            path: `${webpackPath}/dist`,
+            filename: "main-[hash].js",
+          },
+          mode: "production",
+          plugins: [
+            codecovWebpackPlugin({ enableBundleAnalysis: true, dryRun: true }),
+          ],
         },
-        mode: "production",
-        // plugins: [
-        //   codecovWebpackPlugin({ enableBundleAnalysis: true, dryRun: true }),
-        // ],
-      },
-      (err) => {
-        if (err) {
-          throw err;
-        }
-      },
-    );
+        (err) => {
+          if (err) {
+            throw err;
+          }
+
+          resolve();
+        },
+      );
+    });
 
     const statsFilePath = path.resolve(
       webpackPath,
@@ -75,11 +77,11 @@ describe("Generating webpack stats", () => {
   });
 
   afterAll(() => {
-    // fs.rm(
-    //   path.resolve(webpackPath, "dist"),
-    //   { recursive: true, force: true },
-    //   () => null,
-    // );
+    fs.rm(
+      path.resolve(webpackPath, "dist"),
+      { recursive: true, force: true },
+      () => null,
+    );
   });
 
   it("sets the correct version", () => {
