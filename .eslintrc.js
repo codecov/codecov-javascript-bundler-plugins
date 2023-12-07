@@ -9,8 +9,8 @@ const config = {
     "plugin:prettier/recommended",
   ],
   ignorePatterns: [
-    "**/bundlers/**",
     "**/coverage/**",
+    "**/examples/**",
     "**/dist/**",
     "**/node_modules/**",
     "**/test-apps/**",
