@@ -82,16 +82,6 @@ function _getSHA(inputs: ProviderUtilInputs): string {
   return commit ?? "";
 }
 
-function _getProject(inputs: ProviderUtilInputs): string {
-  const { envs } = inputs;
-  return envs?.SYSTEM_TEAMPROJECT ?? "";
-}
-
-function _getServerURI(inputs: ProviderUtilInputs): string {
-  const { envs } = inputs;
-  return envs?.SYSTEM_TEAMFOUNDATIONSERVERURI ?? "";
-}
-
 function _getSlug(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
 
@@ -114,8 +104,6 @@ export async function getServiceParams(
     commit: _getSHA(inputs),
     job: _getJob(inputs.envs),
     pr: _getPR(inputs),
-    project: _getProject(inputs),
-    server_uri: _getServerURI(inputs),
     service: _getService(),
     slug: _getSlug(inputs),
   };

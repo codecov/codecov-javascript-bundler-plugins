@@ -28,7 +28,6 @@ export function createEmptyArgs(): UploadOverrides {
   return {
     build: undefined,
     branch: undefined,
-    parent: undefined,
     pr: undefined,
     sha: undefined,
     slug: undefined,
