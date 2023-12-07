@@ -8,6 +8,8 @@
 
 We welcome suggested improvements and bug fixes to the `@codecov/*` family of packages, in the form of pull requests on [`GitHub`](https://github.com/codecov/codecov-javascript-bundler-plugins). The guide below will help you get started, but if you have further questions, please feel free to reach out on [Sentry's Discord](https://discord.gg/Ww9hbqr).
 
+Also, be sure to check out [Codecov's contributing guide](https://github.com/codecov/contributing/blob/main/CONTRIBUTING.md).
+
 ## Setting up an Environment
 
 To run the test suite and our code linter, node.js and pnpm are required.
