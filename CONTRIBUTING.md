@@ -28,7 +28,7 @@ With that, the repo is fully set up and you are ready to run all commands.
 
 ## Building Packages
 
-Since we are using [`TypeScript`](https://www.typescriptlang.org/), you need to transpile the code to JavaScript to be able to use it. From the top level of the repo, there are three commands available:
+Since we are using [`TypeScript`](https://www.typescriptlang.org/), you need to transpile the code to JavaScript to be able to use it. From the top level of the repo, there are two commands available:
 
 - `pnpm run build`, which runs a one-time build (transpiling and type generation) of every package
 - `pnpm run dev`, which runs the command listed above in watch mode, meaning the command is re-executed after every file change
@@ -59,7 +59,7 @@ For feedback in PRs, we use the [LOGAF scale](https://blog.danlew.net/2020/04/15
 
 - `l`: low - nitpick. You may address this comment, but you don't have to.
 - `m`: medium - normal comment. Worth addressing and fixing.
-- `h`: high - Very important. We must not merge this PR without addressing this issue.
+- `h`: high - Very important. We cannot merge this PR without addressing this issue.
 
 You only need one approval from a maintainer to be able to merge. For some PRs, asking specific or multiple people for review might be adequate.
 
