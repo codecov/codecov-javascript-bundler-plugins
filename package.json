@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "build": "pnpm -r --filter='./packages/*' run build",
+    "dev": "pnpm -r --parallel --filter='./packages/*' run dev",
     "clean": "pnpm -r --filter='./packages/*' clean && rm -rf node_modules",
     "type-check": "pnpm -r --filter='./packages/*' run type-check",
     "lint": "pnpm -r --filter='./packages/*' lint",
