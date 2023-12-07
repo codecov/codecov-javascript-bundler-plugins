@@ -4,16 +4,17 @@
   "description": "Codecov Bundler Plugins Monorepo",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "integration-tests"
   ],
   "scripts": {
     "build": "pnpm -r --filter='./packages/*' run build",
     "dev": "pnpm -r --parallel --filter='./packages/*' run dev",
     "clean": "pnpm -r --filter='./packages/*' clean && rm -rf node_modules",
-    "type-check": "pnpm -r --filter='./packages/*' run type-check",
-    "lint": "pnpm -r --filter='./packages/*' lint",
-    "lint:fix": "pnpm -r --filter='./packages/*' lint:fix",
-    "format": "pnpm -r --filter='./packages/*' format && prettier --write '*.{cjs,json}' --ignore-unknown --no-error-on-unmatched-pattern",
+    "type-check": "pnpm -r --filter='./packages/*' --filter='integration-tests' run type-check",
+    "lint": "pnpm -r --filter='./packages/*' --filter='integration-tests' lint",
+    "lint:fix": "pnpm -r --filter='./packages/*' --filter='integration-tests' lint:fix",
+    "format": "pnpm -r format && prettier --write '*.{cjs,json}' --ignore-unknown --no-error-on-unmatched-pattern",
     "format:check": "pnpm -r --filter='./packages/*' format:check && prettier --check '*.{cjs,json}' --ignore-unknown --no-error-on-unmatched-pattern",
     "test:unit": "pnpm -r --filter='./packages/*' run test:unit",
     "test:unit:ci": "pnpm -r --filter='./packages/*' run test:unit:ci",

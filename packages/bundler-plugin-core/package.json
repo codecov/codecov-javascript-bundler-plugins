@@ -27,7 +27,7 @@
     "type-check": "tsc --noEmit",
     "build": "unbuild",
     "dev": "unbuild --stub && node --watch-path=src dist/index.mjs",
-    "clean": "rm -rf dist .turbo node_modules",
+    "clean": "rm -rf dist node_modules",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "pnpm lint --fix",
     "format": "prettier '**/*.{cjs,mjs,ts,tsx,md,json}' --ignore-path ../.gitignore --ignore-unknown --no-error-on-unmatched-pattern --write",
