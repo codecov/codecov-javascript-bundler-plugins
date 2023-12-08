@@ -28,3 +28,7 @@ component_management:
       name: Webpack plugin
       paths:
         - packages/webpack-plugin/**
+
+ignore:
+  - ./examples/*
+  - ./integration-tests/*

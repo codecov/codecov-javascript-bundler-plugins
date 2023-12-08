@@ -26,6 +26,11 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
             hash: true,
           });
 
+          output.bundler = {
+            name: "webpack",
+            version: webpack4or5.version,
+          };
+
           const { assets, chunks, modules } = compilationStats;
 
           if (assets) {

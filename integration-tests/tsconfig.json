@@ -1,5 +1,8 @@
 {
   "extends": "../tsconfig.json",
-  "include": ["jest.config.ts"],
-  "exclude": ["coverage/**/*", "node_modules/**/*", "./test-apps/**/*"]
+  "include": ["jest.config.ts", "fixtures/**/*", "test-api/**/*"],
+  "exclude": ["coverage/**/*", "node_modules/**/*", "./test-apps/**/*"],
+  "compilerOptions": {
+    "types": ["node", "jest"]
+  }
 }
