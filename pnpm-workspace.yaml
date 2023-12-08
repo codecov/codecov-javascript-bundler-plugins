@@ -1,4 +1,5 @@
 packages:
   - "examples/*"
-  - "integration-tests"
   - "packages/*"
+  - "integration-tests"
+  - "integration-tests/test-api"
