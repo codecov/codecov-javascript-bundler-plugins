@@ -3,6 +3,7 @@ comment:
 
 ai_pr_review:
   enabled: true
+
 component_management:
   default_rules:
     statuses:
