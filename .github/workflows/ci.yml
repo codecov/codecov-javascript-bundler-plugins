@@ -5,13 +5,7 @@ on:
     branches:
       - main
       - staging
-    paths:
-      - "packages/**"
-      - "integration-tests/**"
   pull_request:
-    paths:
-      - "packages/**"
-      - "integration-tests/**"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
