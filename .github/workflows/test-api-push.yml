@@ -1,7 +1,9 @@
-name: Test API Image CI
+name: Test API Image Push
 
 on:
-  pull_request:
+  push:
+    branches:
+      - main
     paths:
       - integration-tests/test-api/**
 
@@ -11,11 +13,12 @@ concurrency:
 
 
 jobs:
-  build:
-    name: Build API Test
+  push:
+    name: Push API Test
+    if: github.repository_owner == 'codecov'
     uses: codecov/gha-workflows/.github/workflows/build-and-push-dockerhub.yml@v1.2.14
     secrets: inherit
     with:
-        push: false
-        image_name: codecov-javascript-bundler-plugins-test-api
-        docker_path: integration-tests/test-api
+      push: true
+      image_name: codecov-javascript-bundler-plugins-test-api
+      docker_path: integration-tests/test-api
