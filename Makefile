@@ -1,12 +1,12 @@
 DOCKERHUB_REPO ?= codecov
 IMAGE_NAME ?= codecov-javascript-bundler-plugins-test-api
-DOCKER_PATH ?= integration-tests/test-api/Dockerfile
+DOCKER_PATH ?= integration-tests/test-api
 sha := $(shell git rev-parse --short=7 HEAD)
 dockerhub_image := ${DOCKERHUB_REPO}/${IMAGE_NAME}
 export DOCKER_BUILDKIT := 1
 
 build.${IMAGE_NAME}:
-	docker build -f ${DOCKER_PATH} . -t ${dockerhub_image}:latest \
+	docker build -f ${DOCKER_PATH}/Dockerfile ${DOCKER_PATH} -t ${dockerhub_image}:latest \
 	-t ${dockerhub_image}:${sha} \
 	--label "org.label-schema.build-date"="$(build_date)" \
 	--label "org.label-schema.name"="${IMAGE_NAME}" \

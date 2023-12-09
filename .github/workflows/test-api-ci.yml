@@ -24,7 +24,7 @@ jobs:
     with:
         push: false
         image_name: codecov-javascript-bundler-plugins-test-api
-        docker_path: integration-tests/test-api/Dockerfile
+        docker_path: integration-tests/test-api
   push:
     name: Build API Test
     if: ${{ github.event_name == 'push' && github.event.ref == 'refs/heads/main' && github.repository_owner == 'codecov' }}
@@ -33,4 +33,4 @@ jobs:
     with:
         push: true
         image_name: codecov-javascript-bundler-plugins-test-api
-        docker_path: integration-tests/test-api/Dockerfile
+        docker_path: integration-tests/test-api
