@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+#    paths:
+#      - integration-tests/test-api/**
+  pull_request:
+#    paths:
+#      - integration-tests/test-api/**
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+
+jobs:
+  build:
+    name: Build API Test
+    if: github.event_name != 'push'
+    uses: codecov/gha-workflows/.github/workflows/build-and-push-dockerhub.yml@trent/build-push-dockerhub
+    secrets: inherit
+    with:
+        push: false
+        image_name: test-api
+        docker_path: integration-tests/test-api/Dockerfile
+  push:
+    name: Build API Test
+    if: ${{ github.event_name == 'push' && github.event.ref == 'refs/heads/main' && github.repository_owner == 'codecov' }}
+    uses: codecov/gha-workflows/.github/workflows/build-and-push-dockerhub.yml@trent/build-push-dockerhub
+    secrets: inherit
+    with:
+        push: true
+        image_name: test-api
+        docker_path: integration-tests/test-api/Dockerfile
