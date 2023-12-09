@@ -1,4 +1,6 @@
-FROM node:20-alpine
+# syntax=docker/dockerfile:1
+ARG BUILDPLATFORM=arm64
+FROM --platform=$BUILDPLATFORM node:20-alpine
 WORKDIR /app
 
 ENV NODE_ENV=production
