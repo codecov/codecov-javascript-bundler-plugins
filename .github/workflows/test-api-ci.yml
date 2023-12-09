@@ -1,4 +1,4 @@
-name: CI
+name: Test API Image CI
 
 on:
   push:
