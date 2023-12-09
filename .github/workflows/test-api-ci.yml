@@ -4,11 +4,11 @@ on:
   push:
     branches:
       - main
-#    paths:
-#      - integration-tests/test-api/**
+    paths:
+      - integration-tests/test-api/**
   pull_request:
-#    paths:
-#      - integration-tests/test-api/**
+    paths:
+      - integration-tests/test-api/**
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
