@@ -2,12 +2,8 @@ DOCKERHUB_REPO ?= codecov
 IMAGE_NAME ?= codecov-javascript-bundler-plugins-test-api
 DOCKER_PATH ?= integration-tests/test-api
 OS_NAME := $(shell uname -s | tr A-Z a-z)
-BUILD_PLATFORM :=
-ifeq ($(OS_NAME),darwin)
-	BUILD_PLATFORM := arm64
-else
-	BUILD_PLATFORM := linux/amd64
-endif
+build_date := $(shell git show -s --date=iso8601-strict --pretty=format:%cd $$sha)
+BUILD_PLATFORM := $(shell docker system info --format '{{.OSType}}/{{.Architecture}}')
 sha := $(shell git rev-parse --short=7 HEAD)
 dockerhub_image := ${DOCKERHUB_REPO}/${IMAGE_NAME}
 export DOCKER_BUILDKIT := 1
@@ -26,6 +22,7 @@ tag.${IMAGE_NAME}:
 
 push.${IMAGE_NAME}:
 	docker push ${dockerhub_image}:latest
+	docker push ${dockerhub_image}:${sha}
 
 save.${IMAGE_NAME}:
 	docker save -o ${IMAGE_NAME}.tar ${dockerhub_image}:${sha}
