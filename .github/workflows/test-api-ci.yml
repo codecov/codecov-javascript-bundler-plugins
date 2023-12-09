@@ -23,7 +23,7 @@ jobs:
     secrets: inherit
     with:
         push: false
-        image_name: test-api
+        image_name: codecov-javascript-bundler-plugins-test-api
         docker_path: integration-tests/test-api/Dockerfile
   push:
     name: Build API Test
@@ -32,5 +32,5 @@ jobs:
     secrets: inherit
     with:
         push: true
-        image_name: test-api
+        image_name: codecov-javascript-bundler-plugins-test-api
         docker_path: integration-tests/test-api/Dockerfile
