@@ -1,10 +1,12 @@
 import {
   type BundleAnalysisUploadPlugin,
   red,
+  normalizePath,
 } from "@codecov/bundler-plugin-core";
 import * as webpack4or5 from "webpack";
 
 const PLUGIN_NAME = "codecov-webpack-bundle-analysis-plugin";
+const TEMP_REGEX = /(\w|\[|]|\/)/g;
 
 export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
   output,
@@ -48,13 +50,55 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
             version: webpack4or5.version,
           };
 
+          const outputOptions = compilation.outputOptions;
           const { assets, chunks, modules } = compilationStats;
 
           if (assets) {
             output.assets = assets.map((asset) => {
+              console.log("\nbase file name:", outputOptions.filename);
+              console.log(
+                "assetModuleFilename:",
+                outputOptions.assetModuleFilename,
+              );
+              console.log("chunkFilename:", outputOptions.chunkFilename);
+
+              let filenameFormatString = "";
+              const currAssetFormat = asset.name.replaceAll(TEMP_REGEX, "");
+              console.log("currAssetFormat:", currAssetFormat);
+
+              if (
+                typeof outputOptions.filename === "string" &&
+                outputOptions.filename !== "" &&
+                outputOptions.filename.replaceAll(TEMP_REGEX, "") ===
+                  currAssetFormat
+              ) {
+                filenameFormatString = outputOptions.filename;
+              }
+
+              if (
+                typeof outputOptions.assetModuleFilename === "string" &&
+                outputOptions.assetModuleFilename !== "" &&
+                outputOptions.assetModuleFilename.replaceAll(TEMP_REGEX, "") ===
+                  currAssetFormat
+              ) {
+                filenameFormatString = outputOptions.assetModuleFilename;
+              }
+
+              if (
+                typeof outputOptions.chunkFilename === "string" &&
+                outputOptions.chunkFilename !== "" &&
+                outputOptions.chunkFilename.replaceAll(TEMP_REGEX, "") ===
+                  currAssetFormat
+              ) {
+                filenameFormatString = outputOptions.chunkFilename;
+              }
+
+              console.log("filenameFormatString:", filenameFormatString);
+
               return {
                 name: asset.name,
                 size: asset.size,
+                normalized: normalizePath(asset.name, filenameFormatString),
               };
             });
           }
@@ -96,7 +140,6 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
               return {
                 name: module.name ?? "",
                 size: module.size ?? 0,
-                chunks: module.chunks ?? [],
                 chunkUniqueIds: chunkUniqueIds,
               };
             });

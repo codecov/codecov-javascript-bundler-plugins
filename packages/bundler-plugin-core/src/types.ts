@@ -8,6 +8,7 @@ export interface Dependency {
 export interface Asset {
   name: string;
   size: number;
+  normalized: string;
 }
 
 export interface Chunk {
@@ -15,14 +16,13 @@ export interface Chunk {
   uniqueId: string;
   entry: boolean;
   initial: boolean;
-  files: string[];
   names: string[];
+  files: string[];
 }
 
 export interface Module {
   name: string;
   size?: number;
-  chunks: (string | number)[];
   chunkUniqueIds: string[];
 }
 
