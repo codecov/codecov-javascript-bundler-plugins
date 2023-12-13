@@ -97,9 +97,11 @@ export interface Options {
   /**
    * The name for the bundle being built.
    *
+   * Required for uploading bundle analysis information.
+   *
    * Example: `rollup-package`
    */
-  bundleName: string;
+  bundleName?: string;
 }
 
 export type BundleAnalysisUploadPlugin = (
