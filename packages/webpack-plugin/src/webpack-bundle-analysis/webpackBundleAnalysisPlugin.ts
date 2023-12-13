@@ -1,4 +1,7 @@
-import { type BundleAnalysisUploadPlugin } from "@codecov/bundler-plugin-core";
+import {
+  type BundleAnalysisUploadPlugin,
+  red,
+} from "@codecov/bundler-plugin-core";
 import * as webpack4or5 from "webpack";
 
 const PLUGIN_NAME = "codecov-webpack-bundle-analysis-plugin";
@@ -18,6 +21,12 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
           stage: webpack4or5.Compilation.PROCESS_ASSETS_STAGE_REPORT,
         },
         () => {
+          // don't need to do anything if the bundle name is not present or empty
+          if (!userOptions.bundleName || userOptions.bundleName === "") {
+            red("Bundle name is not present or empty. Skipping upload.");
+            return;
+          }
+
           const compilationStats = compilation.getStats().toJson({
             assets: true,
             chunks: true,

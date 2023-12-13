@@ -4,6 +4,7 @@ import {
   type Chunk,
   type Module,
   type BundleAnalysisUploadPlugin,
+  red,
 } from "@codecov/bundler-plugin-core";
 
 const PLUGIN_NAME = "codecov-rollup-bundle-analysis-plugin";
@@ -17,6 +18,12 @@ export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
   pluginVersion: "1.0.0",
   rollup: {
     generateBundle(this, options, bundle) {
+      // don't need to do anything if the bundle name is not present or empty
+      if (!userOptions.bundleName || userOptions.bundleName === "") {
+        red("Bundle name is not present or empty. Skipping upload.");
+        return;
+      }
+
       const customOptions = {
         moduleOriginalSize: false,
         ...options,
