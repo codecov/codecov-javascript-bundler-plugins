@@ -52,7 +52,11 @@ describe("Generating rollup stats", () => {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         resolve(),
         commonjs(),
-        codecovRollupPlugin({ enableBundleAnalysis: true, dryRun: true }),
+        codecovRollupPlugin({
+          enableBundleAnalysis: true,
+          dryRun: true,
+          bundleName: "rollup-test",
+        }),
       ],
     }).then((bundle) =>
       bundle.write({
@@ -88,5 +92,9 @@ describe("Generating rollup stats", () => {
 
   it("sets the correct bundler information", () => {
     expect(stats.bundler).toStrictEqual(expectedStats.bundler);
+  });
+
+  it("sets the correct bundle name", () => {
+    expect(stats.bundleName).toStrictEqual("rollup-test");
   });
 });

@@ -54,7 +54,11 @@ describe("Generating webpack stats", () => {
           },
           mode: "production",
           plugins: [
-            codecovWebpackPlugin({ enableBundleAnalysis: true, dryRun: true }),
+            codecovWebpackPlugin({
+              enableBundleAnalysis: true,
+              dryRun: true,
+              bundleName: "webpack-test",
+            }),
           ],
         },
         (err) => {
@@ -94,5 +98,9 @@ describe("Generating webpack stats", () => {
 
   it("sets the correct bundler information", () => {
     expect(stats.bundler).toStrictEqual(expectedStats.bundler);
+  });
+
+  it("sets the correct bundle name", () => {
+    expect(stats.bundleName).toStrictEqual("webpack-test");
   });
 });

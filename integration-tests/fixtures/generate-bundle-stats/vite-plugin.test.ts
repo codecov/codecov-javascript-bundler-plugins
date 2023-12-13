@@ -56,7 +56,11 @@ describe("Generating vite stats", () => {
         },
       },
       plugins: [
-        codecovVitePlugin({ enableBundleAnalysis: true, dryRun: true }),
+        codecovVitePlugin({
+          enableBundleAnalysis: true,
+          dryRun: true,
+          bundleName: "vite-test",
+        }),
       ],
     });
 
@@ -87,5 +91,9 @@ describe("Generating vite stats", () => {
 
   it("sets the correct bundler information", () => {
     expect(stats.bundler).toStrictEqual(expectedStats.bundler);
+  });
+
+  it("sets the correct bundle name", () => {
+    expect(stats.bundleName).toStrictEqual("vite-test");
   });
 });
