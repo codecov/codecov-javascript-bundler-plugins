@@ -4,8 +4,12 @@ describe("webpackBundleAnalysisPlugin", () => {
   describe("when called", () => {
     it("returns a plugin object", () => {
       const plugin = webpackBundleAnalysisPlugin({
-        output: {},
-        userOptions: {},
+        output: {
+          bundleName: "test",
+        },
+        userOptions: {
+          bundleName: "test",
+        },
       });
 
       expect(plugin.version).toEqual("1");
