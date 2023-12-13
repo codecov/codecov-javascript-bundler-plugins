@@ -47,6 +47,9 @@ export const bundleAnalysisPluginFactory = ({
       // don't need to do anything here if dryRun is true
       if (userOptions?.dryRun) return;
 
+      // don't need to do anything if the bundle name is not present or empty
+      if (!userOptions.bundleName || userOptions.bundleName === "") return;
+
       const args: UploadOverrides = userOptions.uploaderOverrides ?? {};
       const envs = process.env;
       const inputs: ProviderUtilInputs = { envs, args };
