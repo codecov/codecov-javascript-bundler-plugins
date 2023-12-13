@@ -9,6 +9,7 @@ import {
 import { type UnpluginOptions } from "unplugin";
 import { getPreSignedURL } from "../utils/getPreSignedURL.ts";
 import { uploadStats } from "../utils/uploadStats.ts";
+import { red } from "../utils/logging.ts";
 
 interface BundleAnalysisUploadPluginArgs {
   userOptions: Options;
@@ -19,9 +20,9 @@ export const bundleAnalysisPluginFactory = ({
   userOptions,
   bundleAnalysisUploadPlugin,
 }: BundleAnalysisUploadPluginArgs): UnpluginOptions => {
-  // const dryRun = userOptions?.dryRun ?? false;
   const output: Output = {
     version: "1",
+    bundleName: userOptions.bundleName ?? "",
   };
 
   const { pluginVersion, version, ...pluginOpts } = bundleAnalysisUploadPlugin({
@@ -46,6 +47,12 @@ export const bundleAnalysisPluginFactory = ({
     writeBundle: async () => {
       // don't need to do anything here if dryRun is true
       if (userOptions?.dryRun) return;
+
+      // don't need to do anything if the bundle name is not present or empty
+      if (!userOptions.bundleName || userOptions.bundleName === "") {
+        red("Bundle name is not present or empty.");
+        return;
+      }
 
       const args: UploadOverrides = userOptions.uploaderOverrides ?? {};
       const envs = process.env;

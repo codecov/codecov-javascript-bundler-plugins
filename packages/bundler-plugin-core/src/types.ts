@@ -28,6 +28,7 @@ export interface Module {
 
 export interface Output {
   version?: string;
+  bundleName: string;
   bundler?: {
     name: string;
     version: string;
@@ -92,6 +93,13 @@ export interface Options {
    * Defaults to `false`
    */
   dryRun?: boolean;
+
+  /**
+   * The name for the bundle being built.
+   *
+   * Example: `rollup-package`
+   */
+  bundleName: string;
 }
 
 export type BundleAnalysisUploadPlugin = (
