@@ -61,6 +61,8 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
                 outputOptions.assetModuleFilename,
               );
               console.log("chunkFilename:", outputOptions.chunkFilename);
+              console.log("cssChunkFilename:", outputOptions.cssChunkFilename);
+              console.log("cssFilename:", outputOptions.cssFilename);
 
               let filenameFormatString = "";
               const currAssetFormat = asset.name.replaceAll(TEMP_REGEX, "");
@@ -69,29 +71,41 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
               if (
                 typeof outputOptions.filename === "string" &&
                 outputOptions.filename !== "" &&
-                outputOptions.filename.replaceAll(TEMP_REGEX, "") ===
-                  currAssetFormat
+                currAssetFormat.includes(
+                  outputOptions.filename.replaceAll(TEMP_REGEX, ""),
+                )
               ) {
                 filenameFormatString = outputOptions.filename;
-              }
-
-              if (
-                typeof outputOptions.assetModuleFilename === "string" &&
-                outputOptions.assetModuleFilename !== "" &&
-                outputOptions.assetModuleFilename.replaceAll(TEMP_REGEX, "") ===
-                  currAssetFormat
-              ) {
-                filenameFormatString = outputOptions.assetModuleFilename;
-              }
-
-              if (
+              } else if (
                 typeof outputOptions.chunkFilename === "string" &&
                 outputOptions.chunkFilename !== "" &&
-                outputOptions.chunkFilename.replaceAll(TEMP_REGEX, "") ===
-                  currAssetFormat
+                currAssetFormat.includes(
+                  outputOptions.chunkFilename.replaceAll(TEMP_REGEX, ""),
+                )
               ) {
                 filenameFormatString = outputOptions.chunkFilename;
+              } else if (
+                typeof outputOptions.cssFilename === "string" &&
+                outputOptions.cssFilename !== "" &&
+                currAssetFormat.includes(
+                  outputOptions.cssFilename.replaceAll(TEMP_REGEX, ""),
+                )
+              ) {
+                filenameFormatString = outputOptions.cssFilename;
+              } else if (
+                typeof outputOptions.cssChunkFilename === "string" &&
+                outputOptions.cssChunkFilename !== "" &&
+                currAssetFormat.includes(
+                  outputOptions.cssChunkFilename.replaceAll(TEMP_REGEX, ""),
+                )
+              ) {
+                filenameFormatString = outputOptions.cssChunkFilename;
               }
+              // else if (
+              //   typeof outputOptions.assetModuleFilename === "string"
+              // ) {
+              //   filenameFormatString = outputOptions.assetModuleFilename;
+              // }
 
               console.log("filenameFormatString:", filenameFormatString);
 
