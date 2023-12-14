@@ -27,6 +27,10 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
             return;
           }
 
+          if (typeof compilation.outputOptions.chunkFormat === "string") {
+            output.bundleName = `${userOptions.bundleName}-${compilation.outputOptions.chunkFormat}`;
+          }
+
           if (compilation.name && compilation.name !== "") {
             output.bundleName = `${userOptions.bundleName}-${compilation.name}`;
           }

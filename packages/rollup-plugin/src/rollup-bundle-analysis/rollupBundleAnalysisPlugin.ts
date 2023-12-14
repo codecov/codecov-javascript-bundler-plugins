@@ -24,6 +24,9 @@ export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
         return;
       }
 
+      // append bundle output format to bundle name
+      output.bundleName = `${userOptions.bundleName}-${options.format}`;
+
       if (options.name && options.name !== "") {
         output.bundleName = `${userOptions.bundleName}-${options.name}`;
       }

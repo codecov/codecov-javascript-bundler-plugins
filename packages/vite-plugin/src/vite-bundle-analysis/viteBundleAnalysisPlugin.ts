@@ -24,6 +24,10 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
         return;
       }
 
+      // append bundle output format to bundle name
+      output.bundleName = `${userOptions.bundleName}-${options.format}`;
+
+      // add in bundle name if present
       if (options.name && options.name !== "") {
         output.bundleName = `${userOptions.bundleName}-${options.name}`;
       }
