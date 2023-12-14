@@ -1,12 +1,12 @@
 import {
-  type BundleAnalysisUploadPlugin,
   red,
   normalizePath,
+  type BundleAnalysisUploadPlugin,
 } from "@codecov/bundler-plugin-core";
 import * as webpack4or5 from "webpack";
+import { findFilenameFormat } from "./findFileFormat";
 
 const PLUGIN_NAME = "codecov-webpack-bundle-analysis-plugin";
-const TEMP_REGEX = /(\w|\[|]|\/)/g;
 
 export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
   output,
@@ -55,64 +55,34 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
 
           if (assets) {
             output.assets = assets.map((asset) => {
-              console.log("\nbase file name:", outputOptions.filename);
-              console.log(
-                "assetModuleFilename:",
-                outputOptions.assetModuleFilename,
-              );
-              console.log("chunkFilename:", outputOptions.chunkFilename);
-              console.log("cssChunkFilename:", outputOptions.cssChunkFilename);
-              console.log("cssFilename:", outputOptions.cssFilename);
-
-              let filenameFormatString = "";
-              const currAssetFormat = asset.name.replaceAll(TEMP_REGEX, "");
-              console.log("currAssetFormat:", currAssetFormat);
-
-              if (
-                typeof outputOptions.filename === "string" &&
-                outputOptions.filename !== "" &&
-                currAssetFormat.includes(
-                  outputOptions.filename.replaceAll(TEMP_REGEX, ""),
-                )
-              ) {
-                filenameFormatString = outputOptions.filename;
-              } else if (
-                typeof outputOptions.chunkFilename === "string" &&
-                outputOptions.chunkFilename !== "" &&
-                currAssetFormat.includes(
-                  outputOptions.chunkFilename.replaceAll(TEMP_REGEX, ""),
-                )
-              ) {
-                filenameFormatString = outputOptions.chunkFilename;
-              } else if (
-                typeof outputOptions.cssFilename === "string" &&
-                outputOptions.cssFilename !== "" &&
-                currAssetFormat.includes(
-                  outputOptions.cssFilename.replaceAll(TEMP_REGEX, ""),
-                )
-              ) {
-                filenameFormatString = outputOptions.cssFilename;
-              } else if (
-                typeof outputOptions.cssChunkFilename === "string" &&
-                outputOptions.cssChunkFilename !== "" &&
-                currAssetFormat.includes(
-                  outputOptions.cssChunkFilename.replaceAll(TEMP_REGEX, ""),
-                )
-              ) {
-                filenameFormatString = outputOptions.cssChunkFilename;
-              }
-              // else if (
-              //   typeof outputOptions.assetModuleFilename === "string"
-              // ) {
-              //   filenameFormatString = outputOptions.assetModuleFilename;
-              // }
-
-              console.log("filenameFormatString:", filenameFormatString);
+              const format = findFilenameFormat({
+                assetName: asset.name,
+                filename:
+                  typeof outputOptions.filename === "string"
+                    ? outputOptions.filename
+                    : "",
+                assetModuleFilename:
+                  typeof outputOptions.assetModuleFilename === "string"
+                    ? outputOptions.assetModuleFilename
+                    : "",
+                chunkFilename:
+                  typeof outputOptions.chunkFilename === "string"
+                    ? outputOptions.chunkFilename
+                    : "",
+                cssFilename:
+                  typeof outputOptions.cssFilename === "string"
+                    ? outputOptions.cssFilename
+                    : "",
+                cssChunkFilename:
+                  typeof outputOptions.chunkFilename === "string"
+                    ? outputOptions.chunkFilename
+                    : "",
+              });
 
               return {
                 name: asset.name,
                 size: asset.size,
-                normalized: normalizePath(asset.name, filenameFormatString),
+                normalized: normalizePath(asset.name, format),
               };
             });
           }
