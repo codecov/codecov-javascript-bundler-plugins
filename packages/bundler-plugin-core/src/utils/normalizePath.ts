@@ -1,61 +1,45 @@
-// const UUID_REGEX =
-//   /[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/i;
+const HASH_REGEX = /[a-f0-9]{8,}/i;
+const POTENTIAL_HASHES = [
+  "[hash]",
+  "[contenthash]",
+  "[fullhash]",
+  "[chunkhash]",
+  "[contenthash]",
+];
 
-// const CHUNK_REGEX = /(?:[0-9]+)?\.[a-f0-9]{8}\.chunk/i;
+export const normalizePath = (path: string, format: string): string => {
+  let hashString = "";
+  let hashIndex = NaN;
+  POTENTIAL_HASHES.forEach((hash) => {
+    const index = format.indexOf(hash);
+    if (index !== -1) {
+      hashIndex = index;
+      hashString = hash;
+    }
+  });
 
-// const VERSION_REGEX = /v[0-9]+(?:\.[0-9]+)/i;
-
-// const HEX_REGEX = /[a-f0-9]{5}[a-f0-9]+/i;
-
-// const TRAILING_HEX_REGEX = /-[a-f0-9]{5}[a-f0-9]+/i;
-
-// const INT_REGEX = /\d\d+/i;
-
-// const CONTENT_HASH_REGEX = /\[(contenthash|hash)\]/i;
-
-// const HASH_REGEX = /[a-f0-9]{8}/gi;
-// const HASH_REGEX = /((?<delimiter>-|\.)(?<hash>[0-9a-f]{8,}))/;
-
-// vite/rollup default
-// asset assets/[name]-[hash].[ext]
-// chunk assets/[name]-[hash].js
-// entry assets/[name]-[hash].js
-
-// hashes "should" always be hex characters
-
-// loop through both format string and file name
-// continue until a square bracket is found grab contents until next square bracket
-// if it's name or ext don't do anything
-// if it's contenthash or hash replace with a *
-
-export const normalizePath = (path: string, _format: string): string => {
-  let hashString = "[hash]";
-  if (_format.includes("[contenthash]")) {
-    hashString = "[contenthash]";
-  } else if (_format.includes("[fullhash]")) {
-    hashString = "[fullhash]";
-  } else if (_format.includes("[chunkhash]")) {
-    hashString = "[chunkhash]";
+  // if there's no hash in the format, then we can assume that the path is
+  // is safe to return
+  if (isNaN(hashIndex)) {
+    return path;
   }
 
-  const hashIndex = _format.indexOf(hashString);
-  const leadingDelimiter = _format.at(hashIndex - 1);
-  const endingDelimiter = _format.at(hashIndex + hashString.length);
-
+  const leadingDelimiter = format.at(hashIndex - 1);
+  const endingDelimiter = format.at(hashIndex + hashString.length);
   const regexString = `((?<leadingDelimiter>\\${leadingDelimiter})(?<hash>[0-9a-f]+)(?<endingDelimiter>\\${endingDelimiter}))`;
-  console.log("regexString:", regexString);
-  const tempRegex = new RegExp(regexString, "i");
-
-  console.log("format:", _format);
-  console.log("path:", path);
-  console.log("leadingDelimiter:", leadingDelimiter);
-  console.log("endingDelimiter:", endingDelimiter);
+  const HASH_REPLACE_REGEX = new RegExp(regexString, "i");
 
   const normalizedPath = path.replace(
-    tempRegex,
+    HASH_REPLACE_REGEX,
     "$<leadingDelimiter>*$<endingDelimiter>",
   );
-  console.log("normalizedPath:", normalizedPath);
+
+  // if the path is the same as the normalized path, and the path contains a
+  // hash, then we can assume that something went wrong and we should just
+  // replace the hash with a wildcard
+  if (normalizedPath === path && HASH_REGEX.test(normalizedPath)) {
+    return normalizedPath.replace(HASH_REGEX, "*");
+  }
 
   return normalizedPath;
 };
