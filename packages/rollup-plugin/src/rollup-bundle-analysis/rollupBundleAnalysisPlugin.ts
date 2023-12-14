@@ -24,6 +24,10 @@ export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
         return;
       }
 
+      if (options.name && options.name !== "") {
+        output.bundleName = `${userOptions.bundleName}-${options.name}`;
+      }
+
       const customOptions = {
         moduleOriginalSize: false,
         ...options,

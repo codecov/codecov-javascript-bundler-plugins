@@ -27,6 +27,10 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
             return;
           }
 
+          if (compilation.name && compilation.name !== "") {
+            output.bundleName = `${userOptions.bundleName}-${compilation.name}`;
+          }
+
           const compilationStats = compilation.getStats().toJson({
             assets: true,
             chunks: true,
