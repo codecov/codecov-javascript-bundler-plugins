@@ -41,7 +41,11 @@ import { codecovVitePlugin } from "@codecov/vite-plugin";
 export default defineConfig({
   plugins: [
     // Put the Codecov vite plugin after all other plugins
-    codecovVitePlugin({ enableBundleAnalysis: true }),
+    codecovVitePlugin({
+      enableBundleAnalysis: true,
+      bundleName: "example-vite-bundle",
+      globalUploadToken: process.env.CODECOV_TOKEN,
+    }),
   ],
 });
 ```

@@ -41,7 +41,11 @@ import { codecovRollupPlugin } from "@codecov/rollup-plugin";
 export default defineConfig({
   plugins: [
     // Put the Codecov rollup plugin after all other plugins
-    codecovRollupPlugin({ enableBundleAnalysis: true }),
+    codecovRollupPlugin({
+      enableBundleAnalysis: true,
+      bundleName: "example-vite-bundle",
+      globalUploadToken: process.env.CODECOV_TOKEN,
+    }),
   ],
 });
 ```
