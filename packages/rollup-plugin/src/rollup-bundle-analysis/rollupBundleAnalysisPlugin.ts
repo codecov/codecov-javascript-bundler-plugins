@@ -47,6 +47,11 @@ export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
         assetFormatString = customOptions.assetFileNames;
       }
 
+      let chunkFormatString = "";
+      if (typeof customOptions.chunkFileNames === "string") {
+        chunkFormatString = customOptions.chunkFileNames;
+      }
+
       let counter = 0;
       for (const item of items) {
         if (item?.type === "asset") {
@@ -81,7 +86,7 @@ export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
           assets.push({
             name: fileName,
             size: size,
-            normalized: normalizePath(fileName, assetFormatString),
+            normalized: normalizePath(fileName, chunkFormatString),
           });
 
           chunks.push({
