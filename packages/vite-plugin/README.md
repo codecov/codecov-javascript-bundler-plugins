@@ -4,7 +4,7 @@
   </a>
 </p>
 
-# Codecov Bundler Vite Plugin
+# Codecov Vite Plugin
 
 > [!WARNING]  
 > These plugins are currently in alpha and are subject to change.

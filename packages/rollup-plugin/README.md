@@ -4,7 +4,7 @@
   </a>
 </p>
 
-# Codecov Bundler Rollup Plugin
+# Codecov Rollup Plugin
 
 > [!WARNING]  
 > These plugins are currently in alpha and are subject to change.
