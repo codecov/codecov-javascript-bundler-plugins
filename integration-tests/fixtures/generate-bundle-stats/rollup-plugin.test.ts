@@ -95,6 +95,6 @@ describe("Generating rollup stats", () => {
   });
 
   it("sets the correct bundle name", () => {
-    expect(stats.bundleName).toStrictEqual("rollup-test");
+    expect(stats.bundleName).toStrictEqual("rollup-test-es");
   });
 });

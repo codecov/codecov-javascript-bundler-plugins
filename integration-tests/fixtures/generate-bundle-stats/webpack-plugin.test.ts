@@ -101,6 +101,6 @@ describe("Generating webpack stats", () => {
   });
 
   it("sets the correct bundle name", () => {
-    expect(stats.bundleName).toStrictEqual("webpack-test");
+    expect(stats.bundleName).toStrictEqual("webpack-test-array-push");
   });
 });

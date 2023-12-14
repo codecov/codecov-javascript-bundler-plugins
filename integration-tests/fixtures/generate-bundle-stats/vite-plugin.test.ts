@@ -94,6 +94,6 @@ describe("Generating vite stats", () => {
   });
 
   it("sets the correct bundle name", () => {
-    expect(stats.bundleName).toStrictEqual("vite-test");
+    expect(stats.bundleName).toStrictEqual("vite-test-cjs");
   });
 });
