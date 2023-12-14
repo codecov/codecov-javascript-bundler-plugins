@@ -1,5 +1,5 @@
 {
-  "name": "webpack-test",
+  "name": "@codecov/webpack-plugin-example",
   "version": "0.0.0",
   "private": "true",
   "scripts": {

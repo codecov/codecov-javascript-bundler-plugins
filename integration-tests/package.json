@@ -1,5 +1,5 @@
 {
-  "name": "integration-tests",
+  "name": "@codecov/plugin-integration-tests",
   "version": "1.0.0",
   "description": "",
   "private": true,
