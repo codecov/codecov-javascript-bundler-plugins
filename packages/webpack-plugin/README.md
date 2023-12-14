@@ -49,7 +49,7 @@ module.exports = {
     // Put the Codecov vite plugin after all other plugins
     codecovWebpackPlugin({
       enableBundleAnalysis: true,
-      bundleName: "example-vite-bundle",
+      bundleName: "example-webpack-bundle",
       globalUploadToken: process.env.CODECOV_TOKEN,
     }),
   ],

@@ -43,7 +43,7 @@ export default defineConfig({
     // Put the Codecov rollup plugin after all other plugins
     codecovRollupPlugin({
       enableBundleAnalysis: true,
-      bundleName: "example-vite-bundle",
+      bundleName: "example-rollup-bundle",
       globalUploadToken: process.env.CODECOV_TOKEN,
     }),
   ],
