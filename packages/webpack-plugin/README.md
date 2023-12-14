@@ -4,6 +4,54 @@
   </a>
 </p>
 
-# Codecov Webpack Plugin
+# Codecov Bundler Webpack Plugin
 
-TODO
+> A Webpack plugin that provides bundle analysis support for Codecov.
+
+## Installation
+
+Using npm:
+
+```bash
+npm install @codecov/webpack-plugin --save-dev
+```
+
+Using yarn:
+
+```bash
+yarn add @codecov/webpack-plugin --dev
+```
+
+Using pnpm
+
+```bash
+pnpm add @codecov/webpack-plugin --save-dev
+```
+
+## Example
+
+```js
+// webpack.config.js
+const path = require("path");
+const { codecovWebpackPlugin } = require("@codecov/webpack-plugin");
+
+module.exports = {
+  entry: "./src/index.js",
+  mode: "production",
+  output: {
+    filename: "main.js",
+    path: path.resolve(__dirname, "dist"),
+  },
+  plugins: [
+    codecovWebpackPlugin({
+      enableBundleAnalysis: true,
+    }),
+  ],
+};
+```
+
+## More information
+
+- [Codecov Documentation](https://docs.codecov.com/docs)
+- [Codecov Feedback](https://github.com/codecov/feedback/discussions)
+- [Sentry Discord](https://discord.gg/Ww9hbqr)

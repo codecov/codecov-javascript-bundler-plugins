@@ -4,6 +4,47 @@
   </a>
 </p>
 
-# Codecov Rollup Plugin
+# Codecov Bundler Rollup Plugin
 
-TODO
+> A Rollup plugin that provides bundle analysis support for Codecov.
+
+## Installation
+
+Using npm:
+
+```bash
+npm install @codecov/rollup-plugin --save-dev
+```
+
+Using yarn:
+
+```bash
+yarn add @codecov/rollup-plugin --dev
+```
+
+Using pnpm
+
+```bash
+pnpm add @codecov/rollup-plugin --save-dev
+```
+
+## Example
+
+```js
+// rollup.config.js
+import { defineConfig } from "rollup";
+import { codecovRollupPlugin } from "@codecov/rollup-plugin";
+
+export default defineConfig({
+  plugins: [
+    // Put the Sentry rollup plugin after all other plugins
+    codecovRollupPlugin({ enableBundleAnalysis: true }),
+  ],
+});
+```
+
+## More information
+
+- [Codecov Documentation](https://docs.codecov.com/docs)
+- [Codecov Feedback](https://github.com/codecov/feedback/discussions)
+- [Sentry Discord](https://discord.gg/Ww9hbqr)

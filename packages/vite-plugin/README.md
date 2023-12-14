@@ -4,6 +4,47 @@
   </a>
 </p>
 
-# Codecov Vite Plugin
+# Codecov Bundler Vite Plugin
 
-TODO
+> A Vite plugin that provides bundle analysis support for Codecov.
+
+## Installation
+
+Using npm:
+
+```bash
+npm install @codecov/vite-plugin --save-dev
+```
+
+Using yarn:
+
+```bash
+yarn add @codecov/vite-plugin --dev
+```
+
+Using pnpm
+
+```bash
+pnpm add @codecov/vite-plugin --save-dev
+```
+
+## Example
+
+```js
+// vite.config.js
+import { defineConfig } from "vite";
+import { codecovVitePlugin } from "@codecov/vite-plugin";
+
+export default defineConfig({
+  plugins: [
+    // Put the Sentry vite plugin after all other plugins
+    codecovVitePlugin({ enableBundleAnalysis: true }),
+  ],
+});
+```
+
+## More information
+
+- [Codecov Documentation](https://docs.codecov.com/docs)
+- [Codecov Feedback](https://github.com/codecov/feedback/discussions)
+- [Sentry Discord](https://discord.gg/Ww9hbqr)

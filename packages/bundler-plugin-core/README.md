@@ -6,4 +6,22 @@
 
 # Codecov Bundler Plugin Core
 
-TODO
+Core package containing the bundler-agnostic logic for the Codecov Bundler Plugins.
+
+Checkout the individual packages for more information and examples:
+
+- [Rollup](https://npmjs.org/package/@codecov/rollup-plugin)
+- [Vite](https://npmjs.org/package/@codecov/vite-plugin)
+- [Webpack](https://npmjs.org/package/@codecov/webpack-plugin)
+
+## Features
+
+The Codecov Bundler Core package contains the following functionality:
+
+- Bundle Analysis Stats Upload
+
+## More information
+
+- [Codecov Documentation](https://docs.codecov.com/docs)
+- [Codecov Feedback](https://github.com/codecov/feedback/discussions)
+- [Sentry Discord](https://discord.gg/Ww9hbqr)
