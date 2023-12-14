@@ -43,6 +43,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
   },
   plugins: [
+    // Put the Codecov vite plugin after all other plugins
     codecovWebpackPlugin({
       enableBundleAnalysis: true,
     }),

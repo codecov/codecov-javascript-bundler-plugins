@@ -37,7 +37,7 @@ import { codecovRollupPlugin } from "@codecov/rollup-plugin";
 
 export default defineConfig({
   plugins: [
-    // Put the Sentry rollup plugin after all other plugins
+    // Put the Codecov rollup plugin after all other plugins
     codecovRollupPlugin({ enableBundleAnalysis: true }),
   ],
 });

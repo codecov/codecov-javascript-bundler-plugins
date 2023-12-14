@@ -37,7 +37,7 @@ import { codecovVitePlugin } from "@codecov/vite-plugin";
 
 export default defineConfig({
   plugins: [
-    // Put the Sentry vite plugin after all other plugins
+    // Put the Codecov vite plugin after all other plugins
     codecovVitePlugin({ enableBundleAnalysis: true }),
   ],
 });
