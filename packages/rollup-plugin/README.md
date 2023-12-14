@@ -6,6 +6,9 @@
 
 # Codecov Bundler Rollup Plugin
 
+> [!WARNING]  
+> These plugins are currently in alpha and are subject to change.
+
 > A Rollup plugin that provides bundle analysis support for Codecov.
 
 ## Installation
