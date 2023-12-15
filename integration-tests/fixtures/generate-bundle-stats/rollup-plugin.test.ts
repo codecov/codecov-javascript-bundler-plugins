@@ -95,12 +95,80 @@ describe("Generating rollup stats", () => {
   describe("using the test-api", () => {
     afterEach(() => {
       jest.resetAllMocks();
+    });
 
-      fs.rm(
-        path.resolve(rollupPath, "dist"),
-        { recursive: true, force: true },
-        () => null,
-      );
+    describe("on a successful upload", () => {
+      it('logs the message "Successfully pre-signed URL fetched" to the console', async () => {
+        const consoleLogSpy = jest.spyOn(console, "log").mockImplementation();
+
+        await rollup({
+          input: `${rollupPath}/src/main.js`,
+          plugins: [
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+            resolve(),
+            commonjs(),
+            codecovRollupPlugin({
+              enableBundleAnalysis: true,
+              globalUploadToken: "test-token",
+              apiUrl: "http://localhost:8000/test-url/200/true",
+              uploaderOverrides: {
+                branch: "test-branch",
+                build: "test-build",
+                pr: "test-pr",
+                sha: "test-sha",
+                slug: "test-owner/test-repo",
+                url: "test-url",
+              },
+            }),
+          ],
+        }).then((bundle) =>
+          bundle.write({
+            dir: `${rollupPath}/dist`,
+            entryFileNames: "[name]-[hash].js",
+          }),
+        );
+
+        expect(consoleLogSpy).toHaveBeenCalled();
+        expect(consoleLogSpy).toHaveBeenCalledWith(
+          expect.stringContaining("Successfully pre-signed URL fetched"),
+        );
+      });
+
+      it('logs the message "Uploaded bundle stats" to the console', async () => {
+        const consoleLogSpy = jest.spyOn(console, "log").mockImplementation();
+
+        await rollup({
+          input: `${rollupPath}/src/main.js`,
+          plugins: [
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+            resolve(),
+            commonjs(),
+            codecovRollupPlugin({
+              enableBundleAnalysis: true,
+              globalUploadToken: "test-token",
+              apiUrl: "http://localhost:8000/test-url/200/true",
+              uploaderOverrides: {
+                branch: "test-branch",
+                build: "test-build",
+                pr: "test-pr",
+                sha: "test-sha",
+                slug: "test-owner/test-repo",
+                url: "test-url",
+              },
+            }),
+          ],
+        }).then((bundle) =>
+          bundle.write({
+            dir: `${rollupPath}/dist`,
+            entryFileNames: "[name]-[hash].js",
+          }),
+        );
+
+        expect(consoleLogSpy).toHaveBeenCalled();
+        expect(consoleLogSpy).toHaveBeenCalledWith(
+          expect.stringContaining("Successfully uploaded stats"),
+        );
+      });
     });
 
     describe("user has exceeded upload limit", () => {
