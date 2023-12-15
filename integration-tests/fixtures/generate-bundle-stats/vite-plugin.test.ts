@@ -42,50 +42,303 @@ const expectedStats = {
 describe("Generating vite stats", () => {
   let stats: Output;
   const vitePath = path.resolve(__dirname, "../../test-apps/vite");
-  beforeAll(async () => {
-    await build({
-      clearScreen: false,
-      root: vitePath,
-      build: {
-        outDir: "dist",
-        rollupOptions: {
-          input: `${vitePath}/index.html`,
-          output: {
-            format: "cjs",
+
+  describe("using the dryRun option", () => {
+    beforeAll(async () => {
+      await build({
+        clearScreen: false,
+        root: vitePath,
+        build: {
+          outDir: "dist",
+          rollupOptions: {
+            input: `${vitePath}/index.html`,
+            output: {
+              format: "cjs",
+            },
           },
         },
-      },
-      plugins: [
-        codecovVitePlugin({ enableBundleAnalysis: true, dryRun: true }),
-      ],
+        plugins: [
+          codecovVitePlugin({ enableBundleAnalysis: true, dryRun: true }),
+        ],
+      });
+
+      const statsFilePath = path.resolve(
+        vitePath,
+        "dist/codecov-bundle-stats.json",
+      );
+
+      const statsData = fs.readFileSync(statsFilePath);
+      stats = JSON.parse(statsData.toString()) as Output;
     });
 
-    const statsFilePath = path.resolve(
-      vitePath,
-      "dist/codecov-bundle-stats.json",
-    );
+    afterAll(() => {
+      fs.rm(
+        path.resolve(vitePath, "dist"),
+        { recursive: true, force: true },
+        () => null,
+      );
+    });
 
-    const statsData = fs.readFileSync(statsFilePath);
-    stats = JSON.parse(statsData.toString()) as Output;
+    it("sets the correct version", () => {
+      expect(stats.version).toStrictEqual(expectedStats.version);
+    });
+
+    it("sets the correct plugin information", () => {
+      expect(stats.plugin).toStrictEqual(expectedStats.plugin);
+    });
+
+    it("sets the correct bundler information", () => {
+      expect(stats.bundler).toStrictEqual(expectedStats.bundler);
+    });
   });
 
-  afterAll(() => {
-    fs.rm(
-      path.resolve(vitePath, "dist"),
-      { recursive: true, force: true },
-      () => null,
-    );
-  });
+  describe("using the test-api", () => {
+    afterEach(() => {
+      jest.resetAllMocks();
+    });
 
-  it("sets the correct version", () => {
-    expect(stats.version).toStrictEqual(expectedStats.version);
-  });
+    describe("on a successful upload", () => {
+      it('logs the message "Successfully pre-signed URL fetched" to the console', async () => {
+        const consoleLogSpy = jest.spyOn(console, "log").mockImplementation();
 
-  it("sets the correct plugin information", () => {
-    expect(stats.plugin).toStrictEqual(expectedStats.plugin);
-  });
+        await build({
+          clearScreen: false,
+          root: vitePath,
+          build: {
+            outDir: "dist",
+            rollupOptions: {
+              input: `${vitePath}/index.html`,
+              output: {
+                format: "cjs",
+              },
+            },
+          },
+          plugins: [
+            codecovVitePlugin({
+              enableBundleAnalysis: true,
+              globalUploadToken: "test-token",
+              apiUrl: "http://localhost:8000/test-url/200/true",
+              uploaderOverrides: {
+                branch: "test-branch",
+                build: "test-build",
+                pr: "test-pr",
+                sha: "test-sha",
+                slug: "test-owner/test-repo",
+                url: "test-url",
+              },
+            }),
+          ],
+        });
 
-  it("sets the correct bundler information", () => {
-    expect(stats.bundler).toStrictEqual(expectedStats.bundler);
+        expect(consoleLogSpy).toHaveBeenCalled();
+        expect(consoleLogSpy).toHaveBeenCalledWith(
+          expect.stringContaining("Successfully pre-signed URL fetched"),
+        );
+      });
+
+      it('logs the message "Uploaded bundle stats" to the console', async () => {
+        const consoleLogSpy = jest.spyOn(console, "log").mockImplementation();
+
+        await build({
+          clearScreen: false,
+          root: vitePath,
+          build: {
+            outDir: "dist",
+            rollupOptions: {
+              input: `${vitePath}/index.html`,
+              output: {
+                format: "cjs",
+              },
+            },
+          },
+          plugins: [
+            codecovVitePlugin({
+              enableBundleAnalysis: true,
+              globalUploadToken: "test-token",
+              apiUrl: "http://localhost:8000/test-url/200/true",
+              uploaderOverrides: {
+                branch: "test-branch",
+                build: "test-build",
+                pr: "test-pr",
+                sha: "test-sha",
+                slug: "test-owner/test-repo",
+                url: "test-url",
+              },
+            }),
+          ],
+        });
+
+        expect(consoleLogSpy).toHaveBeenCalled();
+        expect(consoleLogSpy).toHaveBeenCalledWith(
+          expect.stringContaining("Successfully uploaded stats"),
+        );
+      });
+    });
+
+    describe("user has exceeded upload limit", () => {
+      describe("grabbing pre-signed url", () => {
+        it('logs the message "Upload limit reached" to the console', async () => {
+          const consoleLogSpy = jest.spyOn(console, "log").mockImplementation();
+
+          await build({
+            clearScreen: false,
+            root: vitePath,
+            build: {
+              outDir: "dist",
+              rollupOptions: {
+                input: `${vitePath}/index.html`,
+                output: {
+                  format: "cjs",
+                },
+              },
+            },
+            plugins: [
+              codecovVitePlugin({
+                enableBundleAnalysis: true,
+                globalUploadToken: "test-token",
+                apiUrl: "http://localhost:8000/test-url/429/false",
+                uploaderOverrides: {
+                  branch: "test-branch",
+                  build: "test-build",
+                  pr: "test-pr",
+                  sha: "test-sha",
+                  slug: "test-owner/test-repo",
+                  url: "test-url",
+                },
+              }),
+            ],
+          });
+
+          expect(consoleLogSpy).toHaveBeenCalled();
+          expect(consoleLogSpy).toHaveBeenCalledWith(
+            expect.stringContaining("Upload limit reached"),
+          );
+        });
+      });
+
+      describe("uploading states information", () => {
+        it('logs the message "Upload limit reached" to the console', async () => {
+          const consoleLogSpy = jest.spyOn(console, "log").mockImplementation();
+
+          await build({
+            clearScreen: false,
+            root: vitePath,
+            build: {
+              outDir: "dist",
+              rollupOptions: {
+                input: `${vitePath}/index.html`,
+                output: {
+                  format: "cjs",
+                },
+              },
+            },
+            plugins: [
+              codecovVitePlugin({
+                enableBundleAnalysis: true,
+                globalUploadToken: "test-token",
+                apiUrl: "http://localhost:8000/test-url/429/true",
+                uploaderOverrides: {
+                  branch: "test-branch",
+                  build: "test-build",
+                  pr: "test-pr",
+                  sha: "test-sha",
+                  slug: "test-owner/test-repo",
+                  url: "test-url",
+                },
+              }),
+            ],
+          });
+
+          expect(consoleLogSpy).toHaveBeenCalled();
+          expect(consoleLogSpy).toHaveBeenCalledWith(
+            expect.stringContaining("Upload limit reached"),
+          );
+        });
+      });
+    });
+
+    describe("api returns a bad status code", () => {
+      describe("grabbing pre-signed url", () => {
+        it('logs the message "Failed to upload stats, bad response" to the console', async () => {
+          const consoleLogSpy = jest.spyOn(console, "log").mockImplementation();
+
+          await build({
+            clearScreen: false,
+            root: vitePath,
+            build: {
+              outDir: "dist",
+              rollupOptions: {
+                input: `${vitePath}/index.html`,
+                output: {
+                  format: "cjs",
+                },
+              },
+            },
+            plugins: [
+              codecovVitePlugin({
+                enableBundleAnalysis: true,
+                globalUploadToken: "test-token",
+                apiUrl: "http://localhost:8000/test-url/500/false",
+                uploaderOverrides: {
+                  branch: "test-branch",
+                  build: "test-build",
+                  pr: "test-pr",
+                  sha: "test-sha",
+                  slug: "test-owner/test-repo",
+                  url: "test-url",
+                },
+              }),
+            ],
+          });
+
+          expect(consoleLogSpy).toHaveBeenCalled();
+          expect(consoleLogSpy).toHaveBeenCalledWith(
+            expect.stringContaining(
+              "Failed to get pre-signed URL, bad response",
+            ),
+          );
+        });
+      });
+
+      describe("uploading states information", () => {
+        it('logs the message "Failed to upload stats, bad response" to the console', async () => {
+          const consoleLogSpy = jest.spyOn(console, "log").mockImplementation();
+
+          await build({
+            clearScreen: false,
+            root: vitePath,
+            build: {
+              outDir: "dist",
+              rollupOptions: {
+                input: `${vitePath}/index.html`,
+                output: {
+                  format: "cjs",
+                },
+              },
+            },
+            plugins: [
+              codecovVitePlugin({
+                enableBundleAnalysis: true,
+                globalUploadToken: "test-token",
+                apiUrl: "http://localhost:8000/test-url/500/true",
+                uploaderOverrides: {
+                  branch: "test-branch",
+                  build: "test-build",
+                  pr: "test-pr",
+                  sha: "test-sha",
+                  slug: "test-owner/test-repo",
+                  url: "test-url",
+                },
+              }),
+            ],
+          });
+
+          expect(consoleLogSpy).toHaveBeenCalled();
+          expect(consoleLogSpy).toHaveBeenCalledWith(
+            expect.stringContaining("Failed to upload stats, bad response"),
+          );
+        });
+      });
+    });
   });
 });
