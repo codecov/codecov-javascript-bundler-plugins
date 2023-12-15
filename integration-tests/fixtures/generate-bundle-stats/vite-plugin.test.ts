@@ -93,14 +93,14 @@ describe("Generating vite stats", () => {
   });
 
   describe("using the test-api", () => {
+    const consoleLogSpy = jest.spyOn(console, "log").mockImplementation();
+
     afterEach(() => {
       jest.resetAllMocks();
     });
 
     describe("on a successful upload", () => {
       it('logs the message "Successfully pre-signed URL fetched" to the console', async () => {
-        const consoleLogSpy = jest.spyOn(console, "log").mockImplementation();
-
         await build({
           clearScreen: false,
           root: vitePath,
@@ -137,8 +137,6 @@ describe("Generating vite stats", () => {
       });
 
       it('logs the message "Uploaded bundle stats" to the console', async () => {
-        const consoleLogSpy = jest.spyOn(console, "log").mockImplementation();
-
         await build({
           clearScreen: false,
           root: vitePath,
@@ -178,8 +176,6 @@ describe("Generating vite stats", () => {
     describe("user has exceeded upload limit", () => {
       describe("grabbing pre-signed url", () => {
         it('logs the message "Upload limit reached" to the console', async () => {
-          const consoleLogSpy = jest.spyOn(console, "log").mockImplementation();
-
           await build({
             clearScreen: false,
             root: vitePath,
@@ -218,8 +214,6 @@ describe("Generating vite stats", () => {
 
       describe("uploading states information", () => {
         it('logs the message "Upload limit reached" to the console', async () => {
-          const consoleLogSpy = jest.spyOn(console, "log").mockImplementation();
-
           await build({
             clearScreen: false,
             root: vitePath,
@@ -260,8 +254,6 @@ describe("Generating vite stats", () => {
     describe("api returns a bad status code", () => {
       describe("grabbing pre-signed url", () => {
         it('logs the message "Failed to upload stats, bad response" to the console', async () => {
-          const consoleLogSpy = jest.spyOn(console, "log").mockImplementation();
-
           await build({
             clearScreen: false,
             root: vitePath,
@@ -302,8 +294,6 @@ describe("Generating vite stats", () => {
 
       describe("uploading states information", () => {
         it('logs the message "Failed to upload stats, bad response" to the console', async () => {
-          const consoleLogSpy = jest.spyOn(console, "log").mockImplementation();
-
           await build({
             clearScreen: false,
             root: vitePath,
