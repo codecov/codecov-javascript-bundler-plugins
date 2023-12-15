@@ -3,20 +3,17 @@ import { Hono } from "hono";
 
 const app = new Hono();
 
-app.get("/", (c) => c.text("Hello Hono!"));
-
 app.all(
-  "/:status{[0-9]{3}}/upload/bundle_analysis/v1/:badPUT{true|false}",
+  "/test-url/:status/:badPUT{true|false}/upload/bundle_analysis/v1",
   (c) => {
     const status = parseInt(c.req.param("status"));
     const badPUT = c.req.param("badPUT") === "true";
+    const url = new URL(c.req.url);
+    let putURL = `${url.protocol}//${url.host}/file-upload`;
 
     if (status >= 400 && !badPUT) {
       return c.text(`Error code: ${status}`, { status });
     }
-
-    const url = new URL(c.req.url);
-    let putURL = `${url.protocol}//${url.host}/file-upload`;
 
     if (badPUT) {
       putURL = `${putURL}/${status}`;
