@@ -45,6 +45,7 @@ const expectedStats = {
 describe("Generating rollup stats", () => {
   let stats: Output;
   const rollupPath = path.resolve(__dirname, "../../test-apps/rollup");
+
   describe("using dryRun option", () => {
     beforeAll(async () => {
       await rollup({
