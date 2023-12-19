@@ -21,7 +21,7 @@ interface CodecovUnpluginFactoryOptions {
   bundleAnalysisUploadPlugin: BundleAnalysisUploadPlugin;
 }
 
-export function codecovUnpluginFactory({
+function codecovUnpluginFactory({
   bundleAnalysisUploadPlugin,
 }: CodecovUnpluginFactoryOptions) {
   return createUnplugin<Options, true>((userOptions, unpluginMetaContext) => {
@@ -47,6 +47,8 @@ export function codecovUnpluginFactory({
     return plugins;
   });
 }
+
+export { red, codecovUnpluginFactory };
 
 export type {
   BundleAnalysisUploadPlugin,

@@ -3,7 +3,7 @@ import { bundleAnalysisPluginFactory } from "../bundleAnalysisPluginFactory";
 describe("bundleAnalysisPluginFactory", () => {
   it("returns a build start function", () => {
     const plugin = bundleAnalysisPluginFactory({
-      userOptions: {},
+      userOptions: { bundleName: "test" },
       bundleAnalysisUploadPlugin: () => ({
         version: "1",
         name: "plugin-name",
@@ -16,7 +16,7 @@ describe("bundleAnalysisPluginFactory", () => {
 
   it("returns a build end function", () => {
     const plugin = bundleAnalysisPluginFactory({
-      userOptions: {},
+      userOptions: { bundleName: "test" },
       bundleAnalysisUploadPlugin: () => ({
         version: "1",
         name: "plugin-name",
@@ -29,7 +29,7 @@ describe("bundleAnalysisPluginFactory", () => {
 
   it("returns a write bundle function", () => {
     const plugin = bundleAnalysisPluginFactory({
-      userOptions: {},
+      userOptions: { bundleName: "test" },
       bundleAnalysisUploadPlugin: () => ({
         version: "1",
         name: "plugin-name",

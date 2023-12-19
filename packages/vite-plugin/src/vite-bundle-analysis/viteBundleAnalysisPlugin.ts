@@ -4,6 +4,7 @@ import {
   type Chunk,
   type Module,
   type BundleAnalysisUploadPlugin,
+  red,
 } from "@codecov/bundler-plugin-core";
 
 const PLUGIN_NAME = "codecov-vite-bundle-analysis-plugin";
@@ -17,6 +18,20 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
   pluginVersion: "1.0.0",
   vite: {
     generateBundle(this, options, bundle) {
+      // don't need to do anything if the bundle name is not present or empty
+      if (!userOptions.bundleName || userOptions.bundleName === "") {
+        red("Bundle name is not present or empty. Skipping upload.");
+        return;
+      }
+
+      // append bundle output format to bundle name
+      output.bundleName = `${userOptions.bundleName}-${options.format}`;
+
+      // add in bundle name if present
+      if (options.name && options.name !== "") {
+        output.bundleName = `${userOptions.bundleName}-${options.name}`;
+      }
+
       const customOptions = {
         moduleOriginalSize: false,
         ...options,
