@@ -61,10 +61,8 @@ const tests: Test[] = [
 ];
 
 describe("normalizePath", () => {
-  tests.forEach((test) => {
-    it(test.name, () => {
-      const expectation = normalizePath(test.input.path, test.input.format);
-      expect(expectation).toEqual(test.expected);
-    });
+  it.each(tests)("$name", ({ input, expected }) => {
+    const expectation = normalizePath(input.path, input.format);
+    expect(expectation).toEqual(expected);
   });
 });
