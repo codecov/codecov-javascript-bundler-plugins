@@ -4,39 +4,54 @@ const POTENTIAL_HASHES = [
   "[contenthash]",
   "[fullhash]",
   "[chunkhash]",
-  "[contenthash]",
 ];
 
+const escapeRegex = (string: string): string =>
+  string.replace(/[|\\{}()[\]^$+*?.]/g, "\\$&").replace(/-/g, "\\x2d");
+
+interface HashMatch {
+  hashString: string;
+  hashIndex: number;
+}
+
 export const normalizePath = (path: string, format: string): string => {
-  let hashString = "";
-  let hashIndex = NaN;
-  POTENTIAL_HASHES.forEach((hash) => {
+  // grab all potential hashes in the format string
+  const matches: HashMatch[] = [];
+  for (const hash of POTENTIAL_HASHES) {
     const index = format.indexOf(hash);
     if (index !== -1) {
-      hashIndex = index;
-      hashString = hash;
+      matches.push({ hashString: hash, hashIndex: index });
     }
-  });
-
-  // if there's no hash in the format, then we can assume that the path is
-  // is safe to return
-  if (isNaN(hashIndex)) {
-    return path;
   }
 
-  const leadingDelimiter = format.at(hashIndex - 1);
-  const endingDelimiter = format.at(hashIndex + hashString.length);
-  const regexString = `((?<leadingDelimiter>\\${leadingDelimiter})(?<hash>[0-9a-f]+)(?<endingDelimiter>\\${endingDelimiter}))`;
-  const HASH_REPLACE_REGEX = new RegExp(regexString, "i");
+  let normalizedPath = path;
+  // loop through all the matches and replace the hash with a wildcard
+  for (const match of matches) {
+    // grab the leading delimiter and create a regex group for it
+    const leadingDelimiter = format.at(match.hashIndex - 1) ?? "";
+    const leadingRegex = `(?<leadingDelimiter>${escapeRegex(
+      leadingDelimiter,
+    )})`;
 
-  const normalizedPath = path.replace(
-    HASH_REPLACE_REGEX,
-    "$<leadingDelimiter>*$<endingDelimiter>",
-  );
+    // grab the ending delimiter and create a regex group for it
+    const endingDelimiter =
+      format.at(match.hashIndex + match.hashString.length) ?? "";
+    const endingRegex = `(?<endingDelimiter>${escapeRegex(endingDelimiter)})`;
+
+    // create a regex that will match the hash
+    const regexString = `(${leadingRegex}(?<hash>[0-9a-f]+)${endingRegex})`;
+    const HASH_REPLACE_REGEX = new RegExp(regexString, "i");
+
+    // replace the hash with a wildcard and the delimiters
+    normalizedPath = normalizedPath.replace(
+      HASH_REPLACE_REGEX,
+      "$<leadingDelimiter>*$<endingDelimiter>",
+    );
+  }
 
   // if the path is the same as the normalized path, and the path contains a
   // hash, then we can assume that something went wrong and we should just
-  // replace the hash with a wildcard
+  // replace/brute force the hash with a wildcard
   if (normalizedPath === path && HASH_REGEX.test(normalizedPath)) {
     return normalizedPath.replace(HASH_REGEX, "*");
   }
