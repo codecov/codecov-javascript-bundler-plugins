@@ -19,6 +19,6 @@ export default defineConfig({
     resolve(), // tells Rollup how to find date-fns in node_modules
     commonjs(), // converts date-fns to ES modules
     production && terser(), // minify, but only in production
-    codecovRollupPlugin({ enableBundleAnalysis: true }),
+    codecovRollupPlugin({ enableBundleAnalysis: true, dryRun: true }),
   ],
 });

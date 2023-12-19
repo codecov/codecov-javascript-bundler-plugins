@@ -11,6 +11,7 @@ module.exports = {
   plugins: [
     codecovWebpackPlugin({
       enableBundleAnalysis: true,
+      dryRun: true,
     }),
   ],
 };

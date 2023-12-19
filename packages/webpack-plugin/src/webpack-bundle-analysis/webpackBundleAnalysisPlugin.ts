@@ -1,8 +1,10 @@
 import {
-  type BundleAnalysisUploadPlugin,
   red,
+  normalizePath,
+  type BundleAnalysisUploadPlugin,
 } from "@codecov/bundler-plugin-core";
 import * as webpack4or5 from "webpack";
+import { findFilenameFormat } from "./findFileFormat";
 
 const PLUGIN_NAME = "codecov-webpack-bundle-analysis-plugin";
 
@@ -48,13 +50,39 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
             version: webpack4or5.version,
           };
 
+          const outputOptions = compilation.outputOptions;
           const { assets, chunks, modules } = compilationStats;
 
           if (assets) {
             output.assets = assets.map((asset) => {
+              const format = findFilenameFormat({
+                assetName: asset.name,
+                filename:
+                  typeof outputOptions.filename === "string"
+                    ? outputOptions.filename
+                    : "",
+                assetModuleFilename:
+                  typeof outputOptions.assetModuleFilename === "string"
+                    ? outputOptions.assetModuleFilename
+                    : "",
+                chunkFilename:
+                  typeof outputOptions.chunkFilename === "string"
+                    ? outputOptions.chunkFilename
+                    : "",
+                cssFilename:
+                  typeof outputOptions.cssFilename === "string"
+                    ? outputOptions.cssFilename
+                    : "",
+                cssChunkFilename:
+                  typeof outputOptions.chunkFilename === "string"
+                    ? outputOptions.chunkFilename
+                    : "",
+              });
+
               return {
                 name: asset.name,
                 size: asset.size,
+                normalized: normalizePath(asset.name, format),
               };
             });
           }
@@ -96,7 +124,6 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
               return {
                 name: module.name ?? "",
                 size: module.size ?? 0,
-                chunks: module.chunks ?? [],
                 chunkUniqueIds: chunkUniqueIds,
               };
             });

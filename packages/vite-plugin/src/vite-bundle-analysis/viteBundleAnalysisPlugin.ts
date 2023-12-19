@@ -1,5 +1,6 @@
 import path from "node:path";
 import {
+  normalizePath,
   type Asset,
   type Chunk,
   type Module,
@@ -32,17 +33,25 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
         output.bundleName = `${userOptions.bundleName}-${options.name}`;
       }
 
+      const cwd = process.cwd();
+      const assets: Asset[] = [];
+      const chunks: Chunk[] = [];
+      const moduleByFileName = new Map<string, Module>();
+      const items = Object.values(bundle);
       const customOptions = {
         moduleOriginalSize: false,
         ...options,
       };
 
-      const assets: Asset[] = [];
-      const chunks: Chunk[] = [];
-      const moduleByFileName = new Map<string, Module>();
-      const items = Object.values(bundle);
+      let assetFormatString = "";
+      if (typeof customOptions.assetFileNames === "string") {
+        assetFormatString = customOptions.assetFileNames;
+      }
 
-      const cwd = process.cwd();
+      let chunkFormatString = "";
+      if (typeof customOptions.chunkFileNames === "string") {
+        chunkFormatString = customOptions.chunkFileNames;
+      }
 
       let counter = 0;
       for (const item of items) {
@@ -54,6 +63,7 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
             assets.push({
               name: fileName,
               size: size,
+              normalized: normalizePath(fileName, assetFormatString),
             });
           } else {
             const fileName = item?.fileName ?? "";
@@ -62,6 +72,7 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
             assets.push({
               name: fileName,
               size: size,
+              normalized: normalizePath(fileName, assetFormatString),
             });
           }
         }
@@ -76,6 +87,7 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
           assets.push({
             name: fileName,
             size: size,
+            normalized: normalizePath(fileName, chunkFormatString),
           });
 
           chunks.push({
@@ -83,7 +95,7 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
             uniqueId: uniqueId,
             entry: item?.isEntry,
             initial: item?.isDynamicEntry,
-            files: [item?.fileName],
+            files: [fileName],
             names: [item?.name],
           });
 
@@ -105,17 +117,15 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
             // if the modules exists append chunk ids to the grabbed module
             // else create a new module and create a new entry in the map
             if (moduleEntry) {
-              moduleEntry.chunks.push(chunkId);
               moduleEntry.chunkUniqueIds.push(uniqueId);
             } else {
               const size = customOptions.moduleOriginalSize
                 ? moduleInfo.originalLength
                 : moduleInfo.renderedLength;
 
-              const module = {
+              const module: Module = {
                 name: relativeModulePathWithPrefix,
                 size: size,
-                chunks: [chunkId],
                 chunkUniqueIds: [uniqueId],
               };
 

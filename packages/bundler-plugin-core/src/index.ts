@@ -11,8 +11,8 @@ import {
   type UploadOverrides,
   type Output,
 } from "./types.ts";
-
 import { red } from "./utils/logging.ts";
+import { normalizePath } from "./utils/normalizePath.ts";
 import { bundleAnalysisPluginFactory } from "./bundle-analysis/bundleAnalysisPluginFactory.ts";
 
 const NODE_VERSION_RANGE = ">=18.18.0";
@@ -48,8 +48,6 @@ function codecovUnpluginFactory({
   });
 }
 
-export { red, codecovUnpluginFactory };
-
 export type {
   BundleAnalysisUploadPlugin,
   Asset,
@@ -60,3 +58,5 @@ export type {
   UploadOverrides,
   Output,
 };
+
+export { normalizePath, codecovUnpluginFactory, red };
