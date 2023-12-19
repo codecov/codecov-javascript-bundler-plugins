@@ -1,35 +1,70 @@
 import { normalizePath } from "../normalizePath";
 
+interface Test {
+  name: string;
+  input: {
+    path: string;
+    format: string;
+  };
+  expected: string;
+}
+
+const tests: Test[] = [
+  {
+    name: "should replace '[hash]' with '*'",
+    input: {
+      path: "test.123.chunk.js",
+      format: "[name].[hash].chunk.js",
+    },
+    expected: "test.*.chunk.js",
+  },
+  {
+    name: "should replace '[contenthash]' with '*'",
+    input: {
+      path: "test.123.chunk.js",
+      format: "[name].[contenthash].chunk.js",
+    },
+    expected: "test.*.chunk.js",
+  },
+  {
+    name: "should replace '[fullhash]' with '*'",
+    input: {
+      path: "test.123.chunk.js",
+      format: "[name].[fullhash].chunk.js",
+    },
+    expected: "test.*.chunk.js",
+  },
+  {
+    name: "should replace '[chunkhash]' with '*'",
+    input: {
+      path: "test.123.chunk.js",
+      format: "[name].[chunkhash].chunk.js",
+    },
+    expected: "test.*.chunk.js",
+  },
+  {
+    name: "should replace multiple hash format occurrences '*'",
+    input: {
+      path: "test.123.456.chunk.js",
+      format: "[name].[hash].[chunkhash].chunk.js",
+    },
+    expected: "test.*.*.chunk.js",
+  },
+  {
+    name: "should brute force wildcard if no hash format is found",
+    input: {
+      path: "test.12345678.chunk.js",
+      format: "[name].chunk.js",
+    },
+    expected: "test.*.chunk.js",
+  },
+];
+
 describe("normalizePath", () => {
-  describe("when the format contains a hash", () => {
-    describe("normalizedPath has hash replaced with wildcard", () => {
-      it("returns the normalized path", () => {
-        const result = normalizePath(
-          "test.123.chunk.js",
-          "[name].[hash].chunk.js",
-        );
-
-        expect(result).toEqual("test.*.chunk.js");
-      });
-    });
-
-    describe("normalizedPath doe not have hash replaced with wildcard", () => {
-      it("returns the normalized path", () => {
-        const result = normalizePath(
-          "test.12345678.chunk.js",
-          "[name]-[hash].chunk.js",
-        );
-
-        expect(result).toEqual("test.*.chunk.js");
-      });
-    });
-  });
-
-  describe("when the format does not contain any hash", () => {
-    it("returns the passed path", () => {
-      const result = normalizePath("test.js", "[name].js");
-
-      expect(result).toEqual("test.js");
+  tests.forEach((test) => {
+    it(test.name, () => {
+      const expectation = normalizePath(test.input.path, test.input.format);
+      expect(expectation).toEqual(test.expected);
     });
   });
 });
