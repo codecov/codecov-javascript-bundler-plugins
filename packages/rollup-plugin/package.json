@@ -4,6 +4,12 @@
   "description": "Official Codecov Rollup plugin",
   "author": "Codecov",
   "license": "MIT",
+  "keywords": [
+    "Codecov",
+    "Rollup",
+    "bundler",
+    "plugin"
+  ],
   "type": "module",
   "exports": {
     ".": {
@@ -49,6 +55,9 @@
     "ts-node": "^10.9.1",
     "typescript": "^5.3.2",
     "unbuild": "^2.0.0"
+  },
+  "peerDependencies": {
+    "rollup": "^3.0 || ^4.0"
   },
   "volta": {
     "extends": "../../package.json"
