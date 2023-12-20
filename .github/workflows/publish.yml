@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - '**/CHANGELOG.md'
+      - "**/CHANGELOG.md"
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
@@ -25,7 +25,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version-file: 'package.json'
+          node-version-file: "package.json"
 
       - name: Setup pnpm & install dependencies
         uses: pnpm/action-setup@v2
