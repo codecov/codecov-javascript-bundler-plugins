@@ -4,8 +4,7 @@
   "description": "Codecov Bundler Plugins Monorepo",
   "private": true,
   "workspaces": [
-    "packages/*",
-    "integration-tests"
+    "packages/*"
   ],
   "scripts": {
     "build": "pnpm -r --filter='./packages/*' run build",
@@ -19,9 +18,13 @@
     "test:unit": "pnpm -r --filter='./packages/*' run test:unit",
     "test:unit:ci": "pnpm -r --filter='./packages/*' run test:unit:ci",
     "test:e2e": "pnpm -r --filter='./integration-tests' run test:e2e",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "changeset:add": "pnpm changeset",
+    "changeset:consume": "pnpm changeset version",
+    "changeset:publish": "pnpm changeset publish"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.27.1",
     "@total-typescript/ts-reset": "^0.5.1",
     "@types/eslint": "^8.44.7",
     "@types/node": "^20.10.0",
