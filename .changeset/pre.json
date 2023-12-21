@@ -1,11 +1,11 @@
 {
   "mode": "pre",
-  "tag": "next",
+  "tag": "alpha",
   "initialVersions": {
-    "@codecov/bundler-plugin-core": "0.0.1-alpha",
-    "@codecov/rollup-plugin": "0.0.1-alpha",
-    "@codecov/vite-plugin": "0.0.1-alpha",
-    "@codecov/webpack-plugin": "0.0.1-alpha"
+    "@codecov/bundler-plugin-core": "0.0.1",
+    "@codecov/rollup-plugin": "0.0.1",
+    "@codecov/vite-plugin": "0.0.1",
+    "@codecov/webpack-plugin": "0.0.1"
   },
   "changesets": []
 }
