@@ -30,6 +30,7 @@ jobs:
       - name: Setup pnpm & install dependencies
         uses: pnpm/action-setup@v2
         with:
+          version: 8
           run_install: true
 
       - name: Publish to NPM
