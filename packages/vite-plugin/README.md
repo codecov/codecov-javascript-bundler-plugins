@@ -25,7 +25,7 @@ Using yarn:
 yarn add @codecov/vite-plugin --dev
 ```
 
-Using pnpm
+Using pnpm:
 
 ```bash
 pnpm add @codecov/vite-plugin --save-dev
