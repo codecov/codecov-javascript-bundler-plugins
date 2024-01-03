@@ -3,9 +3,12 @@ import {
   normalizePath,
   type BundleAnalysisUploadPlugin,
 } from "@codecov/bundler-plugin-core";
-import * as webpackV5 from "webpackV5";
 
 import { findFilenameFormat } from "./findFileFormat";
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore webpack is a peer dep
+import * as webpackV5 from "webpackV5";
 
 const PLUGIN_NAME = "codecov-webpack-bundle-analysis-plugin";
 
