@@ -245,7 +245,7 @@ jobs:
         run: pnpm run build
 
       - name: Run unit tests
-        run: pnpm run test:e2e
+        run: pnpm run test:e2e --maxWorkers=2
 
 
 #   fossa:

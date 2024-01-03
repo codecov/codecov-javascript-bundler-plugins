@@ -6,7 +6,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "test:e2e": "NODE_OPTIONS=--experimental-vm-modules jest --runInBand --no-cache",
+    "test:e2e": "NODE_OPTIONS=--experimental-vm-modules jest",
     "type-check": "tsc --noEmit",
     "clean": "rm -rf node_modules",
     "lint": "eslint . --ext .ts,.tsx",
