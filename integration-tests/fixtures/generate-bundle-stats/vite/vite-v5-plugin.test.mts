@@ -3,15 +3,15 @@
 import path from "path";
 import fs from "fs";
 import { type Output } from "@codecov/bundler-plugin-core";
-import { build as viteV4 } from "viteV4";
+import * as viteV5 from "viteV5";
 import { codecovVitePlugin } from "@codecov/vite-plugin";
 
-const expectedV4Stats = {
+const expectedV5Stats = {
   version: "1",
   plugin: { name: "codecov-vite-bundle-analysis-plugin", version: "1.0.0" },
   builtAt: 1701788687217,
   duration: 7,
-  bundler: { name: "rollup", version: "3.29.4" },
+  bundler: { name: "rollup", version: "4.6.0" },
   assets: [{ name: "main-Kc6Ge1DG.js", size: 216 }],
   chunks: [
     {
@@ -40,19 +40,19 @@ const expectedV4Stats = {
 };
 
 describe("Generating vite stats", () => {
-  describe("version 4", () => {
+  describe("version 5", () => {
     let stats: Output;
     const vitePath = path.resolve(__dirname, "../../../test-apps/vite");
     beforeAll(async () => {
-      await viteV4({
+      await viteV5.build({
         clearScreen: false,
         root: vitePath,
         build: {
-          outDir: "distV4",
+          outDir: "distV5",
           rollupOptions: {
             input: `${vitePath}/index.html`,
             output: {
-              format: "cjs",
+              format: "esm",
             },
           },
         },
@@ -67,7 +67,7 @@ describe("Generating vite stats", () => {
 
       const statsFilePath = path.resolve(
         vitePath,
-        "distV4/codecov-bundle-stats.json",
+        "distV5/codecov-bundle-stats.json",
       );
 
       const statsData = fs.readFileSync(statsFilePath);
@@ -76,26 +76,26 @@ describe("Generating vite stats", () => {
 
     afterAll(() => {
       fs.rm(
-        path.resolve(vitePath, "distV4"),
+        path.resolve(vitePath, "distV5"),
         { recursive: true, force: true },
         () => null,
       );
     });
 
     it("sets the correct version", () => {
-      expect(stats.version).toStrictEqual(expectedV4Stats.version);
+      expect(stats.version).toStrictEqual(expectedV5Stats.version);
     });
 
     it("sets the correct plugin information", () => {
-      expect(stats.plugin).toStrictEqual(expectedV4Stats.plugin);
+      expect(stats.plugin).toStrictEqual(expectedV5Stats.plugin);
     });
 
     it("sets the correct bundler information", () => {
-      expect(stats.bundler).toStrictEqual(expectedV4Stats.bundler);
+      expect(stats.bundler).toStrictEqual(expectedV5Stats.bundler);
     });
 
     it("sets the correct bundle name", () => {
-      expect(stats.bundleName).toStrictEqual("vite-test-cjs");
+      expect(stats.bundleName).toStrictEqual("vite-test-es");
     });
   });
 });
