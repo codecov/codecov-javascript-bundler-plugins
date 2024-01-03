@@ -25,7 +25,7 @@ Using yarn:
 yarn add @codecov/webpack-plugin --dev
 ```
 
-Using pnpm
+Using pnpm:
 
 ```bash
 pnpm add @codecov/webpack-plugin --save-dev

@@ -25,7 +25,7 @@ Using yarn:
 yarn add @codecov/rollup-plugin --dev
 ```
 
-Using pnpm
+Using pnpm:
 
 ```bash
 pnpm add @codecov/rollup-plugin --save-dev
