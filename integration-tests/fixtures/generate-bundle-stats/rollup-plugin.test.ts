@@ -3,13 +3,47 @@
 import path from "path";
 import fs from "fs";
 import { type Output } from "@codecov/bundler-plugin-core";
-import { rollup } from "rollup";
+import { rollup as rollupV3 } from "rollupV3";
+import { rollup as rollupV4 } from "rollupV4";
 // @ts-expect-error - no types
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import { codecovRollupPlugin } from "@codecov/rollup-plugin";
 
-const expectedStats = {
+const expectedV3Stats = {
+  version: "1",
+  plugin: { name: "codecov-rollup-bundle-analysis-plugin", version: "1.0.0" },
+  builtAt: 1701788687217,
+  duration: 7,
+  bundler: { name: "rollup", version: "3.29.4" },
+  assets: [{ name: "main-Kc6Ge1DG.js", size: 216 }],
+  chunks: [
+    {
+      id: "main",
+      uniqueId: "0-main",
+      entry: true,
+      initial: false,
+      files: ["main-Kc6Ge1DG.js"],
+      names: ["main"],
+    },
+  ],
+  modules: [
+    {
+      name: "./src/getRandomNumber.js",
+      size: 98,
+      chunks: ["main"],
+      chunkUniqueIds: ["0-main"],
+    },
+    {
+      name: "./src/main.js",
+      size: 115,
+      chunks: ["main"],
+      chunkUniqueIds: ["0-main"],
+    },
+  ],
+};
+
+const expectedV4Stats = {
   version: "1",
   plugin: { name: "codecov-rollup-bundle-analysis-plugin", version: "1.0.0" },
   builtAt: 1701788687217,
@@ -43,58 +77,117 @@ const expectedStats = {
 };
 
 describe("Generating rollup stats", () => {
-  let stats: Output;
-  const rollupPath = path.resolve(__dirname, "../../test-apps/rollup");
-  beforeAll(async () => {
-    await rollup({
-      input: `${rollupPath}/src/main.js`,
-      plugins: [
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-        resolve(),
-        commonjs(),
-        codecovRollupPlugin({
-          enableBundleAnalysis: true,
-          dryRun: true,
-          bundleName: "rollup-test",
+  describe("version 3", () => {
+    let stats: Output;
+    const rollupPath = path.resolve(__dirname, "../../test-apps/rollup");
+    beforeAll(async () => {
+      await rollupV3({
+        input: `${rollupPath}/src/main.js`,
+        plugins: [
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+          resolve(),
+          commonjs(),
+          codecovRollupPlugin({
+            enableBundleAnalysis: true,
+            dryRun: true,
+            bundleName: "rollup-test",
+          }),
+        ],
+      }).then((bundle) =>
+        bundle.write({
+          dir: `${rollupPath}/dist`,
+          entryFileNames: "[name]-[hash].js",
         }),
-      ],
-    }).then((bundle) =>
-      bundle.write({
-        dir: `${rollupPath}/dist`,
-        entryFileNames: "[name]-[hash].js",
-      }),
-    );
+      );
 
-    const statsFilePath = path.resolve(
-      rollupPath,
-      "dist/codecov-bundle-stats.json",
-    );
+      const statsFilePath = path.resolve(
+        rollupPath,
+        "dist/codecov-bundle-stats.json",
+      );
 
-    const statsData = fs.readFileSync(statsFilePath);
-    stats = JSON.parse(statsData.toString()) as Output;
+      const statsData = fs.readFileSync(statsFilePath);
+      stats = JSON.parse(statsData.toString()) as Output;
+    });
+
+    afterAll(() => {
+      fs.rm(
+        path.resolve(rollupPath, "dist"),
+        { recursive: true, force: true },
+        () => null,
+      );
+    });
+
+    it("sets the correct version", () => {
+      expect(stats.version).toStrictEqual(expectedV3Stats.version);
+    });
+
+    it("sets the correct plugin information", () => {
+      expect(stats.plugin).toStrictEqual(expectedV3Stats.plugin);
+    });
+
+    it("sets the correct bundler information", () => {
+      expect(stats.bundler).toStrictEqual(expectedV3Stats.bundler);
+    });
+
+    it("sets the correct bundle name", () => {
+      expect(stats.bundleName).toStrictEqual("rollup-test-es");
+    });
   });
 
-  afterAll(() => {
-    fs.rm(
-      path.resolve(rollupPath, "dist"),
-      { recursive: true, force: true },
-      () => null,
-    );
-  });
+  describe("version 4", () => {
+    let stats: Output;
+    const rollupPath = path.resolve(__dirname, "../../test-apps/rollup");
+    beforeAll(async () => {
+      await rollupV4({
+        input: `${rollupPath}/src/main.js`,
+        plugins: [
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+          resolve(),
+          commonjs(),
+          codecovRollupPlugin({
+            enableBundleAnalysis: true,
+            dryRun: true,
+            bundleName: "rollup-test",
+          }),
+        ],
+      }).then((bundle) =>
+        bundle.write({
+          dir: `${rollupPath}/dist`,
+          entryFileNames: "[name]-[hash].js",
+        }),
+      );
 
-  it("sets the correct version", () => {
-    expect(stats.version).toStrictEqual(expectedStats.version);
-  });
+      const statsFilePath = path.resolve(
+        rollupPath,
+        "dist/codecov-bundle-stats.json",
+      );
 
-  it("sets the correct plugin information", () => {
-    expect(stats.plugin).toStrictEqual(expectedStats.plugin);
-  });
+      const statsData = fs.readFileSync(statsFilePath);
+      stats = JSON.parse(statsData.toString()) as Output;
+    });
 
-  it("sets the correct bundler information", () => {
-    expect(stats.bundler).toStrictEqual(expectedStats.bundler);
-  });
+    afterAll(() => {
+      fs.rm(
+        path.resolve(rollupPath, "dist"),
+        { recursive: true, force: true },
+        () => null,
+      );
+    });
 
-  it("sets the correct bundle name", () => {
-    expect(stats.bundleName).toStrictEqual("rollup-test-es");
+    it("sets the correct version", () => {
+      expect(stats.version).toStrictEqual(expectedV4Stats.version);
+    });
+
+    it("sets the correct plugin information", () => {
+      expect(stats.plugin).toStrictEqual(expectedV4Stats.plugin);
+    });
+
+    it("sets the correct bundler information", () => {
+      expect(stats.bundler).toStrictEqual(expectedV4Stats.bundler);
+    });
+
+    it("sets the correct bundle name", () => {
+      expect(stats.bundleName).toStrictEqual("rollup-test-es");
+    });
   });
 });
