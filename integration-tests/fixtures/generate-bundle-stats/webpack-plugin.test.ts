@@ -3,10 +3,10 @@
 import path from "path";
 import fs from "fs";
 import { type Output } from "@codecov/bundler-plugin-core";
-import { webpack } from "webpack";
+import { webpack as webpackV5 } from "webpackV5";
 import { codecovWebpackPlugin } from "@codecov/webpack-plugin";
 
-const expectedStats = {
+const expectedV5Stats = {
   version: "1",
   plugin: { name: "codecov-webpack-bundle-analysis-plugin", version: "1.0.0" },
   builtAt: 1701788687217,
@@ -40,67 +40,69 @@ const expectedStats = {
 };
 
 describe("Generating webpack stats", () => {
-  let stats: Output;
-  const webpackPath = path.resolve(__dirname, "../../test-apps/webpack");
-  beforeAll(async () => {
-    await new Promise<void>((resolve) => {
-      webpack(
-        {
-          cache: false,
-          entry: `${webpackPath}/src/main.js`,
-          output: {
-            path: `${webpackPath}/dist`,
-            filename: "main-[hash].js",
+  describe("version 5", () => {
+    let stats: Output;
+    const webpackPath = path.resolve(__dirname, "../../test-apps/webpack");
+    beforeAll(async () => {
+      await new Promise<void>((resolve) => {
+        webpackV5(
+          {
+            cache: false,
+            entry: `${webpackPath}/src/main.js`,
+            output: {
+              path: `${webpackPath}/dist`,
+              filename: "main-[hash].js",
+            },
+            mode: "production",
+            plugins: [
+              codecovWebpackPlugin({
+                enableBundleAnalysis: true,
+                dryRun: true,
+                bundleName: "webpack-test",
+              }),
+            ],
           },
-          mode: "production",
-          plugins: [
-            codecovWebpackPlugin({
-              enableBundleAnalysis: true,
-              dryRun: true,
-              bundleName: "webpack-test",
-            }),
-          ],
-        },
-        (err) => {
-          if (err) {
-            throw err;
-          }
+          (err) => {
+            if (err) {
+              throw err;
+            }
 
-          resolve();
-        },
+            resolve();
+          },
+        );
+      });
+
+      const statsFilePath = path.resolve(
+        webpackPath,
+        "dist/codecov-bundle-stats.json",
+      );
+
+      const statsData = fs.readFileSync(statsFilePath);
+      stats = JSON.parse(statsData.toString()) as Output;
+    });
+
+    afterAll(() => {
+      fs.rm(
+        path.resolve(webpackPath, "dist"),
+        { recursive: true, force: true },
+        () => null,
       );
     });
 
-    const statsFilePath = path.resolve(
-      webpackPath,
-      "dist/codecov-bundle-stats.json",
-    );
+    it("sets the correct version", () => {
+      expect(stats.version).toStrictEqual(expectedV5Stats.version);
+    });
 
-    const statsData = fs.readFileSync(statsFilePath);
-    stats = JSON.parse(statsData.toString()) as Output;
-  });
+    it("sets the correct plugin information", () => {
+      expect(stats.plugin).toStrictEqual(expectedV5Stats.plugin);
+    });
 
-  afterAll(() => {
-    fs.rm(
-      path.resolve(webpackPath, "dist"),
-      { recursive: true, force: true },
-      () => null,
-    );
-  });
+    it("sets the correct bundler information", () => {
+      expect(stats.bundler).toStrictEqual(expectedV5Stats.bundler);
+    });
 
-  it("sets the correct version", () => {
-    expect(stats.version).toStrictEqual(expectedStats.version);
-  });
-
-  it("sets the correct plugin information", () => {
-    expect(stats.plugin).toStrictEqual(expectedStats.plugin);
-  });
-
-  it("sets the correct bundler information", () => {
-    expect(stats.bundler).toStrictEqual(expectedStats.bundler);
-  });
-
-  it("sets the correct bundle name", () => {
-    expect(stats.bundleName).toStrictEqual("webpack-test-array-push");
+    it("sets the correct bundle name", () => {
+      expect(stats.bundleName).toStrictEqual("webpack-test-array-push");
+    });
   });
 });
