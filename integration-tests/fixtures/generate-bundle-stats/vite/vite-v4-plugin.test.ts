@@ -3,15 +3,15 @@
 import path from "path";
 import fs from "fs";
 import { type Output } from "@codecov/bundler-plugin-core";
-import { webpack as webpackV5 } from "webpackV5";
-import { codecovWebpackPlugin } from "@codecov/webpack-plugin";
+import { build as viteV4 } from "viteV4";
+import { codecovVitePlugin } from "@codecov/vite-plugin";
 
-const expectedV5Stats = {
+const expectedV4Stats = {
   version: "1",
-  plugin: { name: "codecov-webpack-bundle-analysis-plugin", version: "1.0.0" },
+  plugin: { name: "codecov-vite-bundle-analysis-plugin", version: "1.0.0" },
   builtAt: 1701788687217,
   duration: 7,
-  bundler: { name: "webpack", version: "5.89.0" },
+  bundler: { name: "rollup", version: "3.29.4" },
   assets: [{ name: "main-Kc6Ge1DG.js", size: 216 }],
   chunks: [
     {
@@ -39,42 +39,35 @@ const expectedV5Stats = {
   ],
 };
 
-describe("Generating webpack stats", () => {
-  describe("version 5", () => {
+describe("Generating vite stats", () => {
+  describe("version 4", () => {
     let stats: Output;
-    const webpackPath = path.resolve(__dirname, "../../test-apps/webpack");
+    const vitePath = path.resolve(__dirname, "../../../test-apps/vite");
     beforeAll(async () => {
-      await new Promise<void>((resolve) => {
-        webpackV5(
-          {
-            cache: false,
-            entry: `${webpackPath}/src/main.js`,
+      await viteV4({
+        clearScreen: false,
+        root: vitePath,
+        build: {
+          outDir: "distV4",
+          rollupOptions: {
+            input: `${vitePath}/index.html`,
             output: {
-              path: `${webpackPath}/dist`,
-              filename: "main-[contenthash].js",
+              format: "cjs",
             },
-            mode: "production",
-            plugins: [
-              codecovWebpackPlugin({
-                enableBundleAnalysis: true,
-                dryRun: true,
-                bundleName: "webpack-test",
-              }),
-            ],
           },
-          (err) => {
-            if (err) {
-              throw err;
-            }
-
-            resolve();
-          },
-        );
+        },
+        plugins: [
+          codecovVitePlugin({
+            enableBundleAnalysis: true,
+            dryRun: true,
+            bundleName: "vite-test",
+          }),
+        ],
       });
 
       const statsFilePath = path.resolve(
-        webpackPath,
-        "dist/codecov-bundle-stats.json",
+        vitePath,
+        "distV4/codecov-bundle-stats.json",
       );
 
       const statsData = fs.readFileSync(statsFilePath);
@@ -83,26 +76,26 @@ describe("Generating webpack stats", () => {
 
     afterAll(() => {
       fs.rm(
-        path.resolve(webpackPath, "dist"),
+        path.resolve(vitePath, "distV4"),
         { recursive: true, force: true },
         () => null,
       );
     });
 
     it("sets the correct version", () => {
-      expect(stats.version).toStrictEqual(expectedV5Stats.version);
+      expect(stats.version).toStrictEqual(expectedV4Stats.version);
     });
 
     it("sets the correct plugin information", () => {
-      expect(stats.plugin).toStrictEqual(expectedV5Stats.plugin);
+      expect(stats.plugin).toStrictEqual(expectedV4Stats.plugin);
     });
 
     it("sets the correct bundler information", () => {
-      expect(stats.bundler).toStrictEqual(expectedV5Stats.bundler);
+      expect(stats.bundler).toStrictEqual(expectedV4Stats.bundler);
     });
 
     it("sets the correct bundle name", () => {
-      expect(stats.bundleName).toStrictEqual("webpack-test-array-push");
+      expect(stats.bundleName).toStrictEqual("vite-test-cjs");
     });
   });
 });
