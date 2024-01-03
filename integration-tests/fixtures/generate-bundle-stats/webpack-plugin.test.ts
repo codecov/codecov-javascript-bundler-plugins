@@ -51,7 +51,7 @@ describe("Generating webpack stats", () => {
             entry: `${webpackPath}/src/main.js`,
             output: {
               path: `${webpackPath}/dist`,
-              filename: "main-[hash].js",
+              filename: "main-[contenthash].js",
             },
             mode: "production",
             plugins: [
