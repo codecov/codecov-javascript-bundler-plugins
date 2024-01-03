@@ -6,7 +6,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "test:e2e": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "test:e2e": "NODE_OPTIONS=\"--experimental-vm-modules --trace-warnings\" jest --maxWorkers=2",
     "type-check": "tsc --noEmit",
     "clean": "rm -rf node_modules",
     "lint": "eslint . --ext .ts,.tsx",
@@ -37,6 +37,6 @@
     "webpackV5": "npm:webpack@5.89.0"
   },
   "volta": {
-    "extends": "../package.json"
+    "extends": "../../package.json"
   }
 }
