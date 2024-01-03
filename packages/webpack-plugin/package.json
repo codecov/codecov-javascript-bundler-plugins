@@ -42,8 +42,7 @@
     "test:unit:ci": "jest --coverage"
   },
   "dependencies": {
-    "@codecov/bundler-plugin-core": "workspace:^",
-    "webpack": "5.89.0"
+    "@codecov/bundler-plugin-core": "workspace:^"
   },
   "devDependencies": {
     "@swc/core": "^1.3.99",

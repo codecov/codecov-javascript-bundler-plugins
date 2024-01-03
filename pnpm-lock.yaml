@@ -382,7 +382,7 @@ importers:
         specifier: workspace:^
         version: link:../bundler-plugin-core
       webpack:
-        specifier: 5.89.0
+        specifier: ^5.0
         version: 5.89.0(@swc/core@1.3.99)
     devDependencies:
       '@swc/core':
