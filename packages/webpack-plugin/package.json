@@ -54,10 +54,11 @@
     "msw": "^2.0.9",
     "ts-node": "^10.9.1",
     "typescript": "^5.3.2",
-    "unbuild": "^2.0.0"
+    "unbuild": "^2.0.0",
+    "webpack": "^5.89.0"
   },
   "peerDependencies": {
-    "webpackV5": "npm:webpack@^5.0"
+    "webpack": "webpack@^5.0"
   },
   "volta": {
     "extends": "../../package.json"
