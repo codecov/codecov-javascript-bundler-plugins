@@ -5,4 +5,4 @@
 "@codecov/vite-plugin": patch
 ---
 
-Remove references to webpack 4
+Remove references to Webpack 4, as we currently on support Node 18+.
