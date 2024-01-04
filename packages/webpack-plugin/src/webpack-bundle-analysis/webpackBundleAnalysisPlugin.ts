@@ -3,7 +3,8 @@ import {
   normalizePath,
   type BundleAnalysisUploadPlugin,
 } from "@codecov/bundler-plugin-core";
-import * as webpack4or5 from "webpack";
+import * as webpack from "webpack";
+
 import { findFilenameFormat } from "./findFileFormat";
 
 const PLUGIN_NAME = "codecov-webpack-bundle-analysis-plugin";
@@ -20,7 +21,7 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
       compilation.hooks.processAssets.tap(
         {
           name: PLUGIN_NAME,
-          stage: webpack4or5.Compilation.PROCESS_ASSETS_STAGE_REPORT,
+          stage: webpack.Compilation.PROCESS_ASSETS_STAGE_REPORT,
         },
         () => {
           // don't need to do anything if the bundle name is not present or empty
@@ -47,7 +48,7 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
 
           output.bundler = {
             name: "webpack",
-            version: webpack4or5.version,
+            version: webpack.version,
           };
 
           const outputOptions = compilation.outputOptions;
@@ -131,7 +132,7 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
 
           // only output file if running dry run
           if (userOptions?.dryRun) {
-            const { RawSource } = webpack4or5.sources;
+            const { RawSource } = webpack.sources;
             compilation.emitAsset(
               "codecov-bundle-stats.json",
               new RawSource(JSON.stringify(output)),
