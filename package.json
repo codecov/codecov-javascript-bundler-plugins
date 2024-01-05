@@ -21,7 +21,7 @@
     "prepare": "husky install",
     "changeset:add": "pnpm changeset",
     "changeset:consume": "pnpm changeset version",
-    "changeset:publish": "pnpm changeset publish"
+    "changeset:publish": "pnpm run build && pnpm changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
