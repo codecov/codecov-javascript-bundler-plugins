@@ -85,7 +85,7 @@ export interface Options {
   enableBundleAnalysis?: boolean;
 
   /** Override values for passing custom information to API. */
-  uploaderOverrides?: UploadOverrides;
+  uploadOverrides?: UploadOverrides;
 
   /**
    * When enabled information will not be uploaded to Codecov.
@@ -130,7 +130,7 @@ export type ProviderEnvs = NodeJS.Dict<string>;
 
 export interface ProviderUtilInputs {
   envs: ProviderEnvs;
-  args: Options["uploaderOverrides"];
+  args: Options["uploadOverrides"];
 }
 
 export interface ProviderUtil {
