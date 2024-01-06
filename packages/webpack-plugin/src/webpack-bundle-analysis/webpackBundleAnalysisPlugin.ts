@@ -130,6 +130,8 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
             });
           }
 
+          output.duration = Date.now() - (output.builtAt ?? 0);
+
           // only output file if running dry run
           if (userOptions?.dryRun) {
             const { RawSource } = webpack.sources;
