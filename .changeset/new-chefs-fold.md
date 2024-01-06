@@ -5,4 +5,4 @@
 "@codecov/webpack-plugin": patch
 ---
 
-Rename uploaderOverrides to uploadOverrides
+Rename uploaderOverrides to uploadOverrides, and remove url from uploadOverrides.
