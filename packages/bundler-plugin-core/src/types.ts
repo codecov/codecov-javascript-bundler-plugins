@@ -54,14 +54,14 @@ export interface Options {
   /**
    * The upload token to use for uploading the bundle analysis information.
    *
-   * `globalUploadToken` and `repoName` must be set if this is not set.
+   * Mutually exclusive to using `repoToken`.
    */
   globalUploadToken?: string;
 
   /**
    * The upload token to use for uploading the bundle analysis information.
    *
-   * Mutually exclusive to using `globalUploadToken` and `repoName`.
+   * Mutually exclusive to using `globalUploadToken`.
    */
   repoToken?: string;
 
@@ -75,7 +75,7 @@ export interface Options {
   apiUrl?: string;
 
   /**
-   * The amount of times the upload function will retry.
+   * The amount of times the upload function will retry to upload bundle analysis information.
    *
    * Defaults to `3`
    */
@@ -122,8 +122,6 @@ export interface UploadOverrides {
   sha?: string;
   /** Specify the slug manually. */
   slug?: string;
-  /** Change the upload host (Enterprise use). */
-  url?: string;
 }
 
 export type ProviderEnvs = NodeJS.Dict<string>;
