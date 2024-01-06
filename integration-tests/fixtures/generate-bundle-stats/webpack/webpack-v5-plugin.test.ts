@@ -6,39 +6,6 @@ import { type Output } from "@codecov/bundler-plugin-core";
 import { webpack as webpackV5 } from "webpackV5";
 import { codecovWebpackPlugin } from "@codecov/webpack-plugin";
 
-const expectedV5Stats = {
-  version: "1",
-  plugin: { name: "codecov-webpack-bundle-analysis-plugin", version: "1.0.0" },
-  builtAt: 1701788687217,
-  duration: 7,
-  bundler: { name: "webpack", version: "5.89.0" },
-  assets: [{ name: "main-Kc6Ge1DG.js", size: 216 }],
-  chunks: [
-    {
-      id: "main",
-      uniqueId: "0-main",
-      entry: true,
-      initial: false,
-      files: ["main-Kc6Ge1DG.js"],
-      names: ["main"],
-    },
-  ],
-  modules: [
-    {
-      name: "./src/getRandomNumber.js",
-      size: 98,
-      chunks: ["main"],
-      chunkUniqueIds: ["0-main"],
-    },
-    {
-      name: "./src/main.js",
-      size: 115,
-      chunks: ["main"],
-      chunkUniqueIds: ["0-main"],
-    },
-  ],
-};
-
 describe("Generating webpack stats", () => {
   describe("version 5", () => {
     let stats: Output;
@@ -71,14 +38,6 @@ describe("Generating webpack stats", () => {
           },
         );
       });
-
-      const statsFilePath = path.resolve(
-        webpackPath,
-        "dist/codecov-bundle-stats.json",
-      );
-
-      const statsData = fs.readFileSync(statsFilePath);
-      stats = JSON.parse(statsData.toString()) as Output;
     });
 
     afterAll(() => {
@@ -89,20 +48,19 @@ describe("Generating webpack stats", () => {
       );
     });
 
-    it("sets the correct version", () => {
-      expect(stats.version).toStrictEqual(expectedV5Stats.version);
-    });
+    it("matches the snapshot", () => {
+      const statsFilePath = path.resolve(
+        webpackPath,
+        "dist/codecov-bundle-stats.json",
+      );
 
-    it("sets the correct plugin information", () => {
-      expect(stats.plugin).toStrictEqual(expectedV5Stats.plugin);
-    });
+      const statsData = fs.readFileSync(statsFilePath);
+      stats = JSON.parse(statsData.toString()) as Output;
 
-    it("sets the correct bundler information", () => {
-      expect(stats.bundler).toStrictEqual(expectedV5Stats.bundler);
-    });
-
-    it("sets the correct bundle name", () => {
-      expect(stats.bundleName).toStrictEqual("webpack-test-array-push");
+      expect(stats).toMatchSnapshot({
+        builtAt: expect.any(Number),
+        duration: expect.any(Number),
+      });
     });
   });
 });
