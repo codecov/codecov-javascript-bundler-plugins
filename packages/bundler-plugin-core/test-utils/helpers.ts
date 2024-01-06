@@ -31,6 +31,5 @@ export function createEmptyArgs(): UploadOverrides {
     pr: undefined,
     sha: undefined,
     slug: undefined,
-    url: undefined,
   };
 }

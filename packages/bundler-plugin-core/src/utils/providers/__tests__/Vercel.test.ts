@@ -69,7 +69,6 @@ describe("Vercel Params", () => {
         pr: "1",
         sha: "cool-commit-sha",
         slug: "testOrg/testRepo",
-        url: "cool-url.com",
       },
       envs: {
         VERCEL: "true",
