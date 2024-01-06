@@ -12,6 +12,7 @@ module.exports = {
     codecovWebpackPlugin({
       enableBundleAnalysis: true,
       dryRun: true,
+      bundleName: "webpack-example",
     }),
   ],
 };
