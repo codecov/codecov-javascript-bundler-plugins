@@ -50,7 +50,7 @@ export const bundleAnalysisPluginFactory = ({
       // don't need to do anything if the bundle name is not present or empty
       if (!userOptions.bundleName || userOptions.bundleName === "") return;
 
-      const args: UploadOverrides = userOptions.uploaderOverrides ?? {};
+      const args: UploadOverrides = userOptions.uploadOverrides ?? {};
       const envs = process.env;
       const inputs: ProviderUtilInputs = { envs, args };
       const provider = await detectProvider(inputs);
