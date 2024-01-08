@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Generating rollup stats version 4 matches the snapshot 1`] = `
+{
+  "assets": [
+    {
+      "name": "main--erNqm0D.js",
+      "normalized": "main--erNqm0D.js",
+      "size": 544589,
+    },
+  ],
+  "builtAt": Any<Number>,
+  "bundleName": "rollup-test-es",
+  "bundler": {
+    "name": "rollup",
+    "version": "4.6.0",
+  },
+  "chunks": [
+    {
+      "entry": true,
+      "files": [
+        "main--erNqm0D.js",
+      ],
+      "id": "main",
+      "initial": false,
+      "names": [
+        "main",
+      ],
+      "uniqueId": "0-main",
+    },
+  ],
+  "duration": Any<Number>,
+  "modules": [
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./commonjsHelpers.js",
+      "size": 315,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
+      "size": 544001,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./test-apps/rollup/src/getRandomNumber.js",
+      "size": 98,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./test-apps/rollup/src/main.js",
+      "size": 168,
+    },
+  ],
+  "plugin": {
+    "name": "codecov-rollup-bundle-analysis-plugin",
+    "version": "1.0.0",
+  },
+  "version": "1",
+}
+`;
