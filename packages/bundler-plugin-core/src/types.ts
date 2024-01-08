@@ -54,16 +54,11 @@ export interface Options {
   /**
    * The upload token to use for uploading the bundle analysis information.
    *
-   * Mutually exclusive to using `repoToken`.
+   * This value can either be an global upload token or a repo token.
+   * - The global upload token can be found under the organization settings page.
+   * - The repo token can be found under the repo settings page under the general tab.
    */
-  globalUploadToken?: string;
-
-  /**
-   * The upload token to use for uploading the bundle analysis information.
-   *
-   * Mutually exclusive to using `globalUploadToken`.
-   */
-  repoToken?: string;
+  uploadToken?: string;
 
   /**
    * The api url used to fetch the upload url.

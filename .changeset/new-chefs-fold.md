@@ -5,4 +5,4 @@
 "@codecov/webpack-plugin": patch
 ---
 
-Rename uploaderOverrides to uploadOverrides, and remove url from uploadOverrides.
+Rename uploaderOverrides to uploadOverrides, remove url from uploadOverrides, and removal of repoToken/globalUploadToken in favour of just uploadToken.

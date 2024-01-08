@@ -59,8 +59,7 @@ export const bundleAnalysisPluginFactory = ({
       try {
         url = await getPreSignedURL({
           apiURL: userOptions?.apiUrl ?? "https://api.codecov.io",
-          globalUploadToken: userOptions?.globalUploadToken,
-          repoToken: userOptions?.repoToken,
+          uploadToken: userOptions?.uploadToken,
           serviceParams: provider,
           retryCount: userOptions?.retryCount,
         });

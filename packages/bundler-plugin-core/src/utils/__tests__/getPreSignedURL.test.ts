@@ -53,7 +53,7 @@ describe("getPreSignedURL", () => {
 
   describe("successful request", () => {
     describe("when the initial response is successful", () => {
-      describe('"globalUploadToken" is provided and "repoToken" is', () => {
+      describe('"uploadToken" is provided', () => {
         it("returns the pre-signed URL", async () => {
           setup({
             data: { url: "http://example.com" },
@@ -61,44 +61,7 @@ describe("getPreSignedURL", () => {
 
           const url = await getPreSignedURL({
             apiURL: "http://localhost",
-            globalUploadToken: "super-cool-token",
-            repoToken: "super-repo-token",
-            serviceParams: {
-              commit: "123",
-            },
-          });
-
-          expect(url).toEqual("http://example.com");
-        });
-      });
-
-      describe('"globalUploadToken" is provided and "repoToken" is not', () => {
-        it("returns the pre-signed URL", async () => {
-          setup({
-            data: { url: "http://example.com" },
-          });
-
-          const url = await getPreSignedURL({
-            apiURL: "http://localhost",
-            globalUploadToken: "super-cool-token",
-            serviceParams: {
-              commit: "123",
-            },
-          });
-
-          expect(url).toEqual("http://example.com");
-        });
-      });
-
-      describe('"repoToken" is provided and "globalUploadToken" is not', () => {
-        it("returns the pre-signed URL", async () => {
-          setup({
-            data: { url: "http://example.com" },
-          });
-
-          const url = await getPreSignedURL({
-            apiURL: "http://localhost",
-            repoToken: "super-cool-token",
+            uploadToken: "super-cool-token",
             serviceParams: {
               commit: "123",
             },
@@ -149,7 +112,7 @@ describe("getPreSignedURL", () => {
         try {
           await getPreSignedURL({
             apiURL: "http://localhost",
-            globalUploadToken: "cool-upload-token",
+            uploadToken: "cool-upload-token",
             serviceParams: {
               commit: "123",
             },
@@ -174,7 +137,7 @@ describe("getPreSignedURL", () => {
         try {
           await getPreSignedURL({
             apiURL: "http://localhost",
-            globalUploadToken: "super-cool-token",
+            uploadToken: "super-cool-token",
             serviceParams: {
               commit: "123",
             },
@@ -209,7 +172,7 @@ describe("getPreSignedURL", () => {
         try {
           await getPreSignedURL({
             apiURL: "http://localhost",
-            globalUploadToken: "super-cool-token",
+            uploadToken: "super-cool-token",
             serviceParams: {
               commit: "123",
             },
@@ -234,7 +197,7 @@ describe("getPreSignedURL", () => {
         try {
           await getPreSignedURL({
             apiURL: "http://localhost",
-            globalUploadToken: "super-cool-token",
+            uploadToken: "super-cool-token",
             serviceParams: {
               commit: "123",
             },
@@ -269,7 +232,7 @@ describe("getPreSignedURL", () => {
         try {
           await getPreSignedURL({
             apiURL: "http://localhost",
-            globalUploadToken: "super-cool-token",
+            uploadToken: "super-cool-token",
             serviceParams: {
               commit: "123",
             },
