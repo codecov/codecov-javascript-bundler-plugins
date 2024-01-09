@@ -54,16 +54,11 @@ export interface Options {
   /**
    * The upload token to use for uploading the bundle analysis information.
    *
-   * `globalUploadToken` and `repoName` must be set if this is not set.
+   * This value can either be an global upload token or a repo token.
+   * - The global upload token can be found under the organization settings page.
+   * - The repo token can be found under the repo settings page under the general tab.
    */
-  globalUploadToken?: string;
-
-  /**
-   * The upload token to use for uploading the bundle analysis information.
-   *
-   * Mutually exclusive to using `globalUploadToken` and `repoName`.
-   */
-  repoToken?: string;
+  uploadToken?: string;
 
   /**
    * The api url used to fetch the upload url.
@@ -75,7 +70,7 @@ export interface Options {
   apiUrl?: string;
 
   /**
-   * The amount of times the upload function will retry.
+   * The amount of times the upload function will retry to upload bundle analysis information.
    *
    * Defaults to `3`
    */
@@ -85,7 +80,7 @@ export interface Options {
   enableBundleAnalysis?: boolean;
 
   /** Override values for passing custom information to API. */
-  uploaderOverrides?: UploadOverrides;
+  uploadOverrides?: UploadOverrides;
 
   /**
    * When enabled information will not be uploaded to Codecov.
@@ -122,15 +117,13 @@ export interface UploadOverrides {
   sha?: string;
   /** Specify the slug manually. */
   slug?: string;
-  /** Change the upload host (Enterprise use). */
-  url?: string;
 }
 
 export type ProviderEnvs = NodeJS.Dict<string>;
 
 export interface ProviderUtilInputs {
   envs: ProviderEnvs;
-  args: Options["uploaderOverrides"];
+  args: Options["uploadOverrides"];
 }
 
 export interface ProviderUtil {

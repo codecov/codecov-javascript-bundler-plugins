@@ -244,7 +244,7 @@ jobs:
       - name: Build packages
         run: pnpm run build
 
-      - name: Run unit tests
+      - name: Run e2e tests
         run: pnpm run test:e2e --maxWorkers=2
 
 

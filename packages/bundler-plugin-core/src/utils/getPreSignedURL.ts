@@ -6,13 +6,12 @@ import { UploadLimitReachedError } from "../errors/UploadLimitReachedError.ts";
 import { type ProviderServiceParams } from "../types.ts";
 import { DEFAULT_RETRY_COUNT } from "./constants.ts";
 import { fetchWithRetry } from "./fetchWithRetry.ts";
-import { green, red, yellow } from "./logging.ts";
+import { green, red } from "./logging.ts";
 import { preProcessBody } from "./preProcessBody.ts";
 
 interface GetPreSignedURLArgs {
   apiURL: string;
-  globalUploadToken?: string;
-  repoToken?: string;
+  uploadToken?: string;
   serviceParams: Partial<ProviderServiceParams>;
   retryCount?: number;
 }
@@ -23,13 +22,11 @@ const PreSignedURLSchema = z.object({
 
 export const getPreSignedURL = async ({
   apiURL,
-  globalUploadToken,
-  repoToken,
+  uploadToken,
   serviceParams,
   retryCount = DEFAULT_RETRY_COUNT,
 }: GetPreSignedURLArgs) => {
-  const token = getToken(globalUploadToken, repoToken);
-  if (!token) {
+  if (!uploadToken) {
     red("No upload token found");
     throw new NoUploadTokenError("No upload token found");
   }
@@ -46,7 +43,7 @@ export const getPreSignedURL = async ({
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `token ${token}`,
+          Authorization: `token ${uploadToken}`,
         },
         body: JSON.stringify(preProcessBody(serviceParams)),
       },
@@ -83,25 +80,4 @@ export const getPreSignedURL = async ({
 
   green(`Successfully pre-signed URL fetched`);
   return parsedData.data.url;
-};
-
-const getToken = (
-  globalUploadToken: string | undefined,
-  repoToken: string | undefined,
-) => {
-  if (globalUploadToken && repoToken) {
-    yellow(
-      "Both globalUploadToken and repoToken found, Using globalUploadToken",
-    );
-  }
-
-  if (globalUploadToken) {
-    return globalUploadToken;
-  }
-
-  if (repoToken) {
-    return repoToken;
-  }
-
-  return undefined;
 };
