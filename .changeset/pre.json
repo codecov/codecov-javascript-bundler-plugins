@@ -7,5 +7,11 @@
     "@codecov/vite-plugin": "0.0.1",
     "@codecov/webpack-plugin": "0.0.1"
   },
-  "changesets": ["flat-coats-jump", "poor-cows-kneel", "shy-bottles-shout"]
+  "changesets": [
+    "breezy-horses-rule",
+    "flat-coats-jump",
+    "new-chefs-fold",
+    "poor-cows-kneel",
+    "shy-bottles-shout"
+  ]
 }
