@@ -44,7 +44,7 @@ export default defineConfig({
     codecovVitePlugin({
       enableBundleAnalysis: true,
       bundleName: "example-vite-bundle",
-      globalUploadToken: process.env.CODECOV_TOKEN,
+      uploadToken: process.env.CODECOV_TOKEN,
     }),
   ],
 });
