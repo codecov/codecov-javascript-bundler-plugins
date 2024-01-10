@@ -50,7 +50,7 @@ module.exports = {
     codecovWebpackPlugin({
       enableBundleAnalysis: true,
       bundleName: "example-webpack-bundle",
-      globalUploadToken: process.env.CODECOV_TOKEN,
+      uploadToken: process.env.CODECOV_TOKEN,
     }),
   ],
 };
