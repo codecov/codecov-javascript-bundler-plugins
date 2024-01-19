@@ -46,7 +46,7 @@ describe("uploadStats", () => {
           return HttpResponse.json({}, { status });
         }
 
-        return HttpResponse.error();
+        return new HttpResponse("server error", { status: 500 });
       }),
     );
 
@@ -62,6 +62,7 @@ describe("uploadStats", () => {
       const data = await uploadStats({
         message: "cool-message",
         preSignedUrl: "http://localhost/upload/stats/",
+        retryCount: 0,
       });
 
       expect(data).toBeTruthy();
@@ -75,7 +76,11 @@ describe("uploadStats", () => {
 
         let error;
         try {
-          await uploadStats({ message: "cool-message", preSignedUrl: "" });
+          await uploadStats({
+            message: "cool-message",
+            preSignedUrl: "",
+            retryCount: 0,
+          });
         } catch (e) {
           error = e;
         }
@@ -93,6 +98,7 @@ describe("uploadStats", () => {
           await uploadStats({
             message: "cool-message",
             preSignedUrl: "http://localhost/upload/stats/",
+            retryCount: 0,
           });
         } catch (e) {
           error = e;
@@ -111,6 +117,7 @@ describe("uploadStats", () => {
           await uploadStats({
             message: "cool-message",
             preSignedUrl: "http://localhost/upload/stats/",
+            retryCount: 0,
           });
         } catch (e) {
           error = e;
