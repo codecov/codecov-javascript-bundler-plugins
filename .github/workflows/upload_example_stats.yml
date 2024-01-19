@@ -55,12 +55,11 @@ build-and-upload-stats-data:
     fail-fast: false
     matrix:
       example: [
-        # Temp removing until I can figure out a way to have multiple configs
-        # "next-js",
-        "rollup",
-        "vite",
-        "webpack"
-      ]
+          "next-js",
+          "rollup",
+          "vite",
+          "webpack",
+        ]
   steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -104,4 +103,13 @@ build-and-upload-stats-data:
 
     - name: Build ${{ matrix.example }} app
       working-directory: ./examples/${{ matrix.example }}
-      run: pnpm run build:staging
+      env:
+        NEXT_UPLOAD_TOKEN: ${{ env.CODECOV_ORG_TOKEN_STAGING }}
+        NEXT_API_URL: ${{ env.CODECOV_STAGING_API_URL }}
+        ROLLUP_UPLOAD_TOKEN: ${{ env.CODECOV_ORG_TOKEN_STAGING }}
+        ROLLUP_API_URL: ${{ env.CODECOV_STAGING_API_URL }}
+        VITE_UPLOAD_TOKEN: ${{ env.CODECOV_ORG_TOKEN_STAGING }}
+        VITE_API_URL: ${{ env.CODECOV_STAGING_API_URL }}
+        WEBPACK_UPLOAD_TOKEN: ${{ env.CODECOV_ORG_TOKEN_STAGING }}
+        WEBPACK_API_URL: ${{ env.CODECOV_STAGING_API_URL }}
+      run: pnpm run build
