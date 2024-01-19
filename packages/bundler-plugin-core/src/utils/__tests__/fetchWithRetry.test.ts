@@ -24,6 +24,7 @@ interface SetupArgs {
   data?: object;
   retryCount?: number;
   sendError?: boolean;
+  failFetch?: boolean;
 }
 
 describe("fetchWithRetry", () => {
@@ -37,17 +38,23 @@ describe("fetchWithRetry", () => {
     status = 200,
     data = {},
     sendError = false,
+    failFetch = false,
     retryCount = 0,
   }: SetupArgs) {
     consoleSpy = jest.spyOn(console, "log").mockImplementation(() => null);
 
     server.use(
       http.all("http://localhost", ({}) => {
-        if (retryCount === 0 && !sendError) {
+        if (retryCount === 0 && !sendError && !failFetch) {
           return HttpResponse.json(data, { status });
         }
+
+        if (sendError && !failFetch) {
+          return HttpResponse.error();
+        }
+
         retryCount -= 1;
-        return HttpResponse.error();
+        return new HttpResponse("not found", { status: 404 });
       }),
     );
   }
@@ -89,6 +96,24 @@ describe("fetchWithRetry", () => {
   });
 
   describe("retry count exceeds limit", () => {
+    it("returns the response", async () => {
+      setup({
+        data: { url: "http://example.com" },
+        retryCount: 2,
+        failFetch: true,
+      });
+
+      const response = await fetchWithRetry({
+        url: "http://localhost",
+        requestData: {},
+        retryCount: 1,
+      });
+
+      expect(response.status).toBe(404);
+    });
+  });
+
+  describe("when the fetch throws an error", () => {
     it("throws an error", async () => {
       setup({
         data: { url: "http://example.com" },

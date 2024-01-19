@@ -65,6 +65,7 @@ describe("getPreSignedURL", () => {
             serviceParams: {
               commit: "123",
             },
+            retryCount: 0,
           });
 
           expect(url).toEqual("http://example.com");
@@ -87,6 +88,7 @@ describe("getPreSignedURL", () => {
             serviceParams: {
               commit: "123",
             },
+            retryCount: 0,
           });
         } catch (e) {
           error = e;
@@ -116,6 +118,7 @@ describe("getPreSignedURL", () => {
             serviceParams: {
               commit: "123",
             },
+            retryCount: 0,
           });
         } catch (e) {
           error = e;
@@ -141,6 +144,7 @@ describe("getPreSignedURL", () => {
             serviceParams: {
               commit: "123",
             },
+            retryCount: 0,
           });
         } catch (e) {
           error = e;
@@ -176,6 +180,7 @@ describe("getPreSignedURL", () => {
             serviceParams: {
               commit: "123",
             },
+            retryCount: 0,
           });
         } catch (e) {
           error = e;
@@ -201,6 +206,7 @@ describe("getPreSignedURL", () => {
             serviceParams: {
               commit: "123",
             },
+            retryCount: 0,
           });
         } catch (e) {
           error = e;
@@ -236,6 +242,7 @@ describe("getPreSignedURL", () => {
             serviceParams: {
               commit: "123",
             },
+            retryCount: 0,
           });
         } catch (e) {
           error = e;
