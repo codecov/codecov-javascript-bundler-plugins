@@ -29,14 +29,15 @@ export const fetchWithRetry = async ({
       }
     } catch (err) {
       debug(`${name} fetch attempt ${i} failed`);
-
-      if (!(err instanceof BadResponseError)) {
-        throw err;
-      }
-
       const isLastAttempt = i + 1 === retryCount;
+
       if (isLastAttempt) {
         red(`${name} failed after ${i} attempts`);
+
+        if (!(err instanceof BadResponseError)) {
+          console.debug("ahh");
+          throw err;
+        }
         return response;
       }
     }
