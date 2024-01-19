@@ -58,7 +58,7 @@
     "webpack": "^5.89.0"
   },
   "peerDependencies": {
-    "webpack": "webpack@^5.0"
+    "webpack": "5.x"
   },
   "volta": {
     "extends": "../../package.json"

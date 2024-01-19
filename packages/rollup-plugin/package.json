@@ -57,7 +57,7 @@
     "unbuild": "^2.0.0"
   },
   "peerDependencies": {
-    "rollup": "^3.0 || ^4.0"
+    "rollup": "3.x || 4.x"
   },
   "volta": {
     "extends": "../../package.json"
