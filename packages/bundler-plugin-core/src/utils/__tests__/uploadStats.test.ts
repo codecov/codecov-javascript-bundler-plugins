@@ -46,7 +46,7 @@ describe("uploadStats", () => {
           return HttpResponse.json({}, { status });
         }
 
-        return new HttpResponse("server error", { status: 500 });
+        return HttpResponse.error();
       }),
     );
 
@@ -79,7 +79,7 @@ describe("uploadStats", () => {
           await uploadStats({
             message: "cool-message",
             preSignedUrl: "",
-            retryCount: 0,
+            retryCount: 1,
           });
         } catch (e) {
           error = e;
