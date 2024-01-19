@@ -1,3 +1,4 @@
+import { BadResponseError } from "../errors/BadResponseError";
 import { DEFAULT_RETRY_DELAY } from "./constants";
 import { delay } from "./delay";
 import { debug, red } from "./logging";
@@ -22,13 +23,19 @@ export const fetchWithRetry = async ({
       debug(`Attempting to fetch ${name}, attempt: ${i}`);
       await delay(DEFAULT_RETRY_DELAY * i);
       response = await fetch(url, requestData);
-      break;
+
+      if (!response.ok) throw new BadResponseError("Response not ok");
     } catch (err) {
       debug(`${name} fetch attempt ${i} failed`);
+
+      if (!(err instanceof BadResponseError)) {
+        throw err;
+      }
+
       const isLastAttempt = i + 1 === retryCount;
       if (isLastAttempt) {
         red(`${name} failed after ${i} attempts`);
-        throw err;
+        return response;
       }
     }
   }
