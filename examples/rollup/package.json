@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "build": "rollup -c",
+    "build:staging": "rollup -c rollup.config.staging.ts",
     "watch": "rollup -c -w",
     "dev": "npm-run-all --parallel start watch",
     "start": "serve public"

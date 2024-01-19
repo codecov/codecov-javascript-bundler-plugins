@@ -21,8 +21,9 @@ export default defineConfig({
     production && terser(), // minify, but only in production
     codecovRollupPlugin({
       enableBundleAnalysis: true,
-      dryRun: true,
-      bundleName: "example-rollup-app",
+      bundleName: "example-rollup-staging",
+      uploadToken: process.env.CODECOV_ORG_TOKEN_STAGING,
+      apiUrl: process.env.CODECOV_STAGING_API_URL,
     }),
   ],
 });
