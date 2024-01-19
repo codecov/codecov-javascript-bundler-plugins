@@ -1,23 +1,38 @@
-import { serve } from "@hono/node-server";
 import { Hono } from "hono";
+import { Database } from "bun:sqlite";
 
+console.log("connecting to sqlite");
+const sqlite = new Database(":memory:", { readwrite: true });
+console.log("connected to sqlite");
+
+console.log('creating "stats" table');
+const query = sqlite.query(
+  "CREATE TABLE `stats` (`id` text, `json_stats` text );",
+);
+query.run();
+console.log('created "stats" table');
+
+console.log("starting api");
 const app = new Hono();
 
+app.all("/ping", (c) => {
+  return c.text("pong", 200);
+});
+
 app.all(
-  "/test-url/:status/:badPUT{true|false}/upload/bundle_analysis/v1",
+  "/test-url/:id/:status/:badPUT{true|false}/upload/bundle_analysis/v1",
   (c) => {
+    const id = c.req.param("id");
     const status = parseInt(c.req.param("status"));
     const badPUT = c.req.param("badPUT") === "true";
     const url = new URL(c.req.url);
-    let putURL = `${url.protocol}//${url.host}/file-upload`;
+    const putURL = `${url.protocol}//${url.host}/file-upload/${id}/${status}`;
 
     if (status >= 400 && !badPUT) {
       return c.text(`Error code: ${status}`, { status });
     }
 
-    if (badPUT) {
-      putURL = `${putURL}/${status}`;
-    }
+    console.log("PUT URL", putURL);
 
     return c.json(
       {
@@ -28,24 +43,42 @@ app.all(
   },
 );
 
-app.all("/file-upload/:status{[0-9]{3}}", async (c) => {
+app.all("/file-upload/:id/:status{[0-9]{3}}", async (c) => {
+  const id = c.req.param("id");
   const status = parseInt(c.req.param("status"));
 
   if (status >= 400) {
     return c.text(`Error code: ${status}`, { status });
   }
 
-  await c.req.json();
+  console.log("uploading file");
+  const data: unknown = await c.req.json();
+  console.log("finished upload");
+
+  console.log("inserting stats");
+  const insertStats = JSON.stringify(data);
+  const query = sqlite.query(
+    `INSERT INTO stats (id, json_stats) VALUES ('${id}', '${insertStats}')`,
+  );
+  query.run();
+  query.finalize();
+  console.log("inserted stats");
 
   return c.text("File uploaded successfully", { status: 200 });
 });
 
-serve(
-  {
-    fetch: app.fetch,
-    port: 8000,
-  },
-  (info) => {
-    console.info(`🚀 Server listening on ${info.address}:${info.port}`);
-  },
-);
+app.all("/get-stats/:id", (c) => {
+  const id = c.req.param("id");
+
+  const query = sqlite.query("SELECT * FROM stats WHERE id = $id");
+  const result = query.get({ $id: id }) as { id: string; json_stats: string };
+  query.finalize();
+
+  if (result) {
+    return c.json({ stats: result.json_stats }, { status: 200 });
+  }
+
+  return c.text("Not found", { status: 404 });
+});
+
+export default app;

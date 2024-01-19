@@ -1,20 +1,17 @@
 # syntax=docker/dockerfile:1
-ARG BUILDPLATFORM=arm64
-FROM --platform=$BUILDPLATFORM node:20-alpine
-WORKDIR /app
+# use the official Bun image
+# see all versions at https://hub.docker.com/r/oven/bun/tags
+FROM oven/bun:1-alpine 
+WORKDIR /usr/src/app
 
-ENV NODE_ENV=production
+RUN apk update && apk upgrade
+RUN apk add --no-cache sqlite
 
 COPY . .
+RUN bun install --frozen-lockfile
 
-RUN npm install -g pnpm
-RUN pnpm install
-
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 hono
-
-USER hono
+# run the app
+USER bun
 EXPOSE 8000
 ENV PORT 8000
-
-CMD ["pnpm", "run", "start"]
+CMD [ "bun", "run", "src/index.ts" ]
