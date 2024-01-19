@@ -24,7 +24,9 @@ export const fetchWithRetry = async ({
       await delay(DEFAULT_RETRY_DELAY * i);
       response = await fetch(url, requestData);
 
-      if (!response.ok) throw new BadResponseError("Response not ok");
+      if (!response.ok) {
+        throw new BadResponseError("Response not ok");
+      }
     } catch (err) {
       debug(`${name} fetch attempt ${i} failed`);
 
