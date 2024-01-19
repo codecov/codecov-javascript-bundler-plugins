@@ -105,12 +105,12 @@ jobs:
       - name: Build ${{ matrix.example }} app
         working-directory: ./examples/${{ matrix.example }}
         env:
-          NEXT_UPLOAD_TOKEN: ${{ env.CODECOV_ORG_TOKEN_STAGING }}
-          NEXT_API_URL: ${{ env.CODECOV_STAGING_API_URL }}
-          ROLLUP_UPLOAD_TOKEN: ${{ env.CODECOV_ORG_TOKEN_STAGING }}
-          ROLLUP_API_URL: ${{ env.CODECOV_STAGING_API_URL }}
-          VITE_UPLOAD_TOKEN: ${{ env.CODECOV_ORG_TOKEN_STAGING }}
-          VITE_API_URL: ${{ env.CODECOV_STAGING_API_URL }}
-          WEBPACK_UPLOAD_TOKEN: ${{ env.CODECOV_ORG_TOKEN_STAGING }}
-          WEBPACK_API_URL: ${{ env.CODECOV_STAGING_API_URL }}
+          NEXT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
+          NEXT_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
+          ROLLUP_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
+          ROLLUP_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
+          VITE_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
+          VITE_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
+          WEBPACK_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
+          WEBPACK_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
         run: pnpm run build
