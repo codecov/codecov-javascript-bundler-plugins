@@ -5,4 +5,4 @@
 "@codecov/bundler-plugin-core": patch
 ---
 
-Adjust peer dep versions
+Adjust peer dep versions to use x-range instead of caret
