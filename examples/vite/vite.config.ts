@@ -16,8 +16,9 @@ export default defineConfig({
     react(),
     codecovVitePlugin({
       enableBundleAnalysis: true,
-      dryRun: true,
       bundleName: "example-vite-app",
+      uploadToken: process.env.VITE_UPLOAD_TOKEN,
+      apiUrl: process.env.VITE_API_URL,
     }),
   ],
 });
