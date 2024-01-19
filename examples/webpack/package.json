@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "private": "true",
   "scripts": {
-    "build": "webpack --config webpack.config.js",
-    "build:staging": "webpack --config webpack.config.staging.js"
+    "build": "webpack --config webpack.config.js"
   },
   "dependencies": {
     "lodash": "^4.17.21"
