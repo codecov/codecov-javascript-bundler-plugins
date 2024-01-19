@@ -9,10 +9,10 @@
     "start": "serve public"
   },
   "dependencies": {
-    "@codecov/rollup-plugin": "workspace:^",
     "date-fns": "^2.16.1"
   },
   "devDependencies": {
+    "@codecov/rollup-plugin": "workspace:^",
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.1.0",
     "npm-run-all": "^4.1.5",
