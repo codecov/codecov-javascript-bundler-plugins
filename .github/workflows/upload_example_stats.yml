@@ -55,7 +55,8 @@ build-and-upload-stats-data:
     fail-fast: false
     matrix:
       example: [
-        "next-js",
+        # Temp removing until I can figure out a way to have multiple configs
+        # "next-js",
         "rollup",
         "vite",
         "webpack"
@@ -103,4 +104,4 @@ build-and-upload-stats-data:
 
     - name: Build ${{ matrix.example }} app
       working-directory: ./examples/${{ matrix.example }}
-      run: pnpm run build
+      run: pnpm run build:staging
