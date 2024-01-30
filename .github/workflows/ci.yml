@@ -254,7 +254,7 @@ jobs:
   upload-stats-data-to-staging:
     name: Build and upload ${{ matrix.example }} stats data to staging
     runs-on: ubuntu-latest
-    needs: [install, unit-test]
+    needs: [install, unit-test, integration-test]
     strategy:
       fail-fast: false
       matrix:
@@ -268,7 +268,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 18`
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
