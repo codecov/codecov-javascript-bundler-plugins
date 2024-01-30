@@ -194,6 +194,13 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
+      - name: Upload coverage reports to Codecov Staging
+        uses: codecov/codecov-action@v3
+        with:
+          url: ${{ secrets.CODECOV_STAGING_API_URL }}
+        env:
+          CODECOV_TOKEN: ${{ secrets.STAGING_REPO_CODECOV_TOKEN }}
+
   integration-test:
     name: Run Integration Tests (Node ${{ matrix.node-version }})
     needs: install
@@ -201,10 +208,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [
-            "18.x",
-            "20.x"
-        ]
+        node-version: ["18.x", "20.x"]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
