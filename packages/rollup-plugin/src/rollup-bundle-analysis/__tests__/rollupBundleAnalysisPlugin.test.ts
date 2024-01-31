@@ -12,10 +12,7 @@ describe("rollupBundleAnalysisPlugin", () => {
         },
       });
 
-      expect(plugin.version).toEqual("1");
-      expect(plugin.name).toEqual("codecov-rollup-bundle-analysis-plugin");
-      expect(plugin.pluginVersion).toEqual("1.0.0");
-      expect(plugin.rollup?.generateBundle).toEqual(expect.any(Function));
+      expect(plugin).toMatchSnapshot();
     });
   });
 });
