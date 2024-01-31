@@ -131,6 +131,7 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
           }
 
           output.duration = Date.now() - (output.builtAt ?? 0);
+          output.outputPath = outputOptions.path ?? "";
 
           // only output file if running dry run
           if (userOptions?.dryRun) {
