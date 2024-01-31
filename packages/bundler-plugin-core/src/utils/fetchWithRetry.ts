@@ -27,6 +27,7 @@ export const fetchWithRetry = async ({
       if (!response.ok) {
         throw new BadResponseError("Response not ok");
       }
+      break;
     } catch (err) {
       debug(`${name} fetch attempt ${i} failed`);
       const isLastAttempt = i + 1 === retryCount;
@@ -35,7 +36,6 @@ export const fetchWithRetry = async ({
         red(`${name} failed after ${i} attempts`);
 
         if (!(err instanceof BadResponseError)) {
-          console.debug("ahh");
           throw err;
         }
         return response;

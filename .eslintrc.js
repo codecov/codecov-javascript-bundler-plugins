@@ -29,6 +29,7 @@ const config = {
     ],
   },
   rules: {
+    "no-console": ["error"],
     "@typescript-eslint/no-unused-vars": [
       "error",
       { argsIgnorePattern: "^_", destructuredArrayIgnorePattern: "^_" },
