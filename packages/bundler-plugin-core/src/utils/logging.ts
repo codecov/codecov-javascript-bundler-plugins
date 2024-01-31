@@ -11,6 +11,8 @@ export function prepareMessage(msg: unknown): string {
 }
 
 export function l(msg: string): void {
+  // Required to properly log to the console
+  // eslint-disable-next-line no-console
   console.log(msg);
 }
 
