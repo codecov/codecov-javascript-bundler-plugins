@@ -60,6 +60,7 @@ describe("Generating webpack stats", () => {
       expect(stats).toMatchSnapshot({
         builtAt: expect.any(Number),
         duration: expect.any(Number),
+        outputPath: expect.stringContaining("/dist"),
       });
     });
   });
