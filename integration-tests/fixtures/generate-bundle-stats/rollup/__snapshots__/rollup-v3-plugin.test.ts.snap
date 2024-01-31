@@ -60,6 +60,7 @@ exports[`Generating rollup stats version 3 matches the snapshot 1`] = `
       "size": 168,
     },
   ],
+  "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": "codecov-rollup-bundle-analysis-plugin",
     "version": "1.0.0",
