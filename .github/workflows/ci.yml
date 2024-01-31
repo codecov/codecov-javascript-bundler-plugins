@@ -145,9 +145,33 @@ jobs:
 
   codecov-startup:
     name: Codecov Startup
+    runs-on: ubuntu-latest
     needs: install
-    uses: codecov/gha-workflows/.github/workflows/codecov-startup.yml@v1.2.14
     secrets: inherit
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Install CLI
+        if: ${{ !github.event.pull_request.head.repo.fork && github.repository_owner == 'codecov' }}
+        run: |
+          pip install --no-cache-dir codecov-cli
+
+      - name: Run Startup
+        if: ${{ !github.event.pull_request.head.repo.fork && github.repository_owner == 'codecov' }}
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+        run: |
+          codecovcli -u ${{ secrets.CODECOV_URL }} create-commit --fail-on-error
+          codecovcli -u ${{ secrets.CODECOV_URL }} create-report --fail-on-error
+
+      - name: Run Startup Staging
+        if: ${{ !github.event.pull_request.head.repo.fork && github.repository_owner == 'codecov' }}
+        run: |
+          codecovcli -u ${{ secrets.CODECOV_STAGING_URL }} create-commit -t ${{ secrets.CODECOV_ORG_TOKEN_STAGING }} --fail-on-error
+          codecovcli -u ${{ secrets.CODECOV_STAGING_URL }} create-report -t ${{ secrets.CODECOV_ORG_TOKEN_STAGING }} --fail-on-error
 
   unit-test:
     name: Run Unit Tests
