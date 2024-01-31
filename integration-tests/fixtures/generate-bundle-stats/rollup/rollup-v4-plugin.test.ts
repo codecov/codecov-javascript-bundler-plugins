@@ -62,6 +62,7 @@ describe("Generating rollup stats", () => {
       expect(stats).toMatchSnapshot({
         builtAt: expect.any(Number),
         duration: expect.any(Number),
+        outputPath: expect.stringContaining("/distV4"),
       });
     });
   });

@@ -81,6 +81,7 @@ exports[`Generating vite stats version 4 matches the snapshot 1`] = `
       "size": 0,
     },
   ],
+  "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": "codecov-vite-bundle-analysis-plugin",
     "version": "1.0.0",

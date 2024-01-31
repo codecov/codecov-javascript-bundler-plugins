@@ -12,10 +12,7 @@ describe("viteBundleAnalysisPlugin", () => {
         },
       });
 
-      expect(plugin.version).toEqual("1");
-      expect(plugin.name).toEqual("codecov-vite-bundle-analysis-plugin");
-      expect(plugin.pluginVersion).toEqual("1.0.0");
-      expect(plugin.vite?.generateBundle).toEqual(expect.any(Function));
+      expect(plugin).toMatchSnapshot();
     });
   });
 });

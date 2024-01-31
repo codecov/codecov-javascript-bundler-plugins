@@ -12,10 +12,7 @@ describe("webpackBundleAnalysisPlugin", () => {
         },
       });
 
-      expect(plugin.version).toEqual("1");
-      expect(plugin.name).toEqual("codecov-webpack-bundle-analysis-plugin");
-      expect(plugin.pluginVersion).toEqual("1.0.0");
-      expect(plugin.webpack).toEqual(expect.any(Function));
+      expect(plugin).toMatchSnapshot();
     });
   });
 });

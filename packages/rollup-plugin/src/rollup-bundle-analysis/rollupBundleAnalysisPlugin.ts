@@ -144,6 +144,7 @@ export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
       output.assets = assets;
       output.chunks = chunks;
       output.modules = modules;
+      output.outputPath = options.dir ?? "";
 
       // only output file if running dry run
       if (userOptions?.dryRun) {

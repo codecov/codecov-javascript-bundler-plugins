@@ -53,6 +53,7 @@ describe("Generating vite stats", () => {
       expect(stats).toMatchSnapshot({
         builtAt: expect.any(Number),
         duration: expect.any(Number),
+        outputPath: expect.stringContaining("/distV5"),
       });
     });
   });

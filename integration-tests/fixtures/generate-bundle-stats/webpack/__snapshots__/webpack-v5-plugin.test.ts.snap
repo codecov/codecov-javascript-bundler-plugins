@@ -65,6 +65,7 @@ exports[`Generating webpack stats version 5 matches the snapshot 1`] = `
       "size": 123,
     },
   ],
+  "outputPath": StringContaining "/dist",
   "plugin": {
     "name": "codecov-webpack-bundle-analysis-plugin",
     "version": "1.0.0",
