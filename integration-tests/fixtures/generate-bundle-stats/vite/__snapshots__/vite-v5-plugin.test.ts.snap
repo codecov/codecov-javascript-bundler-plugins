@@ -13,7 +13,7 @@ exports[`Generating vite stats version 5 matches the snapshot 1`] = `
   "bundleName": "vite-test-es",
   "bundler": {
     "name": "rollup",
-    "version": "4.6.0",
+    "version": "4.9.6",
   },
   "chunks": [
     {

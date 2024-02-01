@@ -4,9 +4,9 @@ exports[`Generating rollup stats version 3 matches the snapshot 1`] = `
 {
   "assets": [
     {
-      "name": "main-3e7d1fad.js",
+      "name": "main-6ff1e9ca.js",
       "normalized": "main-*.js",
-      "size": 544589,
+      "size": 560871,
     },
   ],
   "builtAt": Any<Number>,
@@ -19,7 +19,7 @@ exports[`Generating rollup stats version 3 matches the snapshot 1`] = `
     {
       "entry": true,
       "files": [
-        "main-3e7d1fad.js",
+        "main-6ff1e9ca.js",
       ],
       "id": "main",
       "initial": false,
@@ -36,14 +36,21 @@ exports[`Generating rollup stats version 3 matches the snapshot 1`] = `
         "0-main",
       ],
       "name": "./commonjsHelpers.js",
-      "size": 315,
+      "size": 334,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "size": 27,
     },
     {
       "chunkUniqueIds": [
         "0-main",
       ],
       "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 544001,
+      "size": 560240,
     },
     {
       "chunkUniqueIds": [
@@ -57,7 +64,7 @@ exports[`Generating rollup stats version 3 matches the snapshot 1`] = `
         "0-main",
       ],
       "name": "./test-apps/rollup/src/main.js",
-      "size": 168,
+      "size": 163,
     },
   ],
   "outputPath": StringContaining "/distV3",
