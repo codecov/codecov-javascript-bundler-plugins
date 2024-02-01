@@ -1,5 +1,21 @@
 # @codecov/vite-plugin
 
+## 0.0.1-alpha.3
+
+### Patch Changes
+
+- 543a526: Update dependencies before moving package out of alpha
+- c1fdbd6: Fix retry when fetching by throwing custom error if response is not okay
+- d28a2e4: Break from retry loop when the response is ok
+- 562ac0c: Adjust peer dep versions to use x-range instead of caret
+- c755a5c: Add missing outputPath to output stats file
+- Updated dependencies [543a526]
+- Updated dependencies [c1fdbd6]
+- Updated dependencies [d28a2e4]
+- Updated dependencies [562ac0c]
+- Updated dependencies [c755a5c]
+  - @codecov/bundler-plugin-core@0.0.1-alpha.3
+
 ## 0.0.1-alpha.2
 
 ### Patch Changes
