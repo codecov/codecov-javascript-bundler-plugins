@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "@codecov/webpack-plugin": "workspace:^",
-    "webpack": "^5.89.0",
+    "webpack": "^5.90.0",
     "webpack-cli": "^5.1.4"
   },
   "engines": {

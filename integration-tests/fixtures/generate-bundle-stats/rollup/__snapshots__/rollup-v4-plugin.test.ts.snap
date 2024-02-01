@@ -4,22 +4,22 @@ exports[`Generating rollup stats version 4 matches the snapshot 1`] = `
 {
   "assets": [
     {
-      "name": "main--erNqm0D.js",
-      "normalized": "main--erNqm0D.js",
-      "size": 544589,
+      "name": "main-v-vWaFyT.js",
+      "normalized": "main-v-vWaFyT.js",
+      "size": 560871,
     },
   ],
   "builtAt": Any<Number>,
   "bundleName": "rollup-test-es",
   "bundler": {
     "name": "rollup",
-    "version": "4.6.0",
+    "version": "4.9.6",
   },
   "chunks": [
     {
       "entry": true,
       "files": [
-        "main--erNqm0D.js",
+        "main-v-vWaFyT.js",
       ],
       "id": "main",
       "initial": false,
@@ -36,14 +36,21 @@ exports[`Generating rollup stats version 4 matches the snapshot 1`] = `
         "0-main",
       ],
       "name": "./commonjsHelpers.js",
-      "size": 315,
+      "size": 334,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "size": 27,
     },
     {
       "chunkUniqueIds": [
         "0-main",
       ],
       "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 544001,
+      "size": 560240,
     },
     {
       "chunkUniqueIds": [
@@ -57,7 +64,7 @@ exports[`Generating rollup stats version 4 matches the snapshot 1`] = `
         "0-main",
       ],
       "name": "./test-apps/rollup/src/main.js",
-      "size": 168,
+      "size": 163,
     },
   ],
   "outputPath": StringContaining "/distV4",
