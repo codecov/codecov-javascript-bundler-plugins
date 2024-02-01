@@ -2,6 +2,7 @@
   "name": "@codecov/rollup-plugin-example",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "build": "rollup -c",
     "watch": "rollup -c -w",
@@ -9,16 +10,15 @@
     "start": "serve public"
   },
   "dependencies": {
-    "date-fns": "^2.16.1"
+    "date-fns": "^3.3.1"
   },
   "devDependencies": {
     "@codecov/rollup-plugin": "workspace:^",
-    "@rollup/plugin-commonjs": "^17.0.0",
-    "@rollup/plugin-node-resolve": "^11.1.0",
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
     "npm-run-all": "^4.1.5",
-    "rollup": "^2.36.2",
-    "rollup-plugin-terser": "^7.0.2",
-    "serve": "^11.3.2"
+    "rollup": "^4.9.6",
+    "serve": "^14.2.1"
   },
   "volta": {
     "extends": "../../package.json"
