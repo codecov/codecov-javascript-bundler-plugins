@@ -4,6 +4,14 @@
 
 ### Patch Changes
 
+- 9e0f777: Move packages into beta
+- Updated dependencies [9e0f777]
+  - @codecov/bundler-plugin-core@0.0.1-beta.0
+
+## 0.0.1-beta.0
+
+### Patch Changes
+
 - becd728: Add duration to webpack bundler plugin directly
 - 543a526: Update dependencies before moving package out of alpha
 - 4f1183e: Remove references to Webpack 4, as we currently on support Node 18+.
