@@ -5,11 +5,6 @@
 ### Patch Changes
 
 - f5cae1c: Move packages into beta
-
-## 0.0.1-beta.0
-
-### Patch Changes
-
 - becd728: Add duration to webpack bundler plugin directly
 - 543a526: Update dependencies before moving package out of alpha
 - 4f1183e: Remove references to Webpack 4, as we currently on support Node 18+.
