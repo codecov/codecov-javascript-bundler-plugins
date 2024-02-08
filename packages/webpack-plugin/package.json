@@ -1,6 +1,6 @@
 {
   "name": "@codecov/webpack-plugin",
-  "version": "0.0.1-alpha.3",
+  "version": "0.0.1",
   "description": "Official Codecov Webpack plugin",
   "author": "Codecov",
   "license": "MIT",
