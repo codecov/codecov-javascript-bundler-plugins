@@ -6,5 +6,6 @@
     "@codecov/rollup-plugin": "0.0.0",
     "@codecov/vite-plugin": "0.0.0",
     "@codecov/webpack-plugin": "0.0.0"
-  }
+  },
+  "changesets": ["healthy-foxes-joke"]
 }
