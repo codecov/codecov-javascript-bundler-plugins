@@ -7,7 +7,7 @@
 # Codecov Bundler Plugins
 
 > [!WARNING]  
-> These plugins are currently in alpha and are subject to change.
+> These plugins are currently in beta and are subject to change.
 
 Codecov plugins for various JavaScript bundlers. Currently supporting Rollup, Vite, Webpack 5.
 
