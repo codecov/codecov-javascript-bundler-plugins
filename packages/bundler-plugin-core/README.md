@@ -7,7 +7,7 @@
 # Codecov Bundler Plugin Core
 
 > [!WARNING]  
-> These plugins are currently in alpha and are subject to change.
+> These plugins are currently in beta and are subject to change.
 
 Core package containing the bundler-agnostic logic for the Codecov Bundler Plugins.
 

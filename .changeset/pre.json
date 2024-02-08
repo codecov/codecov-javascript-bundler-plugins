@@ -1,22 +1,10 @@
 {
   "mode": "pre",
-  "tag": "alpha",
+  "tag": "beta",
   "initialVersions": {
-    "@codecov/bundler-plugin-core": "0.0.1",
-    "@codecov/rollup-plugin": "0.0.1",
-    "@codecov/vite-plugin": "0.0.1",
-    "@codecov/webpack-plugin": "0.0.1"
-  },
-  "changesets": [
-    "breezy-horses-rule",
-    "calm-points-mix",
-    "flat-coats-jump",
-    "fluffy-candles-switch",
-    "grumpy-icons-hammer",
-    "new-chefs-fold",
-    "poor-cows-kneel",
-    "pretty-ghosts-arrive",
-    "shy-bottles-shout",
-    "tasty-adults-design"
-  ]
+    "@codecov/bundler-plugin-core": "0.0.0",
+    "@codecov/rollup-plugin": "0.0.0",
+    "@codecov/vite-plugin": "0.0.0",
+    "@codecov/webpack-plugin": "0.0.0"
+  }
 }

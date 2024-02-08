@@ -5,4 +5,4 @@
 "@codecov/vite-plugin": patch
 ---
 
-Alpha release of Codecov bundler plugins
+Move packages into beta
