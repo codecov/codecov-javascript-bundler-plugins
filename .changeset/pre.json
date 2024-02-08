@@ -2,10 +2,9 @@
   "mode": "pre",
   "tag": "beta",
   "initialVersions": {
-    "@codecov/bundler-plugin-core": "0.0.1",
-    "@codecov/rollup-plugin": "0.0.1",
-    "@codecov/vite-plugin": "0.0.1",
-    "@codecov/webpack-plugin": "0.0.1"
-  },
-  "changesets": []
+    "@codecov/bundler-plugin-core": "0.0.0",
+    "@codecov/rollup-plugin": "0.0.0",
+    "@codecov/vite-plugin": "0.0.0",
+    "@codecov/webpack-plugin": "0.0.0"
+  }
 }
