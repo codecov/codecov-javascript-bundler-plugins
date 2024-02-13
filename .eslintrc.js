@@ -22,6 +22,7 @@ const config = {
     project: [
       "./tsconfig.json",
       "./integration-tests/tsconfig.json",
+      "./packages/bundle-analyzer/tsconfig.json",
       "./packages/bundler-plugin-core/tsconfig.json",
       "./packages/rollup-plugin/tsconfig.json",
       "./packages/vite-plugin/tsconfig.json",
