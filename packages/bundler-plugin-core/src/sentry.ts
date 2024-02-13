@@ -8,6 +8,10 @@ import {
 import { type Options } from "./types";
 import { type NormalizedOptions } from "./utils/normalizeOptions";
 
+export type SentryClient = ReturnType<
+  typeof createSentryInstance
+>["sentryClient"];
+
 export const createSentryInstance = (
   options: NormalizedOptions,
   bundler: string,
