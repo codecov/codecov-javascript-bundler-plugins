@@ -1,0 +1,12 @@
+{
+  "name": "temp",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@codecov/bundler-plugin-core": "workspace:^"
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "version": "2",
+  "plugin": {
+    "name": "custom-reporter",
+    "version": "1.0.0"
+  },
+  "builtAt": 1701451048604,
+  "duration": 1000,
+  "bundler": { "name": "custom", "version": "1.0.0" },
+  "bundleName": "sample",
+  "assets": [
+    {
+      "name": "assets/index-1dca144e.js",
+      "size": 782,
+      "gzipSize": 448,
+      "normalized": "assets/index-*.js"
+    },
+    {
+      "name": "index.html",
+      "size": 386,
+      "gzipSize": 386,
+      "normalized": "index.html"
+    },
+    {
+      "name": "vite.svg",
+      "size": 1536,
+      "gzipSize": 1536,
+      "normalized": "vite.svg"
+    }
+  ],
+  "chunks": [
+    {
+      "id": "main",
+      "uniqueId": "0-main",
+      "entry": true,
+      "initial": true,
+      "files": ["assets/index-1dca144e.js"],
+      "names": ["main"]
+    }
+  ],
+  "modules": [
+    {
+      "name": "assets/index-1dca144e.js",
+      "size": 782,
+      "chunkUniqueIds": ["0-main"]
+    },
+    {
+      "name": "index.html",
+      "size": 386,
+      "chunkUniqueIds": ["0-main"]
+    },
+    {
+      "name": "vite.svg",
+      "size": 1536,
+      "chunkUniqueIds": ["0-main"]
+    }
+  ]
+}
