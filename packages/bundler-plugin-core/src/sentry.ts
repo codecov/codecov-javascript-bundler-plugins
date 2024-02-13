@@ -19,11 +19,15 @@ export const createSentryInstance = (
   const telemetry = options.telemetry ?? true;
 
   if (telemetry === false || !!options.dryRun) {
-    return { sentryClient: undefined };
+    return { sentryClient: undefined, sentryHub: undefined };
   }
 
   const client = new NodeClient({
     dsn: "https://942e283ea612c29cc3371c6d27f57e58@o26192.ingest.sentry.io/4506739665207296",
+
+    _experiments: {
+      metricsAggregator: true,
+    },
 
     tracesSampleRate: 1,
     sampleRate: 1,
@@ -71,7 +75,7 @@ export const createSentryInstance = (
   // increment the counter for the bundler
   client.metricsAggregator?.add("c", `bundler-${bundler}`, 1);
 
-  return { sentryClient: client };
+  return { sentryClient: client, sentryHub: hub };
 };
 
 export const setTelemetryDataOnHub = (

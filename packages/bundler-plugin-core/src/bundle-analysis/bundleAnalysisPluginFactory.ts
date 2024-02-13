@@ -18,6 +18,7 @@ interface BundleAnalysisUploadPluginArgs {
   unpluginMetaContext: UnpluginContextMeta;
   bundleAnalysisUploadPlugin: BundleAnalysisUploadPlugin;
   sentryClient: SentryClient;
+  handleRecoverableError: (error: unknown) => void;
 }
 
 export const bundleAnalysisPluginFactory = ({
@@ -25,6 +26,7 @@ export const bundleAnalysisPluginFactory = ({
   unpluginMetaContext,
   bundleAnalysisUploadPlugin,
   sentryClient,
+  handleRecoverableError,
 }: BundleAnalysisUploadPluginArgs): UnpluginOptions => {
   const output: Output = {
     version: "1",
@@ -101,6 +103,8 @@ export const bundleAnalysisPluginFactory = ({
           "none",
           { bundler: unpluginMetaContext.framework },
         );
+
+        handleRecoverableError(error);
         return;
       } finally {
         sentryClient?.metricsAggregator?.add(
@@ -128,12 +132,13 @@ export const bundleAnalysisPluginFactory = ({
           "none",
           { bundler: unpluginMetaContext.framework },
         );
-      } catch {
+      } catch (error) {
         sentryClient?.metricsAggregator?.add(
           "c",
           "upload_bundle_stats.error",
           1,
         );
+        handleRecoverableError(error);
         return;
       } finally {
         sentryClient?.metricsAggregator?.add(
