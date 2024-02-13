@@ -14,7 +14,11 @@ import {
 import { red } from "./utils/logging.ts";
 import { normalizePath } from "./utils/normalizePath.ts";
 import { bundleAnalysisPluginFactory } from "./bundle-analysis/bundleAnalysisPluginFactory.ts";
-import { normalizeOptions } from "./utils/normalizeOptions.ts";
+import {
+  normalizeOptions,
+  type NormalizedOptions,
+} from "./utils/normalizeOptions.ts";
+import { createSentryInstance } from "./sentry.ts";
 
 const NODE_VERSION_RANGE = ">=18.18.0";
 
@@ -37,6 +41,13 @@ function codecovUnpluginFactory({
       return [];
     }
 
+    const options = normalizedOptions.options;
+
+    const { sentryClient } = createSentryInstance(
+      options,
+      unpluginMetaContext.framework,
+    );
+
     if (!satisfies(process.version, NODE_VERSION_RANGE)) {
       red(
         `Codecov ${unpluginMetaContext.framework} bundler plugin requires Node.js ${NODE_VERSION_RANGE}. You are using Node.js ${process.version}. Please upgrade your Node.js version.`,
@@ -45,12 +56,12 @@ function codecovUnpluginFactory({
       return plugins;
     }
 
-    const options = normalizedOptions.options;
     if (options?.enableBundleAnalysis) {
       plugins.push(
         bundleAnalysisPluginFactory({
           options,
           bundleAnalysisUploadPlugin,
+          sentryClient,
         }),
       );
     }
@@ -68,6 +79,7 @@ export type {
   ProviderUtilInputs,
   UploadOverrides,
   Output,
+  NormalizedOptions,
 };
 
 export { normalizePath, codecovUnpluginFactory, red };
