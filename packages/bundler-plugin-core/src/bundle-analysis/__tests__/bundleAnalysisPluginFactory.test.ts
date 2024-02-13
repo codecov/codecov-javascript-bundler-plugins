@@ -1,3 +1,4 @@
+import { type UnpluginContextMeta } from "unplugin";
 import { bundleAnalysisPluginFactory } from "../bundleAnalysisPluginFactory";
 
 describe("bundleAnalysisPluginFactory", () => {
@@ -16,6 +17,11 @@ describe("bundleAnalysisPluginFactory", () => {
         name: "plugin-name",
         pluginVersion: "1.0.0",
       }),
+      unpluginMetaContext: {} as UnpluginContextMeta,
+      sentryClient: undefined,
+      handleRecoverableError() {
+        return;
+      },
     });
 
     expect(plugin).toMatchSnapshot();
