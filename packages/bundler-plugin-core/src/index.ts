@@ -60,6 +60,7 @@ function codecovUnpluginFactory({
       plugins.push(
         bundleAnalysisPluginFactory({
           options,
+          unpluginMetaContext,
           bundleAnalysisUploadPlugin,
           sentryClient,
         }),

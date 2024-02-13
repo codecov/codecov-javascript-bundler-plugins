@@ -1,25 +1,28 @@
-import { type UnpluginOptions } from "unplugin";
 import {
   type BundleAnalysisUploadPlugin,
   type Output,
   type ProviderUtilInputs,
   type UploadOverrides,
 } from "../types.ts";
+import { type UnpluginContextMeta, type UnpluginOptions } from "unplugin";
 import { getPreSignedURL } from "../utils/getPreSignedURL.ts";
 import { type NormalizedOptions } from "../utils/normalizeOptions.ts";
 import { detectProvider } from "../utils/provider.ts";
 import { uploadStats } from "../utils/uploadStats.ts";
 import { sendSentryBundleStats } from "../utils/sentryUtils.ts";
 import { type SentryClient } from "../sentry.ts";
+import { createGauge } from "../utils/fetchWithRetry.ts";
 
 interface BundleAnalysisUploadPluginArgs {
   options: NormalizedOptions;
+  unpluginMetaContext: UnpluginContextMeta;
   bundleAnalysisUploadPlugin: BundleAnalysisUploadPlugin;
   sentryClient: SentryClient;
 }
 
 export const bundleAnalysisPluginFactory = ({
   options,
+  unpluginMetaContext,
   bundleAnalysisUploadPlugin,
   sentryClient,
 }: BundleAnalysisUploadPluginArgs): UnpluginOptions => {
@@ -69,25 +72,34 @@ export const bundleAnalysisPluginFactory = ({
       const inputs: ProviderUtilInputs = { envs, args };
       const provider = await detectProvider(inputs);
 
-      const getPreSignedURLStart = Date.now();
       let url = "";
+      const gauge = createGauge({
+        bundler: unpluginMetaContext.framework,
+        sentryClient,
+      });
+      const getPreSignedURLStart = Date.now();
       try {
         url = await getPreSignedURL({
           apiURL: options?.apiUrl,
           uploadToken: options?.uploadToken,
           serviceParams: provider,
           retryCount: options?.retryCount,
+          gauge,
         });
         sentryClient?.metricsAggregator?.add(
           "c",
           "request_presigned_url.success",
           1,
+          "none",
+          { bundler: unpluginMetaContext.framework },
         );
       } catch (error) {
         sentryClient?.metricsAggregator?.add(
           "c",
           "request_presigned_url.error",
           1,
+          "none",
+          { bundler: unpluginMetaContext.framework },
         );
         return;
       } finally {
@@ -96,6 +108,7 @@ export const bundleAnalysisPluginFactory = ({
           "request_presigned_url",
           Date.now() - getPreSignedURLStart,
           "millisecond",
+          { bundler: unpluginMetaContext.framework },
         );
       }
 
@@ -106,12 +119,14 @@ export const bundleAnalysisPluginFactory = ({
           bundleName: output.bundleName,
           message: JSON.stringify(output),
           retryCount: options?.retryCount,
-          sentryClient,
+          gauge,
         });
         sentryClient?.metricsAggregator?.add(
           "c",
           "upload_bundle_stats.success",
           1,
+          "none",
+          { bundler: unpluginMetaContext.framework },
         );
       } catch {
         sentryClient?.metricsAggregator?.add(
@@ -126,6 +141,7 @@ export const bundleAnalysisPluginFactory = ({
           "upload_bundle_stats",
           Date.now() - uploadStart,
           "millisecond",
+          { bundler: unpluginMetaContext.framework },
         );
       }
     },

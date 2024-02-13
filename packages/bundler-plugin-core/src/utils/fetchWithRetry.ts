@@ -4,12 +4,27 @@ import { DEFAULT_RETRY_DELAY } from "./constants";
 import { delay } from "./delay";
 import { debug, red } from "./logging";
 
+interface CreateGaugeArgs {
+  bundler: string;
+  sentryClient: SentryClient;
+}
+
+export type Gauge = ReturnType<typeof createGauge>;
+
+export const createGauge =
+  ({ bundler, sentryClient }: CreateGaugeArgs) =>
+  (name: string, count: number) => {
+    sentryClient?.metricsAggregator?.add("g", `fetch.${name}`, count, "none", {
+      bundler,
+    });
+  };
+
 interface FetchWithRetryArgs {
   url: string;
   retryCount: number;
   requestData: RequestInit;
   name?: string;
-  sentryClient?: SentryClient;
+  gauge?: Gauge;
 }
 
 export const fetchWithRetry = async ({
@@ -17,7 +32,7 @@ export const fetchWithRetry = async ({
   retryCount,
   requestData,
   name,
-  sentryClient,
+  gauge,
 }: FetchWithRetryArgs) => {
   let response = new Response(null, { status: 400 });
   let retryCounter = 0;
@@ -43,17 +58,16 @@ export const fetchWithRetry = async ({
         if (!(err instanceof BadResponseError)) {
           throw err;
         }
-
-        sentryClient?.metricsAggregator?.add(
-          "g",
-          `fetch.${name}`,
-          retryCounter,
-        );
+        if (gauge && name) {
+          gauge(name, retryCounter + 1);
+        }
         return response;
       }
     }
   }
 
-  sentryClient?.metricsAggregator?.add("g", `fetch.${name}`, retryCounter);
+  if (gauge && name) {
+    gauge(name, retryCounter + 1);
+  }
   return response;
 };
