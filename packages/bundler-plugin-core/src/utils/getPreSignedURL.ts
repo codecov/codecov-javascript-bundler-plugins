@@ -8,12 +8,14 @@ import { DEFAULT_RETRY_COUNT } from "./constants.ts";
 import { fetchWithRetry } from "./fetchWithRetry.ts";
 import { green, red } from "./logging.ts";
 import { preProcessBody } from "./preProcessBody.ts";
+import { type SentryClient } from "../sentry.ts";
 
 interface GetPreSignedURLArgs {
   apiURL: string;
   uploadToken?: string;
   serviceParams: Partial<ProviderServiceParams>;
   retryCount?: number;
+  sentryClient?: SentryClient;
 }
 
 const PreSignedURLSchema = z.object({
@@ -25,6 +27,7 @@ export const getPreSignedURL = async ({
   uploadToken,
   serviceParams,
   retryCount = DEFAULT_RETRY_COUNT,
+  sentryClient,
 }: GetPreSignedURLArgs) => {
   if (!uploadToken) {
     red("No upload token found");
@@ -38,7 +41,8 @@ export const getPreSignedURL = async ({
     response = await fetchWithRetry({
       url,
       retryCount,
-      name: "`get-pre-signed-url`",
+      sentryClient,
+      name: "get-pre-signed-url",
       requestData: {
         method: "POST",
         headers: {

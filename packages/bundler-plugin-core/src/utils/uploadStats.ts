@@ -6,12 +6,14 @@ import { fetchWithRetry } from "./fetchWithRetry";
 import { DEFAULT_RETRY_COUNT } from "./constants";
 import { UploadLimitReachedError } from "../errors/UploadLimitReachedError";
 import { FailedFetchError } from "../errors/FailedFetchError";
+import { type SentryClient } from "../sentry.ts";
 
 interface UploadStatsArgs {
   message: string;
   bundleName: string;
   preSignedUrl: string;
   retryCount?: number;
+  sentryClient?: SentryClient;
 }
 
 export async function uploadStats({
@@ -19,6 +21,7 @@ export async function uploadStats({
   bundleName,
   preSignedUrl,
   retryCount = DEFAULT_RETRY_COUNT,
+  sentryClient,
 }: UploadStatsArgs) {
   const iterator = message[Symbol.iterator]();
   const stream = new ReadableStream({
@@ -38,7 +41,8 @@ export async function uploadStats({
     response = await fetchWithRetry({
       url: preSignedUrl,
       retryCount,
-      name: "`upload-stats`",
+      name: "upload-stats",
+      sentryClient,
       requestData: {
         method: "PUT",
         headers: {
