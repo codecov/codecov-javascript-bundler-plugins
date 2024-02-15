@@ -338,13 +338,13 @@ jobs:
       - name: Build ${{ matrix.example }} app for staging
         working-directory: ./examples/${{ matrix.example }}
         env:
-          NEXT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          NEXT_UPLOAD_TOKEN: ${{ secrets.CODECOV_TOKEN }}
           NEXT_API_URL: ${{ secrets.CODECOV_API_URL }}
-          ROLLUP_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          ROLLUP_UPLOAD_TOKEN: ${{ secrets.CODECOV_TOKEN }}
           ROLLUP_API_URL: ${{ secrets.CODECOV_API_URL }}
-          VITE_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          VITE_UPLOAD_TOKEN: ${{ secrets.CODECOV_TOKEN }}
           VITE_API_URL: ${{ secrets.CODECOV_API_URL }}
-          WEBPACK_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          WEBPACK_UPLOAD_TOKEN: ${{ secrets.CODECOV_TOKEN }}
           WEBPACK_API_URL: ${{ secrets.CODECOV_API_URL }}
         run: pnpm run build
 
