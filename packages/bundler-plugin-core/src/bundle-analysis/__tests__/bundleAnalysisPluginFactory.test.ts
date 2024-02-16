@@ -18,7 +18,7 @@ describe("bundleAnalysisPluginFactory", () => {
         pluginVersion: "1.0.0",
       }),
       unpluginMetaContext: {} as UnpluginContextMeta,
-      sentryClient: undefined,
+      sentryMetrics: undefined,
       handleRecoverableError() {
         return;
       },
