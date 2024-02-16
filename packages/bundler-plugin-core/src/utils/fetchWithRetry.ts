@@ -1,4 +1,4 @@
-import { type SentryClient } from "../sentry.ts";
+import { type SentryMetrics } from "../sentry.ts";
 import { BadResponseError } from "../errors/BadResponseError";
 import { DEFAULT_RETRY_DELAY } from "./constants";
 import { delay } from "./delay";
@@ -6,15 +6,15 @@ import { debug, red } from "./logging";
 
 interface CreateGaugeArgs {
   bundler: string;
-  sentryClient: SentryClient;
+  sentryMetrics: SentryMetrics;
 }
 
 export type Gauge = ReturnType<typeof createGauge>;
 
 export const createGauge =
-  ({ bundler, sentryClient }: CreateGaugeArgs) =>
+  ({ bundler, sentryMetrics }: CreateGaugeArgs) =>
   (name: string, count: number) => {
-    sentryClient?.metricsAggregator?.add("g", `fetch.${name}`, count, "none", {
+    sentryMetrics?.gauge(`fetch.${name}`, count, "none", {
       bundler,
     });
   };

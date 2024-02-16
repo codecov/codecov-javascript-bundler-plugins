@@ -51,7 +51,7 @@ function codecovUnpluginFactory({
       return plugins;
     }
 
-    const { sentryClient } = createSentryInstance(
+    const { sentryHub, sentryMetrics } = createSentryInstance(
       options,
       unpluginMetaContext.framework,
     );
@@ -99,7 +99,7 @@ function codecovUnpluginFactory({
           options,
           unpluginMetaContext,
           bundleAnalysisUploadPlugin,
-          sentryClient,
+          sentryMetrics,
           handleRecoverableError,
         }),
       );

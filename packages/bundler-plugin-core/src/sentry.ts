@@ -7,10 +7,15 @@ import {
 } from "@sentry/node";
 import { type Options } from "./types";
 import { type NormalizedOptions } from "./utils/normalizeOptions";
+import { type Primitive } from "zod";
 
 export type SentryClient = ReturnType<
   typeof createSentryInstance
 >["sentryClient"];
+
+export type SentryMetrics = ReturnType<
+  typeof createSentryInstance
+>["sentryMetrics"];
 
 export const createSentryInstance = (
   options: NormalizedOptions,
@@ -19,7 +24,11 @@ export const createSentryInstance = (
   const telemetry = options.telemetry ?? true;
 
   if (telemetry === false || !!options.dryRun) {
-    return { sentryClient: undefined, sentryHub: undefined };
+    return {
+      sentryClient: undefined,
+      sentryHub: undefined,
+      sentryMetrics: undefined,
+    };
   }
 
   const client = new NodeClient({
@@ -75,7 +84,30 @@ export const createSentryInstance = (
   // increment the counter for the bundler
   client.metricsAggregator?.add("c", `bundler-${bundler}`, 1);
 
-  return { sentryClient: client, sentryHub: hub };
+  type MetricFunction = (
+    key: string,
+    value: number,
+    unit?: string,
+    tags?: Record<string, Primitive>,
+  ) => void;
+
+  const gauge: MetricFunction = (key, value, unit, tags) =>
+    client.metricsAggregator?.add("g", key, value, unit, tags);
+  const distribution: MetricFunction = (key, value, unit, tags) =>
+    client.metricsAggregator?.add("d", key, value, unit, tags);
+  const increment: MetricFunction = (key, value, unit, tags) =>
+    client.metricsAggregator?.add("c", key, value, unit, tags);
+  const set: MetricFunction = (key, value, unit, tags) =>
+    client.metricsAggregator?.add("s", key, value, unit, tags);
+
+  const sentryMetrics = {
+    distribution,
+    increment,
+    gauge,
+    set,
+  };
+
+  return { sentryClient: client, sentryHub: hub, sentryMetrics };
 };
 
 export const setTelemetryDataOnHub = (
