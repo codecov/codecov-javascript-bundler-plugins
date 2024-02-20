@@ -25,7 +25,7 @@ export default defineConfig({
   plugins: [
     codecovVitePlugin({
       enableBundleAnalysis: true,
-      bundleName: "vite-test",
+      bundleName: "test-vite-v5",
       uploadToken: "test-token",
       apiUrl: "http://localhost:8000/test-url/${id}/${status}/false",
     }),

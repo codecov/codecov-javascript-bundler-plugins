@@ -20,7 +20,7 @@ module.exports = {
   plugins: [
     codecovWebpackPlugin({
       enableBundleAnalysis: true,
-      bundleName: "webpack-test",
+      bundleName: "test-webpack-v5",
       uploadToken: "test-token",
       apiUrl: "http://localhost:8000/test-url/${id}/${status}/false",
     }),
