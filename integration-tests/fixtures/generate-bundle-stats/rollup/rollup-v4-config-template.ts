@@ -2,7 +2,7 @@ export const configV4 = ({
   id,
   status,
 }: {
-  id: number;
+  id: string;
   status: number;
 }) => `const path = require("path");
 const resolve = require("@rollup/plugin-node-resolve");

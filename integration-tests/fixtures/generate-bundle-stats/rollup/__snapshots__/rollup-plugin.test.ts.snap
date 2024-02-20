@@ -10,7 +10,7 @@ exports[`Generating rollup stats version 3 matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-rollup-app-v3-iife",
+  "bundleName": "test-rollup-v3-iife",
   "bundler": {
     "name": "rollup",
     "version": "3.29.4",
@@ -86,7 +86,7 @@ exports[`Generating rollup stats version 4 matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-rollup-app-v4-iife",
+  "bundleName": "test-rollup-v4-iife",
   "bundler": {
     "name": "rollup",
     "version": "4.9.6",

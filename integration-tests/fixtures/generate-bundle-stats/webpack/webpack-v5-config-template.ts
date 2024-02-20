@@ -2,7 +2,7 @@ export const configV5 = ({
   id,
   status,
 }: {
-  id: number;
+  id: string;
   status: number;
 }) => `const path = require("path");
 const { codecovWebpackPlugin } = require("@codecov/webpack-plugin");

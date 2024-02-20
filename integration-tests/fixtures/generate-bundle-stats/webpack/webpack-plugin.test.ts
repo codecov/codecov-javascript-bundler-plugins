@@ -1,5 +1,5 @@
 import { $ } from "bun";
-import { describe, it, expect } from "bun:test";
+import { describe, it, expect, beforeEach, afterEach } from "bun:test";
 import { configV5 } from "./webpack-v5-config-template";
 
 const webpackPath = (version: number) =>
@@ -10,17 +10,30 @@ const webpackApp = "test-apps/vite";
 
 describe("Generating webpack stats", () => {
   describe("version 5", () => {
-    it("matches the snapshot", async () => {
-      const id = 5;
-      const config = configV5({
+    let id: string;
+    let config: string;
+    let webpack: string;
+    let configFile: string;
+
+    beforeEach(async () => {
+      id = `webpack-v5-${Date.now()}`;
+      config = configV5({
         id,
         status: 200,
       });
 
-      const webpack = webpackPath(5);
-      const configFile = webpackConfig(5);
+      webpack = webpackPath(5);
+      configFile = webpackConfig(5);
 
       await $`echo ${config} > ${configFile}`;
+    });
+
+    afterEach(async () => {
+      await $`rm ${configFile}`;
+      await $`rm -rf ${webpackApp}/dist`;
+    });
+
+    it("matches the snapshot", async () => {
       await $`node ${webpack} --config ${configFile}`;
 
       const res = await fetch(`http://localhost:8000/get-stats/${id}`);
@@ -35,9 +48,6 @@ describe("Generating webpack stats", () => {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         outputPath: expect.stringContaining("/dist"),
       });
-
-      await $`rm ${configFile}`;
-      await $`rm -rf ${webpackApp}/dist`;
     });
   });
 });

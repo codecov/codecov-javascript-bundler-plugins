@@ -2,7 +2,7 @@ export const configV5 = ({
   id,
   status,
 }: {
-  id: number;
+  id: string;
   status: number;
 }) => `import { codecovVitePlugin } from "@codecov/vite-plugin";
 import path from "path";

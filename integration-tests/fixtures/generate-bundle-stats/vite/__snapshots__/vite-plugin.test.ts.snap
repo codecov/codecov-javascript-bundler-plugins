@@ -10,7 +10,7 @@ exports[`Generating vite stats version 4 matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "vite-test-es",
+  "bundleName": "test-vite-v4-es",
   "bundler": {
     "name": "rollup",
     "version": "3.29.4",
@@ -100,7 +100,7 @@ exports[`Generating vite stats version 5 matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "vite-test-es",
+  "bundleName": "test-vite-v5-es",
   "bundler": {
     "name": "rollup",
     "version": "4.9.6",

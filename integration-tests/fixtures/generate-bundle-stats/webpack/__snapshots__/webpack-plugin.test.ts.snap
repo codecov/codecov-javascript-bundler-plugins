@@ -10,7 +10,7 @@ exports[`Generating webpack stats version 5 matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "webpack-test-array-push",
+  "bundleName": "test-webpack-v5-array-push",
   "bundler": {
     "name": "webpack",
     "version": "5.90.0",
