@@ -6,8 +6,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "test:e2e": "NODE_OPTIONS=\"--experimental-vm-modules --trace-warnings\" jest --maxWorkers=2",
-    "test:e2e:new": "bun test fixtures/generate-bundle-stats/vite/vite-plugin.test.ts",
+    "test:e2e": "bun test fixtures/*",
     "type-check": "tsc --noEmit",
     "clean": "rm -rf node_modules",
     "lint": "eslint . --ext .ts,.tsx",
