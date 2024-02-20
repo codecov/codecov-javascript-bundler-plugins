@@ -69,15 +69,18 @@ app.all("/file-upload/:id/:status{[0-9]{3}}", async (c) => {
 
 app.all("/get-stats/:id", (c) => {
   const id = c.req.param("id");
+  console.log("getting stats", id);
 
   const query = sqlite.query("SELECT * FROM stats WHERE id = $id");
   const result = query.get({ $id: id }) as { id: string; json_stats: string };
   query.finalize();
 
   if (result) {
+    console.log("stats found", id);
     return c.json({ stats: result.json_stats }, { status: 200 });
   }
 
+  console.log("stats not found", id);
   return c.text("Not found", { status: 404 });
 });
 
