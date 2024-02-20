@@ -17,6 +17,7 @@ module.exports = defineConfig({
     resolve(), // tells Rollup how to find date-fns in node_modules
     commonjs(), // converts date-fns to ES modules
     codecovRollupPlugin({
+      telemetry: false,
       enableBundleAnalysis: true,
       bundleName: "test-rollup-v3",
       uploadToken: "test-token",

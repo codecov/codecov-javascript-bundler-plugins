@@ -13,6 +13,7 @@ module.exports = {
   mode: "production",
   plugins: [
     codecovWebpackPlugin({
+      telemetry: false,
       enableBundleAnalysis: true,
       bundleName: "test-webpack-v5",
       uploadToken: "test-token",
