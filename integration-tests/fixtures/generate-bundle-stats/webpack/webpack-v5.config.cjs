@@ -1,19 +1,13 @@
-export const configV5 = ({
-  id,
-  status,
-}: {
-  id: string;
-  status: number;
-}) => `const path = require("path");
+const path = require("path");
 const { codecovWebpackPlugin } = require("@codecov/webpack-plugin");
 
 const webpackPath = path.resolve(__dirname, "../../../test-apps/webpack");
 
 module.exports = {
   cache: false,
-  entry: \`\${webpackPath}/src/main.js\`,
+  entry: `${webpackPath}/src/main.js`,
   output: {
-    path: \`\${webpackPath}/dist\`,
+    path: `${webpackPath}/dist`,
     filename: "main-[contenthash].js",
   },
   mode: "production",
@@ -22,7 +16,7 @@ module.exports = {
       enableBundleAnalysis: true,
       bundleName: "test-webpack-v5",
       uploadToken: "test-token",
-      apiUrl: "http://localhost:8000/test-url/${id}/${status}/false",
+      apiUrl: process.env.API_URL,
     }),
   ],
-};`;
+};
