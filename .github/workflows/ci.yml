@@ -239,6 +239,11 @@ jobs:
     name: Run Integration Tests (Node ${{ matrix.node-version }})
     needs: install
     runs-on: ubuntu-latest
+    services:
+      test-api:
+        image: codecov/codecov-javascript-bundler-plugins-test-api
+        ports:
+          - 8000:8000
     strategy:
       fail-fast: false
       matrix:
@@ -283,7 +288,7 @@ jobs:
         run: pnpm run build
 
       - name: Run e2e tests
-        run: pnpm run test:e2e --maxWorkers=2
+        run: pnpm run test:e2e
 
   upload-build-stats-production:
     name: Build and upload ${{ matrix.example }} stats data to production

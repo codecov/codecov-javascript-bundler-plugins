@@ -14,6 +14,7 @@ const config = {
     "**/dist/**",
     "**/node_modules/**",
     "**/test-apps/**",
+    "**/integration-tests/**/*.cjs",
   ],
   parserOptions: {
     ecmaVersion: "latest",
