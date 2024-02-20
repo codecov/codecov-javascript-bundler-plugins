@@ -287,6 +287,9 @@ jobs:
       - name: Build packages
         run: pnpm run build
 
+      - name: Run new e2e tests
+        run: pnpm run test:e2e:new --maxWorkers=2
+
       - name: Run e2e tests
         run: pnpm run test:e2e --maxWorkers=2
 
