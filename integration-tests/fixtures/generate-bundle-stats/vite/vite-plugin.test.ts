@@ -12,7 +12,7 @@ const viteApp = "test-apps/vite";
 describe("Generating vite stats", () => {
   describe("version 4", () => {
     it("matches the snapshot", async () => {
-      const id = 1;
+      const id = 3;
       const config = configV4({
         id,
         status: 200,
@@ -44,7 +44,7 @@ describe("Generating vite stats", () => {
 
   describe("version 5", () => {
     it("matches the snapshot", async () => {
-      const id = 2;
+      const id = 4;
       const config = configV5({
         id,
         status: 200,
