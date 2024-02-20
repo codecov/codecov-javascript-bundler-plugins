@@ -1,10 +1,4 @@
-export const configV4 = ({
-  id,
-  status,
-}: {
-  id: string;
-  status: number;
-}) => `const path = require("path");
+const path = require("path");
 const resolve = require("@rollup/plugin-node-resolve");
 const commonjs = require("@rollup/plugin-commonjs");
 const { codecovRollupPlugin } = require("@codecov/rollup-plugin");
@@ -13,9 +7,9 @@ const { defineConfig } = require("rollupV4");
 const rollupPath = path.resolve(__dirname, "../../../test-apps/rollup");
 
 module.exports = defineConfig({
-  input: \`\${rollupPath}/src/main.js\`,
+  input: `${rollupPath}/src/main.js`,
   output: {
-    dir: \`\${rollupPath}/distV4\`,
+    dir: `${rollupPath}/distV4`,
     format: "iife",
     entryFileNames: "[name]-[hash].js",
   },
@@ -26,7 +20,7 @@ module.exports = defineConfig({
       enableBundleAnalysis: true,
       bundleName: "test-rollup-v4",
       uploadToken: "test-token",
-      apiUrl: "http://localhost:8000/test-url/${id}/${status}/false",
+      apiUrl: process.env.API_URL,
     }),
   ],
-});`;
+});
