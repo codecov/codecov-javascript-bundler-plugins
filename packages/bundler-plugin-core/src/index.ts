@@ -19,6 +19,7 @@ import {
   type NormalizedOptions,
 } from "./utils/normalizeOptions.ts";
 import { createSentryInstance } from "./sentry.ts";
+import { telemetryPlugin } from "./plugins/telemetry.ts";
 
 const NODE_VERSION_RANGE = ">=18.18.0";
 
@@ -51,7 +52,7 @@ function codecovUnpluginFactory({
       return plugins;
     }
 
-    const { sentryHub, sentryMetrics } = createSentryInstance(
+    const { sentryHub, sentryMetrics, sentryClient } = createSentryInstance(
       options,
       unpluginMetaContext.framework,
     );
@@ -92,6 +93,14 @@ function codecovUnpluginFactory({
         }
       }
     }
+
+    plugins.push(
+      telemetryPlugin({
+        sentryClient,
+        sentryHub,
+        shouldSendTelemetry: options.telemetry,
+      }),
+    );
 
     if (options?.enableBundleAnalysis) {
       plugins.push(
