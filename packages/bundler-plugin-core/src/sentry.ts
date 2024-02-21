@@ -41,6 +41,8 @@ export const createSentryInstance = (
     tracesSampleRate: 1,
     sampleRate: 1,
 
+    debug: true,
+
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     // @ts-expect-error this value is being replaced by rollup
     release: __PACKAGE_VERSION__ as string,
