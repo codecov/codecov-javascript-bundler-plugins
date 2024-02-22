@@ -48,7 +48,15 @@ function _getSHA(inputs: ProviderUtilInputs): string {
 function _getSlug(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
   if (args?.slug && args?.slug !== "") return args?.slug;
-  return envs?.VERCEL_GIT_REPO_SLUG ?? "";
+  const owner = envs?.VERCEL_GIT_REPO_OWNER ?? "";
+  const repo = envs?.VERCEL_GIT_REPO_SLUG ?? "";
+
+  let slug = "";
+  if (owner && repo) {
+    slug = `${owner}/${repo}`;
+  }
+
+  return slug;
 }
 
 // eslint-disable-next-line @typescript-eslint/require-await
