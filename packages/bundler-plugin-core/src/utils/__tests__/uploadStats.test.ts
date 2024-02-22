@@ -60,6 +60,7 @@ describe("uploadStats", () => {
       setup({ sendError: false });
 
       const data = await uploadStats({
+        bundleName: "cool-bundle-cjs",
         message: "cool-message",
         preSignedUrl: "http://localhost/upload/stats/",
         retryCount: 0,
@@ -77,6 +78,7 @@ describe("uploadStats", () => {
         let error;
         try {
           await uploadStats({
+            bundleName: "cool-bundle-cjs",
             message: "cool-message",
             preSignedUrl: "",
             retryCount: 1,
@@ -96,6 +98,7 @@ describe("uploadStats", () => {
         let error;
         try {
           await uploadStats({
+            bundleName: "cool-bundle-cjs",
             message: "cool-message",
             preSignedUrl: "http://localhost/upload/stats/",
             retryCount: 0,
@@ -115,6 +118,7 @@ describe("uploadStats", () => {
         let error;
         try {
           await uploadStats({
+            bundleName: "cool-bundle-cjs",
             message: "cool-message",
             preSignedUrl: "http://localhost/upload/stats/",
             retryCount: 0,

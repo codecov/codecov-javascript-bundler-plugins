@@ -9,12 +9,14 @@ import { FailedFetchError } from "../errors/FailedFetchError";
 
 interface UploadStatsArgs {
   message: string;
+  bundleName: string;
   preSignedUrl: string;
   retryCount?: number;
 }
 
 export async function uploadStats({
   message,
+  bundleName,
   preSignedUrl,
   retryCount = DEFAULT_RETRY_COUNT,
 }: UploadStatsArgs) {
@@ -59,10 +61,12 @@ export async function uploadStats({
   }
 
   if (!response.ok) {
-    red("Failed to upload stats, bad response");
+    red(
+      `Failed to upload stats, bad response. Response ${response.status} - ${response.statusText}`,
+    );
     throw new FailedUploadError("Failed to upload stats");
   }
 
-  green("Successfully uploaded stats");
+  green(`Successfully uploaded stats for bundle: ${bundleName}`);
   return true;
 }
