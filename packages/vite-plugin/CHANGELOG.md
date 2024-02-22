@@ -1,5 +1,15 @@
 # @codecov/vite-plugin
 
+## 0.0.1-beta.1
+
+### Patch Changes
+
+- 834dd14: Update Vercel env helper function to create full git slug
+- f0fd4ce: Add codecov prefix to log messages
+- Updated dependencies [834dd14]
+- Updated dependencies [f0fd4ce]
+  - @codecov/bundler-plugin-core@0.0.1-beta.1
+
 ## 0.0.1-beta.0
 
 ### Patch Changes

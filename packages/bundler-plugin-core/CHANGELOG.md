@@ -1,5 +1,12 @@
 # @codecov/bundler-plugin-core
 
+## 0.0.1-beta.1
+
+### Patch Changes
+
+- 834dd14: Update Vercel env helper function to create full git slug
+- f0fd4ce: Add codecov prefix to log messages
+
 ## 0.0.1-beta.0
 
 ### Patch Changes
