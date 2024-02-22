@@ -7,5 +7,5 @@
     "@codecov/vite-plugin": "0.0.0",
     "@codecov/webpack-plugin": "0.0.0"
   },
-  "changesets": ["healthy-foxes-joke"]
+  "changesets": ["four-houses-drive", "healthy-foxes-joke", "khaki-lions-glow"]
 }
