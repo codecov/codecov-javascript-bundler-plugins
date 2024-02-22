@@ -70,6 +70,7 @@ export const bundleAnalysisPluginFactory = ({
       try {
         await uploadStats({
           preSignedUrl: url,
+          bundleName: output.bundleName,
           message: JSON.stringify(output),
           retryCount: userOptions?.retryCount,
         });
