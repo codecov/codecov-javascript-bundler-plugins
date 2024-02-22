@@ -1,3 +1,6 @@
+// VERCEL ENV DOCS
+// https://vercel.com/docs/projects/environment-variables/system-environment-variables
+
 import {
   type ProviderEnvs,
   type ProviderServiceParams,
