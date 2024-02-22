@@ -42,7 +42,8 @@ describe("Vercel Params", () => {
       envs: {
         VERCEL: "true",
         VERCEL_GIT_COMMIT_SHA: "testingsha",
-        VERCEL_GIT_REPO_SLUG: "testOrg/testRepo",
+        VERCEL_GIT_REPO_SLUG: "testRepo",
+        VERCEL_GIT_REPO_OWNER: "testOrg",
       },
     };
 
@@ -73,7 +74,8 @@ describe("Vercel Params", () => {
       envs: {
         VERCEL: "true",
         VERCEL_GIT_COMMIT_SHA: "testingsha",
-        VERCEL_GIT_REPO_SLUG: "other-org/testRepo",
+        VERCEL_GIT_REPO_SLUG: "testRepo",
+        VERCEL_GIT_REPO_OWNER: "testOrg",
       },
     };
 
