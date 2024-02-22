@@ -21,9 +21,9 @@ function _getBuildURL(): string {
 }
 
 function _getBranch(inputs: ProviderUtilInputs): string {
-  const { args } = inputs;
+  const { args, envs } = inputs;
 
-  return args?.branch ?? "";
+  return args?.branch ?? envs.VERCEL_GIT_COMMIT_REF ?? "";
 }
 
 function _getJob(): string {
