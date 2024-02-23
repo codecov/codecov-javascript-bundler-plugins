@@ -39,6 +39,9 @@ export default defineBuildConfig({
             apiUrl: process.env.PLUGIN_CODECOV_API_URL,
           }),
         ];
+      } else {
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
+        opts.plugins = opts.plugins;
       }
     },
   },
