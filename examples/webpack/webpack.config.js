@@ -11,7 +11,7 @@ module.exports = {
   plugins: [
     codecovWebpackPlugin({
       enableBundleAnalysis: true,
-      bundleName: "example-webpack-app",
+      bundleName: "@codecov/example-webpack-app",
       uploadToken: process.env.WEBPACK_UPLOAD_TOKEN,
       apiUrl: process.env.WEBPACK_API_URL,
     }),

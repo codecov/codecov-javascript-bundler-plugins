@@ -290,8 +290,8 @@ jobs:
       - name: Run e2e tests
         run: pnpm run test:e2e
 
-  upload-build-stats-production:
-    name: Build and upload ${{ matrix.example }} stats data to production
+  upload-example-build-stats-production:
+    name: Build and upload ${{ matrix.example }} example stats data to production
     runs-on: ubuntu-latest
     needs: [install, unit-test, integration-test]
     strategy:
@@ -340,7 +340,7 @@ jobs:
       - name: Install built plugins
         run: pnpm install
 
-      - name: Build ${{ matrix.example }} app for staging
+      - name: Build ${{ matrix.example }} app for production
         working-directory: ./examples/${{ matrix.example }}
         env:
           NEXT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
@@ -353,8 +353,8 @@ jobs:
           WEBPACK_API_URL: ${{ secrets.CODECOV_API_URL }}
         run: pnpm run build
 
-  upload-build-stats-staging:
-    name: Build and upload ${{ matrix.example }} stats data to staging
+  upload-example-build-stats-staging:
+    name: Build and upload ${{ matrix.example }} example stats data to staging
     runs-on: ubuntu-latest
     needs: [install, unit-test, integration-test]
     strategy:
@@ -414,4 +414,131 @@ jobs:
           VITE_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
           WEBPACK_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
           WEBPACK_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
+        run: pnpm run build
+
+  upldate-plugin-stats-production:
+    name: Build and upload ${{ matrix.package }} stats data to production
+    runs-on: ubuntu-latest
+    needs: [install, unit-test, integration-test]
+    strategy:
+      fail-fast: false
+      matrix:
+        package:
+          [
+            "bundler-plugin-core",
+            "rollup-plugin",
+            "vite-plugin",
+            "webpack-plugin",
+          ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Cache node_modules
+        id: cache-node-modules
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-codecov-js-bundle-plugin-node-modules
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ env.cache-name }}-
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build plugins
+        run: pnpm run build
+
+      - name: Install plugins
+        run: pnpm install
+
+      - name: Build ${{ matrix.package }} to collect stats for production
+        working-directory: ./packages/${{ matrix.package }}
+        env:
+          PLUGIN_CODECOV_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          PLUGIN_CODECOV_API_URL: ${{ secrets.CODECOV_API_URL }}
+        run: pnpm run build
+
+
+  upldate-plugin-stats-staging:
+    name: Build and upload ${{ matrix.package }} stats data to staging
+    runs-on: ubuntu-latest
+    needs: [install, unit-test, integration-test]
+    strategy:
+      fail-fast: false
+      matrix:
+        package:
+          [
+            "bundler-plugin-core",
+            "rollup-plugin",
+            "vite-plugin",
+            "webpack-plugin",
+          ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Cache node_modules
+        id: cache-node-modules
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-codecov-js-bundle-plugin-node-modules
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ env.cache-name }}-
+
+      - name: Install dependencies
+        run: pnpm install
+        
+      - name: Build plugins
+        run: pnpm run build
+        
+      - name: Install plugins
+        run: pnpm install
+
+      - name: Build ${{ matrix.package }} to collect stats for staging
+        working-directory: ./packages/${{ matrix.package }}
+        env:
+          PLUGIN_CODECOV_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
+          PLUGIN_CODECOV_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
         run: pnpm run build
