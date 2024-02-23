@@ -7,6 +7,11 @@ export default defineBuildConfig({
   sourcemap: true,
   externals: ["vite"],
   rollup: {
+    dts: {
+      compilerOptions: {
+        removeComments: false,
+      },
+    },
     emitCJS: true,
     esbuild: {
       minify: true,
