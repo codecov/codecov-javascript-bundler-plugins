@@ -20,19 +20,17 @@ export default defineBuildConfig({
   },
   hooks: {
     "rollup:options": (_ctx, opts) => {
-      if (process.env.PLUGIN_CODECOV_TOKEN) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-        opts.plugins = [
-          opts.plugins,
-          codecovRollupPlugin({
-            enableBundleAnalysis:
-              typeof process.env.PLUGIN_CODECOV_TOKEN === "string",
-            bundleName: "@codecov/vite-plugin",
-            uploadToken: process.env.PLUGIN_CODECOV_TOKEN,
-            apiUrl: process.env.PLUGIN_CODECOV_API_URL,
-          }),
-        ];
-      }
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      opts.plugins = [
+        opts.plugins,
+        codecovRollupPlugin({
+          enableBundleAnalysis:
+            typeof process.env.PLUGIN_CODECOV_TOKEN === "string",
+          bundleName: "@codecov/vite-plugin",
+          uploadToken: process.env.PLUGIN_CODECOV_TOKEN,
+          apiUrl: process.env.PLUGIN_CODECOV_API_URL,
+        }),
+      ];
     },
   },
 });
