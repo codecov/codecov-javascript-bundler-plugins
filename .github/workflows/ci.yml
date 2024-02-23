@@ -459,11 +459,10 @@ jobs:
         run: pnpm install
 
       - name: Build plugins
-        run: |
-          PLUGIN_CODECOV_TOKEN=${{ secrets.CODECOV_ORG_TOKEN }} PLUGIN_CODECOV_API_URL=${{ secrets.CODECOV_API_URL }} pnpm run build
         env:
           PLUGIN_CODECOV_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           PLUGIN_CODECOV_API_URL: ${{ secrets.CODECOV_API_URL }}
+        run: pnpm run build
 
   upldate-plugin-stats-staging:
     name: Build and upload plugin stats data to production
@@ -471,6 +470,9 @@ jobs:
     needs: [install, unit-test, integration-test]
     strategy:
       fail-fast: false
+    env:
+      PLUGIN_CODECOV_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
+      PLUGIN_CODECOV_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -508,8 +510,7 @@ jobs:
         run: pnpm install
 
       - name: Build plugins
-        run: |
-          PLUGIN_CODECOV_TOKEN=${{ secrets.CODECOV_ORG_TOKEN_STAGING }} PLUGIN_CODECOV_API_URL=${{ secrets.CODECOV_STAGING_API_URL }} pnpm run build
         env:
           PLUGIN_CODECOV_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
           PLUGIN_CODECOV_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
+        run: pnpm run build
