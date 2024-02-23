@@ -6,6 +6,11 @@ export default defineBuildConfig({
   declaration: "compatible",
   sourcemap: true,
   rollup: {
+    dts: {
+      compilerOptions: {
+        removeComments: false,
+      },
+    },
     emitCJS: true,
     esbuild: {
       minify: true,
