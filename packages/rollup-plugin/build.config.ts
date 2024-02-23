@@ -27,7 +27,7 @@ export default defineBuildConfig({
           codecovRollupPlugin({
             enableBundleAnalysis:
               typeof process.env.PLUGIN_CODECOV_TOKEN === "string",
-            bundleName: "@codecov/bundler-plugin-core",
+            bundleName: "@codecov/rollup-plugin",
             uploadToken: process.env.PLUGIN_CODECOV_TOKEN,
             apiUrl: process.env.PLUGIN_CODECOV_API_URL,
           }),
