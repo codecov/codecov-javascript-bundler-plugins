@@ -22,6 +22,7 @@ export default defineBuildConfig({
       if (process.env.PLUGIN_CODECOV_TOKEN) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         opts.plugins = [
+          opts.plugins,
           codecovRollupPlugin({
             enableBundleAnalysis:
               typeof process.env.PLUGIN_CODECOV_TOKEN === "string",
