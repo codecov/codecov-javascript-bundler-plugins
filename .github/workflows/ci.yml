@@ -417,19 +417,11 @@ jobs:
         run: pnpm run build
 
   upldate-plugin-stats-production:
-    name: Build and upload ${{ matrix.package }} stats data to production
+    name: Build and upload plugin stats data to production
     runs-on: ubuntu-latest
     needs: [install, unit-test, integration-test]
     strategy:
       fail-fast: false
-      matrix:
-        package:
-          [
-            "bundler-plugin-core",
-            "rollup-plugin",
-            "vite-plugin",
-            "webpack-plugin",
-          ]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -467,33 +459,17 @@ jobs:
         run: pnpm install
 
       - name: Build plugins
-        run: pnpm run build
-
-      - name: Install plugins
-        run: pnpm install
-
-      - name: Build ${{ matrix.package }} to collect stats for production
-        working-directory: ./packages/${{ matrix.package }}
         env:
           PLUGIN_CODECOV_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           PLUGIN_CODECOV_API_URL: ${{ secrets.CODECOV_API_URL }}
         run: pnpm run build
 
-
   upldate-plugin-stats-staging:
-    name: Build and upload ${{ matrix.package }} stats data to staging
+    name: Build and upload plugin stats data to staging
     runs-on: ubuntu-latest
     needs: [install, unit-test, integration-test]
     strategy:
       fail-fast: false
-      matrix:
-        package:
-          [
-            "bundler-plugin-core",
-            "rollup-plugin",
-            "vite-plugin",
-            "webpack-plugin",
-          ]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -529,15 +505,8 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
-        
-      - name: Build plugins
-        run: pnpm run build
-        
-      - name: Install plugins
-        run: pnpm install
 
-      - name: Build ${{ matrix.package }} to collect stats for staging
-        working-directory: ./packages/${{ matrix.package }}
+      - name: Build plugins
         env:
           PLUGIN_CODECOV_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
           PLUGIN_CODECOV_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
