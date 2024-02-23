@@ -1,5 +1,15 @@
 # @codecov/webpack-plugin
 
+## 0.0.1-beta.2
+
+### Patch Changes
+
+- 94a46aa: Grab branch name inside Vercel helper so that we for sure have a branch value
+- 7bc7183: Add more detailed logging for upload stats
+- Updated dependencies [94a46aa]
+- Updated dependencies [7bc7183]
+  - @codecov/bundler-plugin-core@0.0.1-beta.2
+
 ## 0.0.1-beta.1
 
 ### Patch Changes
