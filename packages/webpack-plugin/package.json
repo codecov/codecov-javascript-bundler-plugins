@@ -52,6 +52,7 @@
     "@types/webpack": "^5.28.5",
     "jest": "^29.7.0",
     "msw": "^2.1.5",
+    "codecovProdRollupPlugin": "npm:@codecov/rollup-plugin@0.0.1-beta.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3",
     "unbuild": "^2.0.0",
