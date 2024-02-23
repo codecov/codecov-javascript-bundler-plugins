@@ -19,17 +19,19 @@ export default defineBuildConfig({
   },
   hooks: {
     "rollup:options": (_ctx, opts) => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-      opts.plugins = [
-        opts.plugins,
-        codecovRollupPlugin({
-          enableBundleAnalysis:
-            typeof process.env.PLUGIN_CODECOV_TOKEN === "string",
-          bundleName: "@codecov/webpack-plugin",
-          uploadToken: process.env.PLUGIN_CODECOV_TOKEN,
-          apiUrl: process.env.PLUGIN_CODECOV_API_URL,
-        }),
-      ];
+      if (process.env.PLUGIN_CODECOV_TOKEN && Array.isArray(opts.plugins)) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+        opts.plugins = [
+          ...opts.plugins,
+          codecovRollupPlugin({
+            enableBundleAnalysis:
+              typeof process.env.PLUGIN_CODECOV_TOKEN === "string",
+            bundleName: "@codecov/bundler-plugin-core",
+            uploadToken: process.env.PLUGIN_CODECOV_TOKEN,
+            apiUrl: process.env.PLUGIN_CODECOV_API_URL,
+          }),
+        ];
+      }
     },
   },
 });
