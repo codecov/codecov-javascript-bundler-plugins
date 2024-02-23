@@ -460,7 +460,7 @@ jobs:
 
       - name: Build plugins
         run: |
-          pnpm run build -- PLUGIN_CODECOV_TOKEN=${{ secrets.CODECOV_ORG_TOKEN }} PLUGIN_CODECOV_API_URL=${{ secrets.CODECOV_API_URL }}
+          PLUGIN_CODECOV_TOKEN=${{ secrets.CODECOV_ORG_TOKEN }} PLUGIN_CODECOV_API_URL=${{ secrets.CODECOV_API_URL }} pnpm run build
         env:
           PLUGIN_CODECOV_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           PLUGIN_CODECOV_API_URL: ${{ secrets.CODECOV_API_URL }}
@@ -509,7 +509,7 @@ jobs:
 
       - name: Build plugins
         run: |
-          pnpm run build -- PLUGIN_CODECOV_TOKEN=${{ secrets.CODECOV_ORG_TOKEN_STAGING }} PLUGIN_CODECOV_API_URL=${{ secrets.CODECOV_STAGING_API_URL }}
+          PLUGIN_CODECOV_TOKEN=${{ secrets.CODECOV_ORG_TOKEN_STAGING }} PLUGIN_CODECOV_API_URL=${{ secrets.CODECOV_STAGING_API_URL }} pnpm run build
         env:
           PLUGIN_CODECOV_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
           PLUGIN_CODECOV_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
