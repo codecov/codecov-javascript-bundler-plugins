@@ -459,7 +459,8 @@ jobs:
         run: pnpm install
 
       - name: Build plugins
-        run: pnpm run build
+        run: |
+          pnpm run build -- PLUGIN_CODECOV_TOKEN=${{ secrets.CODECOV_ORG_TOKEN }} PLUGIN_CODECOV_API_URL=${{ secrets.CODECOV_API_URL }}
         env:
           PLUGIN_CODECOV_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           PLUGIN_CODECOV_API_URL: ${{ secrets.CODECOV_API_URL }}
@@ -475,23 +476,23 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-        
+
       - name: Setup node
         uses: actions/setup-node@v3
         with:
           node-version: 18
-        
+
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 8
           run_install: false
-        
+
       - name: Get pnpm store directory
         shell: bash
         run: |
-         echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-        
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
       - name: Cache node_modules
         id: cache-node-modules
         uses: actions/cache@v3
@@ -502,12 +503,13 @@ jobs:
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-${{ env.cache-name }}-
-        
+
       - name: Install dependencies
         run: pnpm install
-        
+
       - name: Build plugins
-        run: pnpm run build
+        run: |
+          pnpm run build -- PLUGIN_CODECOV_TOKEN=${{ secrets.CODECOV_ORG_TOKEN_STAGING }} PLUGIN_CODECOV_API_URL=${{ secrets.CODECOV_STAGING_API_URL }}
         env:
           PLUGIN_CODECOV_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
           PLUGIN_CODECOV_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
