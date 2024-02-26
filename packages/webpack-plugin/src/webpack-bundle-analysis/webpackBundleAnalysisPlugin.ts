@@ -134,7 +134,7 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
           output.outputPath = outputOptions.path ?? "";
 
           // only output file if running dry run
-          if (userOptions?.dryRun) {
+          if (userOptions.dryRun) {
             const { RawSource } = webpack.sources;
             compilation.emitAsset(
               "codecov-bundle-stats.json",

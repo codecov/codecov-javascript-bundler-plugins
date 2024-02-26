@@ -147,7 +147,7 @@ export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
       output.outputPath = options.dir ?? "";
 
       // only output file if running dry run
-      if (userOptions?.dryRun) {
+      if (userOptions.dryRun) {
         this.emitFile({
           type: "asset",
           fileName: "codecov-bundle-stats.json",

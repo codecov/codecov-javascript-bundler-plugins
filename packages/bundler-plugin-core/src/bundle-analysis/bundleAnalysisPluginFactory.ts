@@ -45,7 +45,7 @@ export const bundleAnalysisPluginFactory = ({
     },
     writeBundle: async () => {
       // don't need to do anything here if dryRun is true
-      if (options?.dryRun) return;
+      if (options.dryRun) return;
 
       // don't need to do anything if the bundle name is not present or empty
       if (!options.bundleName || options.bundleName === "") return;
