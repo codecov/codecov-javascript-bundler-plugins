@@ -11,6 +11,8 @@ describe("webpackBundleAnalysisPlugin", () => {
           bundleName: "test",
           apiUrl: "http://localhost",
           dryRun: true,
+          enableBundleAnalysis: true,
+          retryCount: 1,
         },
       });
 
