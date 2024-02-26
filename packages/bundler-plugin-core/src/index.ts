@@ -14,11 +14,7 @@ import {
 import { red } from "./utils/logging.ts";
 import { normalizePath } from "./utils/normalizePath.ts";
 import { bundleAnalysisPluginFactory } from "./bundle-analysis/bundleAnalysisPluginFactory.ts";
-import {
-  normalizeOptions,
-  type NormalizedOptions,
-} from "./utils/normalizeOptions.ts";
-import { InvalidBundleNameError } from "./errors/InvalidBundleNameError.ts";
+import { normalizeOptions } from "./utils/normalizeOptions.ts";
 
 const NODE_VERSION_RANGE = ">=18.18.0";
 
@@ -32,14 +28,11 @@ function codecovUnpluginFactory({
   return createUnplugin<Options, true>((userOptions, unpluginMetaContext) => {
     const plugins: UnpluginOptions[] = [];
 
-    let options: NormalizedOptions;
-    try {
-      options = normalizeOptions(userOptions);
-    } catch (err) {
-      if (err instanceof InvalidBundleNameError) {
-        red(`Invalid bundle name: ${userOptions.bundleName}`);
-      } else {
-        red(`An error occurred while normalizing options`);
+    const normalizedOptions = normalizeOptions(userOptions);
+
+    if (!normalizedOptions.success) {
+      for (const error of normalizedOptions.errors) {
+        red(error);
       }
       return [];
     }
@@ -52,6 +45,7 @@ function codecovUnpluginFactory({
       return plugins;
     }
 
+    const options = normalizedOptions.options;
     if (options?.enableBundleAnalysis) {
       plugins.push(
         bundleAnalysisPluginFactory({

@@ -21,7 +21,7 @@ export const bundleAnalysisPluginFactory = ({
 }: BundleAnalysisUploadPluginArgs): UnpluginOptions => {
   const output: Output = {
     version: "1",
-    bundleName: options?.bundleName ?? "",
+    bundleName: options.bundleName,
   };
 
   const { pluginVersion, version, ...pluginOpts } = bundleAnalysisUploadPlugin({
