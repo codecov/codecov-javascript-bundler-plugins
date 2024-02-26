@@ -8,6 +8,6 @@
     "fixtures/**/*.cjs",
   ],
   "compilerOptions": {
-    "types": ["node", "jest"],
+    "types": ["node"],
   },
 }
