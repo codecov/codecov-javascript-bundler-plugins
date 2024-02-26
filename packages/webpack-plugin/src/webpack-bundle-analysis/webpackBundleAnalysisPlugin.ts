@@ -11,7 +11,7 @@ const PLUGIN_NAME = "codecov-webpack-bundle-analysis-plugin";
 
 export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
   output,
-  userOptions,
+  options: userOptions,
 }) => ({
   version: "1",
   name: PLUGIN_NAME,

@@ -12,7 +12,7 @@ const PLUGIN_NAME = "codecov-rollup-bundle-analysis-plugin";
 
 export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
   output,
-  userOptions,
+  options: userOptions,
 }) => ({
   version: "1",
   name: PLUGIN_NAME,

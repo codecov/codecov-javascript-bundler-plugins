@@ -12,7 +12,7 @@ const PLUGIN_NAME = "codecov-vite-bundle-analysis-plugin";
 
 export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
   output,
-  userOptions,
+  options: userOptions,
 }) => ({
   version: "1",
   name: PLUGIN_NAME,

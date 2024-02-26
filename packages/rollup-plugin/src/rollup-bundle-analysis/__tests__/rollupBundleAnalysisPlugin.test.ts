@@ -7,8 +7,10 @@ describe("rollupBundleAnalysisPlugin", () => {
         output: {
           bundleName: "test",
         },
-        userOptions: {
+        options: {
           bundleName: "test",
+          apiUrl: "http://localhost",
+          dryRun: true,
         },
       });
 
