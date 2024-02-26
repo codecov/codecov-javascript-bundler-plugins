@@ -1,4 +1,5 @@
 import { type UnpluginOptions } from "unplugin";
+import { type NormalizedOptions } from "./utils/normalizeOptions";
 
 export interface Dependency {
   name: string;
@@ -47,7 +48,7 @@ export interface Output {
 
 export interface BundleAnalysisUploadPluginArgs {
   output: Output;
-  userOptions: Options;
+  options: NormalizedOptions;
 }
 
 export interface Options {
