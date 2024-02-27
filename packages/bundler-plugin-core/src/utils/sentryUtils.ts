@@ -31,10 +31,16 @@ export const sendSentryBundleStats = async (
     !sentryAuthToken ||
     !sentryOrganization ||
     !sentryProject ||
-    !output.assets ||
     !bundleName
-  )
+  ) {
+    red("Missing sentry auth, org, project or bundle name");
     return;
+  }
+
+  if (!output.assets) {
+    red("We could not find any output assets from the stats file");
+    return;
+  }
 
   const bundleStats: SentryBundleStats = {
     total_size: 0,
@@ -49,12 +55,12 @@ export const sendSentryBundleStats = async (
   output.assets.forEach((asset) => {
     bundleStats.total_size += asset.size;
     const fileExtension = asset.name.split(".").pop();
-    if (!fileExtension) {
+    if (!fileExtension || fileExtension === asset.name) {
       return;
     }
-    if (fileExtension === ".js") {
+    if (fileExtension === "js") {
       bundleStats.javascript_size += asset.size;
-    } else if (fileExtension === ".css") {
+    } else if (fileExtension === "css") {
       bundleStats.css_size += asset.size;
     } else if (FONT_FILE_EXTENSIONS.includes(fileExtension)) {
       bundleStats.fonts_size += asset.size;
@@ -91,7 +97,20 @@ const sendMetrics = async (
 
   if (res.status === 200) {
     green("Sentry Metrics added!");
-    green(`The following stats were send, ${bundleStats}`);
+    const bundleStatsString: string = bundleStats
+      .map(
+        (bundle) => `
+    ${bundle.bundle_name}
+    total bundle size: ${bundle.javascript_size}
+    javascript size: ${bundle.javascript_size}
+    css size: ${bundle.css_size}
+    fonts size: ${bundle.fonts_size}
+    images size: ${bundle.images_size}
+    `,
+      )
+      .join("\n");
+
+    green(`The following stats were sent: \n${bundleStatsString}`);
   } else {
     const body = await res.json();
     red(`Failed to send metrics to do the error: \n ${body}`);
