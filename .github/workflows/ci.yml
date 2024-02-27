@@ -204,14 +204,14 @@ jobs:
           url: ${{ secrets.CODECOV_STAGING_URL }}
       
       - name: Upload test result reports to codecov
-        if: ${{ !github.event.pull_request.head.repo.fork && github.repository_owner == 'codecov' }}
+        if: ${{ !cancelled() && !github.event.pull_request.head.repo.fork && github.repository_owner == 'codecov' }}
         uses: codecov/test-results-action@v1
         with:
           token: ${{ secrets.CODECOV_ORG_TOKEN }}
           url: ${{ secrets.CODECOV_URL }}
       
       - name: Upload test result reports to codecov (Staging)
-        if: ${{ !github.event.pull_request.head.repo.fork && github.repository_owner == 'codecov' }}
+        if: ${{ !cancelled() && !github.event.pull_request.head.repo.fork && github.repository_owner == 'codecov' }}
         uses: codecov/test-results-action@v1
         with:
           token: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
