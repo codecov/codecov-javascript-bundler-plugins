@@ -1,4 +1,5 @@
 import { type UnpluginOptions } from "unplugin";
+import { type NormalizedOptions } from "./utils/normalizeOptions";
 
 export interface Dependency {
   name: string;
@@ -47,7 +48,7 @@ export interface Output {
 
 export interface BundleAnalysisUploadPluginArgs {
   output: Output;
-  userOptions: Options;
+  options: NormalizedOptions;
 }
 
 export interface Options {
@@ -76,12 +77,6 @@ export interface Options {
    */
   retryCount?: number;
 
-  /** Whether you would like bundle analysis to be enabled. */
-  enableBundleAnalysis?: boolean;
-
-  /** Override values for passing custom information to API. */
-  uploadOverrides?: UploadOverrides;
-
   /**
    * When enabled information will not be uploaded to Codecov.
    *
@@ -94,9 +89,21 @@ export interface Options {
    *
    * Required for uploading bundle analysis information.
    *
-   * Example: `rollup-package`
+   * The name must match the pattern `/^[\w\d_:/@\.{}\[\]$-]+$/`.
+   *
+   * Example: `@codecov/rollup-plugin`
    */
   bundleName?: string;
+
+  /**
+   * Whether you would like bundle analysis to be enabled. *
+   *
+   * Defaults to `false`
+   */
+  enableBundleAnalysis?: boolean;
+
+  /** Override values for passing custom information to API. */
+  uploadOverrides?: UploadOverrides;
 }
 
 export type BundleAnalysisUploadPlugin = (

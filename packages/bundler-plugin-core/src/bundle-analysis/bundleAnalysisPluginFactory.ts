@@ -1,32 +1,32 @@
-import { detectProvider } from "../utils/provider.ts";
+import { type UnpluginOptions } from "unplugin";
 import {
   type BundleAnalysisUploadPlugin,
-  type Options,
   type Output,
   type ProviderUtilInputs,
   type UploadOverrides,
 } from "../types.ts";
-import { type UnpluginOptions } from "unplugin";
 import { getPreSignedURL } from "../utils/getPreSignedURL.ts";
+import { type NormalizedOptions } from "../utils/normalizeOptions.ts";
+import { detectProvider } from "../utils/provider.ts";
 import { uploadStats } from "../utils/uploadStats.ts";
 
 interface BundleAnalysisUploadPluginArgs {
-  userOptions: Options;
+  options: NormalizedOptions;
   bundleAnalysisUploadPlugin: BundleAnalysisUploadPlugin;
 }
 
 export const bundleAnalysisPluginFactory = ({
-  userOptions,
+  options,
   bundleAnalysisUploadPlugin,
 }: BundleAnalysisUploadPluginArgs): UnpluginOptions => {
   const output: Output = {
     version: "1",
-    bundleName: userOptions.bundleName ?? "",
+    bundleName: options.bundleName,
   };
 
   const { pluginVersion, version, ...pluginOpts } = bundleAnalysisUploadPlugin({
     output,
-    userOptions,
+    options,
   });
 
   output.version = version;
@@ -45,12 +45,12 @@ export const bundleAnalysisPluginFactory = ({
     },
     writeBundle: async () => {
       // don't need to do anything here if dryRun is true
-      if (userOptions?.dryRun) return;
+      if (options.dryRun) return;
 
       // don't need to do anything if the bundle name is not present or empty
-      if (!userOptions.bundleName || userOptions.bundleName === "") return;
+      if (!options.bundleName || options.bundleName === "") return;
 
-      const args: UploadOverrides = userOptions.uploadOverrides ?? {};
+      const args: UploadOverrides = options.uploadOverrides ?? {};
       const envs = process.env;
       const inputs: ProviderUtilInputs = { envs, args };
       const provider = await detectProvider(inputs);
@@ -58,10 +58,10 @@ export const bundleAnalysisPluginFactory = ({
       let url = "";
       try {
         url = await getPreSignedURL({
-          apiURL: userOptions?.apiUrl ?? "https://api.codecov.io",
-          uploadToken: userOptions?.uploadToken,
+          apiURL: options?.apiUrl ?? "https://api.codecov.io",
+          uploadToken: options?.uploadToken,
           serviceParams: provider,
-          retryCount: userOptions?.retryCount,
+          retryCount: options?.retryCount,
         });
       } catch (error) {
         return;
@@ -72,7 +72,7 @@ export const bundleAnalysisPluginFactory = ({
           preSignedUrl: url,
           bundleName: output.bundleName,
           message: JSON.stringify(output),
-          retryCount: userOptions?.retryCount,
+          retryCount: options?.retryCount,
         });
       } catch {}
     },
