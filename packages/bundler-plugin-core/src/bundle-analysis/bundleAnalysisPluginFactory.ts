@@ -9,6 +9,7 @@ import {
 import { type UnpluginOptions } from "unplugin";
 import { getPreSignedURL } from "../utils/getPreSignedURL.ts";
 import { uploadStats } from "../utils/uploadStats.ts";
+import { sendSentryBundleStats } from "../utils/sentryUtils.ts";
 
 interface BundleAnalysisUploadPluginArgs {
   userOptions: Options;
@@ -54,6 +55,16 @@ export const bundleAnalysisPluginFactory = ({
       const envs = process.env;
       const inputs: ProviderUtilInputs = { envs, args };
       const provider = await detectProvider(inputs);
+
+      try {
+        await sendSentryBundleStats(output, userOptions);
+      } catch (error) {
+        return;
+      }
+
+      if (userOptions.sentryOnly) {
+        return;
+      }
 
       let url = "";
       try {

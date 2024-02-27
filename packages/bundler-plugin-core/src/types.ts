@@ -97,6 +97,18 @@ export interface Options {
    * Example: `rollup-package`
    */
   bundleName?: string;
+
+  /** Only send bundle stats to sentry (used within sentry webpack plugin). */
+  sentryOnly?: boolean;
+
+  /** The token to use for uploading the bundle analysis information to sentry. */
+  sentryAuthToken?: string;
+
+  /** The name of the sentry organization to send webpack stats to. */
+  sentryOrganization?: string;
+
+  /** The name of the sentry project to send webpack stats to. */
+  sentryProject?: string;
 }
 
 export type BundleAnalysisUploadPlugin = (
