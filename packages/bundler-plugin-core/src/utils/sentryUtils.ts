@@ -25,8 +25,10 @@ export const sendSentryBundleStats = async (
   output: Output,
   userOptions: Options,
 ) => {
-  const { sentryAuthToken, sentryOrganization, sentryProject, bundleName } =
-    userOptions;
+  const { sentryAuthToken, sentryOrganization, sentryProject } =
+    userOptions?.sentryOptions;
+
+  const { bundleName } = userOptions;
   if (
     !sentryAuthToken ||
     !sentryOrganization ||
