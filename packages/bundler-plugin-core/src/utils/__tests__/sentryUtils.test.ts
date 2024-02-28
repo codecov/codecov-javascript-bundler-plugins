@@ -19,7 +19,7 @@ const mockOptions: Options = {
   enableBundleAnalysis: true,
   sentry: {
     sentryOnly: true,
-    enviornment: "test",
+    environment: "test",
     org: "test-org",
     project: "test-project",
   },
