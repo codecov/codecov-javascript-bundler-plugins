@@ -1,4 +1,4 @@
-import { type Options, type Output } from "src";
+import { type Options, type Output } from "../../src";
 import { green, red } from "./logging";
 export const FONT_FILE_EXTENSIONS = ["woff", "woff2", "ttf", "otf", "eot"];
 export const IMAGE_FILE_EXTENSIONS = [
