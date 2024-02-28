@@ -1,4 +1,4 @@
-import { type Options, type Output } from "src";
+import { type Options, type Output } from "../../../src";
 import { type SentryBundleStats, sendSentryBundleStats } from "../sentryUtils";
 
 const fetchSpy: jest.SpyInstance = jest
