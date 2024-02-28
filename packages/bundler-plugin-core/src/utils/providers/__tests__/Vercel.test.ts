@@ -42,12 +42,14 @@ describe("Vercel Params", () => {
       envs: {
         VERCEL: "true",
         VERCEL_GIT_COMMIT_SHA: "testingsha",
-        VERCEL_GIT_REPO_SLUG: "testOrg/testRepo",
+        VERCEL_GIT_REPO_SLUG: "testRepo",
+        VERCEL_GIT_REPO_OWNER: "testOrg",
+        VERCEL_GIT_COMMIT_REF: "super-cool-branch",
       },
     };
 
     const expected: ProviderServiceParams = {
-      branch: "",
+      branch: "super-cool-branch",
       build: "",
       buildURL: "",
       commit: "testingsha",
@@ -73,7 +75,9 @@ describe("Vercel Params", () => {
       envs: {
         VERCEL: "true",
         VERCEL_GIT_COMMIT_SHA: "testingsha",
-        VERCEL_GIT_REPO_SLUG: "other-org/testRepo",
+        VERCEL_GIT_REPO_SLUG: "testRepo",
+        VERCEL_GIT_REPO_OWNER: "testOrg",
+        VERCEL_GIT_COMMIT_REF: "super-cool-branch",
       },
     };
 

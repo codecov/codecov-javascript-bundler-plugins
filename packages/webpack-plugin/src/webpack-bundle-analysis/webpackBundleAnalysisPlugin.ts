@@ -11,7 +11,7 @@ const PLUGIN_NAME = "codecov-webpack-bundle-analysis-plugin";
 
 export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
   output,
-  userOptions,
+  options: userOptions,
 }) => ({
   version: "1",
   name: PLUGIN_NAME,
@@ -134,7 +134,7 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
           output.outputPath = outputOptions.path ?? "";
 
           // only output file if running dry run
-          if (userOptions?.dryRun) {
+          if (userOptions.dryRun) {
             const { RawSource } = webpack.sources;
             compilation.emitAsset(
               "codecov-bundle-stats.json",

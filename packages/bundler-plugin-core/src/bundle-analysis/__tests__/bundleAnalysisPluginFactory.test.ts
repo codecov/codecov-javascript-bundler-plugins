@@ -3,7 +3,14 @@ import { bundleAnalysisPluginFactory } from "../bundleAnalysisPluginFactory";
 describe("bundleAnalysisPluginFactory", () => {
   it("returns a plugin functions", () => {
     const plugin = bundleAnalysisPluginFactory({
-      userOptions: { bundleName: "test" },
+      options: {
+        bundleName: "test",
+        apiUrl: "http://localhost",
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 3,
+        uploadToken: "test-token",
+      },
       bundleAnalysisUploadPlugin: () => ({
         version: "1",
         name: "plugin-name",

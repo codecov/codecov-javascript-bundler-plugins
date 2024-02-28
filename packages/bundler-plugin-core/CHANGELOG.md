@@ -1,5 +1,19 @@
 # @codecov/bundler-plugin-core
 
+## 0.0.1-beta.2
+
+### Patch Changes
+
+- 94a46aa: Grab branch name inside Vercel helper so that we for sure have a branch value
+- 7bc7183: Add more detailed logging for upload stats
+
+## 0.0.1-beta.1
+
+### Patch Changes
+
+- 834dd14: Update Vercel env helper function to create full git slug
+- f0fd4ce: Add codecov prefix to log messages
+
 ## 0.0.1-beta.0
 
 ### Patch Changes

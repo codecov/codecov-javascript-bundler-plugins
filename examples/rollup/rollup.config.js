@@ -19,7 +19,7 @@ export default defineConfig({
     commonjs(), // converts date-fns to ES modules
     codecovRollupPlugin({
       enableBundleAnalysis: true,
-      bundleName: "example-rollup-app",
+      bundleName: "@codecov/example-rollup-app",
       apiUrl: process.env.ROLLUP_API_URL,
       uploadToken: process.env.ROLLUP_UPLOAD_TOKEN,
     }),
