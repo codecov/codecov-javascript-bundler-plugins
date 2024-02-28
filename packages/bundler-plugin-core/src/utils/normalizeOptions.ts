@@ -82,19 +82,29 @@ const optionsSchemaFactory = (options: Options) =>
     uploadOverrides: UploadOverridesSchema.optional(),
     sentry: z
       .object({
-        sentryOnly: z.boolean({
-          invalid_type_error: "`sentry.sentryOnly` must be a boolean.",
-        }),
-        isEnabled: z.boolean({
-          invalid_type_error: "`sentry.isEnabled` must be a boolean.",
-        }),
-        org: z.string({ invalid_type_error: "`sentry.org` must be a string." }),
-        project: z.string({
-          invalid_type_error: "`sentry.project` must be a string.",
-        }),
-        environment: z.string({
-          invalid_type_error: "`sentry.environment` must be a string.",
-        }),
+        sentryOnly: z
+          .boolean({
+            invalid_type_error: "`sentry.sentryOnly` must be a boolean.",
+          })
+          .default(false),
+        isEnabled: z
+          .boolean({
+            invalid_type_error: "`sentry.isEnabled` must be a boolean.",
+          })
+          .default(false),
+        org: z
+          .string({ invalid_type_error: "`sentry.org` must be a string." })
+          .optional(),
+        project: z
+          .string({
+            invalid_type_error: "`sentry.project` must be a string.",
+          })
+          .optional(),
+        environment: z
+          .string({
+            invalid_type_error: "`sentry.environment` must be a string.",
+          })
+          .optional(),
       })
       .optional(),
   });
