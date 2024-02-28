@@ -55,10 +55,9 @@ export const bundleAnalysisPluginFactory = ({
         await sendSentryBundleStats(output, options);
       } catch {}
 
-      if (userOptions.sentry.sentryOnly) {
+      if (options.sentry.sentryOnly) {
         return;
       }
-
 
       const args: UploadOverrides = options.uploadOverrides ?? {};
       const envs = process.env;

@@ -25,17 +25,17 @@ export const sendSentryBundleStats = async (
   output: Output,
   userOptions: Options,
 ) => {
-  const { sentryAuthToken, sentryOrganization, sentryProject } =
-    userOptions?.sentry;
+  const { sentryOrganization, sentryProject } = userOptions?.sentry;
+  const sentryAuthToken = process.env.SENTRY_AUTH_TOKEN;
+
+  if (!sentryAuthToken) {
+    red("Missing Sentry Auth Token");
+    return;
+  }
 
   const { bundleName } = userOptions;
-  if (
-    !sentryAuthToken ||
-    !sentryOrganization ||
-    !sentryProject ||
-    !bundleName
-  ) {
-    red("Missing sentry auth, org, project or bundle name");
+  if (!sentryOrganization || !sentryProject || !bundleName) {
+    red("Missing sentry org, project or bundle name");
     return;
   }
 

@@ -109,9 +109,6 @@ export interface Options {
     /** Only send bundle stats to sentry (used within sentry bundler plugin). */
     sentryOnly?: boolean;
 
-    /** The token to use for uploading the bundle analysis information to sentry. */
-    sentryAuthToken?: string;
-
     /** The name of the sentry organization to send bundler stats to. */
     sentryOrganization?: string;
 
