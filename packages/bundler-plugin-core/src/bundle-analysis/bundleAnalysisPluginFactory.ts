@@ -51,12 +51,14 @@ export const bundleAnalysisPluginFactory = ({
       // don't need to do anything if the bundle name is not present or empty
       if (!options.bundleName || options.bundleName === "") return;
 
-      try {
-        await sendSentryBundleStats(output, options);
-      } catch {}
+      if (options.sentry?.isEnabled) {
+        try {
+          await sendSentryBundleStats(output, options);
+        } catch {}
 
-      if (options?.sentry?.sentryOnly) {
-        return;
+        if (options?.sentry?.sentryOnly) {
+          return;
+        }
       }
 
       const args: UploadOverrides = options.uploadOverrides ?? {};

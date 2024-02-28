@@ -109,14 +109,17 @@ export interface Options {
     /** Only send bundle stats to sentry (used within sentry bundler plugin). */
     sentryOnly?: boolean;
 
+    /** Enables stats to be sent to sentry, set this to true on release */
+    isEnabled?: boolean;
+
     /** The name of the sentry organization to send bundler stats to. */
-    org: string;
+    org?: string;
 
     /** The name of the sentry project to send bundler stats to. */
-    project: string;
+    project?: string;
 
     /** The name of the sentry enviornment to send bundler stats to. */
-    environment: string;
+    environment?: string;
   };
 }
 
