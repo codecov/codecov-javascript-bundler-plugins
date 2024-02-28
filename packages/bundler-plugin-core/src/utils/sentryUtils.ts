@@ -26,7 +26,7 @@ export const sendSentryBundleStats = async (
   userOptions: Options,
 ) => {
   const { sentryAuthToken, sentryOrganization, sentryProject } =
-    userOptions?.sentryOptions;
+    userOptions?.sentry;
 
   const { bundleName } = userOptions;
   if (
@@ -103,7 +103,7 @@ const sendMetrics = async (
       .map(
         (bundle) => `
     ${bundle.bundle_name}
-    total bundle size: ${bundle.javascript_size}
+    total bundle size: ${bundle.total_size}
     javascript size: ${bundle.javascript_size}
     css size: ${bundle.css_size}
     fonts size: ${bundle.fonts_size}
