@@ -80,6 +80,21 @@ const optionsSchemaFactory = (options: Options) =>
       .string({ invalid_type_error: "`uploadToken` must be a string." })
       .optional(),
     uploadOverrides: UploadOverridesSchema.optional(),
+    sentry: z.object({
+      sentryOnly: z.boolean({
+        invalid_type_error: "`sentry.sentryOnly` must be a boolean.",
+      }),
+      isEnabled: z.boolean({
+        invalid_type_error: "`sentry.isEnabled` must be a boolean.",
+      }),
+      org: z.string({ invalid_type_error: "`sentry.org` must be a string." }),
+      project: z.string({
+        invalid_type_error: "`sentry.project` must be a string.",
+      }),
+      environment: z.string({
+        invalid_type_error: "`sentry.enviornment` must be a string.",
+      }),
+    }),
   });
 
 interface NormalizedOptionsFailure {
