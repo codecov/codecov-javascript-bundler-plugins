@@ -11,7 +11,7 @@ export const IMAGE_FILE_EXTENSIONS = [
   "apng",
   "avif",
 ];
-interface SentryBundleStats {
+export interface SentryBundleStats {
   total_size: number;
   javascript_size: number;
   css_size: number;
@@ -29,7 +29,7 @@ export const sendSentryBundleStats = async (
     org: sentryOrganization,
     project: sentryProject,
     enviornment: sentryEnviornment,
-  } = userOptions?.sentry || {};
+  } = userOptions?.sentry ?? {};
   const sentryAuthToken = process.env.SENTRY_AUTH_TOKEN;
 
   if (!sentryAuthToken) {
