@@ -8,7 +8,9 @@
     "@codecov/webpack-plugin": "0.0.0"
   },
   "changesets": [
+    "cool-sheep-care",
     "early-phones-prove",
+    "flat-mails-buy",
     "four-houses-drive",
     "healthy-foxes-joke",
     "khaki-lions-glow",
