@@ -93,7 +93,7 @@ const optionsSchemaFactory = (options: Options) =>
           invalid_type_error: "`sentry.project` must be a string.",
         }),
         environment: z.string({
-          invalid_type_error: "`sentry.enviornment` must be a string.",
+          invalid_type_error: "`sentry.environment` must be a string.",
         }),
       })
       .optional(),
