@@ -55,7 +55,7 @@ export const bundleAnalysisPluginFactory = ({
         await sendSentryBundleStats(output, options);
       } catch {}
 
-      if (options.sentry.sentryOnly) {
+      if (options?.sentry?.sentryOnly) {
         return;
       }
 

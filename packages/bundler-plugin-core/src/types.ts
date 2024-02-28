@@ -116,7 +116,7 @@ export interface Options {
     project: string;
 
     /** The name of the sentry enviornment to send bundler stats to. */
-    enviornment: string;
+    environment: string;
   };
 }
 

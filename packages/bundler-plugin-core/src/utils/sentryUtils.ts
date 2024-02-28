@@ -28,7 +28,7 @@ export const sendSentryBundleStats = async (
   const {
     org: sentryOrganization,
     project: sentryProject,
-    enviornment: sentryEnviornment,
+    environment: sentryEnviornment,
   } = userOptions?.sentry ?? {};
   const sentryAuthToken = process.env.SENTRY_AUTH_TOKEN;
 
