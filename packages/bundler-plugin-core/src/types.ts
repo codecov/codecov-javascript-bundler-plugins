@@ -105,15 +105,18 @@ export interface Options {
   /** Override values for passing custom information to API. */
   uploadOverrides?: UploadOverrides;
 
-  sentry: {
+  sentry?: {
     /** Only send bundle stats to sentry (used within sentry bundler plugin). */
     sentryOnly?: boolean;
 
     /** The name of the sentry organization to send bundler stats to. */
-    sentryOrganization?: string;
+    org: string;
 
     /** The name of the sentry project to send bundler stats to. */
-    sentryProject?: string;
+    project: string;
+
+    /** The name of the sentry enviornment to send bundler stats to. */
+    enviornment: string;
   };
 }
 

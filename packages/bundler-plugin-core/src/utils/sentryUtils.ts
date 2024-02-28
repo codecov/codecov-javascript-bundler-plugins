@@ -25,7 +25,11 @@ export const sendSentryBundleStats = async (
   output: Output,
   userOptions: Options,
 ) => {
-  const { sentryOrganization, sentryProject } = userOptions?.sentry;
+  const {
+    org: sentryOrganization,
+    project: sentryProject,
+    enviornment: sentryEnviornment,
+  } = userOptions?.sentry || {};
   const sentryAuthToken = process.env.SENTRY_AUTH_TOKEN;
 
   if (!sentryAuthToken) {
@@ -34,7 +38,12 @@ export const sendSentryBundleStats = async (
   }
 
   const { bundleName } = userOptions;
-  if (!sentryOrganization || !sentryProject || !bundleName) {
+  if (
+    !sentryOrganization ||
+    !sentryProject ||
+    !bundleName ||
+    !sentryEnviornment
+  ) {
     red("Missing sentry org, project or bundle name");
     return;
   }
@@ -51,7 +60,7 @@ export const sendSentryBundleStats = async (
     fonts_size: 0,
     images_size: 0,
     bundle_name: bundleName,
-    environment: "test",
+    environment: sentryEnviornment,
   };
 
   output.assets.forEach((asset) => {
