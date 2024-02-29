@@ -87,6 +87,9 @@ const optionsSchemaFactory = (options: Options) =>
             invalid_type_error: "`sentry.sentryOnly` must be a boolean.",
           })
           .default(false),
+        authToken: z.string({
+          invalid_type_error: "`sentry.authToken` must be a string.",
+        }),
         isEnabled: z
           .boolean({
             invalid_type_error: "`sentry.isEnabled` must be a boolean.",

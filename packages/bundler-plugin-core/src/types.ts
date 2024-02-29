@@ -120,6 +120,9 @@ export interface Options {
      */
     isEnabled?: boolean;
 
+    /** Sentry auth token to send bundle stats. */
+    authToken?: string;
+
     /** The name of the sentry organization to send bundler stats to. */
     org?: string;
 

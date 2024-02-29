@@ -14,25 +14,22 @@ const mockOutput: Output = {
   ],
 };
 
-const mockOptions: Options = {
-  bundleName: "my_bundle",
-  enableBundleAnalysis: true,
-  sentry: {
-    sentryOnly: true,
-    environment: "test",
-    org: "test-org",
-    project: "test-project",
-  },
-};
+let mockOptions: Options;
 
 describe("SentryUtils", () => {
   beforeEach(() => {
-    setSentryEnvVariables("test-token");
+    mockOptions = {
+      bundleName: "my_bundle",
+      enableBundleAnalysis: true,
+      sentry: {
+        sentryOnly: true,
+        environment: "test",
+        org: "test-org",
+        project: "test-project",
+        authToken: "test-token",
+      },
+    };
     jest.clearAllMocks();
-  });
-
-  afterAll(() => {
-    setSentryEnvVariables();
   });
 
   it("should call sentry api with correct body if all options are provided", async () => {
@@ -63,17 +60,10 @@ describe("SentryUtils", () => {
   });
 
   it("should not call api if missing token", async () => {
-    setSentryEnvVariables();
+    if (mockOptions.sentry) {
+      mockOptions.sentry.authToken = undefined;
+    }
     await sendSentryBundleStats(mockOutput, mockOptions);
     expect(fetchSpy).not.toHaveBeenCalled();
   });
 });
-
-const setSentryEnvVariables = (authToken?: string) => {
-  if (authToken) {
-    process.env.SENTRY_AUTH_TOKEN = authToken;
-  } else {
-    process.env.SENTRY_AUTH_TOKEN = undefined;
-    delete process.env.SENTRY_AUTH_TOKEN;
-  }
-};
