@@ -1,5 +1,12 @@
 # @codecov/bundler-plugin-core
 
+## 0.0.1-beta.3
+
+### Patch Changes
+
+- da9b990: Preserve JSDoc comments during build process for the bundler plugins
+- 33b335e: Normalize options to set default values as well as validate bundle names ensuring they follow the correct pattern.
+
 ## 0.0.1-beta.2
 
 ### Patch Changes
