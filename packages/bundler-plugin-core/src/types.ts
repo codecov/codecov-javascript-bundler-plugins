@@ -104,6 +104,34 @@ export interface Options {
 
   /** Override values for passing custom information to API. */
   uploadOverrides?: UploadOverrides;
+
+  sentry?: {
+    /**
+     * Only send bundle stats to sentry (used within sentry bundler plugin).
+     *
+     * Defaults to `false`
+     */
+    sentryOnly?: boolean;
+
+    /**
+     * Enables stats to be sent to sentry, set this to true on release.
+     *
+     * Defaults to `false`
+     */
+    isEnabled?: boolean;
+
+    /** Sentry auth token to send bundle stats. */
+    authToken?: string;
+
+    /** The name of the sentry organization to send bundler stats to. */
+    org?: string;
+
+    /** The name of the sentry project to send bundler stats to. */
+    project?: string;
+
+    /** The name of the sentry enviornment to send bundler stats to. */
+    environment?: string;
+  };
 }
 
 export type BundleAnalysisUploadPlugin = (

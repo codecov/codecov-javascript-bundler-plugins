@@ -9,6 +9,7 @@ import { getPreSignedURL } from "../utils/getPreSignedURL.ts";
 import { type NormalizedOptions } from "../utils/normalizeOptions.ts";
 import { detectProvider } from "../utils/provider.ts";
 import { uploadStats } from "../utils/uploadStats.ts";
+import { sendSentryBundleStats } from "../utils/sentryUtils.ts";
 
 interface BundleAnalysisUploadPluginArgs {
   options: NormalizedOptions;
@@ -49,6 +50,16 @@ export const bundleAnalysisPluginFactory = ({
 
       // don't need to do anything if the bundle name is not present or empty
       if (!options.bundleName || options.bundleName === "") return;
+
+      if (options.sentry?.isEnabled) {
+        try {
+          await sendSentryBundleStats(output, options);
+        } catch {}
+
+        if (options?.sentry?.sentryOnly) {
+          return;
+        }
+      }
 
       const args: UploadOverrides = options.uploadOverrides ?? {};
       const envs = process.env;
