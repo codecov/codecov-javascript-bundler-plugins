@@ -18,6 +18,6 @@ describe("bundleAnalysisPluginFactory", () => {
       }),
     });
 
-    expect(plugin).not.toMatchSnapshot();
+    expect(plugin).toMatchSnapshot();
   });
 });
