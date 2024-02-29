@@ -1,8 +1,8 @@
 ---
-"@codecov/bundler-plugin-core": minor
-"@codecov/rollup-plugin": minor
-"@codecov/vite-plugin": minor
-"@codecov/webpack-plugin": minor
+"@codecov/bundler-plugin-core": patch
+"@codecov/rollup-plugin": patch
+"@codecov/vite-plugin": patch
+"@codecov/webpack-plugin": patch
 ---
 
 feat: send metrics to sentry
