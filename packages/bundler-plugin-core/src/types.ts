@@ -106,10 +106,18 @@ export interface Options {
   uploadOverrides?: UploadOverrides;
 
   sentry?: {
-    /** Only send bundle stats to sentry (used within sentry bundler plugin). */
+    /**
+     * Only send bundle stats to sentry (used within sentry bundler plugin).
+     *
+     * Defaults to `false`
+     */
     sentryOnly?: boolean;
 
-    /** Enables stats to be sent to sentry, set this to true on release */
+    /**
+     * Enables stats to be sent to sentry, set this to true on release.
+     *
+     * Defaults to `false`
+     */
     isEnabled?: boolean;
 
     /** The name of the sentry organization to send bundler stats to. */
