@@ -1,5 +1,11 @@
 # @codecov/bundler-plugin-core
 
+## 0.0.1-beta.4
+
+### Patch Changes
+
+- 9038f06: feat: send metrics to sentry
+
 ## 0.0.1-beta.3
 
 ### Patch Changes
