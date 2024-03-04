@@ -72,8 +72,37 @@ Our different types of reviews:
 
 ## Publishing a Release
 
-**TBD**
+We use the [changesets](https://github.com/changesets/changesets) CLI tool to manage our versions for the Codecov Bundler Plugins.
 
 ### Updating the Changelog
 
-**TBD**
+To add a new changelog for the plugins you can run the following command:
+
+```shell
+pnpm run changeset:add
+```
+
+This will prompt you to select the bundles that will have their version updated
+when running the `prepare-publish` workflow. To keep the plugins all inline, you
+will need to select all of the plugins, even if you only changed one.
+
+After confirming your selections, you will have to determine what kind of change
+your new release will be: `major`, `minor`, or `patch`. You can read more [here](https://semver.org/)
+to understand when and which change version to select.
+
+You will then be prompted to enter a description as to what your changes do. When
+a release is cut and published these will be added to a list in the changelog
+informing developers what changes occurred in that release.
+
+### Steps to create a new release
+
+1. After your PR is approved and merged into the `main` branch, navigate to the
+   `[prepare-publish](https://github.com/codecov/codecov-javascript-bundler-plugins/actions/workflows/prepare-publish.yml)` action, and run the action on the `main` branch. This will
+   create a new pull request that when merged will publish a new version of the
+   plugins.
+2. Navigate to the pull request that was created by the `prepare-publish`.
+   Because of some limitations around GitHub Actions, you will have to manually
+   open and close the PR to get the CI to fully run and pass the status checks.
+3. Once all of the status checks have passed, you will be able to merge your pull
+   request. After merging the pull request, a workflow will run that will automatically
+   publish the packages to NPM, and create a GitHub release.
