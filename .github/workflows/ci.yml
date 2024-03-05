@@ -143,39 +143,10 @@ jobs:
       - name: Run TSC
         run: pnpm run type-check
 
-  codecov-startup:
-    name: Codecov Startup
-    runs-on: ubuntu-latest
-    needs: install
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
-
-      - name: Install CLI
-        if: ${{ !github.event.pull_request.head.repo.fork && github.repository_owner == 'codecov' }}
-        run: |
-          pip install --no-cache-dir codecov-cli
-
-      - name: Run Startup
-        if: ${{ !github.event.pull_request.head.repo.fork && github.repository_owner == 'codecov' }}
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
-        run: |
-          codecovcli -u ${{ secrets.CODECOV_URL }} create-commit --fail-on-error
-          codecovcli -u ${{ secrets.CODECOV_URL }} create-report --fail-on-error
-
-      - name: Run Startup Staging
-        if: ${{ !github.event.pull_request.head.repo.fork && github.repository_owner == 'codecov' }}
-        run: |
-          codecovcli -u ${{ secrets.CODECOV_STAGING_URL }} create-commit -t ${{ secrets.CODECOV_ORG_TOKEN_STAGING }} --fail-on-error
-          codecovcli -u ${{ secrets.CODECOV_STAGING_URL }} create-report -t ${{ secrets.CODECOV_ORG_TOKEN_STAGING }} --fail-on-error
-
   unit-test:
     name: Run Unit Tests
     runs-on: ubuntu-latest
-    needs: [install, codecov-startup]
+    needs: [install]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -218,22 +189,33 @@ jobs:
       - name: Run unit tests
         run: pnpm run test:unit:ci --maxWorkers=2
 
-      - name: Install CLI
+      - name: Upload coverage reports to codecov
         if: ${{ !github.event.pull_request.head.repo.fork && github.repository_owner == 'codecov' }}
-        run: |
-          pip install --no-cache-dir codecov-cli
-
-      - name: Upload coverage reports to Codecov
-        ## Don't upload on forks for now.
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_ORG_TOKEN }}
+          url: ${{ secrets.CODECOV_URL }}
+      
+      - name: Upload coverage reports to codecov (Staging)
         if: ${{ !github.event.pull_request.head.repo.fork && github.repository_owner == 'codecov' }}
-        run: |
-          codecovcli -u ${{ secrets.CODECOV_URL }} do-upload -t ${{ secrets.CODECOV_ORG_TOKEN }} --fail-on-error
-
-      - name: Upload coverage reports to Codecov staging
-        ## Don't upload on forks for now.
-        if: ${{ !github.event.pull_request.head.repo.fork && github.repository_owner == 'codecov' }}
-        run: |
-          codecovcli -u ${{ secrets.CODECOV_STAGING_URL }} do-upload -t ${{ secrets.CODECOV_ORG_TOKEN_STAGING }} --fail-on-error
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
+          url: ${{ secrets.CODECOV_STAGING_URL }}
+      
+      - name: Upload test result reports to codecov
+        if: ${{ !cancelled() && !github.event.pull_request.head.repo.fork && github.repository_owner == 'codecov' }}
+        uses: codecov/test-results-action@v1
+        with:
+          token: ${{ secrets.CODECOV_ORG_TOKEN }}
+          url: ${{ secrets.CODECOV_URL }}
+      
+      - name: Upload test result reports to codecov (Staging)
+        if: ${{ !cancelled() && !github.event.pull_request.head.repo.fork && github.repository_owner == 'codecov' }}
+        uses: codecov/test-results-action@v1
+        with:
+          token: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
+          url: ${{ secrets.CODECOV_STAGING_URL }}
 
   integration-test:
     name: Run Integration Tests (Node ${{ matrix.node-version }})
