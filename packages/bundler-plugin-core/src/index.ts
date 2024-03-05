@@ -61,7 +61,7 @@ function codecovUnpluginFactory({
     sentryHub?.captureSession();
 
     let sentEndSession = false; // Just to prevent infinite loops with beforeExit, which is called whenever the event loop empties out
-    // We also need to manually end sesisons on errors because beforeExit is not called on crashes
+    // We also need to manually end sessions on errors because beforeExit is not called on crashes
     process.on("beforeExit", () => {
       if (!sentEndSession) {
         sentryHub?.endSession();
