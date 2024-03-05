@@ -5,7 +5,7 @@ import { NoUploadTokenError } from "../errors/NoUploadTokenError.ts";
 import { UploadLimitReachedError } from "../errors/UploadLimitReachedError.ts";
 import { type ProviderServiceParams } from "../types.ts";
 import { DEFAULT_RETRY_COUNT } from "./constants.ts";
-import { fetchWithRetry } from "./fetchWithRetry.ts";
+import { type Gauge, fetchWithRetry } from "./fetchWithRetry.ts";
 import { green, red } from "./logging.ts";
 import { preProcessBody } from "./preProcessBody.ts";
 
@@ -14,6 +14,7 @@ interface GetPreSignedURLArgs {
   uploadToken?: string;
   serviceParams: Partial<ProviderServiceParams>;
   retryCount?: number;
+  gauge?: Gauge;
 }
 
 const PreSignedURLSchema = z.object({
@@ -25,6 +26,7 @@ export const getPreSignedURL = async ({
   uploadToken,
   serviceParams,
   retryCount = DEFAULT_RETRY_COUNT,
+  gauge,
 }: GetPreSignedURLArgs) => {
   if (!uploadToken) {
     red("No upload token found");
@@ -38,7 +40,8 @@ export const getPreSignedURL = async ({
     response = await fetchWithRetry({
       url,
       retryCount,
-      name: "`get-pre-signed-url`",
+      gauge,
+      name: "get-pre-signed-url",
       requestData: {
         method: "POST",
         headers: {

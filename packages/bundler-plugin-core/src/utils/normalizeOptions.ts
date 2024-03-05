@@ -80,6 +80,9 @@ const optionsSchemaFactory = (options: Options) =>
       .string({ invalid_type_error: "`uploadToken` must be a string." })
       .optional(),
     uploadOverrides: UploadOverridesSchema.optional(),
+    telemetry: z
+      .boolean({ invalid_type_error: "`telemetry` must be a boolean." })
+      .default(true),
     sentry: z
       .object({
         sentryOnly: z

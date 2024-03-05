@@ -14,7 +14,12 @@ import {
 import { red } from "./utils/logging.ts";
 import { normalizePath } from "./utils/normalizePath.ts";
 import { bundleAnalysisPluginFactory } from "./bundle-analysis/bundleAnalysisPluginFactory.ts";
-import { normalizeOptions } from "./utils/normalizeOptions.ts";
+import {
+  normalizeOptions,
+  type NormalizedOptions,
+} from "./utils/normalizeOptions.ts";
+import { createSentryInstance } from "./sentry.ts";
+import { telemetryPlugin } from "./plugins/telemetry.ts";
 
 const NODE_VERSION_RANGE = ">=18.18.0";
 
@@ -37,6 +42,8 @@ function codecovUnpluginFactory({
       return [];
     }
 
+    const options = normalizedOptions.options;
+
     if (!satisfies(process.version, NODE_VERSION_RANGE)) {
       red(
         `Codecov ${unpluginMetaContext.framework} bundler plugin requires Node.js ${NODE_VERSION_RANGE}. You are using Node.js ${process.version}. Please upgrade your Node.js version.`,
@@ -45,12 +52,64 @@ function codecovUnpluginFactory({
       return plugins;
     }
 
-    const options = normalizedOptions.options;
+    const { sentryHub, sentryMetrics, sentryClient } = createSentryInstance(
+      options,
+      unpluginMetaContext.framework,
+    );
+
+    const sentrySession = sentryHub?.startSession();
+    sentryHub?.captureSession();
+
+    let sentEndSession = false; // Just to prevent infinite loops with beforeExit, which is called whenever the event loop empties out
+    // We also need to manually end sessions on errors because beforeExit is not called on crashes
+    process.on("beforeExit", () => {
+      if (!sentEndSession) {
+        sentryHub?.endSession();
+        sentEndSession = true;
+      }
+    });
+
+    function handleRecoverableError(unknownError: unknown) {
+      if (sentrySession) {
+        sentrySession.status = "abnormal";
+        try {
+          if (options.errorHandler) {
+            try {
+              if (unknownError instanceof Error) {
+                options.errorHandler(unknownError);
+              } else {
+                options.errorHandler(new Error("An unknown error occurred"));
+              }
+            } catch (e) {
+              sentrySession.status = "crashed";
+              throw e;
+            }
+          } else {
+            sentrySession.status = "crashed";
+            throw unknownError;
+          }
+        } finally {
+          sentryHub?.endSession();
+        }
+      }
+    }
+
+    plugins.push(
+      telemetryPlugin({
+        sentryClient,
+        sentryHub,
+        shouldSendTelemetry: options.telemetry,
+      }),
+    );
+
     if (options?.enableBundleAnalysis) {
       plugins.push(
         bundleAnalysisPluginFactory({
           options,
+          unpluginMetaContext,
           bundleAnalysisUploadPlugin,
+          sentryMetrics,
+          handleRecoverableError,
         }),
       );
     }
@@ -68,6 +127,7 @@ export type {
   ProviderUtilInputs,
   UploadOverrides,
   Output,
+  NormalizedOptions,
 };
 
 export { normalizePath, codecovUnpluginFactory, red };

@@ -105,6 +105,35 @@ export interface Options {
   /** Override values for passing custom information to API. */
   uploadOverrides?: UploadOverrides;
 
+  /* If set to true, internal plugin errors and performance data will be sent to Sentry.
+   *
+   * At Codecov we like to use Sentry ourselves to deliver faster and more stable products. We're
+   * very careful of what we're sending. We won't collect anything other than error and high-level
+   * performance data. We will never collect your code or any details of the projects in which
+   * you're using this plugin.
+   *
+   * Defaults to `true`.
+   */
+  telemetry?: boolean;
+
+  /**
+   * When an error occurs during release creation or sourcemaps upload, the plugin will call this
+   * function.
+   *
+   * By default, the plugin will simply throw an error, thereby stopping the bundling process. If an
+   * `errorHandler` callback is provided, compilation will continue, unless an error is thrown in
+   * the provided callback.
+   *
+   * To allow compilation to continue but still emit a warning, set this option to the following:
+   *
+   * ```js
+   * (err) => {
+   *   console.warn(err);
+   * }
+   * ```
+   */
+  errorHandler?: (err: Error) => void;
+
   sentry?: {
     /**
      * Only send bundle stats to sentry (used within sentry bundler plugin).

@@ -18,6 +18,7 @@ export default defineConfig({
   },
   plugins: [
     codecovVitePlugin({
+      telemetry: false,
       enableBundleAnalysis: true,
       bundleName: "test-vite-v4",
       uploadToken: "test-token",

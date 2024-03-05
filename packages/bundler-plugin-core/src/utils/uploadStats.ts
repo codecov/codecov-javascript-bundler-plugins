@@ -2,7 +2,7 @@ import { ReadableStream, TextEncoderStream } from "node:stream/web";
 
 import { FailedUploadError } from "../errors/FailedUploadError";
 import { green, red } from "./logging";
-import { fetchWithRetry } from "./fetchWithRetry";
+import { type Gauge, fetchWithRetry } from "./fetchWithRetry";
 import { DEFAULT_RETRY_COUNT } from "./constants";
 import { UploadLimitReachedError } from "../errors/UploadLimitReachedError";
 import { FailedFetchError } from "../errors/FailedFetchError";
@@ -12,6 +12,7 @@ interface UploadStatsArgs {
   bundleName: string;
   preSignedUrl: string;
   retryCount?: number;
+  gauge?: Gauge;
 }
 
 export async function uploadStats({
@@ -19,6 +20,7 @@ export async function uploadStats({
   bundleName,
   preSignedUrl,
   retryCount = DEFAULT_RETRY_COUNT,
+  gauge,
 }: UploadStatsArgs) {
   const iterator = message[Symbol.iterator]();
   const stream = new ReadableStream({
@@ -38,7 +40,8 @@ export async function uploadStats({
     response = await fetchWithRetry({
       url: preSignedUrl,
       retryCount,
-      name: "`upload-stats`",
+      name: "upload-stats",
+      gauge,
       requestData: {
         method: "PUT",
         headers: {

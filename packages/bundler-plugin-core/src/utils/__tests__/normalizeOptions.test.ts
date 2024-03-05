@@ -24,6 +24,7 @@ const tests: Test[] = [
       success: true,
       options: {
         bundleName: "test-bundle",
+        telemetry: true,
         apiUrl: "https://api.codecov.io",
         dryRun: false,
         retryCount: 3,
@@ -40,6 +41,7 @@ const tests: Test[] = [
         dryRun: true,
         retryCount: 1,
         enableBundleAnalysis: true,
+        telemetry: false,
         uploadToken: "test-token",
         uploadOverrides: {
           branch: "test-branch",
@@ -58,6 +60,7 @@ const tests: Test[] = [
         dryRun: true,
         retryCount: 1,
         enableBundleAnalysis: true,
+        telemetry: false,
         uploadToken: "test-token",
         uploadOverrides: {
           branch: "test-branch",
