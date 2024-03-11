@@ -22,7 +22,9 @@
     "prepare": "husky install",
     "changeset:add": "pnpm changeset",
     "changeset:consume": "pnpm changeset version",
-    "changeset:publish": "pnpm run build && pnpm changeset publish"
+    "changeset:publish": "pnpm run build && pnpm changeset publish",
+    "generate:typedoc": "typedoc --options ./typedoc.json",
+    "generate:typedoc:packages": "pnpm -r --filter='./packages/*' run generate:typedoc"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
@@ -39,6 +41,7 @@
     "husky": "^8.0.3",
     "lint-staged": "^15.2.1",
     "prettier": "^3.2.4",
+    "typedoc": "^0.25.12",
     "typescript": "^5.3.3"
   },
   "lint-staged": {
