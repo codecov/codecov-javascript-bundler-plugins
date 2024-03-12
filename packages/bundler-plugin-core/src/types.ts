@@ -51,6 +51,7 @@ export interface BundleAnalysisUploadPluginArgs {
   options: NormalizedOptions;
 }
 
+/** Configuration ptions for the Codcov bundler plugin. */
 export interface Options {
   /**
    * The upload token to use for uploading the bundle analysis information.
@@ -105,6 +106,7 @@ export interface Options {
   /** Override values for passing custom information to API. */
   uploadOverrides?: UploadOverrides;
 
+  /** A set of options to configure Sentry settings inside the plugin. */
   sentry?: {
     /**
      * Only send bundle stats to sentry (used within sentry bundler plugin).
@@ -141,6 +143,7 @@ export type BundleAnalysisUploadPlugin = (
   version: string;
 };
 
+/** A set of overrides that are passed to Codecov. */
 export interface UploadOverrides {
   /** Specify the branch manually. */
   branch?: string;

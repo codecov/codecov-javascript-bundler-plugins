@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   codecovUnpluginFactory,
   type Options,
@@ -14,6 +15,28 @@ const codecovUnplugin = codecovUnpluginFactory({
   bundleAnalysisUploadPlugin: viteBundleAnalysisPlugin,
 });
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+/**
+ * Details for the Codecov Vite plugin.
+ *
+ * @example
+ * ```typescript
+ * // vite.config.js
+ * import { defineConfig } from "vite";
+ * import { codecovVitePlugin } from "@codecov/vite-plugin";
+ *
+ * export default defineConfig({
+ *   plugins: [
+ *     // Put the Codecov vite plugin after all other plugins
+ *     codecovVitePlugin({
+ *       enableBundleAnalysis: true,
+ *       bundleName: "example-vite-bundle",
+ *       uploadToken: process.env.CODECOV_TOKEN,
+ *     }),
+ *   ],
+ * });
+ * ```
+ *
+ * @see {@link @codecov/bundler-plugin-core!Options | Options} for list of options.
+ */
 export const codecovVitePlugin: (options: Options) => any =
   codecovUnplugin.vite;

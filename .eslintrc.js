@@ -16,6 +16,8 @@ const config = {
     "**/test-apps/**",
     "**/integration-tests/**/*.cjs",
     "**/integration-tests/test-api/**/*",
+    "**/scripts/publish-docs.js",
+    "**/typedoc/plugin-remove-references.js",
   ],
   parserOptions: {
     ecmaVersion: "latest",
