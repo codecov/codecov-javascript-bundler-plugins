@@ -41,3 +41,6 @@ jobs:
         with:
           publish: pnpm changeset:publish
           createGithubReleases: true
+
+      - name: Publish new docs
+        run: node scripts/publish-docs.js
