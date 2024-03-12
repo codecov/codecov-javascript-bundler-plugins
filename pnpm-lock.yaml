@@ -270,8 +270,8 @@ importers:
         specifier: ^7.5.6
         version: 7.5.6
       codecovProdRollupPlugin:
-        specifier: npm:@codecov/rollup-plugin@0.0.1-beta.2
-        version: /@codecov/rollup-plugin@0.0.1-beta.2(rollup@4.9.6)
+        specifier: npm:@codecov/rollup-plugin@0.0.1-beta.3
+        version: /@codecov/rollup-plugin@0.0.1-beta.3(rollup@4.9.6)
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@20.11.15)(ts-node@10.9.2)
@@ -319,8 +319,8 @@ importers:
         specifier: ^20.11.15
         version: 20.11.15
       codecovProdRollupPlugin:
-        specifier: npm:@codecov/rollup-plugin@0.0.1-beta.2
-        version: /@codecov/rollup-plugin@0.0.1-beta.2(rollup@4.9.6)
+        specifier: npm:@codecov/rollup-plugin@0.0.1-beta.3
+        version: /@codecov/rollup-plugin@0.0.1-beta.3(rollup@4.9.6)
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@20.11.15)(ts-node@10.9.2)
@@ -365,8 +365,8 @@ importers:
         specifier: ^20.11.15
         version: 20.11.15
       codecovProdRollupPlugin:
-        specifier: npm:@codecov/rollup-plugin@0.0.1-beta.2
-        version: /@codecov/rollup-plugin@0.0.1-beta.2(rollup@4.9.6)
+        specifier: npm:@codecov/rollup-plugin@0.0.1-beta.3
+        version: /@codecov/rollup-plugin@0.0.1-beta.3(rollup@4.9.6)
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@20.11.15)(ts-node@10.9.2)
@@ -414,8 +414,8 @@ importers:
         specifier: ^5.28.5
         version: 5.28.5(@swc/core@1.3.107)
       codecovProdRollupPlugin:
-        specifier: npm:@codecov/rollup-plugin@0.0.1-beta.2
-        version: /@codecov/rollup-plugin@0.0.1-beta.2(rollup@4.9.6)
+        specifier: npm:@codecov/rollup-plugin@0.0.1-beta.3
+        version: /@codecov/rollup-plugin@0.0.1-beta.3(rollup@4.9.6)
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@20.10.0)(ts-node@10.9.2)
@@ -1173,8 +1173,8 @@ packages:
       zod: 3.22.4
     dev: true
 
-  /@codecov/rollup-plugin@0.0.1-beta.2(rollup@4.9.6):
-    resolution: {integrity: sha512-gUeKPK7vCICO+PxnhQojtx72n4o9vBjYQYGaHfdM0Z6qEYGhs/C6P3KMMrUq4pT4+dn6M88J2NrtZwzN0beOVw==}
+  /@codecov/rollup-plugin@0.0.1-beta.3(rollup@4.9.6):
+    resolution: {integrity: sha512-cmtMPrSzWxsKUAYX90N0czaYHXl9IJR+Fy4UndHBi+4R7gyhrCAXW6ALM2/0JsSwmHYmf8svVeobUNHUl16tQw==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       rollup: 3.x || 4.x
@@ -6010,7 +6010,7 @@ packages:
       pretty-format: 29.7.0
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.2(@swc/core@1.3.107)(@types/node@20.10.0)(typescript@5.3.3)
+      ts-node: 10.9.2(@swc/core@1.3.107)(@types/node@20.11.15)(typescript@5.3.3)
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
