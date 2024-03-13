@@ -5,6 +5,8 @@ on:
 
 jobs:
   deploy_docs:
+    permissions:
+      contents: 'write'
     name: Deploy TypeDocs
     runs-on: ubuntu-latest
     steps:
