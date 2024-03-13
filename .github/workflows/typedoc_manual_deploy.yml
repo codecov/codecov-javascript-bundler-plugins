@@ -23,4 +23,4 @@ jobs:
           run_install: true
 
       - name: Publish new docs
-        run: node scripts/publish-docs.js
+        run: node scripts/publish-docs.mjs
