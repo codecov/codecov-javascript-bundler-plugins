@@ -27,7 +27,7 @@ jobs:
           echo "machine github.com login x password ${{ secrets.GITHUB_TOKEN }}" > ~/.netrc
           git config --global url."https://github.com/".insteadOf "git://github.com/"
           git config --global advice.detachedHead false
-          
+
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
@@ -41,3 +41,6 @@ jobs:
 
       - name: Publish new docs
         run: node scripts/publish-docs.mjs
+        env:
+          GIT_USERNAME: ${{ steps.import-gpg.outputs.name }}
+          GIT_EMAIL: ${{ steps.import-gpg.outputs.email }}
