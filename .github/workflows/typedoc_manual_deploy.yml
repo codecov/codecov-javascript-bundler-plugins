@@ -11,6 +11,11 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v4
 
+      - name: Setup Git
+        run: |
+          git config --global url."https://github.com/".insteadOf "git://github.com/"
+          git config --global advice.detachedHead false
+
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
