@@ -11,7 +11,7 @@ function publishDocs() {
 	mkdir /tmp/js-docs
 	cp -r ./typedoc/docs /tmp/js-docs/docs
 	cd /tmp/js-docs && \
-	git clone --single-branch --branch gh-pages https://github.com/codecov/codecov-javascript-bundler-plugins.git && \
+	git clone --single-branch --branch gh-pages git@github.com:codecov/codecov-javascript-bundler-plugins.git && \
 	cp -r /tmp/js-docs/docs/* /tmp/js-docs/codecov-javascript-bundler-plugins/ && \
 	cd /tmp/js-docs/codecov-javascript-bundler-plugins && \
 	git add --all && \
