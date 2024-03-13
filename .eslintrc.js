@@ -16,7 +16,7 @@ const config = {
     "**/test-apps/**",
     "**/integration-tests/**/*.cjs",
     "**/integration-tests/test-api/**/*",
-    "**/scripts/publish-docs.js",
+    "**/scripts/publish-docs.mjs",
     "**/typedoc/plugin-remove-references.js",
   ],
   parserOptions: {
