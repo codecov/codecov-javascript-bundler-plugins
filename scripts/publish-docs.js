@@ -2,6 +2,7 @@ import { execSync } from "child_process";
 
 function buildDocs() {
   execSync("rm -rf ./typedoc/docs");
+  execSync("pnpm run build");
   execSync("pnpm run generate:typedoc");
 }
 
