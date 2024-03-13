@@ -22,6 +22,12 @@ jobs:
           git_commit_gpgsign: true
           git_config_global: true
 
+      - name: Setup Git
+        run: |
+          echo "machine github.com login x password ${{ secrets.GITHUB_TOKEN }}" > ~/.netrc
+          git config --global url."https://github.com/".insteadOf "git://github.com/"
+          git config --global advice.detachedHead false
+          
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
