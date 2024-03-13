@@ -1,11 +1,11 @@
 {
   "$schema": "https://typedoc.org/schema.json",
   "readme": "README.md",
-  "name": "Codecov JavaScript Bundler PLugins",
+  "name": "Codecov JavaScript Bundler Plugins",
   "entryPoints": ["packages/*"],
   "entryPointStrategy": "packages",
   "out": "./typedoc/docs",
-  "includeVersion": true,
+  "includeVersion": false,
   "excludePrivate": true,
   "excludeExternals": true,
   "excludeReferences": true,
