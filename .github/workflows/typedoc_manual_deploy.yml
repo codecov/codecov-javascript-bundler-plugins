@@ -1,0 +1,26 @@
+name: Publish TypeDocs
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy_docs:
+    name: Deploy TypeDocs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: "package.json"
+
+      - name: Setup pnpm & install dependencies
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: true
+
+      - name: Publish new docs
+        run: node scripts/publish-docs.js
