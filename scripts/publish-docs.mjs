@@ -14,10 +14,10 @@ function publishDocs() {
 	git clone --single-branch --branch gh-pages https://github.com/codecov/codecov-javascript-bundler-plugins.git && \
 	cp -r /tmp/js-docs/docs/* /tmp/js-docs/codecov-javascript-bundler-plugins/ && \
 	cd /tmp/js-docs/codecov-javascript-bundler-plugins && \
-	git config commit.gpgsign true && \
-	git config user.signingkey BA2D4C0DFE53C876 && \
-	git config user.name "codecov-releaser" && \
-	git config user.email "devops+releaser@codecov.io" && \
+	git config --global commit.gpgsign true && \
+	git config --global user.signingkey BA2D4C0DFE53C876 && \
+	git config --global user.name "codecov-releaser" && \
+	git config --global user.email "devops+releaser@codecov.io" && \
 	git add --all && \
 	git commit -m "meta: Update docs" && \
 	git push origin gh-pages`);
