@@ -10,6 +10,7 @@ const viteApp = "test-apps/vite";
 const genConfigScript = "scripts/gen-config.sh";
 
 const VERSIONS = [4, 5];
+// Default Rollup formats: https://rollupjs.org/configuration-options/#output-format
 const FORMATS = [
   { format: "amd", expected: "amd" },
   { format: "cjs", expected: "cjs" },

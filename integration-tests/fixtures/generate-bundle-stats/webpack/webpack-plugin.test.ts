@@ -10,6 +10,7 @@ const webpackApp = "test-apps/webpack";
 const genConfigScript = "scripts/gen-config.sh";
 
 const VERSIONS = [5];
+// Default Webpack formats: https://webpack.js.org/configuration/output/#outputchunkformat
 const FORMATS = [
   { format: "array-push", expected: "array-push" },
   { format: "commonjs", expected: "cjs" },

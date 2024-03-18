@@ -30,6 +30,7 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
             return;
           }
 
+          // Webpack base chunk format options: https://webpack.js.org/configuration/output/#outputchunkformat
           if (typeof compilation.outputOptions.chunkFormat === "string") {
             let chunkFormat = compilation.outputOptions.chunkFormat;
             if (chunkFormat === "commonjs") {

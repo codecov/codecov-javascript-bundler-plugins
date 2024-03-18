@@ -10,6 +10,8 @@ const rollupApp = "test-apps/rollup";
 const genConfigScript = "scripts/gen-config.sh";
 
 const VERSIONS = [3, 4];
+
+// Default Rollup formats: https://rollupjs.org/configuration-options/#output-format
 const FORMATS = [
   { format: "amd", expected: "amd" },
   { format: "cjs", expected: "cjs" },
