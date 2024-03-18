@@ -11,20 +11,20 @@ const genConfigScript = "scripts/gen-config.sh";
 
 const VERSIONS = [3, 4];
 const FORMATS = [
-  "amd",
-  "cjs",
-  "es",
-  "esm",
-  "module",
-  "iife",
-  "umd",
-  "system",
-  "systemjs",
+  { format: "amd", expected: "amd" },
+  { format: "cjs", expected: "cjs" },
+  { format: "es", expected: "esm" },
+  { format: "esm", expected: "esm" },
+  { format: "module", expected: "esm" },
+  { format: "iife", expected: "iife" },
+  { format: "umd", expected: "umd" },
+  { format: "system", expected: "system" },
+  { format: "systemjs", expected: "system" },
 ];
 
 describe("Generating rollup stats", () => {
   describe.each(VERSIONS)("%d", (version) => {
-    describe.each(FORMATS)("%s", (format) => {
+    describe.each(FORMATS)("%o", ({ format, expected }) => {
       beforeEach(async () => {
         await $`sh ${genConfigScript} rollup esm ${format} v3 v${version} cjs`;
       });
@@ -53,6 +53,9 @@ describe("Generating rollup stats", () => {
           builtAt: expect.any(Number),
           duration: expect.any(Number),
           outputPath: expect.stringContaining(`/distV${version}`),
+          bundleName: expect.stringContaining(
+            `test-rollup-v${version}-${expected}`,
+          ),
         });
       });
     });

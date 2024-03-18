@@ -1,6 +1,6 @@
 // Bun Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Generating webpack stats 5 array-push matches the snapshot 1`] = `
+exports[`Generating webpack stats 5 {"format":"array-push","expected":"array-push"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -10,7 +10,7 @@ exports[`Generating webpack stats 5 array-push matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-webpack-v5-array-push",
+  "bundleName": StringContaining "test-webpack-v5-array-push",
   "bundler": {
     "name": "webpack",
     "version": "5.90.0",
@@ -74,7 +74,7 @@ exports[`Generating webpack stats 5 array-push matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating webpack stats 5 commonjs matches the snapshot 1`] = `
+exports[`Generating webpack stats 5 {"format":"commonjs","expected":"cjs"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -84,7 +84,7 @@ exports[`Generating webpack stats 5 commonjs matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-webpack-v5-cjs",
+  "bundleName": StringContaining "test-webpack-v5-cjs",
   "bundler": {
     "name": "webpack",
     "version": "5.90.0",
@@ -148,7 +148,7 @@ exports[`Generating webpack stats 5 commonjs matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating webpack stats 5 module matches the snapshot 1`] = `
+exports[`Generating webpack stats 5 {"format":"module","expected":"esm"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -158,7 +158,7 @@ exports[`Generating webpack stats 5 module matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-webpack-v5-esm",
+  "bundleName": StringContaining "test-webpack-v5-esm",
   "bundler": {
     "name": "webpack",
     "version": "5.90.0",

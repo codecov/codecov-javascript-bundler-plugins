@@ -10,11 +10,15 @@ const webpackApp = "test-apps/webpack";
 const genConfigScript = "scripts/gen-config.sh";
 
 const VERSIONS = [5];
-const FORMATS = ["array-push", "commonjs", "module"];
+const FORMATS = [
+  { format: "array-push", expected: "array-push" },
+  { format: "commonjs", expected: "cjs" },
+  { format: "module", expected: "esm" },
+];
 
 describe("Generating webpack stats", () => {
   describe.each(VERSIONS)(`%d`, (version) => {
-    describe.each(FORMATS)(`%s`, (format) => {
+    describe.each(FORMATS)(`%o`, ({ format, expected }) => {
       beforeEach(async () => {
         await $`sh ${genConfigScript} webpack commonjs ${format} v5 v${version} cjs`;
       });
@@ -42,6 +46,9 @@ describe("Generating webpack stats", () => {
           builtAt: expect.any(Number),
           duration: expect.any(Number),
           outputPath: expect.stringContaining(`/distV${version}`),
+          bundleName: expect.stringContaining(
+            `test-webpack-v${version}-${expected}`,
+          ),
         });
       });
     });

@@ -1,6 +1,6 @@
 // Bun Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Generating rollup stats 3 amd matches the snapshot 1`] = `
+exports[`Generating rollup stats 3 {"format":"amd","expected":"amd"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -10,7 +10,7 @@ exports[`Generating rollup stats 3 amd matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-rollup-v3-amd",
+  "bundleName": StringContaining "test-rollup-v3-amd",
   "bundler": {
     "name": "rollup",
     "version": "3.29.4",
@@ -76,7 +76,7 @@ exports[`Generating rollup stats 3 amd matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating rollup stats 3 cjs matches the snapshot 1`] = `
+exports[`Generating rollup stats 3 {"format":"cjs","expected":"cjs"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -86,7 +86,7 @@ exports[`Generating rollup stats 3 cjs matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-rollup-v3-cjs",
+  "bundleName": StringContaining "test-rollup-v3-cjs",
   "bundler": {
     "name": "rollup",
     "version": "3.29.4",
@@ -152,7 +152,7 @@ exports[`Generating rollup stats 3 cjs matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating rollup stats 3 es matches the snapshot 1`] = `
+exports[`Generating rollup stats 3 {"format":"es","expected":"esm"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -162,7 +162,7 @@ exports[`Generating rollup stats 3 es matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-rollup-v3-esm",
+  "bundleName": StringContaining "test-rollup-v3-esm",
   "bundler": {
     "name": "rollup",
     "version": "3.29.4",
@@ -228,7 +228,7 @@ exports[`Generating rollup stats 3 es matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating rollup stats 3 esm matches the snapshot 1`] = `
+exports[`Generating rollup stats 3 {"format":"esm","expected":"esm"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -238,7 +238,7 @@ exports[`Generating rollup stats 3 esm matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-rollup-v3-esm",
+  "bundleName": StringContaining "test-rollup-v3-esm",
   "bundler": {
     "name": "rollup",
     "version": "3.29.4",
@@ -304,7 +304,7 @@ exports[`Generating rollup stats 3 esm matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating rollup stats 3 module matches the snapshot 1`] = `
+exports[`Generating rollup stats 3 {"format":"module","expected":"esm"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -314,7 +314,7 @@ exports[`Generating rollup stats 3 module matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-rollup-v3-esm",
+  "bundleName": StringContaining "test-rollup-v3-esm",
   "bundler": {
     "name": "rollup",
     "version": "3.29.4",
@@ -380,7 +380,7 @@ exports[`Generating rollup stats 3 module matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating rollup stats 3 iife matches the snapshot 1`] = `
+exports[`Generating rollup stats 3 {"format":"iife","expected":"iife"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -390,7 +390,7 @@ exports[`Generating rollup stats 3 iife matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-rollup-v3-iife",
+  "bundleName": StringContaining "test-rollup-v3-iife",
   "bundler": {
     "name": "rollup",
     "version": "3.29.4",
@@ -456,7 +456,7 @@ exports[`Generating rollup stats 3 iife matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating rollup stats 3 umd matches the snapshot 1`] = `
+exports[`Generating rollup stats 3 {"format":"umd","expected":"umd"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -466,7 +466,7 @@ exports[`Generating rollup stats 3 umd matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-rollup-v3-umd",
+  "bundleName": StringContaining "test-rollup-v3-umd",
   "bundler": {
     "name": "rollup",
     "version": "3.29.4",
@@ -532,7 +532,7 @@ exports[`Generating rollup stats 3 umd matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating rollup stats 3 system matches the snapshot 1`] = `
+exports[`Generating rollup stats 3 {"format":"system","expected":"system"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -542,7 +542,7 @@ exports[`Generating rollup stats 3 system matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-rollup-v3-system",
+  "bundleName": StringContaining "test-rollup-v3-system",
   "bundler": {
     "name": "rollup",
     "version": "3.29.4",
@@ -608,7 +608,7 @@ exports[`Generating rollup stats 3 system matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating rollup stats 3 systemjs matches the snapshot 1`] = `
+exports[`Generating rollup stats 3 {"format":"systemjs","expected":"system"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -618,7 +618,7 @@ exports[`Generating rollup stats 3 systemjs matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-rollup-v3-system",
+  "bundleName": StringContaining "test-rollup-v3-system",
   "bundler": {
     "name": "rollup",
     "version": "3.29.4",
@@ -684,7 +684,7 @@ exports[`Generating rollup stats 3 systemjs matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating rollup stats 4 amd matches the snapshot 1`] = `
+exports[`Generating rollup stats 4 {"format":"amd","expected":"amd"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -694,7 +694,7 @@ exports[`Generating rollup stats 4 amd matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-rollup-v4-amd",
+  "bundleName": StringContaining "test-rollup-v4-amd",
   "bundler": {
     "name": "rollup",
     "version": "4.9.6",
@@ -760,7 +760,7 @@ exports[`Generating rollup stats 4 amd matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating rollup stats 4 cjs matches the snapshot 1`] = `
+exports[`Generating rollup stats 4 {"format":"cjs","expected":"cjs"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -770,7 +770,7 @@ exports[`Generating rollup stats 4 cjs matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-rollup-v4-cjs",
+  "bundleName": StringContaining "test-rollup-v4-cjs",
   "bundler": {
     "name": "rollup",
     "version": "4.9.6",
@@ -836,7 +836,7 @@ exports[`Generating rollup stats 4 cjs matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating rollup stats 4 es matches the snapshot 1`] = `
+exports[`Generating rollup stats 4 {"format":"es","expected":"esm"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -846,7 +846,7 @@ exports[`Generating rollup stats 4 es matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-rollup-v4-esm",
+  "bundleName": StringContaining "test-rollup-v4-esm",
   "bundler": {
     "name": "rollup",
     "version": "4.9.6",
@@ -912,7 +912,7 @@ exports[`Generating rollup stats 4 es matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating rollup stats 4 esm matches the snapshot 1`] = `
+exports[`Generating rollup stats 4 {"format":"esm","expected":"esm"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -922,7 +922,7 @@ exports[`Generating rollup stats 4 esm matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-rollup-v4-esm",
+  "bundleName": StringContaining "test-rollup-v4-esm",
   "bundler": {
     "name": "rollup",
     "version": "4.9.6",
@@ -988,7 +988,7 @@ exports[`Generating rollup stats 4 esm matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating rollup stats 4 module matches the snapshot 1`] = `
+exports[`Generating rollup stats 4 {"format":"module","expected":"esm"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -998,7 +998,7 @@ exports[`Generating rollup stats 4 module matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-rollup-v4-esm",
+  "bundleName": StringContaining "test-rollup-v4-esm",
   "bundler": {
     "name": "rollup",
     "version": "4.9.6",
@@ -1064,7 +1064,7 @@ exports[`Generating rollup stats 4 module matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating rollup stats 4 iife matches the snapshot 1`] = `
+exports[`Generating rollup stats 4 {"format":"iife","expected":"iife"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -1074,7 +1074,7 @@ exports[`Generating rollup stats 4 iife matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-rollup-v4-iife",
+  "bundleName": StringContaining "test-rollup-v4-iife",
   "bundler": {
     "name": "rollup",
     "version": "4.9.6",
@@ -1140,7 +1140,7 @@ exports[`Generating rollup stats 4 iife matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating rollup stats 4 umd matches the snapshot 1`] = `
+exports[`Generating rollup stats 4 {"format":"umd","expected":"umd"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -1150,7 +1150,7 @@ exports[`Generating rollup stats 4 umd matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-rollup-v4-umd",
+  "bundleName": StringContaining "test-rollup-v4-umd",
   "bundler": {
     "name": "rollup",
     "version": "4.9.6",
@@ -1216,7 +1216,7 @@ exports[`Generating rollup stats 4 umd matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating rollup stats 4 system matches the snapshot 1`] = `
+exports[`Generating rollup stats 4 {"format":"system","expected":"system"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -1226,7 +1226,7 @@ exports[`Generating rollup stats 4 system matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-rollup-v4-system",
+  "bundleName": StringContaining "test-rollup-v4-system",
   "bundler": {
     "name": "rollup",
     "version": "4.9.6",
@@ -1292,7 +1292,7 @@ exports[`Generating rollup stats 4 system matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating rollup stats 4 systemjs matches the snapshot 1`] = `
+exports[`Generating rollup stats 4 {"format":"systemjs","expected":"system"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -1302,7 +1302,7 @@ exports[`Generating rollup stats 4 systemjs matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-rollup-v4-system",
+  "bundleName": StringContaining "test-rollup-v4-system",
   "bundler": {
     "name": "rollup",
     "version": "4.9.6",

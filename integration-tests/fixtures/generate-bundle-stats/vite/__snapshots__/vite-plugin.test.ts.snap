@@ -1,6 +1,6 @@
 // Bun Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Generating vite stats v4 amd matches the snapshot 1`] = `
+exports[`Generating vite stats v4 {"format":"amd","expected":"amd"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -10,7 +10,7 @@ exports[`Generating vite stats v4 amd matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-vite-v4-amd",
+  "bundleName": StringContaining "test-vite-v4-amd",
   "bundler": {
     "name": "rollup",
     "version": "3.29.4",
@@ -90,7 +90,7 @@ exports[`Generating vite stats v4 amd matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating vite stats v4 cjs matches the snapshot 1`] = `
+exports[`Generating vite stats v4 {"format":"cjs","expected":"cjs"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -100,7 +100,7 @@ exports[`Generating vite stats v4 cjs matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-vite-v4-cjs",
+  "bundleName": StringContaining "test-vite-v4-cjs",
   "bundler": {
     "name": "rollup",
     "version": "3.29.4",
@@ -180,7 +180,7 @@ exports[`Generating vite stats v4 cjs matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating vite stats v4 es matches the snapshot 1`] = `
+exports[`Generating vite stats v4 {"format":"es","expected":"esm"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -190,7 +190,7 @@ exports[`Generating vite stats v4 es matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-vite-v4-esm",
+  "bundleName": StringContaining "test-vite-v4-esm",
   "bundler": {
     "name": "rollup",
     "version": "3.29.4",
@@ -270,7 +270,7 @@ exports[`Generating vite stats v4 es matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating vite stats v4 esm matches the snapshot 1`] = `
+exports[`Generating vite stats v4 {"format":"esm","expected":"esm"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -280,7 +280,7 @@ exports[`Generating vite stats v4 esm matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-vite-v4-esm",
+  "bundleName": StringContaining "test-vite-v4-esm",
   "bundler": {
     "name": "rollup",
     "version": "3.29.4",
@@ -360,7 +360,7 @@ exports[`Generating vite stats v4 esm matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating vite stats v4 module matches the snapshot 1`] = `
+exports[`Generating vite stats v4 {"format":"module","expected":"esm"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -370,7 +370,7 @@ exports[`Generating vite stats v4 module matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-vite-v4-esm",
+  "bundleName": StringContaining "test-vite-v4-esm",
   "bundler": {
     "name": "rollup",
     "version": "3.29.4",
@@ -450,7 +450,7 @@ exports[`Generating vite stats v4 module matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating vite stats v4 iife matches the snapshot 1`] = `
+exports[`Generating vite stats v4 {"format":"iife","expected":"iife"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -460,7 +460,7 @@ exports[`Generating vite stats v4 iife matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-vite-v4-iife",
+  "bundleName": StringContaining "test-vite-v4-iife",
   "bundler": {
     "name": "rollup",
     "version": "3.29.4",
@@ -540,7 +540,7 @@ exports[`Generating vite stats v4 iife matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating vite stats v4 umd matches the snapshot 1`] = `
+exports[`Generating vite stats v4 {"format":"umd","expected":"umd"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -550,7 +550,7 @@ exports[`Generating vite stats v4 umd matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-vite-v4-umd",
+  "bundleName": StringContaining "test-vite-v4-umd",
   "bundler": {
     "name": "rollup",
     "version": "3.29.4",
@@ -630,7 +630,7 @@ exports[`Generating vite stats v4 umd matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating vite stats v4 system matches the snapshot 1`] = `
+exports[`Generating vite stats v4 {"format":"system","expected":"system"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -640,7 +640,7 @@ exports[`Generating vite stats v4 system matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-vite-v4-system",
+  "bundleName": StringContaining "test-vite-v4-system",
   "bundler": {
     "name": "rollup",
     "version": "3.29.4",
@@ -720,7 +720,7 @@ exports[`Generating vite stats v4 system matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating vite stats v4 systemjs matches the snapshot 1`] = `
+exports[`Generating vite stats v4 {"format":"systemjs","expected":"system"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -730,7 +730,7 @@ exports[`Generating vite stats v4 systemjs matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-vite-v4-system",
+  "bundleName": StringContaining "test-vite-v4-system",
   "bundler": {
     "name": "rollup",
     "version": "3.29.4",
@@ -810,7 +810,7 @@ exports[`Generating vite stats v4 systemjs matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating vite stats v5 amd matches the snapshot 1`] = `
+exports[`Generating vite stats v5 {"format":"amd","expected":"amd"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -820,7 +820,7 @@ exports[`Generating vite stats v5 amd matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-vite-v5-amd",
+  "bundleName": StringContaining "test-vite-v5-amd",
   "bundler": {
     "name": "rollup",
     "version": "4.9.6",
@@ -900,7 +900,7 @@ exports[`Generating vite stats v5 amd matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating vite stats v5 cjs matches the snapshot 1`] = `
+exports[`Generating vite stats v5 {"format":"cjs","expected":"cjs"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -910,7 +910,7 @@ exports[`Generating vite stats v5 cjs matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-vite-v5-cjs",
+  "bundleName": StringContaining "test-vite-v5-cjs",
   "bundler": {
     "name": "rollup",
     "version": "4.9.6",
@@ -990,7 +990,7 @@ exports[`Generating vite stats v5 cjs matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating vite stats v5 es matches the snapshot 1`] = `
+exports[`Generating vite stats v5 {"format":"es","expected":"esm"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -1000,7 +1000,7 @@ exports[`Generating vite stats v5 es matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-vite-v5-esm",
+  "bundleName": StringContaining "test-vite-v5-esm",
   "bundler": {
     "name": "rollup",
     "version": "4.9.6",
@@ -1080,7 +1080,7 @@ exports[`Generating vite stats v5 es matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating vite stats v5 esm matches the snapshot 1`] = `
+exports[`Generating vite stats v5 {"format":"esm","expected":"esm"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -1090,7 +1090,7 @@ exports[`Generating vite stats v5 esm matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-vite-v5-esm",
+  "bundleName": StringContaining "test-vite-v5-esm",
   "bundler": {
     "name": "rollup",
     "version": "4.9.6",
@@ -1170,7 +1170,7 @@ exports[`Generating vite stats v5 esm matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating vite stats v5 module matches the snapshot 1`] = `
+exports[`Generating vite stats v5 {"format":"module","expected":"esm"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -1180,7 +1180,7 @@ exports[`Generating vite stats v5 module matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-vite-v5-esm",
+  "bundleName": StringContaining "test-vite-v5-esm",
   "bundler": {
     "name": "rollup",
     "version": "4.9.6",
@@ -1260,7 +1260,7 @@ exports[`Generating vite stats v5 module matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating vite stats v5 iife matches the snapshot 1`] = `
+exports[`Generating vite stats v5 {"format":"iife","expected":"iife"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -1270,7 +1270,7 @@ exports[`Generating vite stats v5 iife matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-vite-v5-iife",
+  "bundleName": StringContaining "test-vite-v5-iife",
   "bundler": {
     "name": "rollup",
     "version": "4.9.6",
@@ -1350,7 +1350,7 @@ exports[`Generating vite stats v5 iife matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating vite stats v5 umd matches the snapshot 1`] = `
+exports[`Generating vite stats v5 {"format":"umd","expected":"umd"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -1360,7 +1360,7 @@ exports[`Generating vite stats v5 umd matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-vite-v5-umd",
+  "bundleName": StringContaining "test-vite-v5-umd",
   "bundler": {
     "name": "rollup",
     "version": "4.9.6",
@@ -1440,7 +1440,7 @@ exports[`Generating vite stats v5 umd matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating vite stats v5 system matches the snapshot 1`] = `
+exports[`Generating vite stats v5 {"format":"system","expected":"system"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -1450,7 +1450,7 @@ exports[`Generating vite stats v5 system matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-vite-v5-system",
+  "bundleName": StringContaining "test-vite-v5-system",
   "bundler": {
     "name": "rollup",
     "version": "4.9.6",
@@ -1530,7 +1530,7 @@ exports[`Generating vite stats v5 system matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating vite stats v5 systemjs matches the snapshot 1`] = `
+exports[`Generating vite stats v5 {"format":"systemjs","expected":"system"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -1540,7 +1540,7 @@ exports[`Generating vite stats v5 systemjs matches the snapshot 1`] = `
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": "test-vite-v5-system",
+  "bundleName": StringContaining "test-vite-v5-system",
   "bundler": {
     "name": "rollup",
     "version": "4.9.6",

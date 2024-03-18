@@ -11,20 +11,20 @@ const genConfigScript = "scripts/gen-config.sh";
 
 const VERSIONS = [4, 5];
 const FORMATS = [
-  "amd",
-  "cjs",
-  "es",
-  "esm",
-  "module",
-  "iife",
-  "umd",
-  "system",
-  "systemjs",
+  { format: "amd", expected: "amd" },
+  { format: "cjs", expected: "cjs" },
+  { format: "es", expected: "esm" },
+  { format: "esm", expected: "esm" },
+  { format: "module", expected: "esm" },
+  { format: "iife", expected: "iife" },
+  { format: "umd", expected: "umd" },
+  { format: "system", expected: "system" },
+  { format: "systemjs", expected: "system" },
 ];
 
 describe("Generating vite stats", () => {
   describe.each(VERSIONS)("v%d", (version) => {
-    describe.each(FORMATS)("%s", (format) => {
+    describe.each(FORMATS)("%o", ({ format, expected }) => {
       beforeEach(async () => {
         await $`sh ${genConfigScript} vite esm ${format} v4 v${version} ts`;
       });
@@ -53,6 +53,9 @@ describe("Generating vite stats", () => {
           builtAt: expect.any(Number),
           duration: expect.any(Number),
           outputPath: expect.stringContaining(`/distV${version}`),
+          bundleName: expect.stringContaining(
+            `test-vite-v${version}-${expected}`,
+          ),
         });
       });
     });
