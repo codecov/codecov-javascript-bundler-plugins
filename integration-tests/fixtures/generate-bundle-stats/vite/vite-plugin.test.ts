@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { $ } from "bun";
 import { describe, it, expect, afterEach, beforeEach } from "bun:test";
+import { createConfig } from "../../../scripts/gen-config";
 
 const vitePath = (version: number) =>
   `node_modules/viteV${version}/bin/vite.js`;
 const viteConfig = (version: number, format: string) =>
   `fixtures/generate-bundle-stats/vite/vite-v${version}-${format}.config.ts`;
 const viteApp = "test-apps/vite";
-const genConfigScript = "scripts/gen-config.sh";
 
 const VERSIONS = [4, 5];
 // Default Rollup formats: https://rollupjs.org/configuration-options/#output-format
@@ -27,7 +27,14 @@ describe("Generating vite stats", () => {
   describe.each(VERSIONS)("v%d", (version) => {
     describe.each(FORMATS)("%o", ({ format, expected }) => {
       beforeEach(async () => {
-        await $`sh ${genConfigScript} vite esm ${format} v4 v${version} ts`;
+        await createConfig({
+          bundler: "vite",
+          format,
+          detectFormat: "esm",
+          version: `v${version}`,
+          detectVersion: "v4",
+          file_format: "ts",
+        });
       });
 
       afterEach(async () => {

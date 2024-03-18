@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { $ } from "bun";
 import { describe, it, expect, afterEach, beforeEach } from "bun:test";
+import { createConfig } from "../../../scripts/gen-config";
 
 const webpackPath = (version: number) =>
   `node_modules/webpackV${version}/bin/webpack.js`;
 const webpackConfig = (version: number, format: string) =>
   `fixtures/generate-bundle-stats/webpack/webpack-v${version}-${format}.config.cjs`;
 const webpackApp = "test-apps/webpack";
-const genConfigScript = "scripts/gen-config.sh";
 
 const VERSIONS = [5];
 // Default Webpack formats: https://webpack.js.org/configuration/output/#outputchunkformat
@@ -21,7 +21,14 @@ describe("Generating webpack stats", () => {
   describe.each(VERSIONS)(`%d`, (version) => {
     describe.each(FORMATS)(`%o`, ({ format, expected }) => {
       beforeEach(async () => {
-        await $`sh ${genConfigScript} webpack commonjs ${format} v5 v${version} cjs`;
+        await createConfig({
+          bundler: "webpack",
+          format,
+          detectFormat: "commonjs",
+          version: `v${version}`,
+          detectVersion: "v5",
+          file_format: "cjs",
+        });
       });
 
       afterEach(async () => {

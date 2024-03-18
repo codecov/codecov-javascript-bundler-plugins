@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { $ } from "bun";
 import { describe, it, expect, afterEach, beforeEach } from "bun:test";
+import { createConfig } from "../../../scripts/gen-config";
 
 const rollupPath = (version: number) =>
   `node_modules/rollupV${version}/dist/bin/rollup`;
 const rollupConfig = (version: number, format: string) =>
   `fixtures/generate-bundle-stats/rollup/rollup-v${version}-${format}.config.cjs`;
 const rollupApp = "test-apps/rollup";
-const genConfigScript = "scripts/gen-config.sh";
 
 const VERSIONS = [3, 4];
 
@@ -28,7 +28,14 @@ describe("Generating rollup stats", () => {
   describe.each(VERSIONS)("%d", (version) => {
     describe.each(FORMATS)("%o", ({ format, expected }) => {
       beforeEach(async () => {
-        await $`sh ${genConfigScript} rollup esm ${format} v3 v${version} cjs`;
+        await createConfig({
+          bundler: "rollup",
+          format,
+          detectFormat: "esm",
+          version: `v${version}`,
+          detectVersion: "v3",
+          file_format: "cjs",
+        });
       });
 
       afterEach(async () => {
