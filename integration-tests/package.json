@@ -7,6 +7,9 @@
   "type": "module",
   "scripts": {
     "test:e2e": "bun test fixtures/*",
+    "test:e2e:rollup": "bun test fixtures/**/rollup/*",
+    "test:e2e:vite": "bun test fixtures/**/vite/*",
+    "test:e2e:webpack": "bun test fixtures/**/webpack/*",
     "type-check": "tsc --noEmit",
     "clean": "rm -rf node_modules",
     "lint": "eslint . --ext .ts,.tsx",
