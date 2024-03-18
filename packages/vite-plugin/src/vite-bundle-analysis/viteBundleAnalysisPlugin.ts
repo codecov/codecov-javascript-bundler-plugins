@@ -25,10 +25,7 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
         return;
       }
 
-      let format: typeof options.format | "esm" = options.format;
-      if (format === "es") {
-        format = "esm";
-      }
+      const format = options.format === "es" ? "esm" : options.format;
 
       // append bundle output format to bundle name
       output.bundleName = `${userOptions.bundleName}-${format}`;
