@@ -25,8 +25,13 @@ export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
         return;
       }
 
+      let format: typeof options.format | "esm" = options.format;
+      if (format === "es") {
+        format = "esm";
+      }
+
       // append bundle output format to bundle name
-      output.bundleName = `${userOptions.bundleName}-${options.format}`;
+      output.bundleName = `${userOptions.bundleName}-${format}`;
 
       if (options.name && options.name !== "") {
         output.bundleName = `${userOptions.bundleName}-${options.name}`;

@@ -31,7 +31,14 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
           }
 
           if (typeof compilation.outputOptions.chunkFormat === "string") {
-            output.bundleName = `${userOptions.bundleName}-${compilation.outputOptions.chunkFormat}`;
+            let chunkFormat = compilation.outputOptions.chunkFormat;
+            if (chunkFormat === "commonjs") {
+              chunkFormat = "cjs";
+            } else if (chunkFormat === "module") {
+              chunkFormat = "esm";
+            }
+
+            output.bundleName = `${userOptions.bundleName}-${chunkFormat}`;
           }
 
           if (compilation.name && compilation.name !== "") {
