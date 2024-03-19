@@ -77,6 +77,9 @@ app.all("/get-stats/:id", (c) => {
 
   if (result) {
     console.log("stats found", id);
+    const query = sqlite.query(`DELETE FROM stats WHERE id = "${id}"`);
+    query.run();
+    query.finalize();
     return c.json({ stats: result.json_stats }, { status: 200 });
   }
 
