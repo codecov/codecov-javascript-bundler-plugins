@@ -16,6 +16,6 @@ jobs:
     uses: codecov/gha-workflows/.github/workflows/build-and-push-dockerhub.yml@v1.2.14
     secrets: inherit
     with:
-        push: false
-        image_name: codecov-javascript-bundler-plugins-test-api
-        docker_path: integration-tests/test-api
+      push: false
+      image_name: codecov-javascript-bundler-plugins-test-api
+      docker_path: integration-tests/test-api
