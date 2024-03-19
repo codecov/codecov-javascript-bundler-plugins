@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import * as Bun from "bun";
 import { unlink } from "node:fs/promises";
 
@@ -26,19 +27,38 @@ export async function createConfig({
   const file = Bun.file(baseConfigPath);
 
   const outFile = Bun.file(outFilePath);
-  const outFileExists = await outFile.exists();
+  let outFileExists = false;
+  try {
+    outFileExists = await outFile.exists();
+  } catch {
+    console.error(`Could not check if file exists: ${outFilePath}`);
+    return;
+  }
 
   if (outFileExists) {
-    await unlink(outFilePath);
+    try {
+      await unlink(outFilePath);
+    } catch {
+      console.error(`Could not delete file: ${outFilePath}`);
+      return;
+    }
   }
 
   const upperCaseVersion = version.toUpperCase();
   const upperCaseDetectVersion = detectVersion.toUpperCase();
 
-  let contents = await file.text();
-  contents = contents.replaceAll(detectFormat, format);
-  contents = contents.replaceAll(detectVersion, version);
-  contents = contents.replaceAll(upperCaseDetectVersion, upperCaseVersion);
+  let baseConfigContents;
+  try {
+    baseConfigContents = await file.text();
+  } catch {
+    console.error(`Could not read file: ${baseConfigPath}`);
+    return;
+  }
 
-  await Bun.write(outFilePath, contents);
+  const newConfigContents = baseConfigContents
+    .replaceAll(detectFormat, format)
+    .replaceAll(detectVersion, version)
+    .replaceAll(upperCaseDetectVersion, upperCaseVersion);
+
+  await Bun.write(outFilePath, newConfigContents);
 }
