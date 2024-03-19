@@ -7,8 +7,9 @@ module.exports = {
   cache: false,
   entry: `${webpackPath}/src/main.js`,
   output: {
-    path: `${webpackPath}/dist`,
+    path: `${webpackPath}/distV5`,
     filename: "main-[contenthash].js",
+    chunkFormat: "commonjs",
   },
   mode: "production",
   plugins: [
