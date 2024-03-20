@@ -8,6 +8,7 @@ export default defineConfig({
   clearScreen: false,
   root: vitePath,
   build: {
+    sourcemap: false,
     outDir: "distV4",
     rollupOptions: {
       input: `${vitePath}/index.html`,
