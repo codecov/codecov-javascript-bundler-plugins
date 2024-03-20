@@ -1,7 +1,9 @@
+import path from "node:path";
 import {
   red,
   normalizePath,
   type BundleAnalysisUploadPlugin,
+  type Asset,
 } from "@codecov/bundler-plugin-core";
 import * as webpack from "webpack";
 
@@ -62,38 +64,51 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
           const outputOptions = compilation.outputOptions;
           const { assets, chunks, modules } = compilationStats;
 
+          const collectedAssets: Asset[] = [];
           if (assets) {
-            output.assets = assets.map((asset) => {
+            const filename =
+              typeof outputOptions.filename === "string"
+                ? outputOptions.filename
+                : "";
+            const assetModuleFilename =
+              typeof outputOptions.assetModuleFilename === "string"
+                ? outputOptions.assetModuleFilename
+                : "";
+            const chunkFilename =
+              typeof outputOptions.chunkFilename === "string"
+                ? outputOptions.chunkFilename
+                : "";
+            const cssFilename =
+              typeof outputOptions.cssFilename === "string"
+                ? outputOptions.cssFilename
+                : "";
+            const cssChunkFilename =
+              typeof outputOptions.chunkFilename === "string"
+                ? outputOptions.chunkFilename
+                : "";
+
+            for (const asset of assets) {
               const format = findFilenameFormat({
                 assetName: asset.name,
-                filename:
-                  typeof outputOptions.filename === "string"
-                    ? outputOptions.filename
-                    : "",
-                assetModuleFilename:
-                  typeof outputOptions.assetModuleFilename === "string"
-                    ? outputOptions.assetModuleFilename
-                    : "",
-                chunkFilename:
-                  typeof outputOptions.chunkFilename === "string"
-                    ? outputOptions.chunkFilename
-                    : "",
-                cssFilename:
-                  typeof outputOptions.cssFilename === "string"
-                    ? outputOptions.cssFilename
-                    : "",
-                cssChunkFilename:
-                  typeof outputOptions.chunkFilename === "string"
-                    ? outputOptions.chunkFilename
-                    : "",
+                filename,
+                assetModuleFilename,
+                chunkFilename,
+                cssFilename,
+                cssChunkFilename,
               });
 
-              return {
+              if (path.extname(asset.name) === ".map") {
+                continue;
+              }
+
+              collectedAssets.push({
                 name: asset.name,
                 size: asset.size,
                 normalized: normalizePath(asset.name, format),
-              };
-            });
+              });
+            }
+
+            output.assets = collectedAssets;
           }
 
           const chunkIdMap = new Map<number | string, string>();
