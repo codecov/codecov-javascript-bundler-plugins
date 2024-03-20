@@ -19,6 +19,14 @@ const tests: Test[] = [
     expected: "test.*.chunk.js",
   },
   {
+    name: "can handle all base64 characters and '-'",
+    input: {
+      path: "test.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=-.js",
+      format: "[name].[hash].js",
+    },
+    expected: "test.*.js",
+  },
+  {
     name: "should replace '[contenthash]' with '*'",
     input: {
       path: "test.123.chunk.js",
