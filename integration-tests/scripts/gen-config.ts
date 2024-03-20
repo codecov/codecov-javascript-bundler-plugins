@@ -9,6 +9,7 @@ interface CreateConfigOpts {
   version: string;
   detectVersion: string;
   file_format: "ts" | "cjs";
+  enableSourceMaps: boolean;
 }
 
 export async function createConfig({
@@ -18,6 +19,7 @@ export async function createConfig({
   version,
   detectVersion,
   file_format,
+  enableSourceMaps,
 }: CreateConfigOpts) {
   const bundlerDir = `fixtures/generate-bundle-stats/${bundler}`;
   const baseConfigPath = `${bundlerDir}/${bundler}-base.config.${file_format}`;
@@ -55,10 +57,24 @@ export async function createConfig({
     return;
   }
 
-  const newConfigContents = baseConfigContents
+  let newConfigContents = baseConfigContents
     .replaceAll(detectFormat, format)
     .replaceAll(detectVersion, version)
     .replaceAll(upperCaseDetectVersion, upperCaseVersion);
+
+  if (enableSourceMaps) {
+    if (bundler === "webpack") {
+      newConfigContents = newConfigContents.replaceAll(
+        "devtool: false",
+        "devtool: 'source-map'",
+      );
+    } else {
+      newConfigContents = newConfigContents.replaceAll(
+        "sourcemap: false",
+        "sourcemap: true",
+      );
+    }
+  }
 
   await Bun.write(outFilePath, newConfigContents);
 }
