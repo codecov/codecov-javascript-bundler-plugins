@@ -12,6 +12,7 @@ module.exports = defineConfig({
     dir: `${rollupPath}/distV3`,
     format: "esm",
     entryFileNames: "[name]-[hash].js",
+    sourcemap: false,
   },
   plugins: [
     resolve(), // tells Rollup how to find date-fns in node_modules

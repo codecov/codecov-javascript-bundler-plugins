@@ -35,6 +35,7 @@ describe("Generating rollup stats", () => {
           version: `v${version}`,
           detectVersion: "v3",
           file_format: "cjs",
+          enableSourceMaps: false,
         });
       });
 
@@ -65,6 +66,48 @@ describe("Generating rollup stats", () => {
           bundleName: expect.stringContaining(
             `test-rollup-v${version}-${expected}`,
           ),
+        });
+      });
+    });
+
+    describe("source maps are enabled", () => {
+      beforeEach(async () => {
+        await createConfig({
+          bundler: "rollup",
+          format: "esm",
+          detectFormat: "esm",
+          version: `v${version}`,
+          detectVersion: "v3",
+          file_format: "cjs",
+          enableSourceMaps: true,
+        });
+      });
+
+      afterEach(async () => {
+        await $`rm -rf ${rollupConfig(version, "esm")}`;
+        await $`rm -rf ${rollupApp}/distV${version}`;
+      });
+
+      it("does not include any source maps", async () => {
+        const id = `rollup-v${version}-sourcemaps-${Date.now()}`;
+        const rollup = rollupPath(version);
+        const configFile = rollupConfig(version, "esm");
+        const API_URL = `http://localhost:8000/test-url/${id}/200/false`;
+
+        // build the app
+        await $`API_URL=${API_URL} node ${rollup} -c ${configFile}`;
+
+        // fetch stats from the server
+        const res = await fetch(`http://localhost:8000/get-stats/${id}`);
+        const data = (await res.json()) as { stats: string };
+        const stats = JSON.parse(data.stats) as unknown;
+
+        // assert the stats
+        expect(stats).toMatchSnapshot({
+          builtAt: expect.any(Number),
+          duration: expect.any(Number),
+          outputPath: expect.stringContaining(`/distV${version}`),
+          bundleName: expect.not.stringContaining(".map"),
         });
       });
     });
