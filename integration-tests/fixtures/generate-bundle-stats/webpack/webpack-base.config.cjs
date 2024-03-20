@@ -12,6 +12,7 @@ module.exports = {
     chunkFormat: "commonjs",
   },
   mode: "production",
+  devtool: false,
   plugins: [
     codecovWebpackPlugin({
       enableBundleAnalysis: true,
