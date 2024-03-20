@@ -765,7 +765,7 @@ exports[`Generating rollup stats 4 {"format":"cjs","expected":"cjs"} matches the
   "assets": [
     {
       "name": "main-MVbZZknk.js",
-      "normalized": "main-MVbZZknk.js",
+      "normalized": "main-*.js",
       "size": 560886,
     },
   ],
@@ -841,7 +841,7 @@ exports[`Generating rollup stats 4 {"format":"es","expected":"esm"} matches the 
   "assets": [
     {
       "name": "main-v-vWaFyT.js",
-      "normalized": "main-v-vWaFyT.js",
+      "normalized": "main-*.js",
       "size": 560871,
     },
   ],
@@ -917,7 +917,7 @@ exports[`Generating rollup stats 4 {"format":"esm","expected":"esm"} matches the
   "assets": [
     {
       "name": "main-v-vWaFyT.js",
-      "normalized": "main-v-vWaFyT.js",
+      "normalized": "main-*.js",
       "size": 560871,
     },
   ],
@@ -993,7 +993,7 @@ exports[`Generating rollup stats 4 {"format":"module","expected":"esm"} matches 
   "assets": [
     {
       "name": "main-v-vWaFyT.js",
-      "normalized": "main-v-vWaFyT.js",
+      "normalized": "main-*.js",
       "size": 560871,
     },
   ],
@@ -1069,7 +1069,7 @@ exports[`Generating rollup stats 4 {"format":"iife","expected":"iife"} matches t
   "assets": [
     {
       "name": "main-ChwnvxRF.js",
-      "normalized": "main-ChwnvxRF.js",
+      "normalized": "main-*.js",
       "size": 577066,
     },
   ],
@@ -1145,7 +1145,7 @@ exports[`Generating rollup stats 4 {"format":"umd","expected":"umd"} matches the
   "assets": [
     {
       "name": "main-ymXr0nql.js",
-      "normalized": "main-ymXr0nql.js",
+      "normalized": "main-*.js",
       "size": 577165,
     },
   ],
@@ -1221,7 +1221,7 @@ exports[`Generating rollup stats 4 {"format":"system","expected":"system"} match
   "assets": [
     {
       "name": "main-VyFuBFOR.js",
-      "normalized": "main-VyFuBFOR.js",
+      "normalized": "main-*.js",
       "size": 609444,
     },
   ],
@@ -1297,7 +1297,7 @@ exports[`Generating rollup stats 4 {"format":"systemjs","expected":"system"} mat
   "assets": [
     {
       "name": "main-VyFuBFOR.js",
-      "normalized": "main-VyFuBFOR.js",
+      "normalized": "main-*.js",
       "size": 609444,
     },
   ],
