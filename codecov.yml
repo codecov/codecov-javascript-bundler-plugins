@@ -5,12 +5,6 @@ ai_pr_review:
   enabled: true
 
 component_management:
-  default_rules:
-    statuses:
-      - type: patch
-        target: auto
-        branches:
-          - "!main"
   individual_components:
     - component_id: package_core
       name: Plugin core
