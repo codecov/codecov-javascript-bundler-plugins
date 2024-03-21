@@ -1,5 +1,14 @@
 # @codecov/bundler-plugin-core
 
+## 0.0.1-beta.5
+
+### Patch Changes
+
+- 5ad4bfa: Update plugins to remove sourcemaps from bundle stats data
+- 4e1516a: Modify output formats to be consistent across aliases and bundlers
+- c6dc57c: Remove Sentry stats upload from the plugins, as the project has been put on hold
+- 6c02b73: Fix normalizePath not handling all base64 characters and dashes
+
 ## 0.0.1-beta.4
 
 ### Patch Changes

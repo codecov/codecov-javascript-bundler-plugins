@@ -8,6 +8,7 @@
     "@codecov/webpack-plugin": "0.0.0"
   },
   "changesets": [
+    "chilled-eagles-protect",
     "cool-sheep-care",
     "early-phones-prove",
     "flat-mails-buy",
@@ -15,6 +16,9 @@
     "healthy-foxes-joke",
     "itchy-wolves-accept",
     "khaki-lions-glow",
-    "many-peas-repeat"
+    "many-berries-grab",
+    "many-peas-repeat",
+    "silent-pugs-add",
+    "warm-feet-cry"
   ]
 }
