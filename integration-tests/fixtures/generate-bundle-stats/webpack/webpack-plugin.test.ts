@@ -28,6 +28,7 @@ describe("Generating webpack stats", () => {
           version: `v${version}`,
           detectVersion: "v5",
           file_format: "cjs",
+          enableSourceMaps: false,
         });
       });
 
@@ -57,6 +58,47 @@ describe("Generating webpack stats", () => {
           bundleName: expect.stringContaining(
             `test-webpack-v${version}-${expected}`,
           ),
+        });
+      });
+    });
+
+    describe("source maps are enabled", () => {
+      beforeEach(async () => {
+        await createConfig({
+          bundler: "webpack",
+          format: "module",
+          detectFormat: "commonjs",
+          version: `v${version}`,
+          detectVersion: "v5",
+          file_format: "cjs",
+          enableSourceMaps: false,
+        });
+      });
+
+      afterEach(async () => {
+        await $`rm -rf ${webpackConfig(version, "module")}`;
+        await $`rm -rf ${webpackApp}/distV${version}`;
+      });
+
+      it("does not include any source maps", async () => {
+        const id = `webpack-v${version}-sourcemaps-${Date.now()}`;
+        const webpack = webpackPath(version);
+        const configFile = webpackConfig(version, "module");
+        const API_URL = `http://localhost:8000/test-url/${id}/200/false`;
+
+        // build the app
+        await $`API_URL=${API_URL} node ${webpack} --config ${configFile}`;
+
+        // fetch stats from the server
+        const res = await fetch(`http://localhost:8000/get-stats/${id}`);
+        const data = (await res.json()) as { stats: string };
+        const stats = JSON.parse(data.stats) as unknown;
+
+        expect(stats).toMatchSnapshot({
+          builtAt: expect.any(Number),
+          duration: expect.any(Number),
+          outputPath: expect.stringContaining(`/distV${version}`),
+          bundleName: expect.not.stringContaining(".map"),
         });
       });
     });

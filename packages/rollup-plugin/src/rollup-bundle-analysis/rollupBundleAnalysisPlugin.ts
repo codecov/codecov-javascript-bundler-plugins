@@ -61,6 +61,10 @@ export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
             const fileName = item?.fileName ?? "";
             const size = Buffer.from(item.source).byteLength;
 
+            if (path.extname(fileName) === ".map") {
+              continue;
+            }
+
             assets.push({
               name: fileName,
               size: size,
@@ -69,6 +73,10 @@ export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
           } else {
             const fileName = item?.fileName ?? "";
             const size = item?.source?.byteLength;
+
+            if (path.extname(fileName) === ".map") {
+              continue;
+            }
 
             assets.push({
               name: fileName,
@@ -84,6 +92,10 @@ export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
           const moduleEntries = Object.entries(item?.modules ?? {});
           const size = item?.code?.length;
           const uniqueId = `${counter}-${chunkId}`;
+
+          if (path.extname(fileName) === ".map") {
+            continue;
+          }
 
           assets.push({
             name: fileName,

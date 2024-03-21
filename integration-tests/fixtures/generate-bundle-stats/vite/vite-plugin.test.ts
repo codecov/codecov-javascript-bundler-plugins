@@ -34,6 +34,7 @@ describe("Generating vite stats", () => {
           version: `v${version}`,
           detectVersion: "v4",
           file_format: "ts",
+          enableSourceMaps: false,
         });
       });
 
@@ -64,6 +65,48 @@ describe("Generating vite stats", () => {
           bundleName: expect.stringContaining(
             `test-vite-v${version}-${expected}`,
           ),
+        });
+      });
+    });
+
+    describe("source maps are enabled", () => {
+      beforeEach(async () => {
+        await createConfig({
+          bundler: "vite",
+          format: "esm",
+          detectFormat: "esm",
+          version: `v${version}`,
+          detectVersion: "v4",
+          file_format: "ts",
+          enableSourceMaps: true,
+        });
+      });
+
+      afterEach(async () => {
+        await $`rm -rf ${viteConfig(version, "esm")}`;
+        await $`rm -rf ${viteApp}/distV${version}`;
+      });
+
+      it("does not include any source maps", async () => {
+        const id = `vite-v${version}-sourcemaps-${Date.now()}`;
+        const vite = vitePath(version);
+        const configFile = viteConfig(version, "esm");
+        const API_URL = `http://localhost:8000/test-url/${id}/200/false`;
+
+        // build the app
+        await $`API_URL=${API_URL} node ${vite} build -c ${configFile}`;
+
+        // fetch stats from the server
+        const res = await fetch(`http://localhost:8000/get-stats/${id}`);
+        const data = (await res.json()) as { stats: string };
+        const stats = JSON.parse(data.stats) as unknown;
+
+        // assert the stats
+        expect(stats).toMatchSnapshot({
+          builtAt: expect.any(Number),
+          duration: expect.any(Number),
+          outputPath: expect.stringContaining(`/distV${version}`),
+          bundleName: expect.not.stringContaining(".map"),
         });
       });
     });

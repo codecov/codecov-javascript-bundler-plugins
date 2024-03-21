@@ -1367,3 +1367,155 @@ exports[`Generating rollup stats 4 {"format":"systemjs","expected":"system"} mat
   "version": "1",
 }
 `;
+
+exports[`Generating rollup stats 3 source maps are enabled does not include any source maps 1`] = `
+{
+  "assets": [
+    {
+      "name": "main-6ff1e9ca.js",
+      "normalized": "main-*.js",
+      "size": 560913,
+    },
+  ],
+  "builtAt": Any<Number>,
+  "bundleName": StringNotContaining ".map",
+  "bundler": {
+    "name": "rollup",
+    "version": "3.29.4",
+  },
+  "chunks": [
+    {
+      "entry": true,
+      "files": [
+        "main-6ff1e9ca.js",
+      ],
+      "id": "main",
+      "initial": false,
+      "names": [
+        "main",
+      ],
+      "uniqueId": "0-main",
+    },
+  ],
+  "duration": Any<Number>,
+  "modules": [
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./commonjsHelpers.js",
+      "size": 334,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "size": 27,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
+      "size": 560240,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./test-apps/rollup/src/getRandomNumber.js",
+      "size": 98,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./test-apps/rollup/src/main.js",
+      "size": 163,
+    },
+  ],
+  "outputPath": StringContaining "/distV3",
+  "plugin": {
+    "name": "codecov-rollup-bundle-analysis-plugin",
+    "version": "1.0.0",
+  },
+  "version": "1",
+}
+`;
+
+exports[`Generating rollup stats 4 source maps are enabled does not include any source maps 1`] = `
+{
+  "assets": [
+    {
+      "name": "main-v-vWaFyT.js",
+      "normalized": "main-*.js",
+      "size": 560913,
+    },
+  ],
+  "builtAt": Any<Number>,
+  "bundleName": StringNotContaining ".map",
+  "bundler": {
+    "name": "rollup",
+    "version": "4.9.6",
+  },
+  "chunks": [
+    {
+      "entry": true,
+      "files": [
+        "main-v-vWaFyT.js",
+      ],
+      "id": "main",
+      "initial": false,
+      "names": [
+        "main",
+      ],
+      "uniqueId": "0-main",
+    },
+  ],
+  "duration": Any<Number>,
+  "modules": [
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./commonjsHelpers.js",
+      "size": 334,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "size": 27,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
+      "size": 560240,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./test-apps/rollup/src/getRandomNumber.js",
+      "size": 98,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./test-apps/rollup/src/main.js",
+      "size": 163,
+    },
+  ],
+  "outputPath": StringContaining "/distV4",
+  "plugin": {
+    "name": "codecov-rollup-bundle-analysis-plugin",
+    "version": "1.0.0",
+  },
+  "version": "1",
+}
+`;

@@ -62,6 +62,10 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
             const fileName = item?.fileName ?? "";
             const size = Buffer.from(item.source).byteLength;
 
+            if (path.extname(fileName) === ".map") {
+              continue;
+            }
+
             assets.push({
               name: fileName,
               size: size,
@@ -70,6 +74,10 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
           } else {
             const fileName = item?.fileName ?? "";
             const size = item?.source.byteLength;
+
+            if (path.extname(fileName) === ".map") {
+              continue;
+            }
 
             assets.push({
               name: fileName,
@@ -85,6 +93,10 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
           const moduleEntries = Object.entries(item?.modules ?? {});
           const size = Buffer.from(item?.code).byteLength;
           const uniqueId = `${counter}-${chunkId}`;
+
+          if (path.extname(fileName) === ".map") {
+            continue;
+          }
 
           assets.push({
             name: fileName,
