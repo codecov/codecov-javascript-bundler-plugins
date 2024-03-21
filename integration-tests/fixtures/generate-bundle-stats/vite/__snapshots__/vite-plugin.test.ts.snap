@@ -815,7 +815,7 @@ exports[`Generating vite stats v5 {"format":"amd","expected":"amd"} matches the 
   "assets": [
     {
       "name": "assets/index-neb5ATfh.js",
-      "normalized": "assets/index-neb5ATfh.js",
+      "normalized": "assets/index-*.js",
       "size": 72360,
     },
   ],
@@ -905,7 +905,7 @@ exports[`Generating vite stats v5 {"format":"cjs","expected":"cjs"} matches the 
   "assets": [
     {
       "name": "assets/index-9JQbcWYj.js",
-      "normalized": "assets/index-9JQbcWYj.js",
+      "normalized": "assets/index-*.js",
       "size": 72342,
     },
   ],
@@ -995,7 +995,7 @@ exports[`Generating vite stats v5 {"format":"es","expected":"esm"} matches the s
   "assets": [
     {
       "name": "assets/index-snsAD2Cg.js",
-      "normalized": "assets/index-snsAD2Cg.js",
+      "normalized": "assets/index-*.js",
       "size": 73071,
     },
   ],
@@ -1085,7 +1085,7 @@ exports[`Generating vite stats v5 {"format":"esm","expected":"esm"} matches the 
   "assets": [
     {
       "name": "assets/index-snsAD2Cg.js",
-      "normalized": "assets/index-snsAD2Cg.js",
+      "normalized": "assets/index-*.js",
       "size": 73071,
     },
   ],
@@ -1175,7 +1175,7 @@ exports[`Generating vite stats v5 {"format":"module","expected":"esm"} matches t
   "assets": [
     {
       "name": "assets/index-snsAD2Cg.js",
-      "normalized": "assets/index-snsAD2Cg.js",
+      "normalized": "assets/index-*.js",
       "size": 73071,
     },
   ],
@@ -1265,7 +1265,7 @@ exports[`Generating vite stats v5 {"format":"iife","expected":"iife"} matches th
   "assets": [
     {
       "name": "assets/index-HczW45b9.js",
-      "normalized": "assets/index-HczW45b9.js",
+      "normalized": "assets/index-*.js",
       "size": 72356,
     },
   ],
@@ -1355,7 +1355,7 @@ exports[`Generating vite stats v5 {"format":"umd","expected":"umd"} matches the 
   "assets": [
     {
       "name": "assets/index-5tDKlLKo.js",
-      "normalized": "assets/index-5tDKlLKo.js",
+      "normalized": "assets/index-*.js",
       "size": 72423,
     },
   ],

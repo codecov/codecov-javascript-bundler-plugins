@@ -39,7 +39,9 @@ export const normalizePath = (path: string, format: string): string => {
     const endingRegex = `(?<endingDelimiter>${escapeRegex(endingDelimiter)})`;
 
     // create a regex that will match the hash
-    const regexString = `(${leadingRegex}(?<hash>[0-9a-f]+)${endingRegex})`;
+    // potential values gathered from: https://en.wikipedia.org/wiki/Base64
+    // added in `\-` to account for the `-` character which seems to be used by Rollup through testing
+    const regexString = `(${leadingRegex}(?<hash>[0-9a-zA-Z\/+=-]+)${endingRegex})`;
     const HASH_REPLACE_REGEX = new RegExp(regexString, "i");
 
     // replace the hash with a wildcard and the delimiters
