@@ -10,6 +10,8 @@
 > These plugins are currently in beta and are subject to change.
 
 > A Webpack plugin that provides bundle analysis support for Codecov.
+>
+> The plugin does not support code coverage, see our [docs](https://docs.codecov.com/docs/quick-start) to set up coverage today!
 
 ## Installation
 
@@ -58,6 +60,7 @@ module.exports = {
 
 ## More information
 
+- [Webpack Config Docs](https://codecov.github.io/codecov-javascript-bundler-plugins/modules/_codecov_webpack_plugin.html)
 - [Codecov Documentation](https://docs.codecov.com/docs)
 - [Codecov Feedback](https://github.com/codecov/feedback/discussions)
 - [Sentry Discord](https://discord.gg/Ww9hbqr)
