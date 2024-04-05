@@ -7,7 +7,7 @@ console.log("connected to sqlite");
 
 console.log('creating "stats" table');
 const query = sqlite.query(
-  "CREATE TABLE `stats` (`id` text, `bundle_name` text, `json_stats` text );",
+  "CREATE TABLE `stats` (`id` text, `bundle_name` text UNIQUE, `json_stats` text);",
 );
 query.run();
 console.log('created "stats" table');
