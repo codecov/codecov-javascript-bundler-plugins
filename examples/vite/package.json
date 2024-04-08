@@ -1,5 +1,5 @@
 {
-  "name": "@codecov/vite-plugin-example",
+  "name": "@codecov/example-vite-app",
   "private": true,
   "version": "0.0.0",
   "type": "module",

@@ -1,5 +1,5 @@
 {
-  "name": "@codecov/webpack-plugin-example",
+  "name": "@codecov/example-webpack-app",
   "version": "0.0.0",
   "private": "true",
   "scripts": {
