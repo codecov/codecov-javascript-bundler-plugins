@@ -26,6 +26,7 @@ It supports the following features:
 
 ## More information
 
+- [Plugin Config Docs](https://codecov.github.io/codecov-javascript-bundler-plugins/index.html)
 - [Codecov Documentation](https://docs.codecov.com/docs)
 - [Codecov Feedback](https://github.com/codecov/feedback/discussions)
 - [Sentry Discord](https://discord.gg/Ww9hbqr)
