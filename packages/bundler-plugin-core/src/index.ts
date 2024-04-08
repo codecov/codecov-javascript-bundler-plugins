@@ -1,5 +1,4 @@
 import { type UnpluginOptions, createUnplugin } from "unplugin";
-import { satisfies } from "semver";
 
 import {
   type BundleAnalysisUploadPlugin,
@@ -15,8 +14,7 @@ import { red } from "./utils/logging.ts";
 import { normalizePath } from "./utils/normalizePath.ts";
 import { bundleAnalysisPluginFactory } from "./bundle-analysis/bundleAnalysisPluginFactory.ts";
 import { normalizeOptions } from "./utils/normalizeOptions.ts";
-
-const NODE_VERSION_RANGE = ">=18.18.0";
+import { checkNodeVersion } from "./utils/checkNodeVersion.ts";
 
 interface CodecovUnpluginFactoryOptions {
   bundleAnalysisUploadPlugin: BundleAnalysisUploadPlugin;
@@ -37,12 +35,8 @@ function codecovUnpluginFactory({
       return [];
     }
 
-    if (!satisfies(process.version, NODE_VERSION_RANGE)) {
-      red(
-        `Codecov ${unpluginMetaContext.framework} bundler plugin requires Node.js ${NODE_VERSION_RANGE}. You are using Node.js ${process.version}. Please upgrade your Node.js version.`,
-      );
-
-      return plugins;
+    if (checkNodeVersion(unpluginMetaContext)) {
+      return [];
     }
 
     const options = normalizedOptions.options;
@@ -70,4 +64,11 @@ export type {
   Output,
 };
 
-export { normalizePath, codecovUnpluginFactory, red };
+export {
+  normalizePath,
+  normalizeOptions,
+  bundleAnalysisPluginFactory,
+  codecovUnpluginFactory,
+  red,
+  checkNodeVersion,
+};
