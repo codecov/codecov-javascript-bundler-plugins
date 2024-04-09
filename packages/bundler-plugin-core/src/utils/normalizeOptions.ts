@@ -80,6 +80,11 @@ const optionsSchemaFactory = (options: Options) =>
       .string({ invalid_type_error: "`uploadToken` must be a string." })
       .optional(),
     uploadOverrides: UploadOverridesSchema.optional(),
+    debug: z
+      .boolean({
+        invalid_type_error: "`debug` must be a boolean.",
+      })
+      .default(false),
   });
 
 interface NormalizedOptionsFailure {

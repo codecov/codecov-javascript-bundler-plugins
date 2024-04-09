@@ -105,6 +105,9 @@ export interface Options {
 
   /** Override values for passing custom information to API. */
   uploadOverrides?: UploadOverrides;
+
+  /** Option to enable debug logs for the plugin. */
+  debug?: boolean;
 }
 
 export type BundleAnalysisUploadPlugin = (

@@ -28,6 +28,7 @@ const tests: Test[] = [
         dryRun: false,
         retryCount: 3,
         enableBundleAnalysis: false,
+        debug: false,
       },
     },
   },
@@ -48,6 +49,7 @@ const tests: Test[] = [
           slug: "test-slug",
           pr: "1234",
         },
+        debug: true,
       },
     },
     expected: {
@@ -66,6 +68,7 @@ const tests: Test[] = [
           slug: "test-slug",
           pr: "1234",
         },
+        debug: true,
       },
     },
   },
