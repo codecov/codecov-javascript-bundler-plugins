@@ -1,10 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { type UnpluginOptions, createVitePlugin } from "unplugin";
+import {
+  type UnpluginOptions,
+  createVitePlugin,
+  type VitePlugin,
+} from "unplugin";
 import {
   type Options,
   normalizeOptions,
   red,
-  bundleAnalysisPluginFactory,
   checkNodeVersion,
 } from "@codecov/bundler-plugin-core";
 
@@ -35,9 +38,12 @@ const codecovVitePluginFactory = createVitePlugin<Options, true>(
     const options = normalizedOptions.options;
     if (options?.enableBundleAnalysis) {
       plugins.push(
-        bundleAnalysisPluginFactory({
+        viteBundleAnalysisPlugin({
+          output: {
+            version: "1",
+            bundleName: options.bundleName,
+          },
           options,
-          bundleAnalysisUploadPlugin: viteBundleAnalysisPlugin,
         }),
       );
     }
@@ -69,5 +75,5 @@ const codecovVitePluginFactory = createVitePlugin<Options, true>(
  *
  * @see {@link @codecov/bundler-plugin-core!Options | Options} for list of options.
  */
-export const codecovVitePlugin: (options: Options) => any =
+export const codecovVitePlugin: (options: Options) => VitePlugin<any>[] =
   codecovVitePluginFactory;

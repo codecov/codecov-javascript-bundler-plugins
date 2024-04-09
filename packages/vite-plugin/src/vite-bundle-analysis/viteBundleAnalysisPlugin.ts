@@ -6,6 +6,9 @@ import {
   type Module,
   type BundleAnalysisUploadPlugin,
   red,
+  buildStartFactory,
+  buildEndFactory,
+  writeBundleFactory,
 } from "@codecov/bundler-plugin-core";
 
 const PLUGIN_NAME = "codecov-vite-bundle-analysis-plugin";
@@ -17,6 +20,15 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
   version: "1",
   name: PLUGIN_NAME,
   pluginVersion: "1.0.0",
+  buildStart: () => {
+    buildStartFactory(output);
+  },
+  buildEnd: () => {
+    buildEndFactory(output);
+  },
+  writeBundle: async () => {
+    await writeBundleFactory({ output, options: userOptions })();
+  },
   vite: {
     generateBundle(this, options, bundle) {
       // don't need to do anything if the bundle name is not present or empty
@@ -33,6 +45,15 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
       // add in bundle name if present
       if (options.name && options.name !== "") {
         output.bundleName = `${userOptions.bundleName}-${options.name}`;
+      }
+
+      // handle nuxt
+      if (options.dir?.includes("nuxt")) {
+        if (options.dir?.includes("client")) {
+          output.bundleName = `${output.bundleName}-client`;
+        } else if (options.dir?.includes("server")) {
+          output.bundleName = `${output.bundleName}-server`;
+        }
       }
 
       const cwd = process.cwd();
@@ -166,7 +187,7 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
       if (userOptions.dryRun) {
         this.emitFile({
           type: "asset",
-          fileName: "codecov-bundle-stats.json",
+          fileName: `${output.bundleName}-stats.json`,
           source: JSON.stringify(output),
         });
       }

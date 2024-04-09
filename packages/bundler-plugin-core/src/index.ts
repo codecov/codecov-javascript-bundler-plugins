@@ -15,6 +15,9 @@ import { normalizePath } from "./utils/normalizePath.ts";
 import { bundleAnalysisPluginFactory } from "./bundle-analysis/bundleAnalysisPluginFactory.ts";
 import { normalizeOptions } from "./utils/normalizeOptions.ts";
 import { checkNodeVersion } from "./utils/checkNodeVersion.ts";
+import { writeBundleFactory } from "./utils/writeBundleFactory.ts";
+import { buildStartFactory } from "./utils/buildStartFactory.ts";
+import { buildEndFactory } from "./utils/buildEndFactory.ts";
 
 interface CodecovUnpluginFactoryOptions {
   bundleAnalysisUploadPlugin: BundleAnalysisUploadPlugin;
@@ -71,4 +74,7 @@ export {
   codecovUnpluginFactory,
   red,
   checkNodeVersion,
+  writeBundleFactory,
+  buildStartFactory,
+  buildEndFactory,
 };
