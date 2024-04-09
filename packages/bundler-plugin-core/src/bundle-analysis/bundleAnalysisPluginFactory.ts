@@ -9,6 +9,7 @@ import { getPreSignedURL } from "../utils/getPreSignedURL.ts";
 import { type NormalizedOptions } from "../utils/normalizeOptions.ts";
 import { detectProvider } from "../utils/provider.ts";
 import { uploadStats } from "../utils/uploadStats.ts";
+import { debug } from "../utils/logging.ts";
 
 interface BundleAnalysisUploadPluginArgs {
   options: NormalizedOptions;
@@ -54,6 +55,10 @@ export const bundleAnalysisPluginFactory = ({
       const envs = process.env;
       const inputs: ProviderUtilInputs = { envs, args };
       const provider = await detectProvider(inputs);
+
+      if (options.debug) {
+        debug(`Uploading stats for commit: ${provider.commit.slice(0, 7)}`);
+      }
 
       let url = "";
       try {

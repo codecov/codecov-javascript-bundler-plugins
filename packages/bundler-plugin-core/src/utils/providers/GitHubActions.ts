@@ -126,7 +126,6 @@ function _getSHA(inputs: ProviderUtilInputs): string {
       const mergeCommit = mergeCommitMessage.split(" ")[1];
 
       commit = mergeCommit;
-    } else if (mergeCommitMessage === "") {
     }
   }
 
