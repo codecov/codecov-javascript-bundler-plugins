@@ -13,6 +13,7 @@ describe("rollupBundleAnalysisPlugin", () => {
           dryRun: true,
           enableBundleAnalysis: true,
           retryCount: 1,
+          debug: false,
         },
       });
 

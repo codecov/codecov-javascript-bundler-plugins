@@ -10,6 +10,7 @@ describe("bundleAnalysisPluginFactory", () => {
         enableBundleAnalysis: true,
         retryCount: 3,
         uploadToken: "test-token",
+        debug: false,
       },
       bundleAnalysisUploadPlugin: () => ({
         version: "1",
