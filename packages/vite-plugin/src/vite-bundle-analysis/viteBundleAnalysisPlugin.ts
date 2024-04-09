@@ -11,7 +11,10 @@ import {
   writeBundleFactory,
 } from "@codecov/bundler-plugin-core";
 
-const PLUGIN_NAME = "codecov-vite-bundle-analysis-plugin";
+// @ts-expect-error this value is being replaced by rollup
+const PLUGIN_NAME = __PACKAGE_NAME__ as string;
+// @ts-expect-error this value is being replaced by rollup
+const PLUGIN_VERSION = __PACKAGE_VERSION__ as string;
 
 export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
   output,
@@ -19,8 +22,12 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
 }) => ({
   version: "1",
   name: PLUGIN_NAME,
-  pluginVersion: "1.0.0",
+  pluginVersion: PLUGIN_VERSION,
   buildStart: () => {
+    output.plugin = {
+      name: PLUGIN_NAME,
+      version: PLUGIN_VERSION,
+    };
     buildStartFactory(output);
   },
   buildEnd: () => {
