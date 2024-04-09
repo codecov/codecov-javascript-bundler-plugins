@@ -58,6 +58,15 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
         }
       }
 
+      // handle nuxt
+      if (options.dir?.includes("nuxt")) {
+        if (options.dir?.includes("client")) {
+          output.bundleName = `${output.bundleName}-client`;
+        } else if (options.dir?.includes("server")) {
+          output.bundleName = `${output.bundleName}-server`;
+        }
+      }
+
       const cwd = process.cwd();
       const assets: Asset[] = [];
       const chunks: Chunk[] = [];
