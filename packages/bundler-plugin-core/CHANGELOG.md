@@ -1,5 +1,11 @@
 # @codecov/bundler-plugin-core
 
+## 0.0.1-beta.6
+
+### Patch Changes
+
+- 153f684: Add in debug option that will enable more in-depth logs
+
 ## 0.0.1-beta.5
 
 ### Patch Changes

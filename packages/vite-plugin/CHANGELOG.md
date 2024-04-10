@@ -1,5 +1,13 @@
 # @codecov/vite-plugin
 
+## 0.0.1-beta.6
+
+### Patch Changes
+
+- 153f684: Add in debug option that will enable more in-depth logs
+- Updated dependencies [153f684]
+  - @codecov/bundler-plugin-core@0.0.1-beta.6
+
 ## 0.0.1-beta.5
 
 ### Patch Changes
