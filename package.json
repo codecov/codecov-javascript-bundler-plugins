@@ -18,7 +18,7 @@
     "test:unit": "pnpm -r --filter='./packages/*' run test:unit",
     "test:unit:ci": "pnpm -r --filter='./packages/*' run test:unit:ci",
     "test:e2e": "pnpm -r --filter='./integration-tests' run test:e2e",
-    "test:e2e:new": "pnpm -r --filter='./integration-tests' run test:e2e:new",
+    "test:e2e:update": "pnpm -r --filter='./integration-tests' run test:e2e:update",
     "prepare": "husky install",
     "changeset:add": "pnpm changeset",
     "changeset:consume": "pnpm changeset version",
