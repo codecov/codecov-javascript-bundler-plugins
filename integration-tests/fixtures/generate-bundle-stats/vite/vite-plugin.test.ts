@@ -65,6 +65,10 @@ describe("Generating vite stats", () => {
           bundleName: expect.stringContaining(
             `test-vite-v${version}-${expected}`,
           ),
+          plugin: {
+            name: expect.stringMatching("@codecov/vite-plugin"),
+            version: expect.stringMatching(/\d+\.\d+\.\d+-beta.\d/),
+          },
         });
       });
     });

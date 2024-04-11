@@ -17,7 +17,10 @@ describe("viteBundleAnalysisPlugin", () => {
         },
       });
 
-      expect(plugin).toMatchSnapshot();
+      expect(plugin).toMatchSnapshot({
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        pluginVersion: expect.stringMatching(/\d+\.\d+\.\d+-beta.\d/),
+      });
     });
   });
 });
