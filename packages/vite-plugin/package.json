@@ -39,6 +39,7 @@
     "format": "prettier '**/*.{cjs,mjs,ts,tsx,md,json}' --ignore-path ../.gitignore --ignore-unknown --no-error-on-unmatched-pattern --write",
     "format:check": "prettier '**/*.{cjs,mjs,ts,tsx,md,json}' --ignore-path ../.gitignore --ignore-unknown --no-error-on-unmatched-pattern --check",
     "test:unit": "jest",
+    "test:unit:update": "jest --updateSnapshot",
     "test:unit:ci": "JEST_JUNIT_OUTPUT_NAME='vite-plugin.junit.xml' jest --coverage --reporters=jest-junit",
     "generate:typedoc": "typedoc --options ./typedoc.json"
   },
