@@ -6,9 +6,9 @@ import {
   type Module,
   type BundleAnalysisUploadPlugin,
   red,
-  buildStartFactory,
-  buildEndFactory,
-  writeBundleFactory,
+  buildStartHelper,
+  buildEndHelper,
+  writeBundleHelper,
 } from "@codecov/bundler-plugin-core";
 
 // @ts-expect-error this value is being replaced by rollup
@@ -28,13 +28,13 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
       name: PLUGIN_NAME,
       version: PLUGIN_VERSION,
     };
-    buildStartFactory(output);
+    buildStartHelper(output);
   },
   buildEnd: () => {
-    buildEndFactory(output);
+    buildEndHelper(output);
   },
   writeBundle: async () => {
-    await writeBundleFactory({ output, options: userOptions })();
+    await writeBundleHelper({ output, options: userOptions });
   },
   vite: {
     generateBundle(this, options, bundle) {
