@@ -107,6 +107,7 @@ describe("writeBundleHelper", () => {
           apiUrl: "http://localhost",
           enableBundleAnalysis: true,
           retryCount: 1,
+          debug: false,
         },
         output: { bundleName: "test" },
       });
@@ -145,6 +146,7 @@ describe("writeBundleHelper", () => {
           apiUrl: "http://localhost",
           enableBundleAnalysis: true,
           retryCount: 1,
+          debug: false,
         },
         output: { bundleName: "test" },
       });
@@ -164,6 +166,7 @@ describe("writeBundleHelper", () => {
           apiUrl: "http://localhost",
           enableBundleAnalysis: true,
           retryCount: 1,
+          debug: false,
         },
         output: { bundleName: "test" },
       });
@@ -185,6 +188,7 @@ describe("writeBundleHelper", () => {
           enableBundleAnalysis: true,
           uploadToken: "token",
           retryCount: 1,
+          debug: false,
         },
         output: { bundleName: "test" },
       });
@@ -213,6 +217,7 @@ describe("writeBundleHelper", () => {
           apiUrl: "http://localhost",
           enableBundleAnalysis: true,
           retryCount: 1,
+          debug: false,
         },
         output: { bundleName: "test" },
       });
