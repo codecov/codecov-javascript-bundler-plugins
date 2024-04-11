@@ -77,3 +77,10 @@ const codecovVitePluginFactory = createVitePlugin<Options, true>(
  */
 export const codecovVitePlugin: (options: Options) => VitePlugin<any>[] =
   codecovVitePluginFactory;
+
+/**
+ * Do not use this plugin directly. For internal use only.
+ *
+ * @access package
+ */
+export const _internal_vitePlugin = viteBundleAnalysisPlugin;
