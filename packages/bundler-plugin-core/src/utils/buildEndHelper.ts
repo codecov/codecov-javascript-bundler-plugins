@@ -1,5 +1,5 @@
 import { type Output } from "../types";
 
-export const buildEndFactory = (output: Output) => {
+export const buildEndHelper = (output: Output) => {
   output.duration = Date.now() - (output.builtAt ?? 0);
 };

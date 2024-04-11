@@ -1,5 +1,5 @@
 import { type Output } from "../types";
 
-export const buildStartFactory = (output: Output) => {
+export const buildStartHelper = (output: Output) => {
   output.builtAt = Date.now();
 };
