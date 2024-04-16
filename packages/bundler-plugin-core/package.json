@@ -32,7 +32,7 @@
     "lint:fix": "pnpm lint --fix",
     "format": "prettier '**/*.{cjs,mjs,ts,tsx,md,json}' --ignore-path ../.gitignore --ignore-unknown --no-error-on-unmatched-pattern --write",
     "format:check": "prettier '**/*.{cjs,mjs,ts,tsx,md,json}' --ignore-path ../.gitignore --ignore-unknown --no-error-on-unmatched-pattern --check",
-    "test:unit": "jest",
+    "test:unit": "jest --runInBand",
     "test:unit:ci": "JEST_JUNIT_OUTPUT_NAME='bundler-plugin-core.junit.xml' jest --coverage --reporters=jest-junit",
     "generate:typedoc": "typedoc --options ./typedoc.json"
   },
