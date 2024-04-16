@@ -13,11 +13,6 @@ import {
 
 import { viteBundleAnalysisPlugin } from "./vite-bundle-analysis/viteBundleAnalysisPlugin";
 
-export interface BundleTransformOptions {
-  fileName?: string;
-  moduleOriginalSize?: boolean;
-}
-
 const codecovVitePluginFactory = createVitePlugin<Options, true>(
   (userOptions, unpluginMetaContext) => {
     const plugins: UnpluginOptions[] = [];
