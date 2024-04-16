@@ -14,7 +14,9 @@ const mockedDetectProvider = detectProvider as jest.Mock<
 const server = setupServer();
 
 beforeAll(() => {
-  server.listen();
+  server.listen({
+    onUnhandledRequest: "error",
+  });
 });
 
 afterEach(() => {
@@ -46,6 +48,7 @@ describe("writeBundleHelper", () => {
     urlSendError = false,
   }: SetupArgs) {
     const preSignedUrlBody = jest.fn();
+    const statsBody = jest.fn();
     consoleSpy = jest.spyOn(console, "log").mockImplementation(() => null);
 
     mockedDetectProvider.mockResolvedValue({
@@ -77,22 +80,29 @@ describe("writeBundleHelper", () => {
           ?.pipeThrough(new TextDecoderStream())
           ?.getReader();
 
+        let content = "";
         while (true) {
           const temp = await reader?.read();
+          if (typeof temp?.value === "string") {
+            content += temp?.value;
+          }
           if (temp?.done) break;
         }
 
-        if (!statsSendError) {
-          return HttpResponse.json({}, { status: statsStatus });
+        statsBody(content);
+
+        if (statsSendError) {
+          return HttpResponse.error();
         }
 
-        return HttpResponse.error();
+        return HttpResponse.json({}, { status: statsStatus });
       }),
     );
 
     return {
       consoleSpy,
       preSignedUrlBody,
+      statsBody,
     };
   }
 
@@ -157,7 +167,7 @@ describe("writeBundleHelper", () => {
 
   describe("fails to fetch pre-signed URL", () => {
     it("immediately returns", async () => {
-      setup({});
+      setup({ urlSendError: true });
 
       await writeBundleHelper({
         options: {
@@ -173,8 +183,8 @@ describe("writeBundleHelper", () => {
     });
   });
 
-  describe.skip("successful fetch of pre-signed URL", () => {
-    it("passes the correct body information", async () => {
+  describe("successful fetch of pre-signed URL", () => {
+    it.only("passes the correct body information", async () => {
       const { preSignedUrlBody } = setup({
         urlData: { url: "http://localhost/upload/stats/" },
         urlStatus: 200,
@@ -190,7 +200,7 @@ describe("writeBundleHelper", () => {
           retryCount: 1,
           debug: false,
         },
-        output: { bundleName: "test" },
+        output: { bundleName: "test", assets: [], modules: [], chunks: [] },
       });
 
       expect(preSignedUrlBody).toHaveBeenCalledWith({
@@ -206,9 +216,13 @@ describe("writeBundleHelper", () => {
     });
   });
 
-  describe.skip("fails to upload stats", () => {
+  describe("fails to upload stats", () => {
     it("immediately returns", async () => {
-      setup({});
+      setup({
+        urlData: { url: "http://localhost/upload/stats/" },
+        urlStatus: 200,
+        statsSendError: true,
+      });
 
       await writeBundleHelper({
         options: {
@@ -221,6 +235,32 @@ describe("writeBundleHelper", () => {
         },
         output: { bundleName: "test" },
       });
+    });
+  });
+
+  describe("successful uploading of stats", () => {
+    it("passes the correct body information", async () => {
+      const { statsBody } = setup({
+        urlData: { url: "http://localhost/upload/stats/" },
+        urlStatus: 200,
+        statsSendError: false,
+        statsStatus: 200,
+      });
+
+      await writeBundleHelper({
+        options: {
+          dryRun: false,
+          bundleName: "test",
+          apiUrl: "http://localhost",
+          enableBundleAnalysis: true,
+          uploadToken: "token",
+          retryCount: 1,
+          debug: false,
+        },
+        output: { bundleName: "test" },
+      });
+
+      expect(statsBody).toHaveBeenCalled();
     });
   });
 });
