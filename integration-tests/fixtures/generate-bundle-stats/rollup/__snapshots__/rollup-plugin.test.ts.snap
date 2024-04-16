@@ -69,8 +69,8 @@ exports[`Generating rollup stats 3 {"format":"amd","expected":"amd"} matches the
   ],
   "outputPath": StringContaining "/distV3",
   "plugin": {
-    "name": "codecov-rollup-bundle-analysis-plugin",
-    "version": "1.0.0",
+    "name": "@codecov/rollup-plugin",
+    "version": "0.0.1-beta.6",
   },
   "version": "1",
 }
@@ -145,8 +145,8 @@ exports[`Generating rollup stats 3 {"format":"cjs","expected":"cjs"} matches the
   ],
   "outputPath": StringContaining "/distV3",
   "plugin": {
-    "name": "codecov-rollup-bundle-analysis-plugin",
-    "version": "1.0.0",
+    "name": "@codecov/rollup-plugin",
+    "version": "0.0.1-beta.6",
   },
   "version": "1",
 }
@@ -221,8 +221,8 @@ exports[`Generating rollup stats 3 {"format":"es","expected":"esm"} matches the 
   ],
   "outputPath": StringContaining "/distV3",
   "plugin": {
-    "name": "codecov-rollup-bundle-analysis-plugin",
-    "version": "1.0.0",
+    "name": "@codecov/rollup-plugin",
+    "version": "0.0.1-beta.6",
   },
   "version": "1",
 }
@@ -297,8 +297,8 @@ exports[`Generating rollup stats 3 {"format":"esm","expected":"esm"} matches the
   ],
   "outputPath": StringContaining "/distV3",
   "plugin": {
-    "name": "codecov-rollup-bundle-analysis-plugin",
-    "version": "1.0.0",
+    "name": "@codecov/rollup-plugin",
+    "version": "0.0.1-beta.6",
   },
   "version": "1",
 }
@@ -373,8 +373,8 @@ exports[`Generating rollup stats 3 {"format":"module","expected":"esm"} matches 
   ],
   "outputPath": StringContaining "/distV3",
   "plugin": {
-    "name": "codecov-rollup-bundle-analysis-plugin",
-    "version": "1.0.0",
+    "name": "@codecov/rollup-plugin",
+    "version": "0.0.1-beta.6",
   },
   "version": "1",
 }
@@ -449,8 +449,8 @@ exports[`Generating rollup stats 3 {"format":"iife","expected":"iife"} matches t
   ],
   "outputPath": StringContaining "/distV3",
   "plugin": {
-    "name": "codecov-rollup-bundle-analysis-plugin",
-    "version": "1.0.0",
+    "name": "@codecov/rollup-plugin",
+    "version": "0.0.1-beta.6",
   },
   "version": "1",
 }
@@ -525,8 +525,8 @@ exports[`Generating rollup stats 3 {"format":"umd","expected":"umd"} matches the
   ],
   "outputPath": StringContaining "/distV3",
   "plugin": {
-    "name": "codecov-rollup-bundle-analysis-plugin",
-    "version": "1.0.0",
+    "name": "@codecov/rollup-plugin",
+    "version": "0.0.1-beta.6",
   },
   "version": "1",
 }
@@ -601,8 +601,8 @@ exports[`Generating rollup stats 3 {"format":"system","expected":"system"} match
   ],
   "outputPath": StringContaining "/distV3",
   "plugin": {
-    "name": "codecov-rollup-bundle-analysis-plugin",
-    "version": "1.0.0",
+    "name": "@codecov/rollup-plugin",
+    "version": "0.0.1-beta.6",
   },
   "version": "1",
 }
@@ -677,692 +677,8 @@ exports[`Generating rollup stats 3 {"format":"systemjs","expected":"system"} mat
   ],
   "outputPath": StringContaining "/distV3",
   "plugin": {
-    "name": "codecov-rollup-bundle-analysis-plugin",
-    "version": "1.0.0",
-  },
-  "version": "1",
-}
-`;
-
-exports[`Generating rollup stats 4 {"format":"amd","expected":"amd"} matches the snapshot 1`] = `
-{
-  "assets": [
-    {
-      "name": "main-H2_1FSsQ.js",
-      "normalized": "main-H2_1FSsQ.js",
-      "size": 577071,
-    },
-  ],
-  "builtAt": Any<Number>,
-  "bundleName": StringContaining "test-rollup-v4-amd",
-  "bundler": {
-    "name": "rollup",
-    "version": "4.9.6",
-  },
-  "chunks": [
-    {
-      "entry": true,
-      "files": [
-        "main-H2_1FSsQ.js",
-      ],
-      "id": "main",
-      "initial": false,
-      "names": [
-        "main",
-      ],
-      "uniqueId": "0-main",
-    },
-  ],
-  "duration": Any<Number>,
-  "modules": [
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "./commonjsHelpers.js",
-      "size": 334,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
-      "size": 27,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560240,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "./test-apps/rollup/src/getRandomNumber.js",
-      "size": 98,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "./test-apps/rollup/src/main.js",
-      "size": 163,
-    },
-  ],
-  "outputPath": StringContaining "/distV4",
-  "plugin": {
-    "name": "codecov-rollup-bundle-analysis-plugin",
-    "version": "1.0.0",
-  },
-  "version": "1",
-}
-`;
-
-exports[`Generating rollup stats 4 {"format":"cjs","expected":"cjs"} matches the snapshot 1`] = `
-{
-  "assets": [
-    {
-      "name": "main-MVbZZknk.js",
-      "normalized": "main-*.js",
-      "size": 560886,
-    },
-  ],
-  "builtAt": Any<Number>,
-  "bundleName": StringContaining "test-rollup-v4-cjs",
-  "bundler": {
-    "name": "rollup",
-    "version": "4.9.6",
-  },
-  "chunks": [
-    {
-      "entry": true,
-      "files": [
-        "main-MVbZZknk.js",
-      ],
-      "id": "main",
-      "initial": false,
-      "names": [
-        "main",
-      ],
-      "uniqueId": "0-main",
-    },
-  ],
-  "duration": Any<Number>,
-  "modules": [
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "./commonjsHelpers.js",
-      "size": 334,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
-      "size": 27,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560240,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "./test-apps/rollup/src/getRandomNumber.js",
-      "size": 98,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "./test-apps/rollup/src/main.js",
-      "size": 163,
-    },
-  ],
-  "outputPath": StringContaining "/distV4",
-  "plugin": {
-    "name": "codecov-rollup-bundle-analysis-plugin",
-    "version": "1.0.0",
-  },
-  "version": "1",
-}
-`;
-
-exports[`Generating rollup stats 4 {"format":"es","expected":"esm"} matches the snapshot 1`] = `
-{
-  "assets": [
-    {
-      "name": "main-v-vWaFyT.js",
-      "normalized": "main-*.js",
-      "size": 560871,
-    },
-  ],
-  "builtAt": Any<Number>,
-  "bundleName": StringContaining "test-rollup-v4-esm",
-  "bundler": {
-    "name": "rollup",
-    "version": "4.9.6",
-  },
-  "chunks": [
-    {
-      "entry": true,
-      "files": [
-        "main-v-vWaFyT.js",
-      ],
-      "id": "main",
-      "initial": false,
-      "names": [
-        "main",
-      ],
-      "uniqueId": "0-main",
-    },
-  ],
-  "duration": Any<Number>,
-  "modules": [
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "./commonjsHelpers.js",
-      "size": 334,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
-      "size": 27,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560240,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "./test-apps/rollup/src/getRandomNumber.js",
-      "size": 98,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "./test-apps/rollup/src/main.js",
-      "size": 163,
-    },
-  ],
-  "outputPath": StringContaining "/distV4",
-  "plugin": {
-    "name": "codecov-rollup-bundle-analysis-plugin",
-    "version": "1.0.0",
-  },
-  "version": "1",
-}
-`;
-
-exports[`Generating rollup stats 4 {"format":"esm","expected":"esm"} matches the snapshot 1`] = `
-{
-  "assets": [
-    {
-      "name": "main-v-vWaFyT.js",
-      "normalized": "main-*.js",
-      "size": 560871,
-    },
-  ],
-  "builtAt": Any<Number>,
-  "bundleName": StringContaining "test-rollup-v4-esm",
-  "bundler": {
-    "name": "rollup",
-    "version": "4.9.6",
-  },
-  "chunks": [
-    {
-      "entry": true,
-      "files": [
-        "main-v-vWaFyT.js",
-      ],
-      "id": "main",
-      "initial": false,
-      "names": [
-        "main",
-      ],
-      "uniqueId": "0-main",
-    },
-  ],
-  "duration": Any<Number>,
-  "modules": [
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "./commonjsHelpers.js",
-      "size": 334,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
-      "size": 27,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560240,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "./test-apps/rollup/src/getRandomNumber.js",
-      "size": 98,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "./test-apps/rollup/src/main.js",
-      "size": 163,
-    },
-  ],
-  "outputPath": StringContaining "/distV4",
-  "plugin": {
-    "name": "codecov-rollup-bundle-analysis-plugin",
-    "version": "1.0.0",
-  },
-  "version": "1",
-}
-`;
-
-exports[`Generating rollup stats 4 {"format":"module","expected":"esm"} matches the snapshot 1`] = `
-{
-  "assets": [
-    {
-      "name": "main-v-vWaFyT.js",
-      "normalized": "main-*.js",
-      "size": 560871,
-    },
-  ],
-  "builtAt": Any<Number>,
-  "bundleName": StringContaining "test-rollup-v4-esm",
-  "bundler": {
-    "name": "rollup",
-    "version": "4.9.6",
-  },
-  "chunks": [
-    {
-      "entry": true,
-      "files": [
-        "main-v-vWaFyT.js",
-      ],
-      "id": "main",
-      "initial": false,
-      "names": [
-        "main",
-      ],
-      "uniqueId": "0-main",
-    },
-  ],
-  "duration": Any<Number>,
-  "modules": [
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "./commonjsHelpers.js",
-      "size": 334,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
-      "size": 27,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560240,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "./test-apps/rollup/src/getRandomNumber.js",
-      "size": 98,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "./test-apps/rollup/src/main.js",
-      "size": 163,
-    },
-  ],
-  "outputPath": StringContaining "/distV4",
-  "plugin": {
-    "name": "codecov-rollup-bundle-analysis-plugin",
-    "version": "1.0.0",
-  },
-  "version": "1",
-}
-`;
-
-exports[`Generating rollup stats 4 {"format":"iife","expected":"iife"} matches the snapshot 1`] = `
-{
-  "assets": [
-    {
-      "name": "main-ChwnvxRF.js",
-      "normalized": "main-*.js",
-      "size": 577066,
-    },
-  ],
-  "builtAt": Any<Number>,
-  "bundleName": StringContaining "test-rollup-v4-iife",
-  "bundler": {
-    "name": "rollup",
-    "version": "4.9.6",
-  },
-  "chunks": [
-    {
-      "entry": true,
-      "files": [
-        "main-ChwnvxRF.js",
-      ],
-      "id": "main",
-      "initial": false,
-      "names": [
-        "main",
-      ],
-      "uniqueId": "0-main",
-    },
-  ],
-  "duration": Any<Number>,
-  "modules": [
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "./commonjsHelpers.js",
-      "size": 334,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
-      "size": 27,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560240,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "./test-apps/rollup/src/getRandomNumber.js",
-      "size": 98,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "./test-apps/rollup/src/main.js",
-      "size": 163,
-    },
-  ],
-  "outputPath": StringContaining "/distV4",
-  "plugin": {
-    "name": "codecov-rollup-bundle-analysis-plugin",
-    "version": "1.0.0",
-  },
-  "version": "1",
-}
-`;
-
-exports[`Generating rollup stats 4 {"format":"umd","expected":"umd"} matches the snapshot 1`] = `
-{
-  "assets": [
-    {
-      "name": "main-ymXr0nql.js",
-      "normalized": "main-*.js",
-      "size": 577165,
-    },
-  ],
-  "builtAt": Any<Number>,
-  "bundleName": StringContaining "test-rollup-v4-umd",
-  "bundler": {
-    "name": "rollup",
-    "version": "4.9.6",
-  },
-  "chunks": [
-    {
-      "entry": true,
-      "files": [
-        "main-ymXr0nql.js",
-      ],
-      "id": "main",
-      "initial": false,
-      "names": [
-        "main",
-      ],
-      "uniqueId": "0-main",
-    },
-  ],
-  "duration": Any<Number>,
-  "modules": [
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "./commonjsHelpers.js",
-      "size": 334,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
-      "size": 27,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560240,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "./test-apps/rollup/src/getRandomNumber.js",
-      "size": 98,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "./test-apps/rollup/src/main.js",
-      "size": 163,
-    },
-  ],
-  "outputPath": StringContaining "/distV4",
-  "plugin": {
-    "name": "codecov-rollup-bundle-analysis-plugin",
-    "version": "1.0.0",
-  },
-  "version": "1",
-}
-`;
-
-exports[`Generating rollup stats 4 {"format":"system","expected":"system"} matches the snapshot 1`] = `
-{
-  "assets": [
-    {
-      "name": "main-VyFuBFOR.js",
-      "normalized": "main-*.js",
-      "size": 609444,
-    },
-  ],
-  "builtAt": Any<Number>,
-  "bundleName": StringContaining "test-rollup-v4-system",
-  "bundler": {
-    "name": "rollup",
-    "version": "4.9.6",
-  },
-  "chunks": [
-    {
-      "entry": true,
-      "files": [
-        "main-VyFuBFOR.js",
-      ],
-      "id": "main",
-      "initial": false,
-      "names": [
-        "main",
-      ],
-      "uniqueId": "0-main",
-    },
-  ],
-  "duration": Any<Number>,
-  "modules": [
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "./commonjsHelpers.js",
-      "size": 334,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
-      "size": 27,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560240,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "./test-apps/rollup/src/getRandomNumber.js",
-      "size": 98,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "./test-apps/rollup/src/main.js",
-      "size": 163,
-    },
-  ],
-  "outputPath": StringContaining "/distV4",
-  "plugin": {
-    "name": "codecov-rollup-bundle-analysis-plugin",
-    "version": "1.0.0",
-  },
-  "version": "1",
-}
-`;
-
-exports[`Generating rollup stats 4 {"format":"systemjs","expected":"system"} matches the snapshot 1`] = `
-{
-  "assets": [
-    {
-      "name": "main-VyFuBFOR.js",
-      "normalized": "main-*.js",
-      "size": 609444,
-    },
-  ],
-  "builtAt": Any<Number>,
-  "bundleName": StringContaining "test-rollup-v4-system",
-  "bundler": {
-    "name": "rollup",
-    "version": "4.9.6",
-  },
-  "chunks": [
-    {
-      "entry": true,
-      "files": [
-        "main-VyFuBFOR.js",
-      ],
-      "id": "main",
-      "initial": false,
-      "names": [
-        "main",
-      ],
-      "uniqueId": "0-main",
-    },
-  ],
-  "duration": Any<Number>,
-  "modules": [
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "./commonjsHelpers.js",
-      "size": 334,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
-      "size": 27,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560240,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "./test-apps/rollup/src/getRandomNumber.js",
-      "size": 98,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-main",
-      ],
-      "name": "./test-apps/rollup/src/main.js",
-      "size": 163,
-    },
-  ],
-  "outputPath": StringContaining "/distV4",
-  "plugin": {
-    "name": "codecov-rollup-bundle-analysis-plugin",
-    "version": "1.0.0",
+    "name": "@codecov/rollup-plugin",
+    "version": "0.0.1-beta.6",
   },
   "version": "1",
 }
@@ -1437,8 +753,692 @@ exports[`Generating rollup stats 3 source maps are enabled does not include any 
   ],
   "outputPath": StringContaining "/distV3",
   "plugin": {
-    "name": "codecov-rollup-bundle-analysis-plugin",
-    "version": "1.0.0",
+    "name": "@codecov/rollup-plugin",
+    "version": "0.0.1-beta.6",
+  },
+  "version": "1",
+}
+`;
+
+exports[`Generating rollup stats 4 {"format":"amd","expected":"amd"} matches the snapshot 1`] = `
+{
+  "assets": [
+    {
+      "name": "main-H2_1FSsQ.js",
+      "normalized": "main-H2_1FSsQ.js",
+      "size": 577071,
+    },
+  ],
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-rollup-v4-amd",
+  "bundler": {
+    "name": "rollup",
+    "version": "4.9.6",
+  },
+  "chunks": [
+    {
+      "entry": true,
+      "files": [
+        "main-H2_1FSsQ.js",
+      ],
+      "id": "main",
+      "initial": false,
+      "names": [
+        "main",
+      ],
+      "uniqueId": "0-main",
+    },
+  ],
+  "duration": Any<Number>,
+  "modules": [
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./commonjsHelpers.js",
+      "size": 334,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "size": 27,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
+      "size": 560240,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./test-apps/rollup/src/getRandomNumber.js",
+      "size": 98,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./test-apps/rollup/src/main.js",
+      "size": 163,
+    },
+  ],
+  "outputPath": StringContaining "/distV4",
+  "plugin": {
+    "name": "@codecov/rollup-plugin",
+    "version": "0.0.1-beta.6",
+  },
+  "version": "1",
+}
+`;
+
+exports[`Generating rollup stats 4 {"format":"cjs","expected":"cjs"} matches the snapshot 1`] = `
+{
+  "assets": [
+    {
+      "name": "main-MVbZZknk.js",
+      "normalized": "main-*.js",
+      "size": 560886,
+    },
+  ],
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-rollup-v4-cjs",
+  "bundler": {
+    "name": "rollup",
+    "version": "4.9.6",
+  },
+  "chunks": [
+    {
+      "entry": true,
+      "files": [
+        "main-MVbZZknk.js",
+      ],
+      "id": "main",
+      "initial": false,
+      "names": [
+        "main",
+      ],
+      "uniqueId": "0-main",
+    },
+  ],
+  "duration": Any<Number>,
+  "modules": [
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./commonjsHelpers.js",
+      "size": 334,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "size": 27,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
+      "size": 560240,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./test-apps/rollup/src/getRandomNumber.js",
+      "size": 98,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./test-apps/rollup/src/main.js",
+      "size": 163,
+    },
+  ],
+  "outputPath": StringContaining "/distV4",
+  "plugin": {
+    "name": "@codecov/rollup-plugin",
+    "version": "0.0.1-beta.6",
+  },
+  "version": "1",
+}
+`;
+
+exports[`Generating rollup stats 4 {"format":"es","expected":"esm"} matches the snapshot 1`] = `
+{
+  "assets": [
+    {
+      "name": "main-v-vWaFyT.js",
+      "normalized": "main-*.js",
+      "size": 560871,
+    },
+  ],
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-rollup-v4-esm",
+  "bundler": {
+    "name": "rollup",
+    "version": "4.9.6",
+  },
+  "chunks": [
+    {
+      "entry": true,
+      "files": [
+        "main-v-vWaFyT.js",
+      ],
+      "id": "main",
+      "initial": false,
+      "names": [
+        "main",
+      ],
+      "uniqueId": "0-main",
+    },
+  ],
+  "duration": Any<Number>,
+  "modules": [
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./commonjsHelpers.js",
+      "size": 334,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "size": 27,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
+      "size": 560240,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./test-apps/rollup/src/getRandomNumber.js",
+      "size": 98,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./test-apps/rollup/src/main.js",
+      "size": 163,
+    },
+  ],
+  "outputPath": StringContaining "/distV4",
+  "plugin": {
+    "name": "@codecov/rollup-plugin",
+    "version": "0.0.1-beta.6",
+  },
+  "version": "1",
+}
+`;
+
+exports[`Generating rollup stats 4 {"format":"esm","expected":"esm"} matches the snapshot 1`] = `
+{
+  "assets": [
+    {
+      "name": "main-v-vWaFyT.js",
+      "normalized": "main-*.js",
+      "size": 560871,
+    },
+  ],
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-rollup-v4-esm",
+  "bundler": {
+    "name": "rollup",
+    "version": "4.9.6",
+  },
+  "chunks": [
+    {
+      "entry": true,
+      "files": [
+        "main-v-vWaFyT.js",
+      ],
+      "id": "main",
+      "initial": false,
+      "names": [
+        "main",
+      ],
+      "uniqueId": "0-main",
+    },
+  ],
+  "duration": Any<Number>,
+  "modules": [
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./commonjsHelpers.js",
+      "size": 334,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "size": 27,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
+      "size": 560240,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./test-apps/rollup/src/getRandomNumber.js",
+      "size": 98,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./test-apps/rollup/src/main.js",
+      "size": 163,
+    },
+  ],
+  "outputPath": StringContaining "/distV4",
+  "plugin": {
+    "name": "@codecov/rollup-plugin",
+    "version": "0.0.1-beta.6",
+  },
+  "version": "1",
+}
+`;
+
+exports[`Generating rollup stats 4 {"format":"module","expected":"esm"} matches the snapshot 1`] = `
+{
+  "assets": [
+    {
+      "name": "main-v-vWaFyT.js",
+      "normalized": "main-*.js",
+      "size": 560871,
+    },
+  ],
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-rollup-v4-esm",
+  "bundler": {
+    "name": "rollup",
+    "version": "4.9.6",
+  },
+  "chunks": [
+    {
+      "entry": true,
+      "files": [
+        "main-v-vWaFyT.js",
+      ],
+      "id": "main",
+      "initial": false,
+      "names": [
+        "main",
+      ],
+      "uniqueId": "0-main",
+    },
+  ],
+  "duration": Any<Number>,
+  "modules": [
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./commonjsHelpers.js",
+      "size": 334,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "size": 27,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
+      "size": 560240,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./test-apps/rollup/src/getRandomNumber.js",
+      "size": 98,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./test-apps/rollup/src/main.js",
+      "size": 163,
+    },
+  ],
+  "outputPath": StringContaining "/distV4",
+  "plugin": {
+    "name": "@codecov/rollup-plugin",
+    "version": "0.0.1-beta.6",
+  },
+  "version": "1",
+}
+`;
+
+exports[`Generating rollup stats 4 {"format":"iife","expected":"iife"} matches the snapshot 1`] = `
+{
+  "assets": [
+    {
+      "name": "main-ChwnvxRF.js",
+      "normalized": "main-*.js",
+      "size": 577066,
+    },
+  ],
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-rollup-v4-iife",
+  "bundler": {
+    "name": "rollup",
+    "version": "4.9.6",
+  },
+  "chunks": [
+    {
+      "entry": true,
+      "files": [
+        "main-ChwnvxRF.js",
+      ],
+      "id": "main",
+      "initial": false,
+      "names": [
+        "main",
+      ],
+      "uniqueId": "0-main",
+    },
+  ],
+  "duration": Any<Number>,
+  "modules": [
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./commonjsHelpers.js",
+      "size": 334,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "size": 27,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
+      "size": 560240,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./test-apps/rollup/src/getRandomNumber.js",
+      "size": 98,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./test-apps/rollup/src/main.js",
+      "size": 163,
+    },
+  ],
+  "outputPath": StringContaining "/distV4",
+  "plugin": {
+    "name": "@codecov/rollup-plugin",
+    "version": "0.0.1-beta.6",
+  },
+  "version": "1",
+}
+`;
+
+exports[`Generating rollup stats 4 {"format":"umd","expected":"umd"} matches the snapshot 1`] = `
+{
+  "assets": [
+    {
+      "name": "main-ymXr0nql.js",
+      "normalized": "main-*.js",
+      "size": 577165,
+    },
+  ],
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-rollup-v4-umd",
+  "bundler": {
+    "name": "rollup",
+    "version": "4.9.6",
+  },
+  "chunks": [
+    {
+      "entry": true,
+      "files": [
+        "main-ymXr0nql.js",
+      ],
+      "id": "main",
+      "initial": false,
+      "names": [
+        "main",
+      ],
+      "uniqueId": "0-main",
+    },
+  ],
+  "duration": Any<Number>,
+  "modules": [
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./commonjsHelpers.js",
+      "size": 334,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "size": 27,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
+      "size": 560240,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./test-apps/rollup/src/getRandomNumber.js",
+      "size": 98,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./test-apps/rollup/src/main.js",
+      "size": 163,
+    },
+  ],
+  "outputPath": StringContaining "/distV4",
+  "plugin": {
+    "name": "@codecov/rollup-plugin",
+    "version": "0.0.1-beta.6",
+  },
+  "version": "1",
+}
+`;
+
+exports[`Generating rollup stats 4 {"format":"system","expected":"system"} matches the snapshot 1`] = `
+{
+  "assets": [
+    {
+      "name": "main-VyFuBFOR.js",
+      "normalized": "main-*.js",
+      "size": 609444,
+    },
+  ],
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-rollup-v4-system",
+  "bundler": {
+    "name": "rollup",
+    "version": "4.9.6",
+  },
+  "chunks": [
+    {
+      "entry": true,
+      "files": [
+        "main-VyFuBFOR.js",
+      ],
+      "id": "main",
+      "initial": false,
+      "names": [
+        "main",
+      ],
+      "uniqueId": "0-main",
+    },
+  ],
+  "duration": Any<Number>,
+  "modules": [
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./commonjsHelpers.js",
+      "size": 334,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "size": 27,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
+      "size": 560240,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./test-apps/rollup/src/getRandomNumber.js",
+      "size": 98,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./test-apps/rollup/src/main.js",
+      "size": 163,
+    },
+  ],
+  "outputPath": StringContaining "/distV4",
+  "plugin": {
+    "name": "@codecov/rollup-plugin",
+    "version": "0.0.1-beta.6",
+  },
+  "version": "1",
+}
+`;
+
+exports[`Generating rollup stats 4 {"format":"systemjs","expected":"system"} matches the snapshot 1`] = `
+{
+  "assets": [
+    {
+      "name": "main-VyFuBFOR.js",
+      "normalized": "main-*.js",
+      "size": 609444,
+    },
+  ],
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-rollup-v4-system",
+  "bundler": {
+    "name": "rollup",
+    "version": "4.9.6",
+  },
+  "chunks": [
+    {
+      "entry": true,
+      "files": [
+        "main-VyFuBFOR.js",
+      ],
+      "id": "main",
+      "initial": false,
+      "names": [
+        "main",
+      ],
+      "uniqueId": "0-main",
+    },
+  ],
+  "duration": Any<Number>,
+  "modules": [
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./commonjsHelpers.js",
+      "size": 334,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "size": 27,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
+      "size": 560240,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./test-apps/rollup/src/getRandomNumber.js",
+      "size": 98,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-main",
+      ],
+      "name": "./test-apps/rollup/src/main.js",
+      "size": 163,
+    },
+  ],
+  "outputPath": StringContaining "/distV4",
+  "plugin": {
+    "name": "@codecov/rollup-plugin",
+    "version": "0.0.1-beta.6",
   },
   "version": "1",
 }
@@ -1513,8 +1513,8 @@ exports[`Generating rollup stats 4 source maps are enabled does not include any 
   ],
   "outputPath": StringContaining "/distV4",
   "plugin": {
-    "name": "codecov-rollup-bundle-analysis-plugin",
-    "version": "1.0.0",
+    "name": "@codecov/rollup-plugin",
+    "version": "0.0.1-beta.6",
   },
   "version": "1",
 }
