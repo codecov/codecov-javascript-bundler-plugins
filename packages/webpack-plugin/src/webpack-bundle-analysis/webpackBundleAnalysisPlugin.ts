@@ -4,12 +4,18 @@ import {
   normalizePath,
   type BundleAnalysisUploadPlugin,
   type Asset,
+  buildStartHelper,
+  buildEndHelper,
+  writeBundleHelper,
 } from "@codecov/bundler-plugin-core";
 import * as webpack from "webpack";
 
 import { findFilenameFormat } from "./findFileFormat";
 
-const PLUGIN_NAME = "codecov-webpack-bundle-analysis-plugin";
+// @ts-expect-error this value is being replaced by rollup
+const PLUGIN_NAME = __PACKAGE_NAME__ as string;
+// @ts-expect-error this value is being replaced by rollup
+const PLUGIN_VERSION = __PACKAGE_VERSION__ as string;
 
 export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
   output,
@@ -17,7 +23,20 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
 }) => ({
   version: "1",
   name: PLUGIN_NAME,
-  pluginVersion: "1.0.0",
+  pluginVersion: PLUGIN_VERSION,
+  buildStart: () => {
+    output.plugin = {
+      name: PLUGIN_NAME,
+      version: PLUGIN_VERSION,
+    };
+    buildStartHelper(output);
+  },
+  buildEnd: () => {
+    buildEndHelper(output);
+  },
+  writeBundle: async () => {
+    await writeBundleHelper({ output, options: userOptions });
+  },
   webpack(compiler) {
     compiler.hooks.thisCompilation.tap(PLUGIN_NAME, (compilation) => {
       compilation.hooks.processAssets.tap(
@@ -160,7 +179,7 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
           if (userOptions.dryRun) {
             const { RawSource } = webpack.sources;
             compilation.emitAsset(
-              "codecov-bundle-stats.json",
+              `${output.bundleName}-stats.json`,
               new RawSource(JSON.stringify(output)),
             );
           }

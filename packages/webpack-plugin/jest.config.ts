@@ -1,7 +1,10 @@
 import { type Config } from "jest";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const packageJson = require("./package.json") as { version: string };
+const packageJson = require("./package.json") as {
+  version: string;
+  name: string;
+};
 
 const config: Config = {
   testEnvironment: "node",
@@ -23,7 +26,8 @@ const config: Config = {
             optimizer: {
               globals: {
                 vars: {
-                  __PACKAGE_VERSION__: packageJson.version,
+                  __PACKAGE_VERSION__: JSON.stringify(packageJson.version),
+                  __PACKAGE_NAME__: JSON.stringify(packageJson.name),
                 },
               },
             },

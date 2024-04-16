@@ -2,9 +2,12 @@
 
 exports[`webpackBundleAnalysisPlugin when called returns a plugin object 1`] = `
 {
-  "name": "codecov-webpack-bundle-analysis-plugin",
-  "pluginVersion": "1.0.0",
+  "buildEnd": [Function],
+  "buildStart": [Function],
+  "name": "@codecov/webpack-plugin",
+  "pluginVersion": "0.0.1-beta.6",
   "version": "1",
   "webpack": [Function],
+  "writeBundle": [Function],
 }
 `;
