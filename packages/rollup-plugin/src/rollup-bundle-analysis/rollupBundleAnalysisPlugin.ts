@@ -6,9 +6,15 @@ import {
   type BundleAnalysisUploadPlugin,
   red,
   normalizePath,
+  buildStartHelper,
+  buildEndHelper,
+  writeBundleHelper,
 } from "@codecov/bundler-plugin-core";
 
-const PLUGIN_NAME = "codecov-rollup-bundle-analysis-plugin";
+// @ts-expect-error this value is being replaced by rollup
+const PLUGIN_NAME = __PACKAGE_NAME__ as string;
+// @ts-expect-error this value is being replaced by rollup
+const PLUGIN_VERSION = __PACKAGE_VERSION__ as string;
 
 export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
   output,
@@ -16,7 +22,20 @@ export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
 }) => ({
   version: "1",
   name: PLUGIN_NAME,
-  pluginVersion: "1.0.0",
+  pluginVersion: PLUGIN_VERSION,
+  buildStart: () => {
+    output.plugin = {
+      name: PLUGIN_NAME,
+      version: PLUGIN_VERSION,
+    };
+    buildStartHelper(output);
+  },
+  buildEnd: () => {
+    buildEndHelper(output);
+  },
+  writeBundle: async () => {
+    await writeBundleHelper({ output, options: userOptions });
+  },
   rollup: {
     generateBundle(this, options, bundle) {
       // don't need to do anything if the bundle name is not present or empty
@@ -164,7 +183,7 @@ export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
       if (userOptions.dryRun) {
         this.emitFile({
           type: "asset",
-          fileName: "codecov-bundle-stats.json",
+          fileName: `${output.bundleName}-stats.json`,
           source: JSON.stringify(output),
         });
       }
