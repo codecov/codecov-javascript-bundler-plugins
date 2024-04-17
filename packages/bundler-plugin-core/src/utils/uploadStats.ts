@@ -42,7 +42,7 @@ export async function uploadStats({
       requestData: {
         method: "PUT",
         headers: {
-          "Content-type": "application/json",
+          "Content-Type": "application/json",
         },
         duplex: "half",
         // @ts-expect-error TypeScript doesn't know that fetch can accept a
