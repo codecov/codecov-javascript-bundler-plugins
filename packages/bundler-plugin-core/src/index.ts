@@ -1,6 +1,3 @@
-import { createUnplugin, type UnpluginOptions } from "unplugin";
-
-import { bundleAnalysisPluginFactory } from "./bundle-analysis/bundleAnalysisPluginFactory.ts";
 import {
   type Asset,
   type BundleAnalysisUploadPlugin,
@@ -19,43 +16,6 @@ import { normalizeOptions } from "./utils/normalizeOptions.ts";
 import { normalizePath } from "./utils/normalizePath.ts";
 import { writeBundleHelper } from "./utils/writeBundleHelper.ts";
 
-interface CodecovUnpluginFactoryOptions {
-  bundleAnalysisUploadPlugin: BundleAnalysisUploadPlugin;
-}
-
-function codecovUnpluginFactory({
-  bundleAnalysisUploadPlugin,
-}: CodecovUnpluginFactoryOptions) {
-  return createUnplugin<Options, true>((userOptions, unpluginMetaContext) => {
-    const plugins: UnpluginOptions[] = [];
-
-    const normalizedOptions = normalizeOptions(userOptions);
-
-    if (!normalizedOptions.success) {
-      for (const error of normalizedOptions.errors) {
-        red(error);
-      }
-      return [];
-    }
-
-    if (checkNodeVersion(unpluginMetaContext)) {
-      return [];
-    }
-
-    const options = normalizedOptions.options;
-    if (options?.enableBundleAnalysis) {
-      plugins.push(
-        bundleAnalysisPluginFactory({
-          options,
-          bundleAnalysisUploadPlugin,
-        }),
-      );
-    }
-
-    return plugins;
-  });
-}
-
 export type {
   Asset,
   BundleAnalysisUploadPlugin,
@@ -70,9 +30,7 @@ export type {
 export {
   buildEndHelper,
   buildStartHelper,
-  bundleAnalysisPluginFactory,
   checkNodeVersion,
-  codecovUnpluginFactory,
   normalizeOptions,
   normalizePath,
   red,
