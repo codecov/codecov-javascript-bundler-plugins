@@ -1,9 +1,6 @@
-import { HttpResponse, http } from "msw";
-import { setupServer } from "msw/node";
-
-import { writeBundleHelper } from "../writeBundleHelper";
-import { detectProvider } from "../provider";
 import { type ProviderServiceParams } from "../../types";
+import { detectProvider } from "../provider";
+import { writeBundleHelper } from "../writeBundleHelper";
 
 jest.mock("../provider");
 
@@ -11,21 +8,8 @@ const mockedDetectProvider = detectProvider as jest.Mock<
   Promise<ProviderServiceParams>
 >;
 
-const server = setupServer();
-
-beforeAll(() => {
-  server.listen({
-    onUnhandledRequest: "error",
-  });
-});
-
 afterEach(() => {
   jest.resetAllMocks();
-  server.resetHandlers();
-});
-
-afterAll(() => {
-  server.close();
 });
 
 let consoleSpy: jest.SpyInstance;
@@ -41,11 +25,11 @@ interface SetupArgs {
 
 describe("writeBundleHelper", () => {
   function setup({
-    statsSendError = false,
     statsStatus = 200,
     urlStatus = 200,
     urlData = {},
-    urlSendError = false,
+    statsSendError,
+    urlSendError,
   }: SetupArgs) {
     const preSignedUrlBody = jest.fn();
     const statsBody = jest.fn();
@@ -62,47 +46,42 @@ describe("writeBundleHelper", () => {
       slug: "codecov/codecov-javascript-bundler-plugins",
     });
 
-    server.use(
-      http.post(
-        "http://localhost/upload/bundle_analysis/v1",
-        async ({ request }) => {
-          if (urlSendError) {
-            return HttpResponse.error();
-          }
-          const body = await request.json();
-          preSignedUrlBody(body);
+    // need to mock out fetch wholly and check to see if it was called with the correct stuff
 
-          return HttpResponse.json(urlData, { status: urlStatus });
-        },
-      ),
-      http.put("http://localhost/upload/stats/", async ({ request }) => {
-        const reader = request?.body
-          ?.pipeThrough(new TextDecoderStream())
-          ?.getReader();
-
-        let content = "";
-        while (true) {
-          const temp = await reader?.read();
-          if (typeof temp?.value === "string") {
-            content += temp?.value;
-          }
-          if (temp?.done) break;
+    const fetchMock = jest
+      .spyOn(global, "fetch")
+      // pre-signed URL
+      // @ts-expect-error - testing fetch
+      .mockImplementationOnce(() => {
+        if (urlSendError) {
+          return Promise.reject(new Error("Failed to fetch pre-signed URL"));
         }
 
-        statsBody(content);
-
+        return Promise.resolve({
+          status: urlStatus,
+          ok: urlStatus < 300,
+          json: () => Promise.resolve(urlData),
+        });
+      })
+      // upload stats
+      // @ts-expect-error - testing fetch
+      .mockImplementationOnce(() => {
         if (statsSendError) {
-          return HttpResponse.error();
+          return Promise.reject(new Error("Failed to upload stats"));
         }
 
-        return HttpResponse.json({}, { status: statsStatus });
-      }),
-    );
+        return Promise.resolve({
+          status: statsStatus,
+          ok: urlStatus < 300,
+          json: () => Promise.resolve({}),
+        });
+      });
 
     return {
       consoleSpy,
       preSignedUrlBody,
       statsBody,
+      fetchMock,
     };
   }
 
@@ -184,8 +163,8 @@ describe("writeBundleHelper", () => {
   });
 
   describe("successful fetch of pre-signed URL", () => {
-    it.only("passes the correct body information", async () => {
-      const { preSignedUrlBody } = setup({
+    it("passes the correct body information", async () => {
+      const { fetchMock } = setup({
         urlData: { url: "http://localhost/upload/stats/" },
         urlStatus: 200,
       });
@@ -203,16 +182,27 @@ describe("writeBundleHelper", () => {
         output: { bundleName: "test", assets: [], modules: [], chunks: [] },
       });
 
-      expect(preSignedUrlBody).toHaveBeenCalledWith({
-        branch: "main",
-        build: null,
-        buildURL: null,
-        commit: "389e3e1aa720fb5a70d64a77507ef52d68a4fb69",
-        job: null,
-        pr: null,
-        service: "github",
-        slug: "codecov::::codecov-javascript-bundler-plugins",
-      });
+      expect(fetchMock).toHaveBeenCalled();
+      expect(fetchMock).toHaveBeenCalledWith(
+        "http://localhost/upload/bundle_analysis/v1",
+        {
+          method: "POST",
+          headers: {
+            Authorization: "token token",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            branch: "main",
+            build: null,
+            buildURL: null,
+            commit: "389e3e1aa720fb5a70d64a77507ef52d68a4fb69",
+            job: null,
+            pr: null,
+            service: "github",
+            slug: "codecov::::codecov-javascript-bundler-plugins",
+          }),
+        },
+      );
     });
   });
 
@@ -240,7 +230,7 @@ describe("writeBundleHelper", () => {
 
   describe("successful uploading of stats", () => {
     it("passes the correct body information", async () => {
-      const { statsBody } = setup({
+      const { fetchMock } = setup({
         urlData: { url: "http://localhost/upload/stats/" },
         urlStatus: 200,
         statsSendError: false,
@@ -260,7 +250,16 @@ describe("writeBundleHelper", () => {
         output: { bundleName: "test" },
       });
 
-      expect(statsBody).toHaveBeenCalled();
+      expect(fetchMock).toHaveBeenCalled();
+      expect(fetchMock).toHaveBeenCalledWith("http://localhost/upload/stats/", {
+        method: "PUT",
+        duplex: "half",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        body: expect.any(ReadableStream),
+      });
     });
   });
 });
