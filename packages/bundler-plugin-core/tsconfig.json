@@ -3,16 +3,17 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@test-utils/*": ["./test-utils/*"]
+      "@test-utils/*": ["./test-utils/*"],
     },
-    "checkJs": true
+    "checkJs": true,
   },
   "include": [
     "src/**/*",
     "test-utils/**/*",
     "build.config.ts",
     "../../reset.d.ts",
-    "jest.config.ts"
+    "jest.config.ts",
+    "vitest.config.ts",
   ],
-  "exclude": ["coverage/**/*", "dist/**/*", "node_modules/**/*"]
+  "exclude": ["coverage/**/*", "dist/**/*", "node_modules/**/*"],
 }

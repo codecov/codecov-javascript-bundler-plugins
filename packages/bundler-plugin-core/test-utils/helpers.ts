@@ -1,16 +1,24 @@
+import {
+  beforeAll,
+  vi,
+  afterEach,
+  type MockInstance,
+  expect,
+  afterAll,
+} from "vitest";
 import { type UploadOverrides } from "../src/types.ts";
 import childProcess from "child_process";
 
-let execSync: jest.SpyInstance;
-let exec: jest.SpyInstance;
+let execSync: MockInstance;
+let exec: MockInstance;
 
 beforeAll(() => {
-  execSync = jest.spyOn(childProcess, "execSync").mockImplementation(() => {
+  execSync = vi.spyOn(childProcess, "execSync").mockImplementation(() => {
     throw new Error(
       `Security alert! Do not use execSync(), use spawnSync() instead`,
     );
   });
-  exec = jest.spyOn(childProcess, "exec").mockImplementation(() => {
+  exec = vi.spyOn(childProcess, "exec").mockImplementation(() => {
     throw new Error(`Security alert! Do not use exec(), use spawn() instead`);
   });
 });
@@ -21,7 +29,7 @@ afterEach(() => {
 });
 
 afterAll(() => {
-  jest.restoreAllMocks();
+  vi.restoreAllMocks();
 });
 
 export function createEmptyArgs(): UploadOverrides {
