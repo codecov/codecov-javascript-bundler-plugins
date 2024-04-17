@@ -1,15 +1,25 @@
+import {
+  describe,
+  it,
+  expect,
+  beforeEach,
+  afterEach,
+  vi,
+  type MockInstance,
+  type Mock,
+} from "vitest";
 import { type ProviderUtilInputs } from "src/types.ts";
 import { detectProvider, setSlug } from "../provider.ts";
 import { isProgramInstalled } from "../isProgramInstalled";
 
-jest.mock("../isProgramInstalled");
-const mockedIsProgramInstalled = isProgramInstalled as jest.Mock;
+vi.mock("../isProgramInstalled");
+const mockedIsProgramInstalled = isProgramInstalled as Mock;
 
 describe("detectProvider", () => {
-  let consoleSpy: jest.SpyInstance;
+  let consoleSpy: MockInstance;
 
   beforeEach(() => {
-    consoleSpy = jest.spyOn(console, "log").mockImplementation(() => null);
+    consoleSpy = vi.spyOn(console, "log").mockImplementation(() => null);
   });
 
   afterEach(() => {

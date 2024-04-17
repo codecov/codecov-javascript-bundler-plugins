@@ -1,18 +1,25 @@
-import { type ProviderServiceParams } from "../../types";
+import {
+  describe,
+  it,
+  expect,
+  type MockInstance,
+  type Mock,
+  vi,
+  afterEach,
+} from "vitest";
+// import { type ProviderServiceParams } from "../../types";
 import { detectProvider } from "../provider";
 import { writeBundleHelper } from "../writeBundleHelper";
 
-jest.mock("../provider");
+vi.mock("../provider");
 
-const mockedDetectProvider = detectProvider as jest.Mock<
-  Promise<ProviderServiceParams>
->;
+const mockedDetectProvider = detectProvider as Mock;
 
 afterEach(() => {
-  jest.resetAllMocks();
+  vi.resetAllMocks();
 });
 
-let consoleSpy: jest.SpyInstance;
+let consoleSpy: MockInstance;
 
 interface SetupArgs {
   statsSendError?: boolean;
@@ -31,9 +38,9 @@ describe("writeBundleHelper", () => {
     statsSendError,
     urlSendError,
   }: SetupArgs) {
-    const preSignedUrlBody = jest.fn();
-    const statsBody = jest.fn();
-    consoleSpy = jest.spyOn(console, "log").mockImplementation(() => null);
+    const preSignedUrlBody = vi.fn();
+    const statsBody = vi.fn();
+    consoleSpy = vi.spyOn(console, "log").mockImplementation(() => null);
 
     mockedDetectProvider.mockResolvedValue({
       branch: "main",
@@ -48,7 +55,7 @@ describe("writeBundleHelper", () => {
 
     // need to mock out fetch wholly and check to see if it was called with the correct stuff
 
-    const fetchMock = jest
+    const fetchMock = vi
       .spyOn(global, "fetch")
       // pre-signed URL
       // @ts-expect-error - testing fetch

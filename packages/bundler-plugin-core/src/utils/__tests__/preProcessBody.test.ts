@@ -1,11 +1,20 @@
+import {
+  describe,
+  it,
+  expect,
+  beforeEach,
+  afterEach,
+  vi,
+  type MockInstance,
+} from "vitest";
 import { InvalidSlugError } from "../../errors/InvalidSlugError";
 import { preProcessBody } from "../preProcessBody";
 
 describe("preProcessBody", () => {
-  let consoleSpy: jest.SpyInstance;
+  let consoleSpy: MockInstance;
 
   beforeEach(() => {
-    consoleSpy = jest.spyOn(console, "log").mockImplementation(() => null);
+    consoleSpy = vi.spyOn(console, "log").mockImplementation(() => null);
   });
 
   afterEach(() => {

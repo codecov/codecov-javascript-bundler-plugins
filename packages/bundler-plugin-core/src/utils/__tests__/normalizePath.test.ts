@@ -1,3 +1,4 @@
+import { describe, expect, it } from "vitest";
 import { normalizePath } from "../normalizePath";
 
 interface Test {

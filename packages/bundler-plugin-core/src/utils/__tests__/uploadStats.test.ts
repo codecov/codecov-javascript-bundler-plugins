@@ -1,3 +1,12 @@
+import {
+  describe,
+  it,
+  expect,
+  beforeAll,
+  afterEach,
+  afterAll,
+  vi,
+} from "vitest";
 import { HttpResponse, http } from "msw";
 import { setupServer } from "msw/node";
 
@@ -25,12 +34,9 @@ interface SetupArgs {
   status?: number;
 }
 
-// TODO - Will re-enable after migration to vitest
-describe.skip("uploadStats", () => {
+describe("uploadStats", () => {
   function setup({ sendError = false, status = 200 }: SetupArgs) {
-    const consoleSpy = jest
-      .spyOn(console, "log")
-      .mockImplementation(() => null);
+    const consoleSpy = vi.spyOn(console, "log").mockImplementation(() => null);
 
     server.use(
       http.put("http://localhost/upload/stats/", async ({ request }) => {

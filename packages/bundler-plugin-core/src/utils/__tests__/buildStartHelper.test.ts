@@ -1,13 +1,14 @@
+import { describe, beforeAll, afterAll, it, expect, vi } from "vitest";
 import { type Output } from "../../types";
 import { buildStartHelper } from "../buildStartHelper";
 
 describe("buildStartHelper", () => {
   beforeAll(() => {
-    jest.useFakeTimers().setSystemTime(1000);
+    vi.useFakeTimers().setSystemTime(1000);
   });
 
   afterAll(() => {
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   it("should set builtAt to the current time", () => {

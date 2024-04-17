@@ -1,6 +1,6 @@
-import td from "testdouble";
-
 import { createEmptyArgs } from "@test-utils/helpers.ts";
+import * as td from "testdouble";
+import { afterEach, describe, expect, it } from "vitest";
 import {
   type ProviderServiceParams,
   type ProviderUtilInputs,
