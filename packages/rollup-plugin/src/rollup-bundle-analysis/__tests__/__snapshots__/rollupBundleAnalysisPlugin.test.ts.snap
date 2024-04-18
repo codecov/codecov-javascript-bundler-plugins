@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`rollupBundleAnalysisPlugin when called returns a plugin object 1`] = `
+exports[`rollupBundleAnalysisPlugin > when called > returns a plugin object 1`] = `
 {
   "buildEnd": [Function],
   "buildStart": [Function],
