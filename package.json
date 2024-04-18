@@ -16,6 +16,7 @@
     "format": "pnpm -r format && prettier --write '*.{cjs,json}' --ignore-unknown --no-error-on-unmatched-pattern",
     "format:check": "pnpm -r --filter='./packages/*' format:check && prettier --check '*.{cjs,json}' --ignore-unknown --no-error-on-unmatched-pattern",
     "test:unit": "pnpm -r --filter='./packages/*' run test:unit",
+    "test:unit:watch": "pnpm -r --filter='./packages/*' run test:unit:watch",
     "test:unit:update": "pnpm -r --filter='./packages/*' run test:unit:update",
     "test:unit:ci": "pnpm -r --filter='./packages/*' run test:unit:ci",
     "test:e2e": "pnpm -r --filter='./integration-tests' run test:e2e",
