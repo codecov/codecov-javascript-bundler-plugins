@@ -24,11 +24,11 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
   name: PLUGIN_NAME,
   pluginVersion: PLUGIN_VERSION,
   buildStart: () => {
-    output.plugin = {
-      name: PLUGIN_NAME,
-      version: PLUGIN_VERSION,
-    };
-    buildStartHelper(output);
+    buildStartHelper({
+      pluginName: PLUGIN_NAME,
+      pluginVersion: PLUGIN_VERSION,
+      output,
+    });
   },
   buildEnd: () => {
     buildEndHelper(output);

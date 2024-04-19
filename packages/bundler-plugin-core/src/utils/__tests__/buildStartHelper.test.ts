@@ -15,8 +15,16 @@ describe("buildStartHelper", () => {
       bundleName: "test-bundle",
     };
 
-    buildStartHelper(output);
+    buildStartHelper({
+      pluginName: "test-plugin",
+      pluginVersion: "0.0.1",
+      output,
+    });
 
     expect(output?.builtAt).toBe(1000);
+    expect(output?.plugin).toStrictEqual({
+      name: "test-plugin",
+      version: "0.0.1",
+    });
   });
 });
