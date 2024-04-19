@@ -12,7 +12,7 @@ import { detectProvider } from "./provider.ts";
 import { uploadStats } from "./uploadStats.ts";
 
 class Output {
-  options: NormalizedOptions;
+  userOptions: NormalizedOptions;
   bundleName?: string;
   version: string;
   bundler?: {
@@ -30,9 +30,9 @@ class Output {
     version: string;
   };
 
-  constructor(options: NormalizedOptions) {
+  constructor(userOptions: NormalizedOptions) {
     this.version = "1";
-    this.options = options;
+    this.userOptions = userOptions;
   }
 
   start(pluginName: string, pluginVersion: string) {
@@ -48,11 +48,12 @@ class Output {
   }
 
   async write() {
-    if (this.options.dryRun) return;
+    if (this.userOptions.dryRun) return;
 
-    if (!this.options.bundleName || this.options.bundleName === "") return;
+    if (!this.userOptions.bundleName || this.userOptions.bundleName === "")
+      return;
 
-    const args: UploadOverrides = this.options.uploadOverrides ?? {};
+    const args: UploadOverrides = this.userOptions.uploadOverrides ?? {};
     const envs = process.env;
     const inputs: ProviderUtilInputs = { envs, args };
     const provider = await detectProvider(inputs);
@@ -60,10 +61,10 @@ class Output {
     let url = "";
     try {
       url = await getPreSignedURL({
-        apiURL: this.options?.apiUrl ?? "https://api.codecov.io",
-        uploadToken: this.options?.uploadToken,
+        apiURL: this.userOptions?.apiUrl ?? "https://api.codecov.io",
+        uploadToken: this.userOptions?.uploadToken,
         serviceParams: provider,
-        retryCount: this.options?.retryCount,
+        retryCount: this.userOptions?.retryCount,
       });
     } catch (error) {
       return;
@@ -72,9 +73,9 @@ class Output {
     try {
       await uploadStats({
         preSignedUrl: url,
-        bundleName: this.options.bundleName,
+        bundleName: this.userOptions.bundleName,
         message: this.formatPayload(),
-        retryCount: this.options?.retryCount,
+        retryCount: this.userOptions?.retryCount,
       });
     } catch {
       return;

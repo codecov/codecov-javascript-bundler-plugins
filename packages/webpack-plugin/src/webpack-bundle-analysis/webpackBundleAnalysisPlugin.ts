@@ -38,7 +38,10 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
         },
         () => {
           // don't need to do anything if the bundle name is not present or empty
-          if (!output.options.bundleName || output.options.bundleName === "") {
+          if (
+            !output.userOptions.bundleName ||
+            output.userOptions.bundleName === ""
+          ) {
             red("Bundle name is not present or empty. Skipping upload.");
             return;
           }
@@ -52,11 +55,11 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
               chunkFormat = "esm";
             }
 
-            output.bundleName = `${output.options.bundleName}-${chunkFormat}`;
+            output.bundleName = `${output.userOptions.bundleName}-${chunkFormat}`;
           }
 
           if (compilation.name && compilation.name !== "") {
-            output.bundleName = `${output.options.bundleName}-${compilation.name}`;
+            output.bundleName = `${output.userOptions.bundleName}-${compilation.name}`;
           }
 
           const compilationStats = compilation.getStats().toJson({
@@ -168,7 +171,7 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
           output.outputPath = outputOptions.path ?? "";
 
           // only output file if running dry run
-          if (output.options.dryRun) {
+          if (output.userOptions.dryRun) {
             const { RawSource } = webpack.sources;
             compilation.emitAsset(
               `${output.bundleName}-stats.json`,

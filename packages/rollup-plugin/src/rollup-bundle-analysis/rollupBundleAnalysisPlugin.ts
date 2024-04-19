@@ -31,7 +31,10 @@ export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
   rollup: {
     generateBundle(this, options, bundle) {
       // don't need to do anything if the bundle name is not present or empty
-      if (!output.options.bundleName || output.options.bundleName === "") {
+      if (
+        !output.userOptions.bundleName ||
+        output.userOptions.bundleName === ""
+      ) {
         red("Bundle name is not present or empty. Skipping upload.");
         return;
       }
@@ -39,10 +42,10 @@ export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
       const format = options.format === "es" ? "esm" : options.format;
 
       // append bundle output format to bundle name
-      output.bundleName = `${output.options.bundleName}-${format}`;
+      output.bundleName = `${output.userOptions.bundleName}-${format}`;
 
       if (options.name && options.name !== "") {
-        output.bundleName = `${output.options.bundleName}-${options.name}`;
+        output.bundleName = `${output.userOptions.bundleName}-${options.name}`;
       }
 
       const cwd = process.cwd();
@@ -172,10 +175,10 @@ export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
       output.outputPath = options.dir ?? "";
 
       // only output file if running dry run
-      if (output.options.dryRun) {
+      if (output.userOptions.dryRun) {
         this.emitFile({
           type: "asset",
-          fileName: `${output.options.bundleName}-stats.json`,
+          fileName: `${output.bundleName}-stats.json`,
           source: JSON.stringify(output),
         });
       }
