@@ -31,7 +31,7 @@ const codecovWebpackPluginFactory = createWebpackPlugin<Options, true>(
     const plugins: UnpluginOptions[] = [];
     const output = new Output(normalizedOptions.options);
     const options = normalizedOptions.options;
-    if (options?.enableBundleAnalysis) {
+    if (options.enableBundleAnalysis) {
       plugins.push(
         webpackBundleAnalysisPlugin({
           output,
