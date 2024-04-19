@@ -9,16 +9,18 @@ import {
   normalizeOptions,
   red,
   checkNodeVersion,
+  Output,
 } from "@codecov/bundler-plugin-core";
 
 import { viteBundleAnalysisPlugin } from "./vite-bundle-analysis/viteBundleAnalysisPlugin";
 
 const codecovVitePluginFactory = createVitePlugin<Options, true>(
   (userOptions, unpluginMetaContext) => {
-    const plugins: UnpluginOptions[] = [];
+    if (checkNodeVersion(unpluginMetaContext)) {
+      return [];
+    }
 
     const normalizedOptions = normalizeOptions(userOptions);
-
     if (!normalizedOptions.success) {
       for (const error of normalizedOptions.errors) {
         red(error);
@@ -26,21 +28,11 @@ const codecovVitePluginFactory = createVitePlugin<Options, true>(
       return [];
     }
 
-    if (checkNodeVersion(unpluginMetaContext)) {
-      return [];
-    }
-
+    const plugins: UnpluginOptions[] = [];
+    const output = new Output(normalizedOptions.options);
     const options = normalizedOptions.options;
     if (options?.enableBundleAnalysis) {
-      plugins.push(
-        viteBundleAnalysisPlugin({
-          output: {
-            version: "1",
-            bundleName: options.bundleName,
-          },
-          options,
-        }),
-      );
+      plugins.push(viteBundleAnalysisPlugin({ output }));
     }
 
     return plugins;

@@ -9,16 +9,18 @@ import {
   red,
   type Options,
   checkNodeVersion,
+  Output,
 } from "@codecov/bundler-plugin-core";
 
 import { webpackBundleAnalysisPlugin } from "./webpack-bundle-analysis/webpackBundleAnalysisPlugin";
 
 const codecovWebpackPluginFactory = createWebpackPlugin<Options, true>(
   (userOptions, unpluginMetaContext) => {
-    const plugins: UnpluginOptions[] = [];
+    if (checkNodeVersion(unpluginMetaContext)) {
+      return [];
+    }
 
     const normalizedOptions = normalizeOptions(userOptions);
-
     if (!normalizedOptions.success) {
       for (const error of normalizedOptions.errors) {
         red(error);
@@ -26,19 +28,13 @@ const codecovWebpackPluginFactory = createWebpackPlugin<Options, true>(
       return [];
     }
 
-    if (checkNodeVersion(unpluginMetaContext)) {
-      return [];
-    }
-
+    const plugins: UnpluginOptions[] = [];
+    const output = new Output(normalizedOptions.options);
     const options = normalizedOptions.options;
     if (options?.enableBundleAnalysis) {
       plugins.push(
         webpackBundleAnalysisPlugin({
-          output: {
-            version: "1",
-            bundleName: options.bundleName,
-          },
-          options,
+          output,
         }),
       );
     }

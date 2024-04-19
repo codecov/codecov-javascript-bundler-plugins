@@ -6,9 +6,6 @@ import {
   type Module,
   type BundleAnalysisUploadPlugin,
   red,
-  buildStartHelper,
-  buildEndHelper,
-  writeBundleHelper,
 } from "@codecov/bundler-plugin-core";
 
 // @ts-expect-error this value is being replaced by rollup
@@ -18,28 +15,23 @@ const PLUGIN_VERSION = __PACKAGE_VERSION__ as string;
 
 export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
   output,
-  options: userOptions,
 }) => ({
   version: "1",
   name: PLUGIN_NAME,
   pluginVersion: PLUGIN_VERSION,
   buildStart: () => {
-    buildStartHelper({
-      pluginName: PLUGIN_NAME,
-      pluginVersion: PLUGIN_VERSION,
-      output,
-    });
+    output.start(PLUGIN_NAME, PLUGIN_VERSION);
   },
   buildEnd: () => {
-    buildEndHelper(output);
+    output.end();
   },
   writeBundle: async () => {
-    await writeBundleHelper({ output, options: userOptions });
+    await output.write();
   },
   vite: {
     generateBundle(this, options, bundle) {
       // don't need to do anything if the bundle name is not present or empty
-      if (!userOptions.bundleName || userOptions.bundleName === "") {
+      if (!output.options.bundleName || output.options.bundleName === "") {
         red("Bundle name is not present or empty. Skipping upload.");
         return;
       }
@@ -47,11 +39,11 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
       const format = options.format === "es" ? "esm" : options.format;
 
       // append bundle output format to bundle name
-      output.bundleName = `${userOptions.bundleName}-${format}`;
+      output.bundleName = `${output.options.bundleName}-${format}`;
 
       // add in bundle name if present
       if (options.name && options.name !== "") {
-        output.bundleName = `${userOptions.bundleName}-${options.name}`;
+        output.bundleName = `${output.options.bundleName}-${options.name}`;
       }
 
       // handle nuxt
@@ -191,7 +183,7 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
       output.outputPath = options.dir ?? "";
 
       // only output file if running dry run
-      if (userOptions.dryRun) {
+      if (output.options.dryRun) {
         this.emitFile({
           type: "asset",
           fileName: `${output.bundleName}-stats.json`,
