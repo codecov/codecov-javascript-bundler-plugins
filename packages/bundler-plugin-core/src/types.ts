@@ -1,5 +1,5 @@
 import { type UnpluginOptions } from "unplugin";
-import { type NormalizedOptions } from "./utils/normalizeOptions";
+import { type Output } from "./utils/Output";
 
 export interface Dependency {
   name: string;
@@ -27,7 +27,7 @@ export interface Module {
   chunkUniqueIds: string[];
 }
 
-export interface Output {
+export interface OutputPayload {
   version?: string;
   bundleName: string;
   bundler?: {
@@ -48,10 +48,9 @@ export interface Output {
 
 export interface BundleAnalysisUploadPluginArgs {
   output: Output;
-  options: NormalizedOptions;
 }
 
-/** Configuration ptions for the Codcov bundler plugin. */
+/** Configuration ptions for the Codcove bundler plugin. */
 export interface Options {
   /**
    * The upload token to use for uploading the bundle analysis information.
