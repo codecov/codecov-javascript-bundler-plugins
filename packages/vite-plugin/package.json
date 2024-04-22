@@ -46,7 +46,7 @@
   },
   "dependencies": {
     "@codecov/bundler-plugin-core": "workspace:^",
-    "unplugin": "^1.6.0"
+    "unplugin": "^1.10.1"
   },
   "devDependencies": {
     "@rollup/plugin-replace": "^5.0.5",
