@@ -1,6 +1,7 @@
 import { defineBuildConfig } from "unbuild";
 import { codecovRollupPlugin } from "codecovProdRollupPlugin";
-import packageJson from "./package.json";
+
+const packageJson = await import("./package.json");
 
 export default defineBuildConfig({
   entries: ["./src/index"],
@@ -35,7 +36,7 @@ export default defineBuildConfig({
           codecovRollupPlugin({
             enableBundleAnalysis:
               typeof process.env.PLUGIN_CODECOV_TOKEN === "string",
-            bundleName: "@codecov/vite-plugin",
+            bundleName: JSON.stringify(packageJson.name),
             uploadToken: process.env.PLUGIN_CODECOV_TOKEN,
             apiUrl: process.env.PLUGIN_CODECOV_API_URL,
           }),

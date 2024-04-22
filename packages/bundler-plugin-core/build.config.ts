@@ -1,6 +1,8 @@
 import { defineBuildConfig } from "unbuild";
 import { codecovRollupPlugin } from "codecovProdRollupPlugin";
 
+const packageJson = await import("./package.json");
+
 export default defineBuildConfig({
   entries: ["./src/index"],
   outDir: "dist",
@@ -26,7 +28,7 @@ export default defineBuildConfig({
           codecovRollupPlugin({
             enableBundleAnalysis:
               typeof process.env.PLUGIN_CODECOV_TOKEN === "string",
-            bundleName: "@codecov/bundler-plugin-core",
+            bundleName: JSON.stringify(packageJson.name),
             uploadToken: process.env.PLUGIN_CODECOV_TOKEN,
             apiUrl: process.env.PLUGIN_CODECOV_API_URL,
           }),
