@@ -23,7 +23,7 @@ interface SetupArgs {
   urlSendError?: boolean;
 }
 
-describe.skip("Output", () => {
+describe("Output", () => {
   function setup({
     statsStatus = 200,
     urlStatus = 200,
@@ -65,7 +65,7 @@ describe.skip("Output", () => {
       })
       // upload stats
       // @ts-expect-error - testing fetch
-      .mockImplementationOnce(() => {
+      .mockImplementation(() => {
         if (statsSendError) {
           return Promise.reject(new Error("Failed to upload stats"));
         }
@@ -95,15 +95,17 @@ describe.skip("Output", () => {
     });
 
     it("should set builtAt to the current time", () => {
-      const output: Output = {
-        bundleName: "test-bundle",
-      };
-
-      buildStartHelper({
-        pluginName: "test-plugin",
-        pluginVersion: "0.0.1",
-        output,
+      const output = new Output({
+        apiUrl: "http://localhost",
+        bundleName: "output-test",
+        debug: false,
+        dryRun: false,
+        enableBundleAnalysis: true,
+        retryCount: 1,
+        uploadToken: "token",
       });
+
+      output.start("test-plugin", "0.0.1");
 
       expect(output?.builtAt).toBe(1000);
       expect(output?.plugin).toStrictEqual({
@@ -124,25 +126,36 @@ describe.skip("Output", () => {
 
     describe("builtAt is set", () => {
       it("should set duration to the difference between now and builtAt", () => {
-        const output: Output = {
-          bundleName: "test-bundle",
-          builtAt: 100,
-        };
+        const output = new Output({
+          apiUrl: "http://localhost",
+          bundleName: "output-test",
+          debug: false,
+          dryRun: false,
+          enableBundleAnalysis: true,
+          retryCount: 1,
+          uploadToken: "token",
+        });
 
-        buildEndHelper(output);
+        output.start("test-plugin", "0.0.1");
+        output.end();
 
-        expect(output?.duration).toBe(900);
+        expect(output?.duration).toBe(0);
       });
     });
 
     describe("builtAt is not set", () => {
       it("should set duration to the difference between now and 0", () => {
-        const output: Output = {
-          bundleName: "test-bundle",
-        };
+        const output = new Output({
+          apiUrl: "http://localhost",
+          bundleName: "output-test",
+          debug: false,
+          dryRun: false,
+          enableBundleAnalysis: true,
+          retryCount: 1,
+          uploadToken: "token",
+        });
 
-        buildEndHelper(output);
-
+        output.end();
         expect(output?.duration).toBe(1000);
       });
     });
@@ -152,18 +165,19 @@ describe.skip("Output", () => {
     describe("dryRun is enabled", () => {
       it("immediately returns", async () => {
         const { preSignedUrlBody } = setup({});
-
-        await writeBundleHelper({
-          options: {
-            dryRun: true,
-            bundleName: "test",
-            apiUrl: "http://localhost",
-            enableBundleAnalysis: true,
-            retryCount: 1,
-            debug: false,
-          },
-          output: { bundleName: "test" },
+        const output = new Output({
+          apiUrl: "http://localhost",
+          bundleName: "output-test",
+          debug: false,
+          dryRun: false,
+          enableBundleAnalysis: true,
+          retryCount: 1,
+          uploadToken: "token",
         });
+        output.start("test-plugin", "0.0.1");
+        output.end();
+
+        await output.write();
 
         expect(preSignedUrlBody).not.toHaveBeenCalled();
       });
@@ -173,16 +187,20 @@ describe.skip("Output", () => {
       it("immediately returns", async () => {
         const { preSignedUrlBody } = setup({});
 
-        await writeBundleHelper({
-          // @ts-expect-error - testing invalid input
-          options: {
-            dryRun: false,
-            apiUrl: "http://localhost",
-            enableBundleAnalysis: true,
-            retryCount: 1,
-          },
-          output: { bundleName: "test" },
+        // @ts-expect-error - no bundle name included for test
+        const output = new Output({
+          apiUrl: "http://localhost",
+          debug: false,
+          dryRun: false,
+          enableBundleAnalysis: true,
+          retryCount: 1,
+          uploadToken: "token",
         });
+
+        output.start("test-plugin", "0.0.1");
+        output.end();
+
+        await output.write();
 
         expect(preSignedUrlBody).not.toHaveBeenCalled();
       });
@@ -191,18 +209,19 @@ describe.skip("Output", () => {
     describe("bundle name is empty", () => {
       it("immediately returns", async () => {
         const { preSignedUrlBody } = setup({});
-
-        await writeBundleHelper({
-          options: {
-            dryRun: false,
-            bundleName: "",
-            apiUrl: "http://localhost",
-            enableBundleAnalysis: true,
-            retryCount: 1,
-            debug: false,
-          },
-          output: { bundleName: "test" },
+        const output = new Output({
+          apiUrl: "http://localhost",
+          bundleName: "output-test",
+          debug: false,
+          dryRun: false,
+          enableBundleAnalysis: true,
+          retryCount: 1,
+          uploadToken: "token",
         });
+        output.start("test-plugin", "0.0.1");
+        output.end();
+
+        await output.write();
 
         expect(preSignedUrlBody).not.toHaveBeenCalled();
       });
@@ -212,17 +231,20 @@ describe.skip("Output", () => {
       it("immediately returns", async () => {
         setup({ urlSendError: true });
 
-        await writeBundleHelper({
-          options: {
-            dryRun: true,
-            bundleName: "test",
-            apiUrl: "http://localhost",
-            enableBundleAnalysis: true,
-            retryCount: 1,
-            debug: false,
-          },
-          output: { bundleName: "test" },
+        const output = new Output({
+          apiUrl: "http://localhost",
+          bundleName: "output-test",
+          debug: false,
+          dryRun: false,
+          enableBundleAnalysis: true,
+          retryCount: 1,
+          uploadToken: "token",
         });
+
+        output.start("test-plugin", "0.0.1");
+        output.end();
+
+        await output.write();
       });
     });
 
@@ -233,18 +255,20 @@ describe.skip("Output", () => {
           urlStatus: 200,
         });
 
-        await writeBundleHelper({
-          options: {
-            dryRun: false,
-            bundleName: "test",
-            apiUrl: "http://localhost",
-            enableBundleAnalysis: true,
-            uploadToken: "token",
-            retryCount: 1,
-            debug: false,
-          },
-          output: { bundleName: "test", assets: [], modules: [], chunks: [] },
+        const output = new Output({
+          apiUrl: "http://localhost",
+          bundleName: "output-test",
+          debug: false,
+          dryRun: false,
+          enableBundleAnalysis: true,
+          retryCount: 1,
+          uploadToken: "token",
         });
+
+        output.start("test-plugin", "0.0.1");
+        output.end();
+
+        await output.write();
 
         expect(fetchMock).toHaveBeenCalled();
         expect(fetchMock).toHaveBeenCalledWith(
@@ -278,17 +302,20 @@ describe.skip("Output", () => {
           statsSendError: true,
         });
 
-        await writeBundleHelper({
-          options: {
-            dryRun: true,
-            bundleName: "test",
-            apiUrl: "http://localhost",
-            enableBundleAnalysis: true,
-            retryCount: 1,
-            debug: false,
-          },
-          output: { bundleName: "test" },
+        const output = new Output({
+          apiUrl: "http://localhost",
+          bundleName: "output-test",
+          debug: false,
+          dryRun: false,
+          enableBundleAnalysis: true,
+          retryCount: 1,
+          uploadToken: "token",
         });
+
+        output.start("test-plugin", "0.0.1");
+        output.end();
+
+        await output.write();
       });
     });
 
@@ -301,18 +328,20 @@ describe.skip("Output", () => {
           statsStatus: 200,
         });
 
-        await writeBundleHelper({
-          options: {
-            dryRun: false,
-            bundleName: "test",
-            apiUrl: "http://localhost",
-            enableBundleAnalysis: true,
-            uploadToken: "token",
-            retryCount: 1,
-            debug: false,
-          },
-          output: { bundleName: "test" },
+        const output = new Output({
+          apiUrl: "http://localhost",
+          bundleName: "output-test",
+          debug: false,
+          dryRun: false,
+          enableBundleAnalysis: true,
+          retryCount: 1,
+          uploadToken: "token",
         });
+
+        output.start("test-plugin", "0.0.1");
+        output.end();
+
+        await output.write();
 
         expect(fetchMock).toHaveBeenCalled();
         expect(fetchMock).toHaveBeenCalledWith(

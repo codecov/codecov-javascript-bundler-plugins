@@ -77,7 +77,7 @@ class Output {
         message: this.formatPayload(),
         retryCount: this.userOptions?.retryCount,
       });
-    } catch {
+    } catch (error) {
       return;
     }
 
