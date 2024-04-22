@@ -1,5 +1,10 @@
 {
-  "include": [".eslintrc.js", "prettier.config.mjs"],
+  "include": [
+    ".eslintrc.js",
+    "prettier.config.mjs",
+    "vitest.shared.ts",
+    "vitest.workspace.ts",
+  ],
   "compilerOptions": {
     /* LANGUAGE COMPILATION OPTIONS */
     "target": "ESNext",
@@ -34,6 +39,6 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "useDefineForClassFields": true
-  }
+    "useDefineForClassFields": true,
+  },
 }
