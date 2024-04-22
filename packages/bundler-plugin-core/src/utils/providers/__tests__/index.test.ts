@@ -1,6 +1,7 @@
-import td from "testdouble";
 import { HttpResponse, http } from "msw";
 import { setupServer } from "msw/node";
+import * as td from "testdouble";
+import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 
 import { createEmptyArgs } from "@test-utils/helpers.ts";
 import { type ProviderUtilInputs } from "../../../types.ts";
@@ -29,10 +30,7 @@ describe("CI Providers", () => {
     td.reset();
   });
 
-  describe("check that each provider", () =>
-    expect(providerList).toBeInstanceOf(Array));
-
-  providerList.forEach((provider) => {
+  describe.each(providerList)(`%s`, (provider) => {
     it(`${provider.getServiceName()} has a service name`, () => {
       expect(typeof provider.getServiceName()).toBe("string");
       expect(provider.getServiceName()).not.toBe("");

@@ -1,9 +1,19 @@
+import {
+  vi,
+  beforeAll,
+  afterAll,
+  afterEach,
+  describe,
+  expect,
+  it,
+  type MockInstance,
+} from "vitest";
 import { HttpResponse, http } from "msw";
 import { setupServer } from "msw/node";
 
 import { fetchWithRetry } from "../fetchWithRetry";
 
-jest.mock("../delay.ts");
+vi.mock("../delay.ts");
 
 const server = setupServer();
 
@@ -28,7 +38,7 @@ interface SetupArgs {
 }
 
 describe("fetchWithRetry", () => {
-  let consoleSpy: jest.SpyInstance;
+  let consoleSpy: MockInstance;
 
   afterEach(() => {
     consoleSpy.mockReset();
@@ -41,7 +51,7 @@ describe("fetchWithRetry", () => {
     failFetch = false,
     retryCount = 0,
   }: SetupArgs) {
-    consoleSpy = jest.spyOn(console, "log").mockImplementation(() => null);
+    consoleSpy = vi.spyOn(console, "log").mockImplementation(() => null);
 
     server.use(
       http.all("http://localhost", ({}) => {

@@ -1,13 +1,14 @@
 import childProcess from "child_process";
-import td from "testdouble";
+import * as td from "testdouble";
+import { afterEach, describe, expect, it } from "vitest";
 
+import { createEmptyArgs } from "@test-utils/helpers.ts";
 import {
   type ProviderServiceParams,
   type ProviderUtilInputs,
 } from "../../../types.ts";
 import { SPAWN_PROCESS_BUFFER_SIZE } from "../../constants.ts";
 import * as Bitbucket from "../Bitbucket.ts";
-import { createEmptyArgs } from "@test-utils/helpers.ts";
 
 describe("Bitbucket Params", () => {
   afterEach(() => {

@@ -1,18 +1,27 @@
-import { type ProviderServiceParams } from "../../types";
+import {
+  describe,
+  it,
+  expect,
+  vi,
+  afterEach,
+  beforeAll,
+  afterAll,
+  type MockInstance,
+  type Mock,
+} from "vitest";
+
 import { detectProvider } from "../provider";
 import { Output } from "../Output";
 
-jest.mock("../provider");
+vi.mock("../provider");
 
-const mockedDetectProvider = detectProvider as jest.Mock<
-  Promise<ProviderServiceParams>
->;
+const mockedDetectProvider = detectProvider as Mock;
 
 afterEach(() => {
-  jest.resetAllMocks();
+  vi.resetAllMocks();
 });
 
-let consoleSpy: jest.SpyInstance;
+let consoleSpy: MockInstance;
 
 interface SetupArgs {
   statsSendError?: boolean;
@@ -31,9 +40,9 @@ describe("Output", () => {
     statsSendError,
     urlSendError,
   }: SetupArgs) {
-    const preSignedUrlBody = jest.fn();
-    const statsBody = jest.fn();
-    consoleSpy = jest.spyOn(console, "log").mockImplementation(() => null);
+    const preSignedUrlBody = vi.fn();
+    const statsBody = vi.fn();
+    consoleSpy = vi.spyOn(console, "log").mockImplementation(() => null);
 
     mockedDetectProvider.mockResolvedValue({
       branch: "main",
@@ -48,7 +57,7 @@ describe("Output", () => {
 
     // need to mock out fetch wholly and check to see if it was called with the correct stuff
 
-    const fetchMock = jest
+    const fetchMock = vi
       .spyOn(global, "fetch")
       // pre-signed URL
       // @ts-expect-error - testing fetch
@@ -87,11 +96,11 @@ describe("Output", () => {
 
   describe("start method", () => {
     beforeAll(() => {
-      jest.useFakeTimers().setSystemTime(1000);
+      vi.useFakeTimers().setSystemTime(1000);
     });
 
     afterAll(() => {
-      jest.useRealTimers();
+      vi.useRealTimers();
     });
 
     it("should set builtAt to the current time", () => {
@@ -117,11 +126,11 @@ describe("Output", () => {
 
   describe("end method", () => {
     beforeAll(() => {
-      jest.useFakeTimers().setSystemTime(1000);
+      vi.useFakeTimers().setSystemTime(1000);
     });
 
     afterAll(() => {
-      jest.useRealTimers();
+      vi.useRealTimers();
     });
 
     describe("builtAt is set", () => {

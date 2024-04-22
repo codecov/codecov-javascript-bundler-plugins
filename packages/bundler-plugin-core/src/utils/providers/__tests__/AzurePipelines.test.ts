@@ -1,12 +1,13 @@
 import childProcess from "child_process";
-import td from "testdouble";
+import * as td from "testdouble";
+import { describe, expect, it } from "vitest";
 
-import { SPAWN_PROCESS_BUFFER_SIZE } from "../../constants.ts";
 import { createEmptyArgs } from "@test-utils/helpers.ts";
 import {
   type ProviderServiceParams,
   type ProviderUtilInputs,
 } from "../../../types.ts";
+import { SPAWN_PROCESS_BUFFER_SIZE } from "../../constants.ts";
 import * as AzurePipelines from "../AzurePipelines.ts";
 
 describe("Azure Pipelines CI Params", () => {

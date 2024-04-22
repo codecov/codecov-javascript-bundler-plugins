@@ -16,6 +16,7 @@
     "format": "pnpm -r format && prettier --write '*.{cjs,json}' --ignore-unknown --no-error-on-unmatched-pattern",
     "format:check": "pnpm -r --filter='./packages/*' format:check && prettier --check '*.{cjs,json}' --ignore-unknown --no-error-on-unmatched-pattern",
     "test:unit": "pnpm -r --filter='./packages/*' run test:unit",
+    "test:unit:watch": "pnpm -r --filter='./packages/*' run test:unit:watch",
     "test:unit:update": "pnpm -r --filter='./packages/*' run test:unit:update",
     "test:unit:ci": "pnpm -r --filter='./packages/*' run test:unit:ci",
     "test:e2e": "pnpm -r --filter='./integration-tests' run test:e2e",
@@ -43,7 +44,9 @@
     "lint-staged": "^15.2.1",
     "prettier": "^3.2.4",
     "typedoc": "^0.25.12",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "vite-tsconfig-paths": "^4.3.2",
+    "vitest": "^1.5.0"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,css,scss,md,json}": [

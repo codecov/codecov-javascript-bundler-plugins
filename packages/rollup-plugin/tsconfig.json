@@ -2,16 +2,13 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": "./",
-    "paths": {
-      "@/*": ["./src/*"]
-    },
-    "checkJs": true
+    "checkJs": true,
   },
   "include": [
     "src/**/*",
     "build.config.ts",
     "../../reset.d.ts",
-    "jest.config.ts"
+    "vitest.config.ts",
   ],
-  "exclude": ["coverage/**/*", "dist/**/*", "node_modules/**/*"]
+  "exclude": ["coverage/**/*", "dist/**/*", "node_modules/**/*"],
 }

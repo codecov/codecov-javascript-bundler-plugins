@@ -1,4 +1,5 @@
 import { Output } from "@codecov/bundler-plugin-core";
+import { describe, it, expect } from "vitest";
 import { rollupBundleAnalysisPlugin } from "../rollupBundleAnalysisPlugin";
 
 describe("rollupBundleAnalysisPlugin", () => {

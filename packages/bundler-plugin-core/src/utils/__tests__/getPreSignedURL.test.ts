@@ -1,3 +1,13 @@
+import {
+  vi,
+  describe,
+  it,
+  expect,
+  beforeAll,
+  afterAll,
+  afterEach,
+  type MockInstance,
+} from "vitest";
 import { HttpResponse, http } from "msw";
 import { setupServer } from "msw/node";
 
@@ -28,10 +38,10 @@ interface SetupArgs {
 }
 
 describe("getPreSignedURL", () => {
-  let consoleSpy: jest.SpyInstance;
+  let consoleSpy: MockInstance;
 
   function setup({ status = 200, data = {}, sendError = false }: SetupArgs) {
-    consoleSpy = jest.spyOn(console, "log").mockImplementation(() => null);
+    consoleSpy = vi.spyOn(console, "log").mockImplementation(() => null);
 
     server.use(
       http.post("http://localhost/upload/bundle_analysis/v1", ({}) => {
@@ -156,9 +166,9 @@ describe("getPreSignedURL", () => {
     });
 
     describe("returned data is undefined", () => {
-      let fetchSpy: jest.SpyInstance;
+      let fetchSpy: MockInstance;
       beforeAll(() => {
-        fetchSpy = jest
+        fetchSpy = vi
           .spyOn(global, "fetch")
           .mockResolvedValue(new Response(undefined, { status: 200 }));
       });
@@ -218,9 +228,9 @@ describe("getPreSignedURL", () => {
     });
 
     describe("fetch throws an error", () => {
-      let fetchSpy: jest.SpyInstance;
+      let fetchSpy: MockInstance;
       beforeAll(() => {
-        fetchSpy = jest
+        fetchSpy = vi
           .spyOn(global, "fetch")
           .mockRejectedValue(new Error("Failed to fetch"));
       });
