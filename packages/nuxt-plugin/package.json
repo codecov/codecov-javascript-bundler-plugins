@@ -46,7 +46,7 @@
   },
   "dependencies": {
     "@codecov/bundler-plugin-core": "workspace:^",
-    "@codecov/vite-plugin": "workspace:0.0.1-beta.6",
+    "@codecov/vite-plugin": "workspace:^",
     "unplugin": "^1.6.0"
   },
   "devDependencies": {

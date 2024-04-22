@@ -15,6 +15,6 @@
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
-    "@codecov/nuxt-plugin": "workspace:0.0.1-beta.6"
+    "@codecov/nuxt-plugin": "workspace:^"
   }
 }
