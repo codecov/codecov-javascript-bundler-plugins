@@ -1,5 +1,6 @@
 import { defineBuildConfig } from "unbuild";
 import { codecovRollupPlugin } from "codecovProdRollupPlugin";
+import packageJson from "./package.json";
 
 export default defineBuildConfig({
   entries: ["./src/index"],
@@ -15,6 +16,13 @@ export default defineBuildConfig({
     emitCJS: true,
     esbuild: {
       minify: true,
+    },
+    replace: {
+      preventAssignment: true,
+      values: {
+        __PACKAGE_VERSION__: JSON.stringify(packageJson.version),
+        __PACKAGE_NAME__: JSON.stringify(packageJson.name),
+      },
     },
   },
   hooks: {

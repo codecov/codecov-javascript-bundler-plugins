@@ -9,15 +9,26 @@ import * as webpack from "webpack";
 
 import { findFilenameFormat } from "./findFileFormat";
 
-const PLUGIN_NAME = "codecov-webpack-bundle-analysis-plugin";
+// @ts-expect-error this value is being replaced by rollup
+const PLUGIN_NAME = __PACKAGE_NAME__ as string;
+// @ts-expect-error this value is being replaced by rollup
+const PLUGIN_VERSION = __PACKAGE_VERSION__ as string;
 
 export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
   output,
-  options: userOptions,
 }) => ({
   version: "1",
   name: PLUGIN_NAME,
-  pluginVersion: "1.0.0",
+  pluginVersion: PLUGIN_VERSION,
+  buildStart: () => {
+    output.start(PLUGIN_NAME, PLUGIN_VERSION);
+  },
+  buildEnd: () => {
+    output.end();
+  },
+  writeBundle: async () => {
+    await output.write();
+  },
   webpack(compiler) {
     compiler.hooks.thisCompilation.tap(PLUGIN_NAME, (compilation) => {
       compilation.hooks.processAssets.tap(
@@ -27,7 +38,10 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
         },
         () => {
           // don't need to do anything if the bundle name is not present or empty
-          if (!userOptions.bundleName || userOptions.bundleName === "") {
+          if (
+            !output.userOptions.bundleName ||
+            output.userOptions.bundleName === ""
+          ) {
             red("Bundle name is not present or empty. Skipping upload.");
             return;
           }
@@ -41,11 +55,11 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
               chunkFormat = "esm";
             }
 
-            output.bundleName = `${userOptions.bundleName}-${chunkFormat}`;
+            output.bundleName = `${output.userOptions.bundleName}-${chunkFormat}`;
           }
 
           if (compilation.name && compilation.name !== "") {
-            output.bundleName = `${userOptions.bundleName}-${compilation.name}`;
+            output.bundleName = `${output.userOptions.bundleName}-${compilation.name}`;
           }
 
           const compilationStats = compilation.getStats().toJson({
@@ -157,10 +171,10 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
           output.outputPath = outputOptions.path ?? "";
 
           // only output file if running dry run
-          if (userOptions.dryRun) {
+          if (output.userOptions.dryRun) {
             const { RawSource } = webpack.sources;
             compilation.emitAsset(
-              "codecov-bundle-stats.json",
+              `${output.bundleName}-stats.json`,
               new RawSource(JSON.stringify(output)),
             );
           }

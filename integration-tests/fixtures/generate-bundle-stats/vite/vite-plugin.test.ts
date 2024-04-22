@@ -65,6 +65,9 @@ describe("Generating vite stats", () => {
           bundleName: expect.stringContaining(
             `test-vite-v${version}-${expected}`,
           ),
+          plugin: {
+            name: expect.stringMatching("@codecov/vite-plugin"),
+          },
         });
       });
     });
@@ -107,6 +110,9 @@ describe("Generating vite stats", () => {
           duration: expect.any(Number),
           outputPath: expect.stringContaining(`/distV${version}`),
           bundleName: expect.not.stringContaining(".map"),
+          plugin: {
+            name: expect.stringMatching("@codecov/vite-plugin"),
+          },
         });
       });
     });

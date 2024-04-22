@@ -8,19 +8,33 @@ import {
   red,
 } from "@codecov/bundler-plugin-core";
 
-const PLUGIN_NAME = "codecov-vite-bundle-analysis-plugin";
+// @ts-expect-error this value is being replaced by rollup
+const PLUGIN_NAME = __PACKAGE_NAME__ as string;
+// @ts-expect-error this value is being replaced by rollup
+const PLUGIN_VERSION = __PACKAGE_VERSION__ as string;
 
 export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
   output,
-  options: userOptions,
 }) => ({
   version: "1",
   name: PLUGIN_NAME,
-  pluginVersion: "1.0.0",
+  pluginVersion: PLUGIN_VERSION,
+  buildStart: () => {
+    output.start(PLUGIN_NAME, PLUGIN_VERSION);
+  },
+  buildEnd: () => {
+    output.end();
+  },
+  writeBundle: async () => {
+    await output.write();
+  },
   vite: {
     generateBundle(this, options, bundle) {
       // don't need to do anything if the bundle name is not present or empty
-      if (!userOptions.bundleName || userOptions.bundleName === "") {
+      if (
+        !output.userOptions.bundleName ||
+        output.userOptions.bundleName === ""
+      ) {
         red("Bundle name is not present or empty. Skipping upload.");
         return;
       }
@@ -28,11 +42,20 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
       const format = options.format === "es" ? "esm" : options.format;
 
       // append bundle output format to bundle name
-      output.bundleName = `${userOptions.bundleName}-${format}`;
+      output.bundleName = `${output.userOptions.bundleName}-${format}`;
 
       // add in bundle name if present
       if (options.name && options.name !== "") {
-        output.bundleName = `${userOptions.bundleName}-${options.name}`;
+        output.bundleName = `${output.userOptions.bundleName}-${options.name}`;
+      }
+
+      // handle nuxt
+      if (options.dir?.includes("nuxt")) {
+        if (options.dir?.includes("client")) {
+          output.bundleName = `${output.bundleName}-client`;
+        } else if (options.dir?.includes("server")) {
+          output.bundleName = `${output.bundleName}-server`;
+        }
       }
 
       const cwd = process.cwd();
@@ -163,10 +186,10 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
       output.outputPath = options.dir ?? "";
 
       // only output file if running dry run
-      if (userOptions.dryRun) {
+      if (output.userOptions.dryRun) {
         this.emitFile({
           type: "asset",
-          fileName: "codecov-bundle-stats.json",
+          fileName: `${output.bundleName}-stats.json`,
           source: JSON.stringify(output),
         });
       }

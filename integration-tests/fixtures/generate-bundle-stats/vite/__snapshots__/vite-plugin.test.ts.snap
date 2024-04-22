@@ -83,8 +83,8 @@ exports[`Generating vite stats v4 {"format":"amd","expected":"amd"} matches the 
   ],
   "outputPath": StringContaining "/distV4",
   "plugin": {
-    "name": "codecov-vite-bundle-analysis-plugin",
-    "version": "1.0.0",
+    "name": StringMatching "@codecov/vite-plugin",
+    "version": "0.0.1-beta.6",
   },
   "version": "1",
 }
@@ -173,8 +173,8 @@ exports[`Generating vite stats v4 {"format":"cjs","expected":"cjs"} matches the 
   ],
   "outputPath": StringContaining "/distV4",
   "plugin": {
-    "name": "codecov-vite-bundle-analysis-plugin",
-    "version": "1.0.0",
+    "name": StringMatching "@codecov/vite-plugin",
+    "version": "0.0.1-beta.6",
   },
   "version": "1",
 }
@@ -263,8 +263,8 @@ exports[`Generating vite stats v4 {"format":"es","expected":"esm"} matches the s
   ],
   "outputPath": StringContaining "/distV4",
   "plugin": {
-    "name": "codecov-vite-bundle-analysis-plugin",
-    "version": "1.0.0",
+    "name": StringMatching "@codecov/vite-plugin",
+    "version": "0.0.1-beta.6",
   },
   "version": "1",
 }
@@ -353,8 +353,8 @@ exports[`Generating vite stats v4 {"format":"esm","expected":"esm"} matches the 
   ],
   "outputPath": StringContaining "/distV4",
   "plugin": {
-    "name": "codecov-vite-bundle-analysis-plugin",
-    "version": "1.0.0",
+    "name": StringMatching "@codecov/vite-plugin",
+    "version": "0.0.1-beta.6",
   },
   "version": "1",
 }
@@ -443,8 +443,8 @@ exports[`Generating vite stats v4 {"format":"module","expected":"esm"} matches t
   ],
   "outputPath": StringContaining "/distV4",
   "plugin": {
-    "name": "codecov-vite-bundle-analysis-plugin",
-    "version": "1.0.0",
+    "name": StringMatching "@codecov/vite-plugin",
+    "version": "0.0.1-beta.6",
   },
   "version": "1",
 }
@@ -533,8 +533,8 @@ exports[`Generating vite stats v4 {"format":"iife","expected":"iife"} matches th
   ],
   "outputPath": StringContaining "/distV4",
   "plugin": {
-    "name": "codecov-vite-bundle-analysis-plugin",
-    "version": "1.0.0",
+    "name": StringMatching "@codecov/vite-plugin",
+    "version": "0.0.1-beta.6",
   },
   "version": "1",
 }
@@ -623,8 +623,8 @@ exports[`Generating vite stats v4 {"format":"umd","expected":"umd"} matches the 
   ],
   "outputPath": StringContaining "/distV4",
   "plugin": {
-    "name": "codecov-vite-bundle-analysis-plugin",
-    "version": "1.0.0",
+    "name": StringMatching "@codecov/vite-plugin",
+    "version": "0.0.1-beta.6",
   },
   "version": "1",
 }
@@ -713,8 +713,8 @@ exports[`Generating vite stats v4 {"format":"system","expected":"system"} matche
   ],
   "outputPath": StringContaining "/distV4",
   "plugin": {
-    "name": "codecov-vite-bundle-analysis-plugin",
-    "version": "1.0.0",
+    "name": StringMatching "@codecov/vite-plugin",
+    "version": "0.0.1-beta.6",
   },
   "version": "1",
 }
@@ -803,818 +803,8 @@ exports[`Generating vite stats v4 {"format":"systemjs","expected":"system"} matc
   ],
   "outputPath": StringContaining "/distV4",
   "plugin": {
-    "name": "codecov-vite-bundle-analysis-plugin",
-    "version": "1.0.0",
-  },
-  "version": "1",
-}
-`;
-
-exports[`Generating vite stats v5 {"format":"amd","expected":"amd"} matches the snapshot 1`] = `
-{
-  "assets": [
-    {
-      "name": "assets/index-neb5ATfh.js",
-      "normalized": "assets/index-*.js",
-      "size": 72360,
-    },
-  ],
-  "builtAt": Any<Number>,
-  "bundleName": StringContaining "test-vite-v5-amd",
-  "bundler": {
-    "name": "rollup",
-    "version": "4.9.6",
-  },
-  "chunks": [
-    {
-      "entry": true,
-      "files": [
-        "assets/index-neb5ATfh.js",
-      ],
-      "id": "index",
-      "initial": false,
-      "names": [
-        "index",
-      ],
-      "uniqueId": "0-index",
-    },
-  ],
-  "duration": Any<Number>,
-  "modules": [
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./vite/modulepreload-polyfill.js",
-      "size": 1548,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./commonjsHelpers.js",
-      "size": 334,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
-      "size": 27,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560242,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./test-apps/vite/src/getRandomNumber.js",
-      "size": 98,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./test-apps/vite/src/main.js",
-      "size": 163,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./test-apps/vite/index.html",
-      "size": 0,
-    },
-  ],
-  "outputPath": StringContaining "/distV5",
-  "plugin": {
-    "name": "codecov-vite-bundle-analysis-plugin",
-    "version": "1.0.0",
-  },
-  "version": "1",
-}
-`;
-
-exports[`Generating vite stats v5 {"format":"cjs","expected":"cjs"} matches the snapshot 1`] = `
-{
-  "assets": [
-    {
-      "name": "assets/index-9JQbcWYj.js",
-      "normalized": "assets/index-*.js",
-      "size": 72342,
-    },
-  ],
-  "builtAt": Any<Number>,
-  "bundleName": StringContaining "test-vite-v5-cjs",
-  "bundler": {
-    "name": "rollup",
-    "version": "4.9.6",
-  },
-  "chunks": [
-    {
-      "entry": true,
-      "files": [
-        "assets/index-9JQbcWYj.js",
-      ],
-      "id": "index",
-      "initial": false,
-      "names": [
-        "index",
-      ],
-      "uniqueId": "0-index",
-    },
-  ],
-  "duration": Any<Number>,
-  "modules": [
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./vite/modulepreload-polyfill.js",
-      "size": 1548,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./commonjsHelpers.js",
-      "size": 334,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
-      "size": 27,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560242,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./test-apps/vite/src/getRandomNumber.js",
-      "size": 98,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./test-apps/vite/src/main.js",
-      "size": 163,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./test-apps/vite/index.html",
-      "size": 0,
-    },
-  ],
-  "outputPath": StringContaining "/distV5",
-  "plugin": {
-    "name": "codecov-vite-bundle-analysis-plugin",
-    "version": "1.0.0",
-  },
-  "version": "1",
-}
-`;
-
-exports[`Generating vite stats v5 {"format":"es","expected":"esm"} matches the snapshot 1`] = `
-{
-  "assets": [
-    {
-      "name": "assets/index-snsAD2Cg.js",
-      "normalized": "assets/index-*.js",
-      "size": 73071,
-    },
-  ],
-  "builtAt": Any<Number>,
-  "bundleName": StringContaining "test-vite-v5-esm",
-  "bundler": {
-    "name": "rollup",
-    "version": "4.9.6",
-  },
-  "chunks": [
-    {
-      "entry": true,
-      "files": [
-        "assets/index-snsAD2Cg.js",
-      ],
-      "id": "index",
-      "initial": false,
-      "names": [
-        "index",
-      ],
-      "uniqueId": "0-index",
-    },
-  ],
-  "duration": Any<Number>,
-  "modules": [
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./vite/modulepreload-polyfill.js",
-      "size": 1548,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./commonjsHelpers.js",
-      "size": 334,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
-      "size": 27,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560242,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./test-apps/vite/src/getRandomNumber.js",
-      "size": 98,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./test-apps/vite/src/main.js",
-      "size": 163,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./test-apps/vite/index.html",
-      "size": 0,
-    },
-  ],
-  "outputPath": StringContaining "/distV5",
-  "plugin": {
-    "name": "codecov-vite-bundle-analysis-plugin",
-    "version": "1.0.0",
-  },
-  "version": "1",
-}
-`;
-
-exports[`Generating vite stats v5 {"format":"esm","expected":"esm"} matches the snapshot 1`] = `
-{
-  "assets": [
-    {
-      "name": "assets/index-snsAD2Cg.js",
-      "normalized": "assets/index-*.js",
-      "size": 73071,
-    },
-  ],
-  "builtAt": Any<Number>,
-  "bundleName": StringContaining "test-vite-v5-esm",
-  "bundler": {
-    "name": "rollup",
-    "version": "4.9.6",
-  },
-  "chunks": [
-    {
-      "entry": true,
-      "files": [
-        "assets/index-snsAD2Cg.js",
-      ],
-      "id": "index",
-      "initial": false,
-      "names": [
-        "index",
-      ],
-      "uniqueId": "0-index",
-    },
-  ],
-  "duration": Any<Number>,
-  "modules": [
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./vite/modulepreload-polyfill.js",
-      "size": 1548,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./commonjsHelpers.js",
-      "size": 334,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
-      "size": 27,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560242,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./test-apps/vite/src/getRandomNumber.js",
-      "size": 98,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./test-apps/vite/src/main.js",
-      "size": 163,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./test-apps/vite/index.html",
-      "size": 0,
-    },
-  ],
-  "outputPath": StringContaining "/distV5",
-  "plugin": {
-    "name": "codecov-vite-bundle-analysis-plugin",
-    "version": "1.0.0",
-  },
-  "version": "1",
-}
-`;
-
-exports[`Generating vite stats v5 {"format":"module","expected":"esm"} matches the snapshot 1`] = `
-{
-  "assets": [
-    {
-      "name": "assets/index-snsAD2Cg.js",
-      "normalized": "assets/index-*.js",
-      "size": 73071,
-    },
-  ],
-  "builtAt": Any<Number>,
-  "bundleName": StringContaining "test-vite-v5-esm",
-  "bundler": {
-    "name": "rollup",
-    "version": "4.9.6",
-  },
-  "chunks": [
-    {
-      "entry": true,
-      "files": [
-        "assets/index-snsAD2Cg.js",
-      ],
-      "id": "index",
-      "initial": false,
-      "names": [
-        "index",
-      ],
-      "uniqueId": "0-index",
-    },
-  ],
-  "duration": Any<Number>,
-  "modules": [
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./vite/modulepreload-polyfill.js",
-      "size": 1548,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./commonjsHelpers.js",
-      "size": 334,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
-      "size": 27,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560242,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./test-apps/vite/src/getRandomNumber.js",
-      "size": 98,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./test-apps/vite/src/main.js",
-      "size": 163,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./test-apps/vite/index.html",
-      "size": 0,
-    },
-  ],
-  "outputPath": StringContaining "/distV5",
-  "plugin": {
-    "name": "codecov-vite-bundle-analysis-plugin",
-    "version": "1.0.0",
-  },
-  "version": "1",
-}
-`;
-
-exports[`Generating vite stats v5 {"format":"iife","expected":"iife"} matches the snapshot 1`] = `
-{
-  "assets": [
-    {
-      "name": "assets/index-HczW45b9.js",
-      "normalized": "assets/index-*.js",
-      "size": 72356,
-    },
-  ],
-  "builtAt": Any<Number>,
-  "bundleName": StringContaining "test-vite-v5-iife",
-  "bundler": {
-    "name": "rollup",
-    "version": "4.9.6",
-  },
-  "chunks": [
-    {
-      "entry": true,
-      "files": [
-        "assets/index-HczW45b9.js",
-      ],
-      "id": "index",
-      "initial": false,
-      "names": [
-        "index",
-      ],
-      "uniqueId": "0-index",
-    },
-  ],
-  "duration": Any<Number>,
-  "modules": [
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./vite/modulepreload-polyfill.js",
-      "size": 1548,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./commonjsHelpers.js",
-      "size": 334,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
-      "size": 27,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560242,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./test-apps/vite/src/getRandomNumber.js",
-      "size": 98,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./test-apps/vite/src/main.js",
-      "size": 163,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./test-apps/vite/index.html",
-      "size": 0,
-    },
-  ],
-  "outputPath": StringContaining "/distV5",
-  "plugin": {
-    "name": "codecov-vite-bundle-analysis-plugin",
-    "version": "1.0.0",
-  },
-  "version": "1",
-}
-`;
-
-exports[`Generating vite stats v5 {"format":"umd","expected":"umd"} matches the snapshot 1`] = `
-{
-  "assets": [
-    {
-      "name": "assets/index-5tDKlLKo.js",
-      "normalized": "assets/index-*.js",
-      "size": 72423,
-    },
-  ],
-  "builtAt": Any<Number>,
-  "bundleName": StringContaining "test-vite-v5-umd",
-  "bundler": {
-    "name": "rollup",
-    "version": "4.9.6",
-  },
-  "chunks": [
-    {
-      "entry": true,
-      "files": [
-        "assets/index-5tDKlLKo.js",
-      ],
-      "id": "index",
-      "initial": false,
-      "names": [
-        "index",
-      ],
-      "uniqueId": "0-index",
-    },
-  ],
-  "duration": Any<Number>,
-  "modules": [
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./vite/modulepreload-polyfill.js",
-      "size": 1548,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./commonjsHelpers.js",
-      "size": 334,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
-      "size": 27,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560242,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./test-apps/vite/src/getRandomNumber.js",
-      "size": 98,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./test-apps/vite/src/main.js",
-      "size": 163,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./test-apps/vite/index.html",
-      "size": 0,
-    },
-  ],
-  "outputPath": StringContaining "/distV5",
-  "plugin": {
-    "name": "codecov-vite-bundle-analysis-plugin",
-    "version": "1.0.0",
-  },
-  "version": "1",
-}
-`;
-
-exports[`Generating vite stats v5 {"format":"system","expected":"system"} matches the snapshot 1`] = `
-{
-  "assets": [
-    {
-      "name": "assets/index-HjNjZsJ_.js",
-      "normalized": "assets/index-HjNjZsJ_.js",
-      "size": 72405,
-    },
-  ],
-  "builtAt": Any<Number>,
-  "bundleName": StringContaining "test-vite-v5-system",
-  "bundler": {
-    "name": "rollup",
-    "version": "4.9.6",
-  },
-  "chunks": [
-    {
-      "entry": true,
-      "files": [
-        "assets/index-HjNjZsJ_.js",
-      ],
-      "id": "index",
-      "initial": false,
-      "names": [
-        "index",
-      ],
-      "uniqueId": "0-index",
-    },
-  ],
-  "duration": Any<Number>,
-  "modules": [
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./vite/modulepreload-polyfill.js",
-      "size": 1548,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./commonjsHelpers.js",
-      "size": 334,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
-      "size": 27,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560242,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./test-apps/vite/src/getRandomNumber.js",
-      "size": 98,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./test-apps/vite/src/main.js",
-      "size": 163,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./test-apps/vite/index.html",
-      "size": 0,
-    },
-  ],
-  "outputPath": StringContaining "/distV5",
-  "plugin": {
-    "name": "codecov-vite-bundle-analysis-plugin",
-    "version": "1.0.0",
-  },
-  "version": "1",
-}
-`;
-
-exports[`Generating vite stats v5 {"format":"systemjs","expected":"system"} matches the snapshot 1`] = `
-{
-  "assets": [
-    {
-      "name": "assets/index-HjNjZsJ_.js",
-      "normalized": "assets/index-HjNjZsJ_.js",
-      "size": 72405,
-    },
-  ],
-  "builtAt": Any<Number>,
-  "bundleName": StringContaining "test-vite-v5-system",
-  "bundler": {
-    "name": "rollup",
-    "version": "4.9.6",
-  },
-  "chunks": [
-    {
-      "entry": true,
-      "files": [
-        "assets/index-HjNjZsJ_.js",
-      ],
-      "id": "index",
-      "initial": false,
-      "names": [
-        "index",
-      ],
-      "uniqueId": "0-index",
-    },
-  ],
-  "duration": Any<Number>,
-  "modules": [
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./vite/modulepreload-polyfill.js",
-      "size": 1548,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./commonjsHelpers.js",
-      "size": 334,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
-      "size": 27,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560242,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./test-apps/vite/src/getRandomNumber.js",
-      "size": 98,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./test-apps/vite/src/main.js",
-      "size": 163,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-index",
-      ],
-      "name": "./test-apps/vite/index.html",
-      "size": 0,
-    },
-  ],
-  "outputPath": StringContaining "/distV5",
-  "plugin": {
-    "name": "codecov-vite-bundle-analysis-plugin",
-    "version": "1.0.0",
+    "name": StringMatching "@codecov/vite-plugin",
+    "version": "0.0.1-beta.6",
   },
   "version": "1",
 }
@@ -1703,8 +893,818 @@ exports[`Generating vite stats v4 source maps are enabled does not include any s
   ],
   "outputPath": StringContaining "/distV4",
   "plugin": {
-    "name": "codecov-vite-bundle-analysis-plugin",
-    "version": "1.0.0",
+    "name": StringMatching "@codecov/vite-plugin",
+    "version": "0.0.1-beta.6",
+  },
+  "version": "1",
+}
+`;
+
+exports[`Generating vite stats v5 {"format":"amd","expected":"amd"} matches the snapshot 1`] = `
+{
+  "assets": [
+    {
+      "name": "assets/index-neb5ATfh.js",
+      "normalized": "assets/index-*.js",
+      "size": 72360,
+    },
+  ],
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-vite-v5-amd",
+  "bundler": {
+    "name": "rollup",
+    "version": "4.9.6",
+  },
+  "chunks": [
+    {
+      "entry": true,
+      "files": [
+        "assets/index-neb5ATfh.js",
+      ],
+      "id": "index",
+      "initial": false,
+      "names": [
+        "index",
+      ],
+      "uniqueId": "0-index",
+    },
+  ],
+  "duration": Any<Number>,
+  "modules": [
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./vite/modulepreload-polyfill.js",
+      "size": 1548,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./commonjsHelpers.js",
+      "size": 334,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "size": 27,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
+      "size": 560242,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./test-apps/vite/src/getRandomNumber.js",
+      "size": 98,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./test-apps/vite/src/main.js",
+      "size": 163,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./test-apps/vite/index.html",
+      "size": 0,
+    },
+  ],
+  "outputPath": StringContaining "/distV5",
+  "plugin": {
+    "name": StringMatching "@codecov/vite-plugin",
+    "version": "0.0.1-beta.6",
+  },
+  "version": "1",
+}
+`;
+
+exports[`Generating vite stats v5 {"format":"cjs","expected":"cjs"} matches the snapshot 1`] = `
+{
+  "assets": [
+    {
+      "name": "assets/index-9JQbcWYj.js",
+      "normalized": "assets/index-*.js",
+      "size": 72342,
+    },
+  ],
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-vite-v5-cjs",
+  "bundler": {
+    "name": "rollup",
+    "version": "4.9.6",
+  },
+  "chunks": [
+    {
+      "entry": true,
+      "files": [
+        "assets/index-9JQbcWYj.js",
+      ],
+      "id": "index",
+      "initial": false,
+      "names": [
+        "index",
+      ],
+      "uniqueId": "0-index",
+    },
+  ],
+  "duration": Any<Number>,
+  "modules": [
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./vite/modulepreload-polyfill.js",
+      "size": 1548,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./commonjsHelpers.js",
+      "size": 334,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "size": 27,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
+      "size": 560242,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./test-apps/vite/src/getRandomNumber.js",
+      "size": 98,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./test-apps/vite/src/main.js",
+      "size": 163,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./test-apps/vite/index.html",
+      "size": 0,
+    },
+  ],
+  "outputPath": StringContaining "/distV5",
+  "plugin": {
+    "name": StringMatching "@codecov/vite-plugin",
+    "version": "0.0.1-beta.6",
+  },
+  "version": "1",
+}
+`;
+
+exports[`Generating vite stats v5 {"format":"es","expected":"esm"} matches the snapshot 1`] = `
+{
+  "assets": [
+    {
+      "name": "assets/index-snsAD2Cg.js",
+      "normalized": "assets/index-*.js",
+      "size": 73071,
+    },
+  ],
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-vite-v5-esm",
+  "bundler": {
+    "name": "rollup",
+    "version": "4.9.6",
+  },
+  "chunks": [
+    {
+      "entry": true,
+      "files": [
+        "assets/index-snsAD2Cg.js",
+      ],
+      "id": "index",
+      "initial": false,
+      "names": [
+        "index",
+      ],
+      "uniqueId": "0-index",
+    },
+  ],
+  "duration": Any<Number>,
+  "modules": [
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./vite/modulepreload-polyfill.js",
+      "size": 1548,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./commonjsHelpers.js",
+      "size": 334,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "size": 27,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
+      "size": 560242,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./test-apps/vite/src/getRandomNumber.js",
+      "size": 98,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./test-apps/vite/src/main.js",
+      "size": 163,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./test-apps/vite/index.html",
+      "size": 0,
+    },
+  ],
+  "outputPath": StringContaining "/distV5",
+  "plugin": {
+    "name": StringMatching "@codecov/vite-plugin",
+    "version": "0.0.1-beta.6",
+  },
+  "version": "1",
+}
+`;
+
+exports[`Generating vite stats v5 {"format":"esm","expected":"esm"} matches the snapshot 1`] = `
+{
+  "assets": [
+    {
+      "name": "assets/index-snsAD2Cg.js",
+      "normalized": "assets/index-*.js",
+      "size": 73071,
+    },
+  ],
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-vite-v5-esm",
+  "bundler": {
+    "name": "rollup",
+    "version": "4.9.6",
+  },
+  "chunks": [
+    {
+      "entry": true,
+      "files": [
+        "assets/index-snsAD2Cg.js",
+      ],
+      "id": "index",
+      "initial": false,
+      "names": [
+        "index",
+      ],
+      "uniqueId": "0-index",
+    },
+  ],
+  "duration": Any<Number>,
+  "modules": [
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./vite/modulepreload-polyfill.js",
+      "size": 1548,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./commonjsHelpers.js",
+      "size": 334,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "size": 27,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
+      "size": 560242,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./test-apps/vite/src/getRandomNumber.js",
+      "size": 98,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./test-apps/vite/src/main.js",
+      "size": 163,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./test-apps/vite/index.html",
+      "size": 0,
+    },
+  ],
+  "outputPath": StringContaining "/distV5",
+  "plugin": {
+    "name": StringMatching "@codecov/vite-plugin",
+    "version": "0.0.1-beta.6",
+  },
+  "version": "1",
+}
+`;
+
+exports[`Generating vite stats v5 {"format":"module","expected":"esm"} matches the snapshot 1`] = `
+{
+  "assets": [
+    {
+      "name": "assets/index-snsAD2Cg.js",
+      "normalized": "assets/index-*.js",
+      "size": 73071,
+    },
+  ],
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-vite-v5-esm",
+  "bundler": {
+    "name": "rollup",
+    "version": "4.9.6",
+  },
+  "chunks": [
+    {
+      "entry": true,
+      "files": [
+        "assets/index-snsAD2Cg.js",
+      ],
+      "id": "index",
+      "initial": false,
+      "names": [
+        "index",
+      ],
+      "uniqueId": "0-index",
+    },
+  ],
+  "duration": Any<Number>,
+  "modules": [
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./vite/modulepreload-polyfill.js",
+      "size": 1548,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./commonjsHelpers.js",
+      "size": 334,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "size": 27,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
+      "size": 560242,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./test-apps/vite/src/getRandomNumber.js",
+      "size": 98,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./test-apps/vite/src/main.js",
+      "size": 163,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./test-apps/vite/index.html",
+      "size": 0,
+    },
+  ],
+  "outputPath": StringContaining "/distV5",
+  "plugin": {
+    "name": StringMatching "@codecov/vite-plugin",
+    "version": "0.0.1-beta.6",
+  },
+  "version": "1",
+}
+`;
+
+exports[`Generating vite stats v5 {"format":"iife","expected":"iife"} matches the snapshot 1`] = `
+{
+  "assets": [
+    {
+      "name": "assets/index-HczW45b9.js",
+      "normalized": "assets/index-*.js",
+      "size": 72356,
+    },
+  ],
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-vite-v5-iife",
+  "bundler": {
+    "name": "rollup",
+    "version": "4.9.6",
+  },
+  "chunks": [
+    {
+      "entry": true,
+      "files": [
+        "assets/index-HczW45b9.js",
+      ],
+      "id": "index",
+      "initial": false,
+      "names": [
+        "index",
+      ],
+      "uniqueId": "0-index",
+    },
+  ],
+  "duration": Any<Number>,
+  "modules": [
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./vite/modulepreload-polyfill.js",
+      "size": 1548,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./commonjsHelpers.js",
+      "size": 334,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "size": 27,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
+      "size": 560242,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./test-apps/vite/src/getRandomNumber.js",
+      "size": 98,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./test-apps/vite/src/main.js",
+      "size": 163,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./test-apps/vite/index.html",
+      "size": 0,
+    },
+  ],
+  "outputPath": StringContaining "/distV5",
+  "plugin": {
+    "name": StringMatching "@codecov/vite-plugin",
+    "version": "0.0.1-beta.6",
+  },
+  "version": "1",
+}
+`;
+
+exports[`Generating vite stats v5 {"format":"umd","expected":"umd"} matches the snapshot 1`] = `
+{
+  "assets": [
+    {
+      "name": "assets/index-5tDKlLKo.js",
+      "normalized": "assets/index-*.js",
+      "size": 72423,
+    },
+  ],
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-vite-v5-umd",
+  "bundler": {
+    "name": "rollup",
+    "version": "4.9.6",
+  },
+  "chunks": [
+    {
+      "entry": true,
+      "files": [
+        "assets/index-5tDKlLKo.js",
+      ],
+      "id": "index",
+      "initial": false,
+      "names": [
+        "index",
+      ],
+      "uniqueId": "0-index",
+    },
+  ],
+  "duration": Any<Number>,
+  "modules": [
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./vite/modulepreload-polyfill.js",
+      "size": 1548,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./commonjsHelpers.js",
+      "size": 334,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "size": 27,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
+      "size": 560242,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./test-apps/vite/src/getRandomNumber.js",
+      "size": 98,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./test-apps/vite/src/main.js",
+      "size": 163,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./test-apps/vite/index.html",
+      "size": 0,
+    },
+  ],
+  "outputPath": StringContaining "/distV5",
+  "plugin": {
+    "name": StringMatching "@codecov/vite-plugin",
+    "version": "0.0.1-beta.6",
+  },
+  "version": "1",
+}
+`;
+
+exports[`Generating vite stats v5 {"format":"system","expected":"system"} matches the snapshot 1`] = `
+{
+  "assets": [
+    {
+      "name": "assets/index-HjNjZsJ_.js",
+      "normalized": "assets/index-HjNjZsJ_.js",
+      "size": 72405,
+    },
+  ],
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-vite-v5-system",
+  "bundler": {
+    "name": "rollup",
+    "version": "4.9.6",
+  },
+  "chunks": [
+    {
+      "entry": true,
+      "files": [
+        "assets/index-HjNjZsJ_.js",
+      ],
+      "id": "index",
+      "initial": false,
+      "names": [
+        "index",
+      ],
+      "uniqueId": "0-index",
+    },
+  ],
+  "duration": Any<Number>,
+  "modules": [
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./vite/modulepreload-polyfill.js",
+      "size": 1548,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./commonjsHelpers.js",
+      "size": 334,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "size": 27,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
+      "size": 560242,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./test-apps/vite/src/getRandomNumber.js",
+      "size": 98,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./test-apps/vite/src/main.js",
+      "size": 163,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./test-apps/vite/index.html",
+      "size": 0,
+    },
+  ],
+  "outputPath": StringContaining "/distV5",
+  "plugin": {
+    "name": StringMatching "@codecov/vite-plugin",
+    "version": "0.0.1-beta.6",
+  },
+  "version": "1",
+}
+`;
+
+exports[`Generating vite stats v5 {"format":"systemjs","expected":"system"} matches the snapshot 1`] = `
+{
+  "assets": [
+    {
+      "name": "assets/index-HjNjZsJ_.js",
+      "normalized": "assets/index-HjNjZsJ_.js",
+      "size": 72405,
+    },
+  ],
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-vite-v5-system",
+  "bundler": {
+    "name": "rollup",
+    "version": "4.9.6",
+  },
+  "chunks": [
+    {
+      "entry": true,
+      "files": [
+        "assets/index-HjNjZsJ_.js",
+      ],
+      "id": "index",
+      "initial": false,
+      "names": [
+        "index",
+      ],
+      "uniqueId": "0-index",
+    },
+  ],
+  "duration": Any<Number>,
+  "modules": [
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./vite/modulepreload-polyfill.js",
+      "size": 1548,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./commonjsHelpers.js",
+      "size": 334,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "size": 27,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
+      "size": 560242,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./test-apps/vite/src/getRandomNumber.js",
+      "size": 98,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./test-apps/vite/src/main.js",
+      "size": 163,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-index",
+      ],
+      "name": "./test-apps/vite/index.html",
+      "size": 0,
+    },
+  ],
+  "outputPath": StringContaining "/distV5",
+  "plugin": {
+    "name": StringMatching "@codecov/vite-plugin",
+    "version": "0.0.1-beta.6",
   },
   "version": "1",
 }
@@ -1793,8 +1793,8 @@ exports[`Generating vite stats v5 source maps are enabled does not include any s
   ],
   "outputPath": StringContaining "/distV5",
   "plugin": {
-    "name": "codecov-vite-bundle-analysis-plugin",
-    "version": "1.0.0",
+    "name": StringMatching "@codecov/vite-plugin",
+    "version": "0.0.1-beta.6",
   },
   "version": "1",
 }

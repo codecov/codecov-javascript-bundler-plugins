@@ -1,19 +1,43 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
-  codecovUnpluginFactory,
+  type UnpluginOptions,
+  createVitePlugin,
+  type VitePlugin,
+} from "unplugin";
+import {
   type Options,
+  normalizeOptions,
+  red,
+  checkNodeVersion,
+  Output,
 } from "@codecov/bundler-plugin-core";
 
 import { viteBundleAnalysisPlugin } from "./vite-bundle-analysis/viteBundleAnalysisPlugin";
 
-export interface BundleTransformOptions {
-  fileName?: string;
-  moduleOriginalSize?: boolean;
-}
+const codecovVitePluginFactory = createVitePlugin<Options, true>(
+  (userOptions, unpluginMetaContext) => {
+    if (checkNodeVersion(unpluginMetaContext)) {
+      return [];
+    }
 
-const codecovUnplugin = codecovUnpluginFactory({
-  bundleAnalysisUploadPlugin: viteBundleAnalysisPlugin,
-});
+    const normalizedOptions = normalizeOptions(userOptions);
+    if (!normalizedOptions.success) {
+      for (const error of normalizedOptions.errors) {
+        red(error);
+      }
+      return [];
+    }
+
+    const plugins: UnpluginOptions[] = [];
+    const output = new Output(normalizedOptions.options);
+    const options = normalizedOptions.options;
+    if (options.enableBundleAnalysis) {
+      plugins.push(viteBundleAnalysisPlugin({ output }));
+    }
+
+    return plugins;
+  },
+);
 
 /**
  * Details for the Codecov Vite plugin.
@@ -38,5 +62,12 @@ const codecovUnplugin = codecovUnpluginFactory({
  *
  * @see {@link @codecov/bundler-plugin-core!Options | Options} for list of options.
  */
-export const codecovVitePlugin: (options: Options) => any =
-  codecovUnplugin.vite;
+export const codecovVitePlugin: (options: Options) => VitePlugin<any>[] =
+  codecovVitePluginFactory;
+
+/**
+ * Do not use this plugin directly. For internal use only.
+ *
+ * @access package
+ */
+export const _internal_vitePlugin = viteBundleAnalysisPlugin;
