@@ -46,20 +46,22 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
             return;
           }
 
-          // Webpack base chunk format options: https://webpack.js.org/configuration/output/#outputchunkformat
-          if (typeof compilation.outputOptions.chunkFormat === "string") {
-            let chunkFormat = compilation.outputOptions.chunkFormat;
-            if (chunkFormat === "commonjs") {
-              chunkFormat = "cjs";
-            } else if (chunkFormat === "module") {
-              chunkFormat = "esm";
+          if (!output.internalOptions.frozenBundleName) {
+            // Webpack base chunk format options: https://webpack.js.org/configuration/output/#outputchunkformat
+            if (typeof compilation.outputOptions.chunkFormat === "string") {
+              let chunkFormat = compilation.outputOptions.chunkFormat;
+              if (chunkFormat === "commonjs") {
+                chunkFormat = "cjs";
+              } else if (chunkFormat === "module") {
+                chunkFormat = "esm";
+              }
+
+              output.bundleName = `${output.userOptions.bundleName}-${chunkFormat}`;
             }
 
-            output.bundleName = `${output.userOptions.bundleName}-${chunkFormat}`;
-          }
-
-          if (compilation.name && compilation.name !== "") {
-            output.bundleName = `${output.userOptions.bundleName}-${compilation.name}`;
+            if (compilation.name && compilation.name !== "") {
+              output.bundleName = `${output.userOptions.bundleName}-${compilation.name}`;
+            }
           }
 
           const compilationStats = compilation.getStats().toJson({

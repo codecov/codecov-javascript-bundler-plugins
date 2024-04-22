@@ -11,8 +11,14 @@ import { type NormalizedOptions } from "./normalizeOptions.ts";
 import { detectProvider } from "./provider.ts";
 import { uploadStats } from "./uploadStats.ts";
 
+interface InternalOptions {
+  frozenBundleName: boolean;
+  frozenPluginDetails: boolean;
+}
+
 class Output {
   userOptions: NormalizedOptions;
+  internalOptions: InternalOptions;
   bundleName?: string;
   version: string;
   bundler?: {
@@ -33,14 +39,21 @@ class Output {
   constructor(userOptions: NormalizedOptions) {
     this.version = "1";
     this.userOptions = userOptions;
+    this.internalOptions = {
+      frozenBundleName: false,
+      frozenPluginDetails: false,
+    };
   }
 
   start(pluginName: string, pluginVersion: string) {
     this.builtAt = Date.now();
-    this.plugin = {
-      name: pluginName,
-      version: pluginVersion,
-    };
+
+    if (!this.internalOptions.frozenPluginDetails) {
+      this.plugin = {
+        name: pluginName,
+        version: pluginVersion,
+      };
+    }
   }
 
   end() {

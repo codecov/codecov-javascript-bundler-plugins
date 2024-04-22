@@ -39,14 +39,15 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
         return;
       }
 
-      const format = options.format === "es" ? "esm" : options.format;
-
       // append bundle output format to bundle name
-      output.bundleName = `${output.userOptions.bundleName}-${format}`;
+      if (!output.internalOptions.frozenBundleName) {
+        const format = options.format === "es" ? "esm" : options.format;
+        output.bundleName = `${output.userOptions.bundleName}-${format}`;
 
-      // add in bundle name if present
-      if (options.name && options.name !== "") {
-        output.bundleName = `${output.userOptions.bundleName}-${options.name}`;
+        // add in bundle name if present
+        if (options.name && options.name !== "") {
+          output.bundleName = `${output.userOptions.bundleName}-${options.name}`;
+        }
       }
 
       const cwd = process.cwd();
