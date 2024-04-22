@@ -49,7 +49,7 @@ jobs:
             ${{ runner.os }}-${{ env.cache-name }}-
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --ignore-scripts
 
   lint:
     name: Run Lint
