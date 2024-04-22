@@ -35,6 +35,7 @@
     "test:unit": "vitest run",
     "test:unit:watch": "vitest watch",
     "test:unit:ci": "vitest --coverage --reporter=junit --outputFile=./bundler-plugin-core.junit.xml",
+    "test:unit:update": "vitest -u run",
     "generate:typedoc": "typedoc --options ./typedoc.json"
   },
   "dependencies": {

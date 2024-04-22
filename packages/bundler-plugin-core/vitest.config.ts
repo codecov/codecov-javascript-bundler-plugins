@@ -1,17 +1,6 @@
-import { defineConfig } from "vitest/config";
-import tsconfigPaths from "vite-tsconfig-paths";
+import { defineProject } from "vitest/config";
+import { config } from "../../vitest.shared";
 
-export default defineConfig({
-  test: {
-    environment: "node",
-    coverage: {
-      include: [
-        "src/**/*.ts",
-        "src/**/*.tsx",
-        "!**/node_modules/**",
-        "!test/helpers.ts",
-      ],
-    },
-  },
-  plugins: [tsconfigPaths()],
+export default defineProject({
+  ...config,
 });
