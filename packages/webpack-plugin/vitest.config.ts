@@ -1,20 +1,11 @@
-import { defineConfig } from "vitest/config";
-import tsconfigPaths from "vite-tsconfig-paths";
+import { defineProject } from "vitest/config";
 import replace from "@rollup/plugin-replace";
-import packageJson from "./package.json";
+import { config, plugins } from "../../vitest.shared";
 
-export default defineConfig({
-  test: {
-    environment: "node",
-    coverage: {
-      include: [
-        "src/**/*.ts",
-        "src/**/*.tsx",
-        "!**/node_modules/**",
-        "!test/helpers.ts",
-      ],
-    },
-  },
+const packageJson = await import("./package.json");
+
+export default defineProject({
+  ...config,
   plugins: [
     // @ts-expect-error - using rollup plugin
     {
@@ -27,6 +18,6 @@ export default defineConfig({
       }),
       enforce: "pre",
     },
-    tsconfigPaths(),
+    ...plugins,
   ],
 });
