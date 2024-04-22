@@ -7,12 +7,8 @@ export const config = defineConfig({
   test: {
     environment: "node",
     coverage: {
-      include: [
-        "src/**/*.ts",
-        "src/**/*.tsx",
-        "!**/node_modules/**",
-        "!test/helpers.ts",
-      ],
+      provider: "v8",
+      include: ["src/**/*.ts", "!**/node_modules/**", "!test/helpers.ts"],
     },
   },
   plugins,
