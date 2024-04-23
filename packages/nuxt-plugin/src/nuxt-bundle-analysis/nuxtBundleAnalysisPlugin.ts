@@ -25,33 +25,28 @@ export const nuxtBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
         return;
       }
 
-      output.bundleName = output.userOptions.bundleName;
+      output.setBundleName(output.userOptions.bundleName);
       // add in bundle name if present
       if (options.name && options.name !== "") {
-        output.bundleName = `${output.userOptions.bundleName}-${options.name}`;
+        output.setBundleName(`${output.bundleName}-${options.name}`);
       }
 
       if (options.dir?.includes("server")) {
-        output.bundleName = `${output.bundleName}-server`;
+        output.setBundleName(`${output.userOptions.bundleName}-server`, {
+          frozen: false,
+        });
       } else if (options.dir?.includes("client")) {
-        output.bundleName = `${output.bundleName}-client`;
+        output.setBundleName(`${output.userOptions.bundleName}-client`, {
+          frozen: false,
+        });
       }
 
       // append bundle output format to bundle name
       const format = options.format === "es" ? "esm" : options.format;
-      output.bundleName = `${output.bundleName}-${format}`;
-
-      // lock the bundle name
-      output.internalOptions.frozenBundleName = true;
+      output.setBundleName(`${output.bundleName}-${format}`, { frozen: true });
 
       // manually set this to avoid resetting in the vite plugin
-      output.plugin = {
-        name: PLUGIN_NAME,
-        version: PLUGIN_VERSION,
-      };
-
-      // lock out the plugin details
-      output.internalOptions.frozenPluginDetails = true;
+      output.setPlugin(PLUGIN_NAME, PLUGIN_VERSION, { frozen: true });
     },
   },
 });

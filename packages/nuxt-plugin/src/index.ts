@@ -43,5 +43,5 @@ const codecovNuxtPluginFactory = createVitePlugin<Options, true>(
   },
 );
 
-export const codecovNuxtPlugin: (options: Options) => VitePlugin<any>[] =
+export const codecovNuxtPlugin: (options: Options) => VitePlugin[] =
   codecovNuxtPluginFactory;

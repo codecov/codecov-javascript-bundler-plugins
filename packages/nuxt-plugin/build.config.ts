@@ -1,7 +1,6 @@
 import { defineBuildConfig } from "unbuild";
 import { codecovRollupPlugin } from "codecovProdRollupPlugin";
-
-const packageJson = await import("./package.json");
+import packageJson from "./package.json";
 
 export default defineBuildConfig({
   entries: ["./src/index"],
