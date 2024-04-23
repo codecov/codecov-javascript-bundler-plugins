@@ -7,7 +7,12 @@ console.log("connected to sqlite");
 
 console.log('creating "stats" table');
 const query = sqlite.query(
-  "CREATE TABLE `stats` (`id` text, `bundle_name` text UNIQUE, `json_stats` text);",
+  `CREATE TABLE "stats" (
+    "id" text,
+    "bundle_name" text,
+    "json_stats" text,
+    PRIMARY KEY ("id", "bundle_name")
+  );`,
 );
 query.run();
 console.log('created "stats" table');
@@ -55,7 +60,7 @@ app.all("/file-upload/:id/:status{[0-9]{3}}", async (c) => {
   const data: { bundleName: string } = await c.req.json();
   console.log("finished upload");
 
-  console.log("inserting stats");
+  console.log("inserting stats for", data.bundleName);
   const bundleName = data!.bundleName;
   const insertStats = JSON.stringify(data);
   const query = sqlite.query(
@@ -88,14 +93,15 @@ app.all("/get-stats/:id", (c) => {
   return c.text("Not found", { status: 404 });
 });
 
-app.all("/get-stats-by-bundle-name/:bundleName", (c) => {
+app.all("/get-stats-by-bundle-name/:id/:bundleName", (c) => {
+  const id = c.req.param("id");
   const bundleName = c.req.param("bundleName");
   console.log("getting stats", bundleName);
 
   const query = sqlite.query(
-    "SELECT * FROM stats WHERE bundle_name = $bundleName",
+    "SELECT * FROM stats WHERE bundle_name = $bundleName AND id = $id",
   );
-  const result = query.get({ $bundleName: bundleName }) as {
+  const result = query.get({ $bundleName: bundleName, $id: id }) as {
     id: string;
     json_stats: string;
   };
