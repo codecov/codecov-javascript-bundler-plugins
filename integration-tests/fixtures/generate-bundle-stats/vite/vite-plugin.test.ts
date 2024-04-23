@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { $ } from "bun";
 import { describe, it, expect, afterEach, beforeEach } from "bun:test";
-import { createConfig } from "../../../scripts/gen-config";
+import { GenerateConfig } from "../../../scripts/gen-config";
 
 const vitePath = (version: number) =>
   `node_modules/viteV${version}/bin/vite.js`;
@@ -27,7 +27,7 @@ describe("Generating vite stats", () => {
   describe.each(VERSIONS)("v%d", (version) => {
     describe.each(FORMATS)("%o", ({ format, expected }) => {
       beforeEach(async () => {
-        await createConfig({
+        const config = new GenerateConfig({
           bundler: "vite",
           format,
           detectFormat: "esm",
@@ -36,6 +36,9 @@ describe("Generating vite stats", () => {
           file_format: "ts",
           enableSourceMaps: false,
         });
+
+        await config.createConfig();
+        await config.writeConfig();
       });
 
       afterEach(async () => {
@@ -74,7 +77,7 @@ describe("Generating vite stats", () => {
 
     describe("source maps are enabled", () => {
       beforeEach(async () => {
-        await createConfig({
+        const config = new GenerateConfig({
           bundler: "vite",
           format: "esm",
           detectFormat: "esm",
@@ -83,6 +86,9 @@ describe("Generating vite stats", () => {
           file_format: "ts",
           enableSourceMaps: true,
         });
+
+        await config.createConfig();
+        await config.writeConfig();
       });
 
       afterEach(async () => {
