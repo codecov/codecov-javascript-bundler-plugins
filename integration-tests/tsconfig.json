@@ -1,6 +1,6 @@
 {
   "extends": "../tsconfig.json",
-  "include": ["fixtures/**/*", "test-api/**/*"],
+  "include": ["fixtures/**/*", "test-api/**/*", "scripts/**/*"],
   "exclude": [
     "coverage/**/*",
     "node_modules/**/*",
