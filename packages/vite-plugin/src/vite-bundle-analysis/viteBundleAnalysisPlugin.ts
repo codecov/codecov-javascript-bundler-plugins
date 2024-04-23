@@ -20,7 +20,8 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
   name: PLUGIN_NAME,
   pluginVersion: PLUGIN_VERSION,
   buildStart: () => {
-    output.start(PLUGIN_NAME, PLUGIN_VERSION);
+    output.start();
+    output.setPlugin(PLUGIN_NAME, PLUGIN_VERSION);
   },
   buildEnd: () => {
     output.end();
@@ -39,16 +40,15 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
         return;
       }
 
-      // append bundle output format to bundle name
-      if (!output.internalOptions.frozenBundleName) {
-        const format = options.format === "es" ? "esm" : options.format;
-        output.bundleName = `${output.userOptions.bundleName}-${format}`;
-
-        // add in bundle name if present
-        if (options.name && options.name !== "") {
-          output.bundleName = `${output.userOptions.bundleName}-${options.name}`;
-        }
+      output.setBundleName(output.userOptions.bundleName);
+      // add in bundle name if present
+      if (options.name && options.name !== "") {
+        output.setBundleName(`${output.bundleName}-${options.name}`);
       }
+
+      // append bundle output format to bundle name
+      const format = options.format === "es" ? "esm" : options.format;
+      output.setBundleName(`${output.bundleName}-${format}`);
 
       const cwd = process.cwd();
       const assets: Asset[] = [];
@@ -182,7 +182,7 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
         this.emitFile({
           type: "asset",
           fileName: `${output.bundleName}-stats.json`,
-          source: JSON.stringify(output),
+          source: output.formatPayload(),
         });
       }
     },

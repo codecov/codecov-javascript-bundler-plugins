@@ -21,7 +21,8 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
   name: PLUGIN_NAME,
   pluginVersion: PLUGIN_VERSION,
   buildStart: () => {
-    output.start(PLUGIN_NAME, PLUGIN_VERSION);
+    output.start();
+    output.setPlugin(PLUGIN_NAME, PLUGIN_VERSION);
   },
   buildEnd: () => {
     output.end();
@@ -46,22 +47,21 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
             return;
           }
 
-          if (!output.internalOptions.frozenBundleName) {
-            // Webpack base chunk format options: https://webpack.js.org/configuration/output/#outputchunkformat
-            if (typeof compilation.outputOptions.chunkFormat === "string") {
-              let chunkFormat = compilation.outputOptions.chunkFormat;
-              if (chunkFormat === "commonjs") {
-                chunkFormat = "cjs";
-              } else if (chunkFormat === "module") {
-                chunkFormat = "esm";
-              }
-
-              output.bundleName = `${output.userOptions.bundleName}-${chunkFormat}`;
-            }
-
+          output.setBundleName(output.userOptions.bundleName);
+          // Webpack base chunk format options: https://webpack.js.org/configuration/output/#outputchunkformat
+          if (typeof compilation.outputOptions.chunkFormat === "string") {
             if (compilation.name && compilation.name !== "") {
-              output.bundleName = `${output.userOptions.bundleName}-${compilation.name}`;
+              output.setBundleName(`${output.bundleName}-${compilation.name}`);
             }
+
+            let chunkFormat = compilation.outputOptions.chunkFormat;
+            if (chunkFormat === "commonjs") {
+              chunkFormat = "cjs";
+            } else if (chunkFormat === "module") {
+              chunkFormat = "esm";
+            }
+
+            output.setBundleName(`${output.bundleName}-${chunkFormat}`);
           }
 
           const compilationStats = compilation.getStats().toJson({
@@ -177,7 +177,7 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
             const { RawSource } = webpack.sources;
             compilation.emitAsset(
               `${output.bundleName}-stats.json`,
-              new RawSource(JSON.stringify(output)),
+              new RawSource(output.formatPayload()),
             );
           }
         },

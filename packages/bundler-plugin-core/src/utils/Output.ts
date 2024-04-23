@@ -16,10 +16,18 @@ interface InternalOptions {
   frozenPluginDetails: boolean;
 }
 
+interface SetPluginOptions {
+  frozen?: boolean;
+}
+
+interface SetBundleNameOptions {
+  frozen?: boolean;
+}
+
 class Output {
   userOptions: NormalizedOptions;
-  internalOptions: InternalOptions;
-  bundleName?: string;
+  private internalOptions: InternalOptions;
+  private internalBundleName?: string;
   version: string;
   bundler?: {
     name: string;
@@ -31,7 +39,7 @@ class Output {
   assets?: Asset[];
   chunks?: Chunk[];
   modules?: Module[];
-  plugin?: {
+  private internalPlugin?: {
     name: string;
     version: string;
   };
@@ -45,19 +53,63 @@ class Output {
     };
   }
 
-  start(pluginName: string, pluginVersion: string) {
+  start() {
     this.builtAt = Date.now();
-
-    if (!this.internalOptions.frozenPluginDetails) {
-      this.plugin = {
-        name: pluginName,
-        version: pluginVersion,
-      };
-    }
   }
 
   end() {
     this.duration = Date.now() - (this.builtAt ?? 0);
+  }
+
+  setBundleName(bundleName: string, options?: SetPluginOptions) {
+    // if set to false, unfreeze the plugin details
+    if (typeof options?.frozen === "boolean" && !options.frozen) {
+      this.internalOptions.frozenBundleName = options.frozen;
+    }
+
+    if (!this.internalOptions.frozenBundleName) {
+      this.internalBundleName = bundleName;
+    }
+
+    // lock back up if frozen is set to true
+    if (typeof options?.frozen === "boolean" && options.frozen) {
+      this.internalOptions.frozenBundleName = options.frozen;
+    }
+
+    return this.internalBundleName ?? this.userOptions.bundleName;
+  }
+
+  get bundleName() {
+    return this.internalBundleName ?? this.userOptions.bundleName;
+  }
+
+  setPlugin(
+    pluginName: string,
+    pluginVersion: string,
+    options?: SetBundleNameOptions,
+  ) {
+    // if set to false, unfreeze the plugin details
+    if (typeof options?.frozen === "boolean" && !options.frozen) {
+      this.internalOptions.frozenPluginDetails = options?.frozen;
+    }
+
+    if (!this.internalOptions.frozenPluginDetails) {
+      this.internalPlugin = {
+        name: pluginName,
+        version: pluginVersion,
+      };
+    }
+
+    // lock back up if frozen is set to true
+    if (typeof options?.frozen === "boolean" && options.frozen) {
+      this.internalOptions.frozenPluginDetails = options?.frozen;
+    }
+
+    return this.internalPlugin;
+  }
+
+  get plugin() {
+    return this.internalPlugin;
   }
 
   async write() {
@@ -86,7 +138,7 @@ class Output {
     try {
       await uploadStats({
         preSignedUrl: url,
-        bundleName: this.userOptions.bundleName,
+        bundleName: this.bundleName,
         message: this.formatPayload(),
         retryCount: this.userOptions?.retryCount,
       });

@@ -20,7 +20,8 @@ export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
   name: PLUGIN_NAME,
   pluginVersion: PLUGIN_VERSION,
   buildStart: () => {
-    output.start(PLUGIN_NAME, PLUGIN_VERSION);
+    output.start();
+    output.setPlugin(PLUGIN_NAME, PLUGIN_VERSION);
   },
   buildEnd: () => {
     output.end();
@@ -39,16 +40,14 @@ export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
         return;
       }
 
-      const format = options.format === "es" ? "esm" : options.format;
-
-      // append bundle output format to bundle name
-      if (!output.internalOptions.frozenBundleName) {
-        output.bundleName = `${output.userOptions.bundleName}-${format}`;
-
-        if (options.name && options.name !== "") {
-          output.bundleName = `${output.userOptions.bundleName}-${options.name}`;
-        }
+      output.setBundleName(output.userOptions.bundleName);
+      if (options.name && options.name !== "") {
+        output.setBundleName(`${output.bundleName}-${options.name}`);
       }
+
+      const format = options.format === "es" ? "esm" : options.format;
+      // append bundle output format to bundle name
+      output.setBundleName(`${output.bundleName}-${format}`);
 
       const cwd = process.cwd();
       const assets: Asset[] = [];
@@ -181,7 +180,7 @@ export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
         this.emitFile({
           type: "asset",
           fileName: `${output.bundleName}-stats.json`,
-          source: JSON.stringify(output),
+          source: output.formatPayload(),
         });
       }
     },
