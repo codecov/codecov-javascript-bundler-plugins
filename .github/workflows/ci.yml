@@ -195,21 +195,21 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_ORG_TOKEN }}
           url: ${{ secrets.CODECOV_URL }}
-      
+
       - name: Upload coverage reports to codecov (Staging)
         if: ${{ !github.event.pull_request.head.repo.fork && github.repository_owner == 'codecov' }}
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
           url: ${{ secrets.CODECOV_STAGING_URL }}
-      
+
       - name: Upload test result reports to codecov
         if: ${{ !cancelled() && !github.event.pull_request.head.repo.fork && github.repository_owner == 'codecov' }}
         uses: codecov/test-results-action@v1
         with:
           token: ${{ secrets.CODECOV_ORG_TOKEN }}
           url: ${{ secrets.CODECOV_URL }}
-      
+
       - name: Upload test result reports to codecov (Staging)
         if: ${{ !cancelled() && !github.event.pull_request.head.repo.fork && github.repository_owner == 'codecov' }}
         uses: codecov/test-results-action@v1
@@ -279,7 +279,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        example: ["next-js", "rollup", "vite", "webpack"]
+        example: ["next-js", "nuxt", "rollup", "vite", "webpack"]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -342,7 +342,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        example: ["next-js", "rollup", "vite", "webpack"]
+        example: ["next-js", "nuxt", "rollup", "vite", "webpack"]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -408,6 +408,7 @@ jobs:
         package:
           [
             "bundler-plugin-core",
+            "nuxt-plugin",
             "rollup-plugin",
             "vite-plugin",
             "webpack-plugin",
@@ -471,6 +472,7 @@ jobs:
         package:
           [
             "bundler-plugin-core",
+            "nuxt-plugin",
             "rollup-plugin",
             "vite-plugin",
             "webpack-plugin",
