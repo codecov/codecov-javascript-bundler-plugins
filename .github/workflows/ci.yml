@@ -270,9 +270,7 @@ jobs:
         run: pnpm run build
 
       - name: Run e2e tests
-        run: |
-          cd integration-tests
-          pnpm run test:e2e:nuxt
+        run: pnpm run test:e2e
 
   upload-example-stats-production:
     name: "Production: upload ${{ matrix.example }} stats"
