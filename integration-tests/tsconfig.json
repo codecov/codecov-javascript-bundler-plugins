@@ -1,11 +1,12 @@
 {
   "extends": "../tsconfig.json",
-  "include": ["fixtures/**/*", "test-api/**/*", "scripts/**/*"],
+  "include": ["fixtures/**/*", "scripts/**/*"],
   "exclude": [
     "coverage/**/*",
     "node_modules/**/*",
     "./test-apps/**/*",
     "fixtures/**/*.cjs",
+    "test-api/**/*",
   ],
   "compilerOptions": {
     "types": ["node"],
