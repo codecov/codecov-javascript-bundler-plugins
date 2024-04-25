@@ -1,9 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-  type UnpluginOptions,
-  createVitePlugin,
-  type VitePlugin,
-} from "unplugin";
+import { type UnpluginOptions, createVitePlugin } from "unplugin";
 import {
   type Options,
   normalizeOptions,
@@ -11,9 +7,14 @@ import {
   checkNodeVersion,
   Output,
 } from "@codecov/bundler-plugin-core";
-import { _internal_vitePlugin } from "@codecov/vite-plugin";
+import { _internal_viteBundleAnalysisPlugin } from "@codecov/vite-plugin";
+import { addVitePlugin, defineNuxtModule } from "@nuxt/kit";
 
 import { nuxtBundleAnalysisPlugin } from "./nuxt-bundle-analysis/nuxtBundleAnalysisPlugin";
+import { type NuxtModule } from "nuxt/schema";
+
+// @ts-expect-error - This is a placeholder for the package name.
+const PLUGIN_NAME = __PACKAGE_NAME__ as string;
 
 const codecovNuxtPluginFactory = createVitePlugin<Options, true>(
   (userOptions, unpluginMetaContext) => {
@@ -35,7 +36,7 @@ const codecovNuxtPluginFactory = createVitePlugin<Options, true>(
     if (options.enableBundleAnalysis) {
       plugins.push(
         nuxtBundleAnalysisPlugin({ output }),
-        _internal_vitePlugin({ output }),
+        _internal_viteBundleAnalysisPlugin({ output }),
       );
     }
 
@@ -43,5 +44,38 @@ const codecovNuxtPluginFactory = createVitePlugin<Options, true>(
   },
 );
 
-export const codecovNuxtPlugin: (options: Options) => VitePlugin[] =
-  codecovNuxtPluginFactory;
+/**
+ * Details for the Codecov Nuxt module.
+ *
+ * @example
+ * ```typescript
+ * // nuxt.config.ts
+ * // https://nuxt.com/docs/api/configuration/nuxt-config
+ * export default defineNuxtConfig({
+ *   builder: "vite"
+ *   modules: [
+ *     [
+ *       "@codecov/nuxt-plugin",
+ *       {
+ *         enableBundleAnalysis: true,
+ *         bundleName: "example-nuxt-app",
+ *         uploadToken: process.env.CODECOV_TOKEN,
+ *       },
+ *     ],
+ *   ],
+ * });
+ * ```
+ *
+ * @see {@link @codecov/bundler-plugin-core!Options | Options} for list of options.
+ */
+const codecovNuxtPlugin: NuxtModule<Options> = defineNuxtModule<Options>({
+  meta: {
+    name: PLUGIN_NAME,
+    configKey: "codecovNuxtPlugin",
+  },
+  setup(options) {
+    addVitePlugin(() => codecovNuxtPluginFactory(options));
+  },
+});
+
+export default codecovNuxtPlugin;
