@@ -6,12 +6,15 @@
 
 # Codecov Nuxt Plugin
 
-> [!WARNING]  
+> [!WARNING]
 > These plugins are currently in beta and are subject to change.
-
+>
 > A Nuxt plugin that provides bundle analysis support for Codecov.
 >
 > The plugin does not support code coverage, see our [docs](https://docs.codecov.com/docs/quick-start) to set up coverage today!
+
+> [!NOTE]
+> This plugin only support Nuxt 3.x when building with Vite.
 
 ## Installation
 
@@ -38,21 +41,22 @@ pnpm add @codecov/nuxt-plugin --save-dev
 ```js
 // nuxt.config.ts
 import { defineNuxtConfig } from "nuxt/config";
-import { codecovNuxtPlugin } from "@codecov/nuxt-plugin";
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  // Ensure that the plugin is added to the vite plugins field
-  vite: {
-    plugins: [
-      // Put the Codecov nuxt plugin after all other plugins
-      codecovNuxtPlugin({
+  // Ensure that the builder is set to "vite"
+  builder: "vite",
+  // Ensure that the plugin is added to the modules array
+  modules: [
+    [
+      "@codecov/nuxt-plugin",
+      {
         enableBundleAnalysis: true,
         bundleName: "nuxt-bundle-analysis",
         uploadToken: process.env.CODECOV_UPLOAD_TOKEN,
-      }),
+      },
     ],
-  },
+  ],
 });
 ```
 

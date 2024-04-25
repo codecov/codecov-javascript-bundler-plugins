@@ -50,16 +50,20 @@ const codecovNuxtPluginFactory = createVitePlugin<Options, true>(
  * @example
  * ```typescript
  * // nuxt.config.ts
- * // https://nuxt.com/docs/api/configuration/nuxt-config
+ * import { defineNuxtConfig } from "nuxt/config";
+ *
  * export default defineNuxtConfig({
- *   builder: "vite"
+ *   devtools: { enabled: true },
+ *   w
+ *   builder: "vite",
+ *   // Ensure that the plugin is added to the modules array
  *   modules: [
  *     [
  *       "@codecov/nuxt-plugin",
  *       {
  *         enableBundleAnalysis: true,
- *         bundleName: "example-nuxt-app",
- *         uploadToken: process.env.CODECOV_TOKEN,
+ *         bundleName: "nuxt-bundle-analysis",
+ *         uploadToken: process.env.CODECOV_UPLOAD_TOKEN,
  *       },
  *     ],
  *   ],
