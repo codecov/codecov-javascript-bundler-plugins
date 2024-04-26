@@ -32,7 +32,7 @@ describe("Generating vite stats", () => {
           format,
           detectFormat: "esm",
           version: `v${version}`,
-          detectVersion: "v4",
+          detectVersion: "v5",
           file_format: "ts",
           enableSourceMaps: false,
         });
@@ -82,7 +82,7 @@ describe("Generating vite stats", () => {
           format: "esm",
           detectFormat: "esm",
           version: `v${version}`,
-          detectVersion: "v4",
+          detectVersion: "v5",
           file_format: "ts",
           enableSourceMaps: true,
         });
