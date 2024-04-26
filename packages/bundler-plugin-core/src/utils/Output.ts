@@ -25,12 +25,20 @@ interface SetBundleNameOptions {
 }
 
 class Output {
-  userOptions: NormalizedOptions;
-  #internalOptions: InternalOptions = {
-    frozenBundleName: false,
-    frozenPluginDetails: false,
-  };
-  #internalBundleName: string;
+  // base user options
+  apiUrl: string;
+  dryRun: boolean;
+  retryCount: number;
+  enableBundleAnalysis: boolean;
+  uploadToken?: string;
+  debug: boolean;
+  // uploader overrides
+  branch?: string;
+  build?: string;
+  pr?: string;
+  sha?: string;
+  slug?: string;
+  // bundle analysis properties
   version: string;
   bundler?: {
     name: string;
@@ -42,14 +50,34 @@ class Output {
   assets?: Asset[];
   chunks?: Chunk[];
   modules?: Module[];
+  // internal options/properties
+  #internalBundleName: string;
   #internalPlugin?: {
     name: string;
     version: string;
   };
+  #internalOptions: InternalOptions = {
+    frozenBundleName: false,
+    frozenPluginDetails: false,
+  };
 
   constructor(userOptions: NormalizedOptions) {
     this.version = "1";
-    this.userOptions = userOptions;
+    this.apiUrl = userOptions.apiUrl;
+    this.dryRun = userOptions.dryRun;
+    this.retryCount = userOptions.retryCount;
+    this.enableBundleAnalysis = userOptions.enableBundleAnalysis;
+    this.uploadToken = userOptions.uploadToken;
+    this.debug = userOptions.debug;
+
+    if (userOptions.uploadOverrides) {
+      this.branch = userOptions.uploadOverrides.branch;
+      this.build = userOptions.uploadOverrides.build;
+      this.pr = userOptions.uploadOverrides.pr;
+      this.sha = userOptions.uploadOverrides.sha;
+      this.slug = userOptions.uploadOverrides.slug;
+    }
+
     this.#internalBundleName = userOptions.bundleName;
   }
 
@@ -113,12 +141,17 @@ class Output {
   }
 
   async write() {
-    if (this.userOptions.dryRun) return;
+    if (this.dryRun) return;
 
-    if (!this.userOptions.bundleName || this.userOptions.bundleName === "")
-      return;
+    if (!this.bundleName || this.bundleName === "") return;
 
-    const args: UploadOverrides = this.userOptions.uploadOverrides ?? {};
+    const args: UploadOverrides = {
+      branch: this.branch,
+      build: this.build,
+      pr: this.pr,
+      sha: this.sha,
+      slug: this.slug,
+    };
     const envs = process.env;
     const inputs: ProviderUtilInputs = { envs, args };
     const provider = await detectProvider(inputs);
@@ -126,10 +159,10 @@ class Output {
     let url = "";
     try {
       url = await getPreSignedURL({
-        apiURL: this.userOptions?.apiUrl ?? "https://api.codecov.io",
-        uploadToken: this.userOptions?.uploadToken,
+        apiURL: this?.apiUrl ?? "https://api.codecov.io",
+        uploadToken: this?.uploadToken,
         serviceParams: provider,
-        retryCount: this.userOptions?.retryCount,
+        retryCount: this?.retryCount,
       });
     } catch (error) {
       return;
@@ -139,8 +172,8 @@ class Output {
       await uploadStats({
         preSignedUrl: url,
         bundleName: this.bundleName,
-        message: this.formatPayload(),
-        retryCount: this.userOptions?.retryCount,
+        message: this.bundleStatsToJson(),
+        retryCount: this?.retryCount,
       });
     } catch (error) {
       return;
@@ -149,7 +182,7 @@ class Output {
     return;
   }
 
-  formatPayload() {
+  bundleStatsToJson() {
     const payload: OutputPayload = {
       version: this.version,
       builtAt: this.builtAt,
