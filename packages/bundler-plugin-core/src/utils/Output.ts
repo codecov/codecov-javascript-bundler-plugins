@@ -11,19 +11,6 @@ import { type NormalizedOptions } from "./normalizeOptions.ts";
 import { detectProvider } from "./provider.ts";
 import { uploadStats } from "./uploadStats.ts";
 
-interface InternalOptions {
-  frozenBundleName: boolean;
-  frozenPluginDetails: boolean;
-}
-
-interface SetPluginOptions {
-  frozen?: boolean;
-}
-
-interface SetBundleNameOptions {
-  frozen?: boolean;
-}
-
 class Output {
   // base user options
   apiUrl: string;
@@ -32,6 +19,7 @@ class Output {
   enableBundleAnalysis: boolean;
   uploadToken?: string;
   debug: boolean;
+  originalBundleName: string;
   // uploader overrides
   branch?: string;
   build?: string;
@@ -56,9 +44,9 @@ class Output {
     name: string;
     version: string;
   };
-  #internalOptions: InternalOptions = {
-    frozenBundleName: false,
-    frozenPluginDetails: false,
+  #internalLocks = {
+    bundleName: false,
+    pluginDetails: false,
   };
 
   constructor(userOptions: NormalizedOptions) {
@@ -69,6 +57,7 @@ class Output {
     this.enableBundleAnalysis = userOptions.enableBundleAnalysis;
     this.uploadToken = userOptions.uploadToken;
     this.debug = userOptions.debug;
+    this.originalBundleName = userOptions.bundleName;
 
     if (userOptions.uploadOverrides) {
       this.branch = userOptions.uploadOverrides.branch;
@@ -89,19 +78,17 @@ class Output {
     this.duration = Date.now() - (this.builtAt ?? 0);
   }
 
-  setBundleName(bundleName: string, options: SetPluginOptions = {}) {
-    // if set to false, unfreeze the plugin details
-    if (typeof options.frozen === "boolean" && !options.frozen) {
-      this.#internalOptions.frozenBundleName = options.frozen;
-    }
+  lockBundleName() {
+    this.#internalLocks.bundleName = true;
+  }
 
-    if (!this.#internalOptions.frozenBundleName) {
+  unlockBundleName() {
+    this.#internalLocks.bundleName = false;
+  }
+
+  setBundleName(bundleName: string) {
+    if (!this.#internalLocks.bundleName) {
       this.#internalBundleName = bundleName;
-    }
-
-    // lock back up if frozen is set to true
-    if (typeof options.frozen === "boolean" && options.frozen) {
-      this.#internalOptions.frozenBundleName = options.frozen;
     }
 
     return this.#internalBundleName;
@@ -111,26 +98,12 @@ class Output {
     return this.#internalBundleName;
   }
 
-  setPlugin(
-    pluginName: string,
-    pluginVersion: string,
-    options?: SetBundleNameOptions,
-  ) {
-    // if set to false, unfreeze the plugin details
-    if (typeof options?.frozen === "boolean" && !options.frozen) {
-      this.#internalOptions.frozenPluginDetails = options?.frozen;
-    }
-
-    if (!this.#internalOptions.frozenPluginDetails) {
+  setPlugin(pluginName: string, pluginVersion: string) {
+    if (!this.#internalLocks.pluginDetails) {
       this.#internalPlugin = {
         name: pluginName,
         version: pluginVersion,
       };
-    }
-
-    // lock back up if frozen is set to true
-    if (typeof options?.frozen === "boolean" && options.frozen) {
-      this.#internalOptions.frozenPluginDetails = options?.frozen;
     }
 
     return this.#internalPlugin;
@@ -138,6 +111,14 @@ class Output {
 
   get plugin() {
     return this.#internalPlugin;
+  }
+
+  lockPluginDetails() {
+    this.#internalLocks.pluginDetails = true;
+  }
+
+  unlockPluginDetails() {
+    this.#internalLocks.pluginDetails = false;
   }
 
   async write() {

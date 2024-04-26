@@ -188,7 +188,7 @@ describe("Output", () => {
       });
     });
 
-    describe("freezing the plugin details", () => {
+    describe("locking the plugin details", () => {
       it("does not change the plugin details", () => {
         const output = new Output({
           apiUrl: "http://localhost",
@@ -200,7 +200,8 @@ describe("Output", () => {
           uploadToken: "token",
         });
 
-        output.setPlugin("test-plugin", "0.0.1", { frozen: true });
+        output.setPlugin("test-plugin", "0.0.1");
+        output.lockPluginDetails();
         output.setPlugin("new-plugin", "1.0.0");
 
         expect(output.plugin).toStrictEqual({
@@ -212,7 +213,7 @@ describe("Output", () => {
   });
 
   describe("setBundleName method", () => {
-    describe("frozen is not set", () => {
+    describe("bundle name is not locked", () => {
       it("sets the bundle name", () => {
         const output = new Output({
           apiUrl: "http://localhost",
@@ -230,7 +231,7 @@ describe("Output", () => {
       });
     });
 
-    describe("frozen is set", () => {
+    describe("bundle name is locked", () => {
       it("does not change the bundle name", () => {
         const output = new Output({
           apiUrl: "http://localhost",
@@ -242,7 +243,8 @@ describe("Output", () => {
           uploadToken: "token",
         });
 
-        output.setBundleName("new-bundle", { frozen: true });
+        output.setBundleName("new-bundle");
+        output.lockBundleName();
         output.setBundleName("new-bundle");
 
         expect(output.bundleName).toBe("new-bundle");

@@ -40,15 +40,12 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
         () => {
           // TODO - remove this once we hard fail on not having a bundle name
           // don't need to do anything if the bundle name is not present or empty
-          if (
-            !output.userOptions.bundleName ||
-            output.userOptions.bundleName === ""
-          ) {
+          if (!output.bundleName || output.bundleName === "") {
             red("Bundle name is not present or empty. Skipping upload.");
             return;
           }
 
-          output.setBundleName(output.userOptions.bundleName);
+          output.setBundleName(output.bundleName);
           // Webpack base chunk format options: https://webpack.js.org/configuration/output/#outputchunkformat
           if (typeof compilation.outputOptions.chunkFormat === "string") {
             if (compilation.name && compilation.name !== "") {
@@ -174,11 +171,11 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
           output.outputPath = outputOptions.path ?? "";
 
           // only output file if running dry run
-          if (output.userOptions.dryRun) {
+          if (output.dryRun) {
             const { RawSource } = webpack.sources;
             compilation.emitAsset(
               `${output.bundleName}-stats.json`,
-              new RawSource(output.formatPayload()),
+              new RawSource(output.bundleStatsToJson()),
             );
           }
         },
