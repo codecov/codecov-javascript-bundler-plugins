@@ -26,8 +26,11 @@ interface SetBundleNameOptions {
 
 class Output {
   userOptions: NormalizedOptions;
-  private internalOptions: InternalOptions;
-  private internalBundleName?: string;
+  #internalOptions: InternalOptions = {
+    frozenBundleName: false,
+    frozenPluginDetails: false,
+  };
+  #internalBundleName: string;
   version: string;
   bundler?: {
     name: string;
@@ -39,7 +42,7 @@ class Output {
   assets?: Asset[];
   chunks?: Chunk[];
   modules?: Module[];
-  private internalPlugin?: {
+  #internalPlugin?: {
     name: string;
     version: string;
   };
@@ -47,10 +50,7 @@ class Output {
   constructor(userOptions: NormalizedOptions) {
     this.version = "1";
     this.userOptions = userOptions;
-    this.internalOptions = {
-      frozenBundleName: false,
-      frozenPluginDetails: false,
-    };
+    this.#internalBundleName = userOptions.bundleName;
   }
 
   start() {
@@ -61,26 +61,26 @@ class Output {
     this.duration = Date.now() - (this.builtAt ?? 0);
   }
 
-  setBundleName(bundleName: string, options?: SetPluginOptions) {
+  setBundleName(bundleName: string, options: SetPluginOptions = {}) {
     // if set to false, unfreeze the plugin details
-    if (typeof options?.frozen === "boolean" && !options.frozen) {
-      this.internalOptions.frozenBundleName = options.frozen;
+    if (typeof options.frozen === "boolean" && !options.frozen) {
+      this.#internalOptions.frozenBundleName = options.frozen;
     }
 
-    if (!this.internalOptions.frozenBundleName) {
-      this.internalBundleName = bundleName;
+    if (!this.#internalOptions.frozenBundleName) {
+      this.#internalBundleName = bundleName;
     }
 
     // lock back up if frozen is set to true
-    if (typeof options?.frozen === "boolean" && options.frozen) {
-      this.internalOptions.frozenBundleName = options.frozen;
+    if (typeof options.frozen === "boolean" && options.frozen) {
+      this.#internalOptions.frozenBundleName = options.frozen;
     }
 
-    return this.internalBundleName ?? this.userOptions.bundleName;
+    return this.#internalBundleName ?? this.userOptions.bundleName;
   }
 
   get bundleName() {
-    return this.internalBundleName ?? this.userOptions.bundleName;
+    return this.#internalBundleName ?? this.userOptions.bundleName;
   }
 
   setPlugin(
@@ -90,11 +90,11 @@ class Output {
   ) {
     // if set to false, unfreeze the plugin details
     if (typeof options?.frozen === "boolean" && !options.frozen) {
-      this.internalOptions.frozenPluginDetails = options?.frozen;
+      this.#internalOptions.frozenPluginDetails = options?.frozen;
     }
 
-    if (!this.internalOptions.frozenPluginDetails) {
-      this.internalPlugin = {
+    if (!this.#internalOptions.frozenPluginDetails) {
+      this.#internalPlugin = {
         name: pluginName,
         version: pluginVersion,
       };
@@ -102,14 +102,14 @@ class Output {
 
     // lock back up if frozen is set to true
     if (typeof options?.frozen === "boolean" && options.frozen) {
-      this.internalOptions.frozenPluginDetails = options?.frozen;
+      this.#internalOptions.frozenPluginDetails = options?.frozen;
     }
 
-    return this.internalPlugin;
+    return this.#internalPlugin;
   }
 
   get plugin() {
-    return this.internalPlugin;
+    return this.#internalPlugin;
   }
 
   async write() {
