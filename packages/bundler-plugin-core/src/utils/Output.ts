@@ -76,11 +76,11 @@ class Output {
       this.#internalOptions.frozenBundleName = options.frozen;
     }
 
-    return this.#internalBundleName ?? this.userOptions.bundleName;
+    return this.#internalBundleName;
   }
 
   get bundleName() {
-    return this.#internalBundleName ?? this.userOptions.bundleName;
+    return this.#internalBundleName;
   }
 
   setPlugin(
