@@ -38,6 +38,7 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
           stage: webpack.Compilation.PROCESS_ASSETS_STAGE_REPORT,
         },
         () => {
+          // TODO - remove this once we hard fail on not having a bundle name
           // don't need to do anything if the bundle name is not present or empty
           if (
             !output.userOptions.bundleName ||
