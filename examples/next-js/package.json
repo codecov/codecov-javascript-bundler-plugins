@@ -1,5 +1,5 @@
 {
-  "name": "@codecov/nextjs-plugin-example",
+  "name": "@codecov/example-nextjs-app",
   "version": "0.0.0",
   "private": true,
   "scripts": {

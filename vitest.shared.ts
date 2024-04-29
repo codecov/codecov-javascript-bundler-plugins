@@ -1,7 +1,8 @@
 import { defineConfig } from "vitest/config";
+import { type PluginOption } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
-export const plugins = [tsconfigPaths()];
+export const plugins: PluginOption[] = [tsconfigPaths()];
 
 export const config = defineConfig({
   test: {

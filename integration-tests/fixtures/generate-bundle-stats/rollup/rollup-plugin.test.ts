@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { $ } from "bun";
 import { describe, it, expect, afterEach, beforeEach } from "bun:test";
-import { createConfig } from "../../../scripts/gen-config";
+import { GenerateConfig } from "../../../scripts/gen-config";
 
 const rollupPath = (version: number) =>
   `node_modules/rollupV${version}/dist/bin/rollup`;
@@ -28,7 +28,7 @@ describe("Generating rollup stats", () => {
   describe.each(VERSIONS)("%d", (version) => {
     describe.each(FORMATS)("%o", ({ format, expected }) => {
       beforeEach(async () => {
-        await createConfig({
+        const config = new GenerateConfig({
           bundler: "rollup",
           format,
           detectFormat: "esm",
@@ -37,6 +37,9 @@ describe("Generating rollup stats", () => {
           file_format: "cjs",
           enableSourceMaps: false,
         });
+
+        await config.createConfig();
+        await config.writeConfig();
       });
 
       afterEach(async () => {
@@ -75,7 +78,7 @@ describe("Generating rollup stats", () => {
 
     describe("source maps are enabled", () => {
       beforeEach(async () => {
-        await createConfig({
+        const config = new GenerateConfig({
           bundler: "rollup",
           format: "esm",
           detectFormat: "esm",
@@ -84,6 +87,9 @@ describe("Generating rollup stats", () => {
           file_format: "cjs",
           enableSourceMaps: true,
         });
+
+        await config.createConfig();
+        await config.writeConfig();
       });
 
       afterEach(async () => {

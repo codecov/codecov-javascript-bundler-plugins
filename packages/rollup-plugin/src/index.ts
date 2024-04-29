@@ -76,4 +76,4 @@ export const codecovRollupPlugin: (options: Options) => RollupPlugin<any>[] =
  *
  * @access package
  */
-export const _internal_rollupPlugin = rollupBundleAnalysisPlugin;
+export const _internal_rollupBundleAnalysisPlugin = rollupBundleAnalysisPlugin;

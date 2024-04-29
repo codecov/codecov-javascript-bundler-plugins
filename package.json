@@ -10,7 +10,7 @@
     "build": "pnpm -r --filter='./packages/*' run build",
     "dev": "pnpm -r --parallel --filter='./packages/*' run dev",
     "clean": "pnpm -r --filter='./packages/*' clean && rm -rf node_modules",
-    "type-check": "pnpm -r --filter='./packages/*' run type-check",
+    "type-check": "pnpm -r --filter='./packages/*' --filter='./integration-tests' run type-check",
     "lint": "pnpm -r --filter='./packages/*' lint",
     "lint:fix": "pnpm -r --filter='./packages/*' lint:fix",
     "format": "pnpm -r format && prettier --write '*.{cjs,json}' --ignore-unknown --no-error-on-unmatched-pattern",
@@ -45,6 +45,7 @@
     "prettier": "^3.2.4",
     "typedoc": "^0.25.12",
     "typescript": "^5.3.3",
+    "vite": "^5.2.10",
     "vite-tsconfig-paths": "^4.3.2",
     "vitest": "^1.5.0"
   },

@@ -1,0 +1,12 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`nuxtBundleAnalysisPlugin > when called > returns a plugin object 1`] = `
+{
+  "name": "@codecov/nuxt-plugin",
+  "pluginVersion": "0.0.1-beta.6",
+  "version": "1",
+  "vite": {
+    "generateBundle": [Function],
+  },
+}
+`;

@@ -80,4 +80,5 @@ export const codecovWebpackPlugin: (options: Options) => WebpackPluginInstance =
  *
  * @access package
  */
-export const _internal_webpackPlugin = webpackBundleAnalysisPlugin;
+export const _internal_webpackBundleAnalysisPlugin =
+  webpackBundleAnalysisPlugin;

@@ -21,7 +21,8 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
   name: PLUGIN_NAME,
   pluginVersion: PLUGIN_VERSION,
   buildStart: () => {
-    output.start(PLUGIN_NAME, PLUGIN_VERSION);
+    output.start();
+    output.setPlugin(PLUGIN_NAME, PLUGIN_VERSION);
   },
   buildEnd: () => {
     output.end();
@@ -37,17 +38,20 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
           stage: webpack.Compilation.PROCESS_ASSETS_STAGE_REPORT,
         },
         () => {
+          // TODO - remove this once we hard fail on not having a bundle name
           // don't need to do anything if the bundle name is not present or empty
-          if (
-            !output.userOptions.bundleName ||
-            output.userOptions.bundleName === ""
-          ) {
+          if (!output.bundleName || output.bundleName === "") {
             red("Bundle name is not present or empty. Skipping upload.");
             return;
           }
 
+          output.setBundleName(output.bundleName);
           // Webpack base chunk format options: https://webpack.js.org/configuration/output/#outputchunkformat
           if (typeof compilation.outputOptions.chunkFormat === "string") {
+            if (compilation.name && compilation.name !== "") {
+              output.setBundleName(`${output.bundleName}-${compilation.name}`);
+            }
+
             let chunkFormat = compilation.outputOptions.chunkFormat;
             if (chunkFormat === "commonjs") {
               chunkFormat = "cjs";
@@ -55,11 +59,7 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
               chunkFormat = "esm";
             }
 
-            output.bundleName = `${output.userOptions.bundleName}-${chunkFormat}`;
-          }
-
-          if (compilation.name && compilation.name !== "") {
-            output.bundleName = `${output.userOptions.bundleName}-${compilation.name}`;
+            output.setBundleName(`${output.bundleName}-${chunkFormat}`);
           }
 
           const compilationStats = compilation.getStats().toJson({
@@ -171,11 +171,11 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
           output.outputPath = outputOptions.path ?? "";
 
           // only output file if running dry run
-          if (output.userOptions.dryRun) {
+          if (output.dryRun) {
             const { RawSource } = webpack.sources;
             compilation.emitAsset(
               `${output.bundleName}-stats.json`,
-              new RawSource(JSON.stringify(output)),
+              new RawSource(output.bundleStatsToJson()),
             );
           }
         },

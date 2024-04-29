@@ -20,7 +20,8 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
   name: PLUGIN_NAME,
   pluginVersion: PLUGIN_VERSION,
   buildStart: () => {
-    output.start(PLUGIN_NAME, PLUGIN_VERSION);
+    output.start();
+    output.setPlugin(PLUGIN_NAME, PLUGIN_VERSION);
   },
   buildEnd: () => {
     output.end();
@@ -30,24 +31,22 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
   },
   vite: {
     generateBundle(this, options, bundle) {
+      // TODO - remove this once we hard fail on not having a bundle name
       // don't need to do anything if the bundle name is not present or empty
-      if (
-        !output.userOptions.bundleName ||
-        output.userOptions.bundleName === ""
-      ) {
+      if (!output.bundleName || output.bundleName === "") {
         red("Bundle name is not present or empty. Skipping upload.");
         return;
       }
 
-      const format = options.format === "es" ? "esm" : options.format;
-
-      // append bundle output format to bundle name
-      output.bundleName = `${output.userOptions.bundleName}-${format}`;
-
+      output.setBundleName(output.bundleName);
       // add in bundle name if present
       if (options.name && options.name !== "") {
-        output.bundleName = `${output.userOptions.bundleName}-${options.name}`;
+        output.setBundleName(`${output.bundleName}-${options.name}`);
       }
+
+      // append bundle output format to bundle name
+      const format = options.format === "es" ? "esm" : options.format;
+      output.setBundleName(`${output.bundleName}-${format}`);
 
       const cwd = process.cwd();
       const assets: Asset[] = [];
@@ -177,11 +176,11 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
       output.outputPath = options.dir ?? "";
 
       // only output file if running dry run
-      if (output.userOptions.dryRun) {
+      if (output.dryRun) {
         this.emitFile({
           type: "asset",
           fileName: `${output.bundleName}-stats.json`,
-          source: JSON.stringify(output),
+          source: output.bundleStatsToJson(),
         });
       }
     },

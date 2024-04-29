@@ -114,13 +114,9 @@ describe("Output", () => {
         uploadToken: "token",
       });
 
-      output.start("test-plugin", "0.0.1");
+      output.start();
 
       expect(output?.builtAt).toBe(1000);
-      expect(output?.plugin).toStrictEqual({
-        name: "test-plugin",
-        version: "0.0.1",
-      });
     });
   });
 
@@ -145,7 +141,7 @@ describe("Output", () => {
           uploadToken: "token",
         });
 
-        output.start("test-plugin", "0.0.1");
+        output.start();
         output.end();
 
         expect(output?.duration).toBe(0);
@@ -170,6 +166,92 @@ describe("Output", () => {
     });
   });
 
+  describe("setPlugin method", () => {
+    describe("frozen is not set", () => {
+      it("sets the plugin details", () => {
+        const output = new Output({
+          apiUrl: "http://localhost",
+          bundleName: "output-test",
+          debug: false,
+          dryRun: false,
+          enableBundleAnalysis: true,
+          retryCount: 1,
+          uploadToken: "token",
+        });
+
+        output.setPlugin("test-plugin", "0.0.1");
+
+        expect(output.plugin).toStrictEqual({
+          name: "test-plugin",
+          version: "0.0.1",
+        });
+      });
+    });
+
+    describe("locking the plugin details", () => {
+      it("does not change the plugin details", () => {
+        const output = new Output({
+          apiUrl: "http://localhost",
+          bundleName: "output-test",
+          debug: false,
+          dryRun: false,
+          enableBundleAnalysis: true,
+          retryCount: 1,
+          uploadToken: "token",
+        });
+
+        output.setPlugin("test-plugin", "0.0.1");
+        output.lockPluginDetails();
+        output.setPlugin("new-plugin", "1.0.0");
+
+        expect(output.plugin).toStrictEqual({
+          name: "test-plugin",
+          version: "0.0.1",
+        });
+      });
+    });
+  });
+
+  describe("setBundleName method", () => {
+    describe("bundle name is not locked", () => {
+      it("sets the bundle name", () => {
+        const output = new Output({
+          apiUrl: "http://localhost",
+          bundleName: "output-test",
+          debug: false,
+          dryRun: false,
+          enableBundleAnalysis: true,
+          retryCount: 1,
+          uploadToken: "token",
+        });
+
+        output.setBundleName("new-bundle");
+
+        expect(output.bundleName).toBe("new-bundle");
+      });
+    });
+
+    describe("bundle name is locked", () => {
+      it("does not change the bundle name", () => {
+        const output = new Output({
+          apiUrl: "http://localhost",
+          bundleName: "output-test",
+          debug: false,
+          dryRun: false,
+          enableBundleAnalysis: true,
+          retryCount: 1,
+          uploadToken: "token",
+        });
+
+        output.setBundleName("new-bundle");
+        output.lockBundleName();
+        output.setBundleName("new-bundle");
+
+        expect(output.bundleName).toBe("new-bundle");
+      });
+    });
+  });
+
   describe("write method", () => {
     describe("dryRun is enabled", () => {
       it("immediately returns", async () => {
@@ -183,7 +265,7 @@ describe("Output", () => {
           retryCount: 1,
           uploadToken: "token",
         });
-        output.start("test-plugin", "0.0.1");
+        output.start();
         output.end();
 
         await output.write();
@@ -206,7 +288,7 @@ describe("Output", () => {
           uploadToken: "token",
         });
 
-        output.start("test-plugin", "0.0.1");
+        output.start();
         output.end();
 
         await output.write();
@@ -227,7 +309,7 @@ describe("Output", () => {
           retryCount: 1,
           uploadToken: "token",
         });
-        output.start("test-plugin", "0.0.1");
+        output.start();
         output.end();
 
         await output.write();
@@ -250,7 +332,7 @@ describe("Output", () => {
           uploadToken: "token",
         });
 
-        output.start("test-plugin", "0.0.1");
+        output.start();
         output.end();
 
         await output.write();
@@ -274,7 +356,7 @@ describe("Output", () => {
           uploadToken: "token",
         });
 
-        output.start("test-plugin", "0.0.1");
+        output.start();
         output.end();
 
         await output.write();
@@ -321,7 +403,7 @@ describe("Output", () => {
           uploadToken: "token",
         });
 
-        output.start("test-plugin", "0.0.1");
+        output.start();
         output.end();
 
         await output.write();
@@ -347,7 +429,7 @@ describe("Output", () => {
           uploadToken: "token",
         });
 
-        output.start("test-plugin", "0.0.1");
+        output.start();
         output.end();
 
         await output.write();

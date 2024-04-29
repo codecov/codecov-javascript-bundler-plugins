@@ -70,4 +70,4 @@ export const codecovVitePlugin: (options: Options) => VitePlugin<any>[] =
  *
  * @access package
  */
-export const _internal_vitePlugin = viteBundleAnalysisPlugin;
+export const _internal_viteBundleAnalysisPlugin = viteBundleAnalysisPlugin;

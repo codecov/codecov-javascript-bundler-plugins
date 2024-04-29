@@ -7,7 +7,8 @@
   "type": "module",
   "scripts": {
     "test:e2e": "bun test fixtures/*",
-    "test:e2e:update": "bun test --update-snapshots fixtures/*",
+    "test:e2e:update": "bun test --update-snapshots",
+    "test:e2e:nuxt": "bun test fixtures/**/nuxt/*",
     "test:e2e:rollup": "bun test fixtures/**/rollup/* ",
     "test:e2e:vite": "bun test fixtures/**/vite/*",
     "test:e2e:webpack": "bun test fixtures/**/webpack/*",
@@ -23,6 +24,7 @@
   },
   "devDependencies": {
     "@codecov/bundler-plugin-core": "workspace:^",
+    "@codecov/nuxt-plugin": "workspace:^",
     "@codecov/rollup-plugin": "workspace:^",
     "@codecov/vite-plugin": "workspace:^",
     "@codecov/webpack-plugin": "workspace:^",
@@ -30,12 +32,15 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@types/bun": "^1.0.6",
     "@types/node": "^20.11.15",
-    "bun": "^1.0.28",
+    "bun": "^1.1.4",
+    "nuxt": "3.11.2",
     "rollupV3": "npm:rollup@3.29.4",
     "rollupV4": "npm:rollup@4.9.6",
     "ts-node": "^10.9.2",
-    "viteV4": "npm:vite@4.5.2",
-    "viteV5": "npm:vite@5.0.12",
+    "viteV4": "npm:vite@4.5.3",
+    "viteV5": "npm:vite@5.2.10",
+    "vue-routerV4": "npm:vue-router@4.3.0",
+    "vueV3": "npm:vue@3.4.21",
     "webpackV5": "npm:webpack@5.90.0"
   },
   "volta": {

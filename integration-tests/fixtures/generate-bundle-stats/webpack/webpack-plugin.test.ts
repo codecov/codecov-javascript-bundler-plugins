@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { $ } from "bun";
 import { describe, it, expect, afterEach, beforeEach } from "bun:test";
-import { createConfig } from "../../../scripts/gen-config";
+import { GenerateConfig } from "../../../scripts/gen-config";
 
 const webpackPath = (version: number) =>
   `node_modules/webpackV${version}/bin/webpack.js`;
@@ -21,7 +21,7 @@ describe("Generating webpack stats", () => {
   describe.each(VERSIONS)(`%d`, (version) => {
     describe.each(FORMATS)(`%o`, ({ format, expected }) => {
       beforeEach(async () => {
-        await createConfig({
+        const config = new GenerateConfig({
           bundler: "webpack",
           format,
           detectFormat: "commonjs",
@@ -30,6 +30,9 @@ describe("Generating webpack stats", () => {
           file_format: "cjs",
           enableSourceMaps: false,
         });
+
+        await config.createConfig();
+        await config.writeConfig();
       });
 
       afterEach(async () => {
@@ -67,7 +70,7 @@ describe("Generating webpack stats", () => {
 
     describe("source maps are enabled", () => {
       beforeEach(async () => {
-        await createConfig({
+        const config = new GenerateConfig({
           bundler: "webpack",
           format: "module",
           detectFormat: "commonjs",
@@ -76,6 +79,9 @@ describe("Generating webpack stats", () => {
           file_format: "cjs",
           enableSourceMaps: false,
         });
+
+        await config.createConfig();
+        await config.writeConfig();
       });
 
       afterEach(async () => {
