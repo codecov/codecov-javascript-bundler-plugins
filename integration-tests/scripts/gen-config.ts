@@ -2,10 +2,11 @@
 import * as Bun from "bun";
 import { unlink } from "node:fs/promises";
 
-type Bundlers = "rollup" | "vite" | "webpack" | "nuxt";
+type Plugins = "rollup" | "vite" | "webpack" | "nuxt" | "sveltekit";
 
 interface CreateConfigOpts {
-  bundler: Bundlers;
+  plugin: Plugins;
+  configFileName: string;
   format: string;
   detectFormat: string;
   version: string;
@@ -28,10 +29,10 @@ export class GenerateConfig {
   detectVersion: string;
   enableSourceMaps: boolean;
   newConfigContents?: string;
-  bundler: Bundlers;
+  plugin: Plugins;
 
   constructor({
-    bundler,
+    plugin,
     format,
     detectFormat,
     version,
@@ -39,10 +40,11 @@ export class GenerateConfig {
     file_format,
     enableSourceMaps,
     overrideOutputPath,
+    configFileName,
   }: CreateConfigOpts) {
-    const bundlerDir = `fixtures/generate-bundle-stats/${bundler}`;
-    const baseConfigPath = `${bundlerDir}/${bundler}-base.config.${file_format}`;
-    const outFileName = `${bundler}-${version}-${format}.config.${file_format}`;
+    const bundlerDir = `fixtures/generate-bundle-stats/${plugin}`;
+    const baseConfigPath = `${bundlerDir}/${configFileName}-base.config.${file_format}`;
+    const outFileName = `${configFileName}-${version}-${format}.config.${file_format}`;
 
     if (overrideOutputPath) {
       this.outFilePath = overrideOutputPath;
@@ -58,7 +60,7 @@ export class GenerateConfig {
     this.detectVersion = detectVersion;
     this.enableSourceMaps = enableSourceMaps;
     this.baseConfigPath = baseConfigPath;
-    this.bundler = bundler;
+    this.plugin = plugin;
   }
 
   async createConfig() {
@@ -96,7 +98,7 @@ export class GenerateConfig {
       .replaceAll(upperCaseDetectVersion, upperCaseVersion);
 
     if (this.enableSourceMaps) {
-      if (this.bundler === "webpack") {
+      if (this.plugin === "webpack") {
         this.newConfigContents = this.newConfigContents.replaceAll(
           "devtool: false",
           "devtool: 'source-map'",

@@ -26,7 +26,8 @@ describe("Generating nuxt stats", () => {
       beforeEach(async () => {
         const config = new GenerateConfig({
           // nuxt uses vite under the hood
-          bundler: "nuxt",
+          plugin: "nuxt",
+          configFileName: "nuxt",
           format,
           detectFormat: "esm",
           version: `v3`,
