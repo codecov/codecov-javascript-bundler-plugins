@@ -60,7 +60,7 @@ describe("Generating sveltekit stats", () => {
           expect(clientStats).toMatchSnapshot({
             builtAt: expect.any(Number),
             duration: expect.any(Number),
-            // outputPath: expect.stringContaining(`/distV${version}`),
+            outputPath: expect.stringContaining(`.svelte-kit`),
             bundleName: expect.stringContaining(
               `test-sveltekit-v${version}-client-${expected}`,
             ),
@@ -103,7 +103,7 @@ describe("Generating sveltekit stats", () => {
           expect(serverStats).toMatchSnapshot({
             builtAt: expect.any(Number),
             duration: expect.any(Number),
-            // outputPath: expect.stringContaining(`/distV${version}`),
+            outputPath: expect.stringContaining(`.svelte-kit`),
             bundleName: expect.stringContaining(
               `test-sveltekit-v${version}-server-${expected}`,
             ),
