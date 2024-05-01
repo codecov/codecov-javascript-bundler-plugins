@@ -279,7 +279,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        example: ["next-js", "nuxt", "rollup", "vite", "webpack"]
+        example: ["next-js", "nuxt", "rollup", "sveltekit", "vite", "webpack"]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -342,7 +342,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        example: ["next-js", "nuxt", "rollup", "vite", "webpack"]
+        example: ["next-js", "nuxt", "rollup", "sveltekit", "vite", "webpack"]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -410,6 +410,7 @@ jobs:
             "bundler-plugin-core",
             "nuxt-plugin",
             "rollup-plugin",
+            "sveltekit-plugin",
             "vite-plugin",
             "webpack-plugin",
           ]
@@ -474,6 +475,7 @@ jobs:
             "bundler-plugin-core",
             "nuxt-plugin",
             "rollup-plugin",
+            "sveltekit-plugin",
             "vite-plugin",
             "webpack-plugin",
           ]
