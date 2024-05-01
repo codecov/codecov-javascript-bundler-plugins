@@ -3,3 +3,4 @@ packages:
   - "packages/*"
   - "integration-tests"
   - "integration-tests/test-apps/nuxt"
+  - "integration-tests/test-apps/sveltekit"
