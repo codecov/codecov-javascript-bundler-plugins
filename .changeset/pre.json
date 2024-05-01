@@ -6,7 +6,7 @@
     "@codecov/rollup-plugin": "0.0.0",
     "@codecov/vite-plugin": "0.0.0",
     "@codecov/webpack-plugin": "0.0.0",
-    "@codecov/nuxt-plugin": "0.0.1-beta.6"
+    "@codecov/nuxt-plugin": "0.0.0"
   },
   "changesets": [
     "chilled-eagles-protect",
