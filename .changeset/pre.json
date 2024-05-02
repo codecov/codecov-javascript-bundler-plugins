@@ -5,8 +5,7 @@
     "@codecov/bundler-plugin-core": "0.0.0",
     "@codecov/rollup-plugin": "0.0.0",
     "@codecov/vite-plugin": "0.0.0",
-    "@codecov/webpack-plugin": "0.0.0",
-    "@codecov/nuxt-plugin": "0.0.0"
+    "@codecov/webpack-plugin": "0.0.0"
   },
   "changesets": [
     "chilled-eagles-protect",
@@ -15,10 +14,8 @@
     "flat-mails-buy",
     "four-houses-drive",
     "healthy-foxes-joke",
-    "hungry-toes-hide",
     "itchy-wolves-accept",
     "khaki-lions-glow",
-    "little-knives-hunt",
     "many-berries-grab",
     "many-peas-repeat",
     "popular-chicken-confess",

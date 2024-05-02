@@ -1,6 +1,6 @@
 {
   "name": "@codecov/rollup-plugin",
-  "version": "0.0.1-beta.7",
+  "version": "0.0.1-beta.6",
   "description": "Official Codecov Rollup plugin",
   "author": "Codecov",
   "license": "MIT",
