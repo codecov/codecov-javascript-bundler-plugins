@@ -1,5 +1,15 @@
 # @codecov/webpack-plugin
 
+## 0.0.1-beta.7
+
+### Patch Changes
+
+- e6f3e66: Refactor bundler-plugin-core to be a set of utility/helper functions, and refactor subsequent plugins to use these functions. This will make the plugins composable and easier to maintain in the future.
+- cb90ab7: Add in a new plugin specifically for Nuxt
+- Updated dependencies [e6f3e66]
+- Updated dependencies [cb90ab7]
+  - @codecov/bundler-plugin-core@0.0.1-beta.7
+
 ## 0.0.1-beta.6
 
 ### Patch Changes
