@@ -84,7 +84,7 @@ exports[`Generating vite stats v4 {"format":"amd","expected":"amd"} matches the 
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "0.0.1-beta.6",
+    "version": "0.0.1-beta.7",
   },
   "version": "1",
 }
@@ -174,7 +174,7 @@ exports[`Generating vite stats v4 {"format":"cjs","expected":"cjs"} matches the 
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "0.0.1-beta.6",
+    "version": "0.0.1-beta.7",
   },
   "version": "1",
 }
@@ -264,7 +264,7 @@ exports[`Generating vite stats v4 {"format":"es","expected":"esm"} matches the s
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "0.0.1-beta.6",
+    "version": "0.0.1-beta.7",
   },
   "version": "1",
 }
@@ -354,7 +354,7 @@ exports[`Generating vite stats v4 {"format":"esm","expected":"esm"} matches the 
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "0.0.1-beta.6",
+    "version": "0.0.1-beta.7",
   },
   "version": "1",
 }
@@ -444,7 +444,7 @@ exports[`Generating vite stats v4 {"format":"module","expected":"esm"} matches t
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "0.0.1-beta.6",
+    "version": "0.0.1-beta.7",
   },
   "version": "1",
 }
@@ -534,7 +534,7 @@ exports[`Generating vite stats v4 {"format":"iife","expected":"iife"} matches th
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "0.0.1-beta.6",
+    "version": "0.0.1-beta.7",
   },
   "version": "1",
 }
@@ -624,7 +624,7 @@ exports[`Generating vite stats v4 {"format":"umd","expected":"umd"} matches the 
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "0.0.1-beta.6",
+    "version": "0.0.1-beta.7",
   },
   "version": "1",
 }
@@ -714,7 +714,7 @@ exports[`Generating vite stats v4 {"format":"system","expected":"system"} matche
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "0.0.1-beta.6",
+    "version": "0.0.1-beta.7",
   },
   "version": "1",
 }
@@ -804,7 +804,7 @@ exports[`Generating vite stats v4 {"format":"systemjs","expected":"system"} matc
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "0.0.1-beta.6",
+    "version": "0.0.1-beta.7",
   },
   "version": "1",
 }
@@ -894,7 +894,7 @@ exports[`Generating vite stats v4 source maps are enabled does not include any s
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "0.0.1-beta.6",
+    "version": "0.0.1-beta.7",
   },
   "version": "1",
 }
@@ -984,7 +984,7 @@ exports[`Generating vite stats v5 {"format":"amd","expected":"amd"} matches the 
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "0.0.1-beta.6",
+    "version": "0.0.1-beta.7",
   },
   "version": "1",
 }
@@ -1074,7 +1074,7 @@ exports[`Generating vite stats v5 {"format":"cjs","expected":"cjs"} matches the 
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "0.0.1-beta.6",
+    "version": "0.0.1-beta.7",
   },
   "version": "1",
 }
@@ -1164,7 +1164,7 @@ exports[`Generating vite stats v5 {"format":"es","expected":"esm"} matches the s
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "0.0.1-beta.6",
+    "version": "0.0.1-beta.7",
   },
   "version": "1",
 }
@@ -1254,7 +1254,7 @@ exports[`Generating vite stats v5 {"format":"esm","expected":"esm"} matches the 
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "0.0.1-beta.6",
+    "version": "0.0.1-beta.7",
   },
   "version": "1",
 }
@@ -1344,7 +1344,7 @@ exports[`Generating vite stats v5 {"format":"module","expected":"esm"} matches t
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "0.0.1-beta.6",
+    "version": "0.0.1-beta.7",
   },
   "version": "1",
 }
@@ -1434,7 +1434,7 @@ exports[`Generating vite stats v5 {"format":"iife","expected":"iife"} matches th
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "0.0.1-beta.6",
+    "version": "0.0.1-beta.7",
   },
   "version": "1",
 }
@@ -1524,7 +1524,7 @@ exports[`Generating vite stats v5 {"format":"umd","expected":"umd"} matches the 
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "0.0.1-beta.6",
+    "version": "0.0.1-beta.7",
   },
   "version": "1",
 }
@@ -1614,7 +1614,7 @@ exports[`Generating vite stats v5 {"format":"system","expected":"system"} matche
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "0.0.1-beta.6",
+    "version": "0.0.1-beta.7",
   },
   "version": "1",
 }
@@ -1704,7 +1704,7 @@ exports[`Generating vite stats v5 {"format":"systemjs","expected":"system"} matc
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "0.0.1-beta.6",
+    "version": "0.0.1-beta.7",
   },
   "version": "1",
 }
@@ -1794,7 +1794,7 @@ exports[`Generating vite stats v5 source maps are enabled does not include any s
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "0.0.1-beta.6",
+    "version": "0.0.1-beta.7",
   },
   "version": "1",
 }
