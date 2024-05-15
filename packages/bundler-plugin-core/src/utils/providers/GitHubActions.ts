@@ -115,17 +115,21 @@ function _getSHA(inputs: ProviderUtilInputs): string {
 
   let commit = envs?.GITHUB_SHA;
   if (pr) {
-    const mergeCommitRegex = /^(Merge )?[a-z0-9]{40} (into )?[a-z0-9]{40}$/;
+    const mergeCommitRegex =
+      /^Merge (?<commit>[a-z0-9]{40}) into ?[a-z0-9]{40}$/;
     const mergeCommitMessage = runExternalProgram("git", [
       "show",
       "--no-patch",
       "--format=%P",
     ]);
 
-    if (mergeCommitRegex.exec(mergeCommitMessage)) {
-      const mergeCommit = mergeCommitMessage.split(" ")[1];
+    const mergeCommitResult = mergeCommitRegex.exec(mergeCommitMessage);
 
-      commit = mergeCommit;
+    if (mergeCommitMessage) {
+      const mergeCommit = mergeCommitResult?.groups?.commit;
+      if (mergeCommit) {
+        commit = mergeCommit;
+      }
     }
   }
 
