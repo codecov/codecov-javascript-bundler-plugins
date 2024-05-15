@@ -125,7 +125,7 @@ function _getSHA(inputs: ProviderUtilInputs): string {
 
     const mergeCommitResult = mergeCommitRegex.exec(mergeCommitMessage);
 
-    if (mergeCommitMessage) {
+    if (mergeCommitResult) {
       const mergeCommit = mergeCommitResult?.groups?.commit;
       if (mergeCommit) {
         commit = mergeCommit;
