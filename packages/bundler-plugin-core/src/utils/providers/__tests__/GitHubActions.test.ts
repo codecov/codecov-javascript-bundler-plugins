@@ -288,7 +288,7 @@ describe("GitHub Actions Params", () => {
       }),
     ).thenReturn({
       stdout: Buffer.from(
-        "testingsha123456789012345678901234567890 testingmergecommitsha2345678901234567890",
+        "Merge testingmergecommitsha2345678901234567890 into testingsha123456789012345678901234567890",
       ),
     });
     const params = await GitHubActions.getServiceParams(inputs);
