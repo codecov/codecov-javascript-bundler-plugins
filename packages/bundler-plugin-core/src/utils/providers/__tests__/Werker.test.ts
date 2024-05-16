@@ -5,6 +5,7 @@ import {
   type ProviderServiceParams,
   type ProviderUtilInputs,
 } from "../../../types.ts";
+import { Output } from "../../Output.ts";
 import * as Wercker from "../Wercker.ts";
 
 describe("Wercker CI Params", () => {
@@ -60,7 +61,15 @@ describe("Wercker CI Params", () => {
       slug: "testOrg/testRepo",
     };
 
-    const params = await Wercker.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Wercker-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await Wercker.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -98,7 +107,15 @@ describe("Wercker CI Params", () => {
       slug: "testOrg/testRepo",
     };
 
-    const params = await Wercker.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Wercker-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await Wercker.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -118,7 +135,15 @@ describe("Wercker CI Params", () => {
       slug: "",
     };
 
-    const params = await Wercker.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Wercker-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await Wercker.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 });
