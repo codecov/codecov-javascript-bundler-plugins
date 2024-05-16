@@ -20,7 +20,7 @@ export const fetchWithRetry = async ({
 
   for (let i = 0; i < retryCount + 1; i++) {
     try {
-      debug(`Attempting to fetch ${name}, attempt: ${i}`);
+      debug(`Attempting to fetch ${name}, attempt: ${i + 1}`);
       await delay(DEFAULT_RETRY_DELAY * i);
       response = await fetch(url, requestData);
 
@@ -29,7 +29,7 @@ export const fetchWithRetry = async ({
       }
       break;
     } catch (err) {
-      debug(`${name} fetch attempt ${i} failed`);
+      debug(`${name} fetch attempt ${i + 1} failed`);
       const isLastAttempt = i + 1 === retryCount;
 
       if (isLastAttempt) {
