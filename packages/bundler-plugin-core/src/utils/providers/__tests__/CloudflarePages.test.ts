@@ -5,6 +5,7 @@ import {
   type ProviderServiceParams,
   type ProviderUtilInputs,
 } from "../../../types.ts";
+import { Output } from "../../Output.ts";
 import * as CloudflarePages from "../CloudflarePages.ts";
 
 describe("CloudflarePages Params", () => {
@@ -57,7 +58,15 @@ describe("CloudflarePages Params", () => {
       slug: "",
     };
 
-    const params = await CloudflarePages.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "CloudflarePages-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await CloudflarePages.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -88,7 +97,15 @@ describe("CloudflarePages Params", () => {
       slug: "testOrg/testRepo",
     };
 
-    const params = await CloudflarePages.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "CloudflarePages-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await CloudflarePages.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -109,7 +126,15 @@ describe("CloudflarePages Params", () => {
       slug: "",
     };
 
-    const params = await CloudflarePages.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "CloudflarePages-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await CloudflarePages.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 });
