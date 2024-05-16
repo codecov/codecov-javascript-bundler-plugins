@@ -7,6 +7,7 @@ import {
   type ProviderUtilInputs,
 } from "../../../types.ts";
 import { SPAWN_PROCESS_BUFFER_SIZE } from "../../constants.ts";
+import { Output } from "../../Output.ts";
 import * as GitLabCI from "../GitLabCI.ts";
 
 describe("GitLabCI Params", () => {
@@ -59,7 +60,16 @@ describe("GitLabCI Params", () => {
         maxBuffer: SPAWN_PROCESS_BUFFER_SIZE,
       }),
     ).thenReturn({ stdout: Buffer.from("") });
-    const params = await GitLabCI.getServiceParams(inputs);
+
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "GLCI-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await GitLabCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -87,7 +97,16 @@ describe("GitLabCI Params", () => {
       service: "gitlab",
       slug: "testOrg/testRepo",
     };
-    const params = await GitLabCI.getServiceParams(inputs);
+
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "GLCI-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await GitLabCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -112,7 +131,16 @@ describe("GitLabCI Params", () => {
       service: "gitlab",
       slug: "testOrg/testRepo",
     };
-    const params = await GitLabCI.getServiceParams(inputs);
+
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "GLCI-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await GitLabCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -124,15 +152,25 @@ describe("GitLabCI Params", () => {
       },
     };
 
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "GLCI-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+
     it("can get the slug from http", async () => {
       inputs.envs.CI_BUILD_REPO = "https://gitlab.com/testOrg/testRepo.git";
-      const params = await GitLabCI.getServiceParams(inputs);
+
+      const params = await GitLabCI.getServiceParams(inputs, output);
       expect(params.slug).toBe("testOrg/testRepo");
     });
 
     it("can get the slug from git url", async () => {
       inputs.envs.CI_BUILD_REPO = "git@gitlab.com:testOrg/testRepo.git";
-      const params = await GitLabCI.getServiceParams(inputs);
+      const params = await GitLabCI.getServiceParams(inputs, output);
       expect(params.slug).toBe("testOrg/testRepo");
     });
 
@@ -147,7 +185,7 @@ describe("GitLabCI Params", () => {
         stdout: Buffer.from("https://gitlab.com/testOrg/testRepo.git"),
       });
 
-      const params = await GitLabCI.getServiceParams(inputs);
+      const params = await GitLabCI.getServiceParams(inputs, output);
       expect(params.slug).toBe("testOrg/testRepo");
     });
 
@@ -160,7 +198,7 @@ describe("GitLabCI Params", () => {
         }),
       ).thenReturn({ stdout: Buffer.from("git@gitlab.com:/") });
 
-      const params = await GitLabCI.getServiceParams(inputs);
+      const params = await GitLabCI.getServiceParams(inputs, output);
       expect(params.slug).toBe("");
     });
 
@@ -173,7 +211,7 @@ describe("GitLabCI Params", () => {
         }),
       ).thenReturn({ stdout: Buffer.from("") });
 
-      const params = await GitLabCI.getServiceParams(inputs);
+      const params = await GitLabCI.getServiceParams(inputs, output);
       expect(params.slug).toBe("");
     });
   });
@@ -205,7 +243,15 @@ describe("GitLabCI Params", () => {
       slug: "testOrg/testRepo",
     };
 
-    const params = await GitLabCI.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "GLCI-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await GitLabCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 });
