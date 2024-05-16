@@ -5,6 +5,7 @@ import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 
 import { createEmptyArgs } from "@test-utils/helpers.ts";
 import { type ProviderUtilInputs } from "../../../types.ts";
+import { Output } from "../../Output.ts";
 import { providerList } from "../index.ts";
 
 const server = setupServer(
@@ -61,7 +62,16 @@ describe("CI Providers", () => {
           },
         };
 
-        const serviceParams = await provider.getServiceParams(inputs);
+        const output = new Output({
+          apiUrl: "http://localhost",
+          bundleName: "service-test",
+          debug: false,
+          dryRun: true,
+          enableBundleAnalysis: true,
+          retryCount: 0,
+        });
+
+        const serviceParams = await provider.getServiceParams(inputs, output);
 
         expect(serviceParams).not.toBeNull();
         expect(serviceParams.commit).toEqual(inputs?.args?.sha);
@@ -80,7 +90,16 @@ describe("CI Providers", () => {
           },
         };
 
-        const serviceParams = await provider.getServiceParams(inputs);
+        const output = new Output({
+          apiUrl: "http://localhost",
+          bundleName: "service-test",
+          debug: false,
+          dryRun: true,
+          enableBundleAnalysis: true,
+          retryCount: 0,
+        });
+
+        const serviceParams = await provider.getServiceParams(inputs, output);
 
         expect(serviceParams).not.toBeNull();
         expect(serviceParams.slug).toEqual(inputs?.args?.slug);
