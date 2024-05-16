@@ -5,6 +5,7 @@ import {
   type ProviderServiceParams,
   type ProviderUtilInputs,
 } from "../../../types.ts";
+import { Output } from "../../Output.ts";
 import * as Render from "../Render.ts";
 
 describe("Render Params", () => {
@@ -58,7 +59,15 @@ describe("Render Params", () => {
       slug: "testOrg/testRepo",
     };
 
-    const params = await Render.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Render-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await Render.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -90,7 +99,15 @@ describe("Render Params", () => {
       slug: "testOrg/testRepo",
     };
 
-    const params = await Render.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Render-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await Render.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -111,7 +128,15 @@ describe("Render Params", () => {
       slug: "",
     };
 
-    const params = await Render.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Render-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await Render.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 });
