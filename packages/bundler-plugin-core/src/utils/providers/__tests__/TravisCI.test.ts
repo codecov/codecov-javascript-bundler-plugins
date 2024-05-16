@@ -5,6 +5,7 @@ import {
   type ProviderServiceParams,
   type ProviderUtilInputs,
 } from "../../../types.ts";
+import { Output } from "../../Output.ts";
 import * as TravisCI from "../TravisCI.ts";
 
 describe("TravisCI Params", () => {
@@ -75,7 +76,15 @@ describe("TravisCI Params", () => {
       slug: "testOrg/testRepo",
     };
 
-    const params = await TravisCI.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "TravisCI-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await TravisCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -108,7 +117,15 @@ describe("TravisCI Params", () => {
       slug: "testOrg/testRepo",
     };
 
-    const params = await TravisCI.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "TravisCI-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await TravisCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -140,7 +157,15 @@ describe("TravisCI Params", () => {
       slug: "testOrg/testRepo",
     };
 
-    const params = await TravisCI.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "TravisCI-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await TravisCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -173,7 +198,15 @@ describe("TravisCI Params", () => {
       slug: "testOrg/testRepo",
     };
 
-    const params = await TravisCI.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "TravisCI-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await TravisCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -194,7 +227,15 @@ describe("TravisCI Params", () => {
       slug: "",
     };
 
-    const params = await TravisCI.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "TravisCI-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await TravisCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 });
