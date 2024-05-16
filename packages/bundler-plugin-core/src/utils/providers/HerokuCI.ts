@@ -3,7 +3,9 @@ import {
   type ProviderServiceParams,
   type ProviderUtilInputs,
 } from "../../types.ts";
+import { type Output } from "../Output.ts";
 import { parseSlugFromRemoteAddr } from "../git.ts";
+import { debug } from "../logging.ts";
 
 export function detect(envs: ProviderEnvs): boolean {
   return Boolean(envs?.CI) && Boolean(envs?.HEROKU_TEST_RUN_BRANCH);
@@ -11,7 +13,10 @@ export function detect(envs: ProviderEnvs): boolean {
 
 function _getBuild(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-  return args?.build ?? envs?.HEROKU_TEST_RUN_ID ?? "";
+  if (args?.build && args.build !== "") {
+    return args.build;
+  }
+  return envs?.HEROKU_TEST_RUN_ID ?? "";
 }
 
 function _getBuildURL(): string {
@@ -20,7 +25,10 @@ function _getBuildURL(): string {
 
 function _getBranch(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-  return args?.branch ?? envs?.HEROKU_TEST_RUN_BRANCH ?? "";
+  if (args?.branch && args.branch !== "") {
+    return args.branch;
+  }
+  return envs?.HEROKU_TEST_RUN_BRANCH ?? "";
 }
 
 function _getJob() {
@@ -40,26 +48,36 @@ export function getServiceName(): string {
   return "Heroku CI";
 }
 
-function _getSHA(inputs: ProviderUtilInputs): string {
+function _getSHA(inputs: ProviderUtilInputs, output: Output): string {
   const { args, envs } = inputs;
-  return args?.sha ?? envs?.HEROKU_TEST_RUN_COMMIT_VERSION ?? "";
+  if (args?.sha && args.sha !== "") {
+    debug(`Using commit: ${args.sha}`, { enabled: output.debug });
+    return args?.sha;
+  }
+
+  const sha = envs?.HEROKU_TEST_RUN_COMMIT_VERSION ?? "";
+  debug(`Using commit: ${sha}`, { enabled: output.debug });
+  return sha;
 }
 
 function _getSlug(inputs: ProviderUtilInputs): string {
   const { args } = inputs;
-  if (args?.slug && args.slug !== "") return args?.slug;
+  if (args?.slug && args.slug !== "") {
+    return args?.slug;
+  }
   return parseSlugFromRemoteAddr("");
 }
 
 // eslint-disable-next-line @typescript-eslint/require-await
 export async function getServiceParams(
   inputs: ProviderUtilInputs,
+  output: Output,
 ): Promise<ProviderServiceParams> {
   return {
     branch: _getBranch(inputs),
     build: _getBuild(inputs),
     buildURL: _getBuildURL(),
-    commit: _getSHA(inputs),
+    commit: _getSHA(inputs, output),
     job: _getJob(),
     pr: _getPR(inputs),
     service: _getService(),
