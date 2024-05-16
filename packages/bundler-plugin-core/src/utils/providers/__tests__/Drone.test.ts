@@ -5,6 +5,7 @@ import {
   type ProviderServiceParams,
   type ProviderUtilInputs,
 } from "../../../types.ts";
+import { Output } from "../../Output.ts";
 import * as Drone from "../Drone.ts";
 
 describe("Drone Params", () => {
@@ -59,7 +60,16 @@ describe("Drone Params", () => {
       service: "drone.io",
       slug: "testOrg/testRepo",
     };
-    const params = await Drone.getServiceParams(inputs);
+
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Drone-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await Drone.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -87,7 +97,16 @@ describe("Drone Params", () => {
       service: "drone.io",
       slug: "testOrg/testRepo",
     };
-    const params = await Drone.getServiceParams(inputs);
+
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Drone-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await Drone.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 });
