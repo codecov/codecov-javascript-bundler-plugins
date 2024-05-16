@@ -5,6 +5,7 @@ import {
   type ProviderServiceParams,
   type ProviderUtilInputs,
 } from "../../../types.ts";
+import { Output } from "../../Output.ts";
 import * as Netlify from "../Netlify.ts";
 
 describe("Netlify Params", () => {
@@ -58,7 +59,15 @@ describe("Netlify Params", () => {
       slug: "",
     };
 
-    const params = await Netlify.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Netlify-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await Netlify.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -90,7 +99,15 @@ describe("Netlify Params", () => {
       slug: "testOrg/testRepo",
     };
 
-    const params = await Netlify.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Netlify-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await Netlify.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -111,7 +128,15 @@ describe("Netlify Params", () => {
       slug: "",
     };
 
-    const params = await Netlify.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Netlify-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await Netlify.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 });
