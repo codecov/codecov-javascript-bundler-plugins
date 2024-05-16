@@ -5,6 +5,7 @@ import {
   type ProviderServiceParams,
   type ProviderUtilInputs,
 } from "../../../types.ts";
+import { Output } from "../../Output.ts";
 import * as Cirrus from "../Cirrus.ts";
 
 describe("Cirrus Params", () => {
@@ -59,7 +60,16 @@ describe("Cirrus Params", () => {
       service: "cirrus-ci",
       slug: "testOrg/testRepo",
     };
-    const params = await Cirrus.getServiceParams(inputs);
+
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Cirrus-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await Cirrus.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -97,7 +107,15 @@ describe("Cirrus Params", () => {
       slug: "testOrg/testRepo",
     };
 
-    const params = await Cirrus.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Cirrus-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await Cirrus.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 });
