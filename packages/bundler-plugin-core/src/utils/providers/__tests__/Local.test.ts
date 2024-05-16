@@ -7,6 +7,7 @@ import {
   type ProviderUtilInputs,
 } from "../../../types.ts";
 import { SPAWN_PROCESS_BUFFER_SIZE } from "../../constants.ts";
+import { Output } from "../../Output.ts";
 import * as Local from "../Local.ts";
 
 describe("Local Params", () => {
@@ -60,7 +61,16 @@ describe("Local Params", () => {
       service: "",
       slug: "owner/repo",
     };
-    const params = await Local.getServiceParams(inputs);
+
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Local-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await Local.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -90,7 +100,15 @@ describe("Local Params", () => {
       slug: "owner/repo",
     };
 
-    const params = await Local.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Local-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await Local.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -99,8 +117,17 @@ describe("Local Params", () => {
       args: { ...createEmptyArgs() },
       envs: {},
     };
+
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Local-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
     const spawnSync = td.replace(childProcess, "spawnSync");
-    await expect(Local.getServiceParams(inputs)).rejects.toThrow();
+    await expect(Local.getServiceParams(inputs, output)).rejects.toThrow();
 
     td.when(
       spawnSync("git", ["rev-parse", "--abbrev-ref", "HEAD"], {
@@ -109,7 +136,7 @@ describe("Local Params", () => {
     ).thenReturn({
       stdout: Buffer.from("main"),
     });
-    await expect(Local.getServiceParams(inputs)).rejects.toThrow();
+    await expect(Local.getServiceParams(inputs, output)).rejects.toThrow();
 
     td.when(
       spawnSync("git", ["rev-parse", "HEAD"], {
@@ -118,7 +145,7 @@ describe("Local Params", () => {
     ).thenReturn({
       stdout: Buffer.from("testSHA"),
     });
-    await expect(Local.getServiceParams(inputs)).rejects.toThrow();
+    await expect(Local.getServiceParams(inputs, output)).rejects.toThrow();
   });
 
   describe("getSlug()", () => {
@@ -154,7 +181,15 @@ describe("Local Params", () => {
         stdout: Buffer.from("testSHA"),
       });
 
-      const params = await Local.getServiceParams(inputs);
+      const output = new Output({
+        apiUrl: "http://localhost",
+        bundleName: "Local-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+      });
+      const params = await Local.getServiceParams(inputs, output);
       expect(params.slug).toBe("testOrg/testRepo");
     });
 
@@ -184,7 +219,15 @@ describe("Local Params", () => {
         stdout: Buffer.from("testSHA"),
       });
 
-      await expect(Local.getServiceParams(inputs)).rejects.toThrow();
+      const output = new Output({
+        apiUrl: "http://localhost",
+        bundleName: "Local-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+      });
+      await expect(Local.getServiceParams(inputs, output)).rejects.toThrow();
     });
 
     it("errors on a malformed slug", async () => {
@@ -214,7 +257,15 @@ describe("Local Params", () => {
         stdout: Buffer.from("testSHA"),
       });
 
-      const params = await Local.getServiceParams(inputs);
+      const output = new Output({
+        apiUrl: "http://localhost",
+        bundleName: "Local-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+      });
+      const params = await Local.getServiceParams(inputs, output);
       expect(params.slug).toBe("testOrg/testRepo");
     });
   });
