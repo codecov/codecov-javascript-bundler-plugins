@@ -9,6 +9,7 @@ import {
   type ProviderUtilInputs,
 } from "../../../types.ts";
 import { SPAWN_PROCESS_BUFFER_SIZE } from "../../constants.ts";
+import { Output } from "../../Output.ts";
 import * as GitHubActions from "../GitHubActions.ts";
 
 const server = setupServer();
@@ -95,7 +96,15 @@ describe("GitHub Actions Params", () => {
       slug: "testOrg/testRepo",
     };
 
-    const params = await GitHubActions.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "GHA-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await GitHubActions.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -133,7 +142,16 @@ describe("GitHub Actions Params", () => {
     ).thenReturn({
       stdout: Buffer.from("testingsha"),
     });
-    const params = await GitHubActions.getServiceParams(inputs);
+
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "GHA-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await GitHubActions.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -193,7 +211,15 @@ describe("GitHub Actions Params", () => {
       stdout: Buffer.from("testingsha"),
     });
 
-    const params = await GitHubActions.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "GHA-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await GitHubActions.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -251,7 +277,15 @@ describe("GitHub Actions Params", () => {
       stdout: Buffer.from("testingsha"),
     });
 
-    const params = await GitHubActions.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "GHA-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await GitHubActions.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -291,7 +325,16 @@ describe("GitHub Actions Params", () => {
         "testingsha123456789012345678901234567890 testingmergecommitsha2345678901234567890",
       ),
     });
-    const params = await GitHubActions.getServiceParams(inputs);
+
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "GHA-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await GitHubActions.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -330,7 +373,16 @@ describe("GitHub Actions Params", () => {
         maxBuffer: SPAWN_PROCESS_BUFFER_SIZE,
       }),
     ).thenReturn({ stdout: Buffer.from("testsha") });
-    const params = await GitHubActions.getServiceParams(inputs);
+
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "GHA-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await GitHubActions.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -366,7 +418,16 @@ describe("GitHub Actions Params", () => {
         maxBuffer: SPAWN_PROCESS_BUFFER_SIZE,
       }),
     ).thenReturn({ stdout: Buffer.from("") });
-    const params = await GitHubActions.getServiceParams(inputs);
+
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "GHA-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await GitHubActions.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 });
