@@ -5,6 +5,7 @@ import {
   type ProviderServiceParams,
   type ProviderUtilInputs,
 } from "../../../types.ts";
+import { Output } from "../../Output.ts";
 import * as providerWoodpecker from "../Woodpecker.ts";
 
 describe("Woodpecker Params", () => {
@@ -61,7 +62,15 @@ describe("Woodpecker Params", () => {
       slug: "testOrg/testRepo",
     };
 
-    const params = await providerWoodpecker.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Woodpecker-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await providerWoodpecker.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -94,7 +103,15 @@ describe("Woodpecker Params", () => {
       slug: "testOrg/testRepo",
     };
 
-    const params = await providerWoodpecker.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Woodpecker-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await providerWoodpecker.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -114,7 +131,15 @@ describe("Woodpecker Params", () => {
       slug: "",
     };
 
-    const params = await providerWoodpecker.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Woodpecker-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await providerWoodpecker.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 });
