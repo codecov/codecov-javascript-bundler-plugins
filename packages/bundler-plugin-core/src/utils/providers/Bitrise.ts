@@ -3,7 +3,9 @@ import {
   type ProviderServiceParams,
   type ProviderUtilInputs,
 } from "../../types.ts";
+import { type Output } from "../Output.ts";
 import { parseSlugFromRemoteAddr } from "../git.ts";
+import { debug } from "../logging.ts";
 
 export function detect(envs: ProviderEnvs): boolean {
   return Boolean(envs?.CI) && Boolean(envs?.BITRISE_IO);
@@ -11,7 +13,10 @@ export function detect(envs: ProviderEnvs): boolean {
 
 function _getBuild(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-  return args?.build ?? envs?.BITRISE_BUILD_NUMBER ?? "";
+  if (args?.build && args.build !== "") {
+    return args.build;
+  }
+  return envs?.BITRISE_BUILD_NUMBER ?? "";
 }
 
 function _getBuildURL(inputs: ProviderUtilInputs): string {
@@ -21,7 +26,10 @@ function _getBuildURL(inputs: ProviderUtilInputs): string {
 
 function _getBranch(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-  return args?.branch ?? envs?.BITRISE_GIT_BRANCH ?? "";
+  if (args?.branch && args.branch !== "") {
+    return args.branch;
+  }
+  return envs?.BITRISE_GIT_BRANCH ?? "";
 }
 
 function _getJob() {
@@ -30,7 +38,10 @@ function _getJob() {
 
 function _getPR(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-  return args?.pr ?? envs?.BITRISE_PULL_REQUEST ?? "";
+  if (args?.pr && args.pr !== "") {
+    return args.pr;
+  }
+  return envs?.BITRISE_PULL_REQUEST ?? "";
 }
 
 function _getService(): string {
@@ -41,25 +52,38 @@ export function getServiceName(): string {
   return "Bitrise CI";
 }
 
-function _getSHA(inputs: ProviderUtilInputs): string {
+function _getSHA(inputs: ProviderUtilInputs, output: Output): string {
   const { args, envs } = inputs;
-  return args?.sha ?? envs?.GIT_CLONE_COMMIT_HASH ?? "";
+  if (args?.sha && args.sha !== "") {
+    debug(`Using commit: ${args.sha}`, { enabled: output.debug });
+    return args.sha;
+  }
+
+  debug(`Using commit: ${envs?.GIT_CLONE_COMMIT_HASH ?? ""}`, {
+    enabled: output.debug,
+  });
+
+  return envs?.GIT_CLONE_COMMIT_HASH ?? "";
 }
 
 function _getSlug(inputs: ProviderUtilInputs): string {
   const { args } = inputs;
-  return args?.slug ?? parseSlugFromRemoteAddr("") ?? "";
+  if (args?.slug && args.slug !== "") {
+    return args.slug;
+  }
+  return parseSlugFromRemoteAddr("") ?? "";
 }
 
 // eslint-disable-next-line @typescript-eslint/require-await
 export async function getServiceParams(
   inputs: ProviderUtilInputs,
+  output: Output,
 ): Promise<ProviderServiceParams> {
   return {
     branch: _getBranch(inputs),
     build: _getBuild(inputs),
     buildURL: _getBuildURL(inputs),
-    commit: _getSHA(inputs),
+    commit: _getSHA(inputs, output),
     job: _getJob(),
     pr: _getPR(inputs),
     service: _getService(),
