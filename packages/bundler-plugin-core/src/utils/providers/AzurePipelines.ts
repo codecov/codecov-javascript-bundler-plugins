@@ -5,6 +5,8 @@ import {
   type ProviderUtilInputs,
 } from "../../types.ts";
 import { parseSlugFromRemoteAddr } from "../git.ts";
+import { type Output } from "../Output.ts";
+import { debug } from "../logging.ts";
 
 export function detect(envs: ProviderEnvs): boolean {
   return Boolean(envs?.SYSTEM_TEAMFOUNDATIONSERVERURI);
@@ -12,7 +14,10 @@ export function detect(envs: ProviderEnvs): boolean {
 
 function _getBuild(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-  return args?.build ?? envs?.BUILD_BUILDNUMBER ?? "";
+  if (args?.build && args.build !== "") {
+    return args.build;
+  }
+  return envs?.BUILD_BUILDNUMBER ?? "";
 }
 
 function _getBuildURL(inputs: ProviderUtilInputs): string {
@@ -25,8 +30,8 @@ function _getBuildURL(inputs: ProviderUtilInputs): string {
 
 function _getBranch(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-  if (args?.branch && args?.branch !== "") {
-    return args?.branch;
+  if (args?.branch && args.branch !== "") {
+    return args.branch;
   }
 
   if (envs?.BUILD_SOURCEBRANCH) {
@@ -42,12 +47,15 @@ function _getJob(envs: ProviderEnvs): string {
 
 function _getPR(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-  return (
-    args?.pr ??
+  if (args?.pr && args.pr !== "") {
+    return args.pr;
+  }
+
+  const pr =
     envs?.SYSTEM_PULLREQUEST_PULLREQUESTNUMBER ??
     envs?.SYSTEM_PULLREQUEST_PULLREQUESTID ??
-    ""
-  );
+    "";
+  return pr;
 }
 
 function _getService(): string {
@@ -58,11 +66,13 @@ export function getServiceName(): string {
   return "Azure Pipelines";
 }
 
-function _getSHA(inputs: ProviderUtilInputs): string {
+function _getSHA(inputs: ProviderUtilInputs, output: Output): string {
   const { args, envs } = inputs;
-
-  if (args?.sha && args?.sha !== "") {
-    return args?.sha;
+  if (args?.sha && args.sha !== "") {
+    debug(`Using commit: ${args?.sha}`, {
+      enabled: output.debug,
+    });
+    return args.sha;
   }
 
   let commit = envs?.BUILD_SOURCEVERSION ?? "";
@@ -73,35 +83,47 @@ function _getSHA(inputs: ProviderUtilInputs): string {
       .execFileSync("git", ["show", "--no-patch", "--format=%P"])
       .toString()
       .trimEnd();
+
+    debug(`Merge commit message: ${mergeCommitMessage}`, {
+      enabled: output.debug,
+    });
+
     if (mergeCommitRegex.exec(mergeCommitMessage)) {
-      const mergeCommit = mergeCommitMessage.split(" ")[1];
-      commit = mergeCommit ?? "";
+      const splitMergeCommit = mergeCommitMessage.split(" ");
+      debug(`Split merge commit: ${splitMergeCommit}`, {
+        enabled: output.debug,
+      });
+
+      commit = splitMergeCommit?.[1] ?? "";
     }
   }
 
-  return commit ?? "";
+  debug(`Using commit: ${commit}`, {
+    enabled: output.debug,
+  });
+
+  return commit;
 }
 
 function _getSlug(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
+  if (args?.slug && args.slug !== "") {
+    return args.slug;
+  }
 
-  return (
-    args?.slug ??
-    envs?.BUILD_REPOSITORY_NAME ??
-    parseSlugFromRemoteAddr("") ??
-    ""
-  );
+  return envs?.BUILD_REPOSITORY_NAME ?? parseSlugFromRemoteAddr("") ?? "";
 }
 
 // eslint-disable-next-line @typescript-eslint/require-await
 export async function getServiceParams(
   inputs: ProviderUtilInputs,
+  output: Output,
 ): Promise<ProviderServiceParams> {
   return {
     branch: _getBranch(inputs),
     build: _getBuild(inputs),
     buildURL: _getBuildURL(inputs),
-    commit: _getSHA(inputs),
+    commit: _getSHA(inputs, output),
     job: _getJob(inputs.envs),
     pr: _getPR(inputs),
     service: _getService(),
