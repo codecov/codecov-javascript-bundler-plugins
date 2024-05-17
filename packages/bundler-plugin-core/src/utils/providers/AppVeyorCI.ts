@@ -3,6 +3,8 @@ import {
   type ProviderServiceParams,
   type ProviderUtilInputs,
 } from "../../types.ts";
+import { type Output } from "../Output.ts";
+import { debug } from "../logging.ts";
 
 export function detect(envs: ProviderEnvs): boolean {
   return (
@@ -13,7 +15,10 @@ export function detect(envs: ProviderEnvs): boolean {
 
 function _getBuild(inputs: ProviderUtilInputs) {
   const { args, envs } = inputs;
-  return args?.build ?? envs?.APPVEYOR_JOB_ID ?? "";
+  if (args?.build && args.build !== "") {
+    return args.build;
+  }
+  return envs?.APPVEYOR_JOB_ID ?? "";
 }
 
 function _getBuildURL(inputs: ProviderUtilInputs) {
@@ -31,10 +36,9 @@ function _getBuildURL(inputs: ProviderUtilInputs) {
 
 function _getBranch(inputs: ProviderUtilInputs) {
   const { args, envs } = inputs;
-  if (args?.branch && args?.branch !== "") {
-    return args?.branch;
+  if (args?.branch && args.branch !== "") {
+    return args.branch;
   }
-
   return envs?.APPVEYOR_REPO_BRANCH ?? "";
 }
 
@@ -51,7 +55,10 @@ function _getJob(envs: ProviderEnvs) {
 
 function _getPR(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-  return args?.pr ?? envs?.APPVEYOR_PULL_REQUEST_NUMBER ?? "";
+  if (args?.pr && args.pr !== "") {
+    return args.pr;
+  }
+  return envs?.APPVEYOR_PULL_REQUEST_NUMBER ?? "";
 }
 
 function _getService() {
@@ -62,30 +69,41 @@ export function getServiceName(): string {
   return "Appveyor CI";
 }
 
-function _getSHA(inputs: ProviderUtilInputs) {
+function _getSHA(inputs: ProviderUtilInputs, output: Output) {
   const { args, envs } = inputs;
-  return (
-    args?.sha ??
-    envs?.APPVEYOR_PULL_REQUEST_HEAD_COMMIT ??
-    envs?.APPVEYOR_REPO_COMMIT ??
-    ""
-  );
+  if (args?.sha && args.sha !== "") {
+    debug(`Using commit: ${args.sha}`, { enabled: output.debug });
+    return args.sha;
+  }
+
+  const commitSha =
+    envs?.APPVEYOR_PULL_REQUEST_HEAD_COMMIT ?? envs?.APPVEYOR_REPO_COMMIT ?? "";
+
+  debug(`Using commit: ${commitSha ?? ""}`, {
+    enabled: output.debug,
+  });
+
+  return commitSha;
 }
 
 function _getSlug(inputs: ProviderUtilInputs) {
   const { args, envs } = inputs;
-  return args?.slug ?? envs?.APPVEYOR_REPO_NAME ?? "";
+  if (args?.slug && args.slug !== "") {
+    return args.slug;
+  }
+  return envs?.APPVEYOR_REPO_NAME ?? "";
 }
 
 // eslint-disable-next-line @typescript-eslint/require-await
 export async function getServiceParams(
   inputs: ProviderUtilInputs,
+  output: Output,
 ): Promise<ProviderServiceParams> {
   return {
     branch: _getBranch(inputs),
     build: _getBuild(inputs),
     buildURL: _getBuildURL(inputs),
-    commit: _getSHA(inputs),
+    commit: _getSHA(inputs, output),
     job: _getJob(inputs.envs),
     pr: _getPR(inputs),
     service: _getService(),

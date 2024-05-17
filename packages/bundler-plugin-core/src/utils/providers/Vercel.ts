@@ -6,6 +6,8 @@ import {
   type ProviderServiceParams,
   type ProviderUtilInputs,
 } from "../../types.ts";
+import { type Output } from "../Output.ts";
+import { debug } from "../logging.ts";
 
 export function detect(envs: ProviderEnvs): boolean {
   return Boolean(envs?.VERCEL);
@@ -22,8 +24,10 @@ function _getBuildURL(): string {
 
 function _getBranch(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-
-  return args?.branch ?? envs?.VERCEL_GIT_COMMIT_REF ?? "";
+  if (args?.branch && args.branch !== "") {
+    return args.branch;
+  }
+  return envs?.VERCEL_GIT_COMMIT_REF ?? "";
 }
 
 function _getJob(): string {
@@ -43,18 +47,26 @@ export function getServiceName(): string {
   return "Vercel";
 }
 
-function _getSHA(inputs: ProviderUtilInputs): string {
+function _getSHA(inputs: ProviderUtilInputs, output: Output): string {
   const { args, envs } = inputs;
-  return args?.sha ?? envs?.VERCEL_GIT_COMMIT_SHA ?? "";
+  if (args?.sha && args.sha !== "") {
+    debug(`Using commit: ${args.sha}`, { enabled: output.debug });
+    return args.sha;
+  }
+  const sha = envs?.VERCEL_GIT_COMMIT_SHA ?? "";
+  debug(`Using commit: ${sha}`, { enabled: output.debug });
+  return sha;
 }
 
 function _getSlug(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-  if (args?.slug && args?.slug !== "") return args?.slug;
-  const owner = envs?.VERCEL_GIT_REPO_OWNER ?? "";
-  const repo = envs?.VERCEL_GIT_REPO_SLUG ?? "";
+  if (args?.slug && args.slug !== "") {
+    return args.slug;
+  }
 
   let slug = "";
+  const owner = envs?.VERCEL_GIT_REPO_OWNER ?? "";
+  const repo = envs?.VERCEL_GIT_REPO_SLUG ?? "";
   if (owner && repo) {
     slug = `${owner}/${repo}`;
   }
@@ -65,12 +77,13 @@ function _getSlug(inputs: ProviderUtilInputs): string {
 // eslint-disable-next-line @typescript-eslint/require-await
 export async function getServiceParams(
   inputs: ProviderUtilInputs,
+  output: Output,
 ): Promise<ProviderServiceParams> {
   return {
     branch: _getBranch(inputs),
     build: _getBuild(inputs),
     buildURL: _getBuildURL(),
-    commit: _getSHA(inputs),
+    commit: _getSHA(inputs, output),
     job: _getJob(),
     pr: _getPR(inputs),
     service: _getService(),

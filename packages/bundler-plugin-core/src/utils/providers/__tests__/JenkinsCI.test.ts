@@ -7,6 +7,7 @@ import {
   type ProviderUtilInputs,
 } from "../../../types.ts";
 import { SPAWN_PROCESS_BUFFER_SIZE } from "../../constants.ts";
+import { Output } from "../../Output.ts";
 import * as JenkinsCI from "../JenkinsCI.ts";
 
 describe("Jenkins CI Params", () => {
@@ -68,7 +69,16 @@ describe("Jenkins CI Params", () => {
         maxBuffer: SPAWN_PROCESS_BUFFER_SIZE,
       }),
     ).thenReturn({ stdout: Buffer.from("") });
-    const params = await JenkinsCI.getServiceParams(inputs);
+
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Jenkins-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await JenkinsCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -93,7 +103,15 @@ describe("Jenkins CI Params", () => {
       stdout: Buffer.from("https://github.com/testOrg/testRepo.git"),
     });
 
-    const params = await JenkinsCI.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Jenkins-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await JenkinsCI.getServiceParams(inputs, output);
     expect(params.slug).toBe("testOrg/testRepo");
   });
 
@@ -124,7 +142,15 @@ describe("Jenkins CI Params", () => {
       slug: "testOrg/testRepo",
     };
 
-    const params = await JenkinsCI.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Jenkins-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await JenkinsCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -154,7 +180,15 @@ describe("Jenkins CI Params", () => {
       stdout: Buffer.from(""),
     });
 
-    const params = await JenkinsCI.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Jenkins-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await JenkinsCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 });

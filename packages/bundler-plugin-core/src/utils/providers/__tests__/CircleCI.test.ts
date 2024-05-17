@@ -5,6 +5,7 @@ import {
   type ProviderServiceParams,
   type ProviderUtilInputs,
 } from "../../../types.ts";
+import { Output } from "../../Output.ts";
 import * as CircleCI from "../CircleCI.ts";
 
 describe("CircleCI Params", () => {
@@ -63,7 +64,15 @@ describe("CircleCI Params", () => {
       slug: "testOrg/testRepo",
     };
 
-    const params = await CircleCI.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "CircleCI-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await CircleCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -92,7 +101,16 @@ describe("CircleCI Params", () => {
       service: "circleci",
       slug: "testOrg/testRepo",
     };
-    const params = await CircleCI.getServiceParams(inputs);
+
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "CircleCI-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await CircleCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -128,7 +146,16 @@ describe("CircleCI Params", () => {
       service: "circleci",
       slug: "testOrg/testRepo",
     };
-    const params = await CircleCI.getServiceParams(inputs);
+
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "CircleCI-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await CircleCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 });

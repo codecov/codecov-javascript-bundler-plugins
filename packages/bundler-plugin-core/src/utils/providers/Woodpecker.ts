@@ -3,6 +3,8 @@ import {
   type ProviderServiceParams,
   type ProviderUtilInputs,
 } from "../../types.ts";
+import { type Output } from "../Output.ts";
+import { debug } from "../logging.ts";
 
 export function detect(envs: ProviderEnvs): boolean {
   return envs?.CI === "woodpecker";
@@ -10,7 +12,10 @@ export function detect(envs: ProviderEnvs): boolean {
 
 function _getBuild(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-  return args?.build ?? envs?.CI_BUILD_NUMBER ?? "";
+  if (args?.build && args.build !== "") {
+    return args.build;
+  }
+  return envs?.CI_BUILD_NUMBER ?? "";
 }
 
 function _getBuildURL(inputs: ProviderUtilInputs): string {
@@ -20,12 +25,11 @@ function _getBuildURL(inputs: ProviderUtilInputs): string {
 
 function _getBranch(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-  return (
-    args?.branch ??
-    envs?.CI_COMMIT_SOURCE_BRANCH ??
-    envs?.CI_COMMIT_BRANCH ??
-    ""
-  );
+  if (args?.branch && args.branch !== "") {
+    return args.branch;
+  }
+
+  return envs?.CI_COMMIT_SOURCE_BRANCH ?? envs?.CI_COMMIT_BRANCH ?? "";
 }
 
 function _getJob(inputs: ProviderUtilInputs): string {
@@ -35,7 +39,10 @@ function _getJob(inputs: ProviderUtilInputs): string {
 
 function _getPR(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-  return args?.pr ?? envs?.CI_COMMIT_PULL_REQUEST ?? "";
+  if (args?.pr && args.pr !== "") {
+    return args.pr;
+  }
+  return envs?.CI_COMMIT_PULL_REQUEST ?? "";
 }
 
 function _getService(): string {
@@ -46,26 +53,35 @@ export function getServiceName(): string {
   return "Woodpecker CI";
 }
 
-function _getSHA(inputs: ProviderUtilInputs): string {
+function _getSHA(inputs: ProviderUtilInputs, output: Output): string {
   const { args, envs } = inputs;
-  return args?.sha ?? envs?.CI_COMMIT_SHA ?? "";
+  if (args?.sha && args.sha !== "") {
+    debug(`Using commit: ${args.sha}`, { enabled: output.debug });
+    return args.sha;
+  }
+  const sha = envs?.CI_COMMIT_SHA ?? "";
+  debug(`Using commit: ${sha}`, { enabled: output.debug });
+  return sha;
 }
 
 function _getSlug(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-  if (args?.slug && args?.slug !== "") return args?.slug;
+  if (args?.slug && args.slug !== "") {
+    return args.slug;
+  }
   return envs?.CI_REPO ?? "";
 }
 
 // eslint-disable-next-line @typescript-eslint/require-await
 export async function getServiceParams(
   inputs: ProviderUtilInputs,
+  output: Output,
 ): Promise<ProviderServiceParams> {
   return {
     branch: _getBranch(inputs),
     build: _getBuild(inputs),
     buildURL: _getBuildURL(inputs),
-    commit: _getSHA(inputs),
+    commit: _getSHA(inputs, output),
     pr: _getPR(inputs),
     job: _getJob(inputs),
     service: _getService(),

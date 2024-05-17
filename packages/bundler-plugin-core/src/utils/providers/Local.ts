@@ -2,8 +2,10 @@ import {
   type ProviderServiceParams,
   type ProviderUtilInputs,
 } from "../../types.ts";
+import { type Output } from "../Output.ts";
 import { parseSlug } from "../git.ts";
 import { isProgramInstalled } from "../isProgramInstalled.ts";
+import { debug } from "../logging.ts";
 import { runExternalProgram } from "../runExternalProgram.ts";
 
 // This provider requires git to be installed
@@ -60,15 +62,17 @@ export function getServiceName(): string {
   return "Local";
 }
 
-function _getSHA(inputs: ProviderUtilInputs) {
+function _getSHA(inputs: ProviderUtilInputs, output: Output) {
   const { args, envs } = inputs;
   const sha = args?.sha ?? envs?.GIT_COMMIT ?? "";
   if (sha !== "") {
+    debug(`Using commit: ${sha}`, { enabled: output.debug });
     return sha;
   }
 
   try {
     const sha = runExternalProgram("git", ["rev-parse", "HEAD"]);
+    debug(`Using commit: ${sha}`, { enabled: output.debug });
     return sha;
   } catch (error) {
     throw new Error(
@@ -99,12 +103,13 @@ function _getSlug(inputs: ProviderUtilInputs): string {
 // eslint-disable-next-line @typescript-eslint/require-await
 export async function getServiceParams(
   inputs: ProviderUtilInputs,
+  output: Output,
 ): Promise<ProviderServiceParams> {
   return {
     branch: _getBranch(inputs),
     build: _getBuild(inputs),
     buildURL: _getBuildURL(),
-    commit: _getSHA(inputs),
+    commit: _getSHA(inputs, output),
     job: _getJob(),
     pr: _getPR(inputs),
     service: _getService(),

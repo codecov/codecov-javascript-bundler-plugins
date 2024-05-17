@@ -135,7 +135,7 @@ class Output {
     };
     const envs = process.env;
     const inputs: ProviderUtilInputs = { envs, args };
-    const provider = await detectProvider(inputs);
+    const provider = await detectProvider(inputs, this);
 
     let url = "";
     try {

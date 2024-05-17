@@ -8,6 +8,7 @@ import {
   type ProviderUtilInputs,
 } from "../../../types.ts";
 import { SPAWN_PROCESS_BUFFER_SIZE } from "../../constants.ts";
+import { Output } from "../../Output.ts";
 
 import * as Bitrise from "../Bitrise.ts";
 
@@ -76,7 +77,15 @@ describe("Bitrise Params", () => {
       }),
     ).thenReturn({ stdout: Buffer.from("") });
 
-    const params = await Bitrise.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Bitrise-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await Bitrise.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -111,7 +120,16 @@ describe("Bitrise Params", () => {
     ).thenReturn({
       stdout: Buffer.from("https://github.com/testOrg/testRepo.git"),
     });
-    const params = await Bitrise.getServiceParams(inputs);
+
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Bitrise-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await Bitrise.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -146,7 +164,16 @@ describe("Bitrise Params", () => {
     ).thenReturn({
       stdout: Buffer.from("https://github.com/testOrg/testRepo.git"),
     });
-    const params = await Bitrise.getServiceParams(inputs);
+
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Bitrise-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await Bitrise.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -191,7 +218,16 @@ describe("Bitrise Params", () => {
     ).thenReturn({
       stdout: Buffer.from("https://github.com/testOrg/testRepo.git"),
     });
-    const params = await Bitrise.getServiceParams(inputs);
+
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Bitrise-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await Bitrise.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 });

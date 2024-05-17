@@ -7,6 +7,7 @@ import {
   type ProviderUtilInputs,
 } from "../../../types.ts";
 import { SPAWN_PROCESS_BUFFER_SIZE } from "../../constants.ts";
+import { Output } from "../../Output.ts";
 import * as HerokuCI from "../HerokuCI.ts";
 
 describe("HerokuCI Params", () => {
@@ -58,7 +59,16 @@ describe("HerokuCI Params", () => {
         maxBuffer: SPAWN_PROCESS_BUFFER_SIZE,
       }),
     ).thenReturn({ stdout: Buffer.from("") });
-    const params = await HerokuCI.getServiceParams(inputs);
+
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Heroku-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await HerokuCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -90,7 +100,16 @@ describe("HerokuCI Params", () => {
     ).thenReturn({
       stdout: Buffer.from("https://github.com/testOrg/testRepo.git"),
     });
-    const params = await HerokuCI.getServiceParams(inputs);
+
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Heroku-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await HerokuCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -118,7 +137,16 @@ describe("HerokuCI Params", () => {
       service: "heroku",
       slug: "testOrg/testRepo",
     };
-    const params = await HerokuCI.getServiceParams(inputs);
+
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Heroku-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await HerokuCI.getServiceParams(inputs, output);
     expect(expected).toBeTruthy();
     expect(params).toMatchObject(expected);
   });

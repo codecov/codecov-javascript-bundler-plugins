@@ -5,6 +5,7 @@ import {
   type ProviderServiceParams,
   type ProviderUtilInputs,
 } from "../../../types.ts";
+import { Output } from "../../Output.ts";
 import * as CodeBuild from "../CodeBuild.ts";
 
 describe("CodeBuild Params", () => {
@@ -59,7 +60,16 @@ describe("CodeBuild Params", () => {
         service: "codebuild",
         slug: "repo",
       };
-      const params = await CodeBuild.getServiceParams(inputs);
+
+      const output = new Output({
+        apiUrl: "http://localhost",
+        bundleName: "CodeBuild-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+      });
+      const params = await CodeBuild.getServiceParams(inputs, output);
       expect(params).toMatchObject(expected);
     });
 
@@ -96,7 +106,15 @@ describe("CodeBuild Params", () => {
         slug: "testOrg/testRepo",
       };
 
-      const params = await CodeBuild.getServiceParams(inputs);
+      const output = new Output({
+        apiUrl: "http://localhost",
+        bundleName: "CodeBuild-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+      });
+      const params = await CodeBuild.getServiceParams(inputs, output);
       expect(params).toMatchObject(expected);
     });
   });
