@@ -65,10 +65,7 @@ function _getSHA(inputs: ProviderUtilInputs, output: Output): string {
     commit = runExternalProgram("git", ["rev-parse", commit]);
   }
 
-  if (output.debug) {
-    debug(`Using commit: ${commit ?? ""}`);
-  }
-
+  debug(`Using commit: ${commit ?? ""}`, { enabled: output.debug });
   return commit ?? "";
 }
 
