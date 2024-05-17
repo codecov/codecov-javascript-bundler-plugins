@@ -76,7 +76,16 @@ describe("Woodpecker Params", () => {
 
   it("gets correct params for overrides", async () => {
     const inputs: ProviderUtilInputs = {
-      args: { ...createEmptyArgs() },
+      args: {
+        ...createEmptyArgs(),
+        ...{
+          branch: "latest-feature",
+          build: "4",
+          pr: "123",
+          sha: "sha-123",
+          slug: "cool-slug",
+        },
+      },
       envs: {
         CI: "woodpecker",
         CI_COMMIT_BRANCH: "master",
@@ -92,15 +101,15 @@ describe("Woodpecker Params", () => {
     };
 
     const expected: ProviderServiceParams = {
-      branch: "new-feature",
-      build: "2",
+      branch: "latest-feature",
+      build: "4",
       buildURL:
         "https://ci.woodpecker-ci.org/woodpecker-ci/woodpecker/build/1629",
-      commit: "testingsha",
+      commit: "sha-123",
       job: "20",
-      pr: "1",
+      pr: "123",
       service: "woodpecker",
-      slug: "testOrg/testRepo",
+      slug: "cool-slug",
     };
 
     const output = new Output({

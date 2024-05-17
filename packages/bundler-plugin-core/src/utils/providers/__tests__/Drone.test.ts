@@ -73,6 +73,53 @@ describe("Drone Params", () => {
     expect(params).toMatchObject(expected);
   });
 
+  it("gets correct params from overrides", async () => {
+    const inputs: ProviderUtilInputs = {
+      args: {
+        ...createEmptyArgs(),
+        ...{
+          branch: "branch",
+          build: "5",
+          pr: "123",
+          sha: "test-sha",
+          slug: "cool-slug",
+        },
+      },
+      envs: {
+        CI: "true",
+        DRONE: "true",
+        DRONE_BRANCH: "master",
+        DRONE_COMMIT_SHA: "testingsha",
+        DRONE_BUILD_NUMBER: "2",
+        DRONE_PULL_REQUEST: "1",
+        DRONE_BUILD_LINK: "https://www.drone.io/",
+        DRONE_REPO: "testOrg/testRepo",
+      },
+    };
+
+    const expected: ProviderServiceParams = {
+      branch: "branch",
+      build: "5",
+      buildURL: "https://www.drone.io/",
+      commit: "test-sha",
+      job: "",
+      pr: "123",
+      service: "drone.io",
+      slug: "cool-slug",
+    };
+
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Drone-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await Drone.getServiceParams(inputs, output);
+    expect(params).toMatchObject(expected);
+  });
+
   it("gets correct params for DRONE_BUILD_URL", async () => {
     const inputs: ProviderUtilInputs = {
       args: { ...createEmptyArgs() },
