@@ -1,5 +1,11 @@
 # @codecov/bundler-plugin-core
 
+## 0.0.1-beta.8
+
+### Patch Changes
+
+- a34fb57: Add in better debug logging around choosing the commit sha
+
 ## 0.0.1-beta.7
 
 ### Patch Changes
