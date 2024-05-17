@@ -1,5 +1,13 @@
 # @codecov/vite-plugin
 
+## 0.0.1-beta.8
+
+### Patch Changes
+
+- a34fb57: Add in better debug logging around choosing the commit sha
+- Updated dependencies [a34fb57]
+  - @codecov/bundler-plugin-core@0.0.1-beta.8
+
 ## 0.0.1-beta.7
 
 ### Patch Changes
