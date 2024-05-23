@@ -1,7 +1,9 @@
+import { type RollupModuleFormat } from "@codecov/vite-plugin";
+
 export function getBundleName(
   initialName = "",
   initialDir = "",
-  format: string,
+  format: RollupModuleFormat,
   name: string | undefined,
 ) {
   let bundleName = name ? `${initialName}-${name}` : initialName;
@@ -15,8 +17,8 @@ export function getBundleName(
     bundleName = `${bundleName}-${dir}`;
   }
 
-  format = format === "es" ? "esm" : format;
-  bundleName = `${bundleName}-${format}`;
+  const correctedFormat = format === "es" ? "esm" : format;
+  bundleName = `${bundleName}-${correctedFormat}`;
 
   return bundleName;
 }
