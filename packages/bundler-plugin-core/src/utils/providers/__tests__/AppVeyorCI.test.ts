@@ -5,6 +5,7 @@ import {
   type ProviderUtilInputs,
 } from "../../../types.ts";
 import * as AppVeyorCI from "../AppVeyorCI.ts";
+import { Output } from "../../Output.ts";
 
 describe("AppveyorCI Params", () => {
   describe("detect()", () => {
@@ -79,7 +80,16 @@ describe("AppveyorCI Params", () => {
       service: "appveyor",
       slug: "testOrg/testRepo",
     };
-    const params = await AppVeyorCI.getServiceParams(inputs);
+
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "AppVeyorCI-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await AppVeyorCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -112,7 +122,16 @@ describe("AppveyorCI Params", () => {
       service: "appveyor",
       slug: "testOrg/testRepo",
     };
-    const params = await AppVeyorCI.getServiceParams(inputs);
+
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "AppVeyorCI-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await AppVeyorCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -145,7 +164,15 @@ describe("AppveyorCI Params", () => {
       slug: "testOrg/testRepo",
     };
 
-    const params = await AppVeyorCI.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "AppVeyorCI-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await AppVeyorCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -166,7 +193,15 @@ describe("AppveyorCI Params", () => {
       slug: "",
     };
 
-    const params = await AppVeyorCI.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "AppVeyorCI-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await AppVeyorCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 });

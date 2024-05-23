@@ -3,6 +3,8 @@ import {
   type ProviderServiceParams,
   type ProviderUtilInputs,
 } from "../../types.ts";
+import { type Output } from "../Output.ts";
+import { debug } from "../logging.ts";
 
 export function detect(envs: ProviderEnvs): boolean {
   return Boolean(envs?.CF_PAGES);
@@ -19,8 +21,10 @@ function _getBuildURL(): string {
 
 function _getBranch(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-
-  return args?.branch ?? envs?.CF_PAGES_BRANCH ?? "";
+  if (args?.branch && args.branch !== "") {
+    return args.branch;
+  }
+  return envs?.CF_PAGES_BRANCH ?? "";
 }
 
 function _getJob(): string {
@@ -40,26 +44,34 @@ export function getServiceName(): string {
   return "Cloudflare Pages";
 }
 
-function _getSHA(inputs: ProviderUtilInputs): string {
+function _getSHA(inputs: ProviderUtilInputs, output: Output): string {
   const { args, envs } = inputs;
-  return args?.sha ?? envs?.CF_PAGES_COMMIT_SHA ?? "";
+  if (args?.sha && args.sha !== "") {
+    debug(`Using commit: ${args.sha}`, { enabled: output.debug });
+    return args.sha;
+  }
+
+  debug(`Using commit: ${envs?.CF_PAGES_COMMIT_SHA ?? ""}`, {
+    enabled: output.debug,
+  });
+  return envs?.CF_PAGES_COMMIT_SHA ?? "";
 }
 
 function _getSlug(inputs: ProviderUtilInputs): string {
   const { args } = inputs;
-  if (args?.slug && args?.slug !== "") return args?.slug;
-  return "";
+  return args?.slug ?? "";
 }
 
 // eslint-disable-next-line @typescript-eslint/require-await
 export async function getServiceParams(
   inputs: ProviderUtilInputs,
+  output: Output,
 ): Promise<ProviderServiceParams> {
   return {
     branch: _getBranch(inputs),
     build: _getBuild(inputs),
     buildURL: _getBuildURL(),
-    commit: _getSHA(inputs),
+    commit: _getSHA(inputs, output),
     job: _getJob(),
     pr: _getPR(inputs),
     service: _getService(),

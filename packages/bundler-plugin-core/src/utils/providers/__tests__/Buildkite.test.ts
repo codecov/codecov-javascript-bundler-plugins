@@ -5,6 +5,7 @@ import {
   type ProviderServiceParams,
   type ProviderUtilInputs,
 } from "../../../types.ts";
+import { Output } from "../../Output.ts";
 import * as Buildkite from "../Buildkite.ts";
 
 describe("Buildkite Params", () => {
@@ -59,7 +60,16 @@ describe("Buildkite Params", () => {
       service: "buildkite",
       slug: "testOrg/testRepo",
     };
-    const params = await Buildkite.getServiceParams(inputs);
+
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Buildkite-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await Buildkite.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -91,7 +101,15 @@ describe("Buildkite Params", () => {
       slug: "testOrg/testRepo",
     };
 
-    const params = await Buildkite.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Buildkite-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await Buildkite.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 });

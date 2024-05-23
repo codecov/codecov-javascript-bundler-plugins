@@ -4,6 +4,8 @@ import {
   type ProviderServiceParams,
   type ProviderUtilInputs,
 } from "../../types.ts";
+import { type Output } from "../Output.ts";
+import { debug } from "../logging.ts";
 import { runExternalProgram } from "../runExternalProgram.ts";
 
 export function detect(envs: ProviderEnvs): boolean {
@@ -12,7 +14,10 @@ export function detect(envs: ProviderEnvs): boolean {
 
 function _getBuild(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-  return args?.build ?? envs?.GITHUB_RUN_ID ?? "";
+  if (args?.build && args.build !== "") {
+    return args.build;
+  }
+  return envs?.GITHUB_RUN_ID ?? "";
 }
 
 async function _getJobURL(inputs: ProviderUtilInputs): Promise<string> {
@@ -69,6 +74,10 @@ async function _getBuildURL(inputs: ProviderUtilInputs): Promise<string> {
 
 function _getBranch(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
+  if (args?.branch && args.branch !== "") {
+    return args.branch;
+  }
+
   const branchRegex = /refs\/heads\/(.*)/;
   const branchMatches = branchRegex.exec(envs?.GITHUB_REF ?? "");
   let branch;
@@ -79,7 +88,7 @@ function _getBranch(inputs: ProviderUtilInputs): string {
   if (envs?.GITHUB_HEAD_REF && envs?.GITHUB_HEAD_REF !== "") {
     branch = envs?.GITHUB_HEAD_REF;
   }
-  return args?.branch ?? branch ?? "";
+  return branch ?? "";
 }
 
 function _getJob(envs: ProviderEnvs): string {
@@ -88,6 +97,10 @@ function _getJob(envs: ProviderEnvs): string {
 
 function _getPR(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
+  if (args?.pr && args.pr !== "") {
+    return args.pr;
+  }
+
   let match;
   if (envs?.GITHUB_HEAD_REF && envs?.GITHUB_HEAD_REF !== "") {
     const prRegex = /refs\/pull\/([0-9]+)\/merge/;
@@ -96,7 +109,7 @@ function _getPR(inputs: ProviderUtilInputs): string {
       match = matches[1];
     }
   }
-  return args?.pr ?? match ?? "";
+  return match ?? "";
 }
 
 function _getService(): string {
@@ -107,9 +120,12 @@ export function getServiceName(): string {
   return "GitHub Actions";
 }
 
-function _getSHA(inputs: ProviderUtilInputs): string {
+function _getSHA(inputs: ProviderUtilInputs, output: Output): string {
   const { args, envs } = inputs;
-  if (args?.sha && args?.sha !== "") return args.sha;
+  if (args?.sha && args.sha !== "") {
+    debug(`Using commit: ${args.sha}`, { enabled: output.debug });
+    return args.sha;
+  }
 
   const pr = _getPR(inputs);
 
@@ -122,30 +138,43 @@ function _getSHA(inputs: ProviderUtilInputs): string {
       "--format=%P",
     ]);
 
-    if (mergeCommitRegex.exec(mergeCommitMessage)) {
-      const mergeCommit = mergeCommitMessage.split(" ")[1];
+    debug(`Merge commit message: ${mergeCommitMessage}`, {
+      enabled: output.debug,
+    });
 
-      commit = mergeCommit;
+    if (mergeCommitRegex.exec(mergeCommitMessage)) {
+      const splitMergeCommit = mergeCommitMessage.split(" ");
+
+      debug(`Split commit message: ${splitMergeCommit}`, {
+        enabled: output.debug,
+      });
+
+      commit = splitMergeCommit[1];
     }
   }
 
-  return args?.sha ?? commit ?? "";
+  debug(`Using commit: ${commit ?? ""}`, { enabled: output.debug });
+
+  return commit ?? "";
 }
 
 function _getSlug(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-  if (args?.slug && args?.slug !== "") return args?.slug;
+  if (args?.slug && args.slug !== "") {
+    return args.slug;
+  }
   return envs?.GITHUB_REPOSITORY ?? "";
 }
 
 export async function getServiceParams(
   inputs: ProviderUtilInputs,
+  output: Output,
 ): Promise<ProviderServiceParams> {
   return {
     branch: _getBranch(inputs),
     build: _getBuild(inputs),
     buildURL: await _getBuildURL(inputs),
-    commit: _getSHA(inputs),
+    commit: _getSHA(inputs, output),
     job: _getJob(inputs.envs),
     pr: _getPR(inputs),
     service: _getService(),

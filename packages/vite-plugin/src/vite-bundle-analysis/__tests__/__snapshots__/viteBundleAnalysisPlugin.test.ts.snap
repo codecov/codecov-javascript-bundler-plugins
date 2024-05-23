@@ -5,7 +5,7 @@ exports[`viteBundleAnalysisPlugin > when called > returns a plugin object 1`] = 
   "buildEnd": [Function],
   "buildStart": [Function],
   "name": "@codecov/vite-plugin",
-  "pluginVersion": "0.0.1-beta.6",
+  "pluginVersion": "0.0.1-beta.8",
   "version": "1",
   "vite": {
     "generateBundle": [Function],

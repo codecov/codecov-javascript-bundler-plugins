@@ -11,7 +11,7 @@ import {
 import { type ProviderUtilInputs } from "src/types.ts";
 import { detectProvider, setSlug } from "../provider.ts";
 import { isProgramInstalled } from "../isProgramInstalled";
-
+import { Output } from "../Output.ts";
 vi.mock("../isProgramInstalled");
 const mockedIsProgramInstalled = isProgramInstalled as Mock;
 
@@ -40,8 +40,16 @@ describe("detectProvider", () => {
         },
       };
 
-      const result = await detectProvider(inputs);
+      const output = new Output({
+        apiUrl: "http://localhost",
+        bundleName: "provider-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+      });
 
+      const result = await detectProvider(inputs, output);
       expect(result.service).toEqual("appveyor");
     });
   });
@@ -50,13 +58,22 @@ describe("detectProvider", () => {
     it("throws an error", async () => {
       let error;
 
+      const output = new Output({
+        apiUrl: "http://localhost",
+        bundleName: "provider-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+      });
+
       try {
         const inputs: ProviderUtilInputs = {
           args: {},
           envs: {},
         };
 
-        await detectProvider(inputs);
+        await detectProvider(inputs, output);
       } catch (e) {
         error = e;
       }

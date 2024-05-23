@@ -5,6 +5,7 @@ import {
   type ProviderServiceParams,
   type ProviderUtilInputs,
 } from "../../../types.ts";
+import { Output } from "../../Output.ts";
 import * as providerWoodpecker from "../Woodpecker.ts";
 
 describe("Woodpecker Params", () => {
@@ -61,13 +62,30 @@ describe("Woodpecker Params", () => {
       slug: "testOrg/testRepo",
     };
 
-    const params = await providerWoodpecker.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Woodpecker-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await providerWoodpecker.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
   it("gets correct params for overrides", async () => {
     const inputs: ProviderUtilInputs = {
-      args: { ...createEmptyArgs() },
+      args: {
+        ...createEmptyArgs(),
+        ...{
+          branch: "latest-feature",
+          build: "4",
+          pr: "123",
+          sha: "sha-123",
+          slug: "cool-slug",
+        },
+      },
       envs: {
         CI: "woodpecker",
         CI_COMMIT_BRANCH: "master",
@@ -83,18 +101,26 @@ describe("Woodpecker Params", () => {
     };
 
     const expected: ProviderServiceParams = {
-      branch: "new-feature",
-      build: "2",
+      branch: "latest-feature",
+      build: "4",
       buildURL:
         "https://ci.woodpecker-ci.org/woodpecker-ci/woodpecker/build/1629",
-      commit: "testingsha",
+      commit: "sha-123",
       job: "20",
-      pr: "1",
+      pr: "123",
       service: "woodpecker",
-      slug: "testOrg/testRepo",
+      slug: "cool-slug",
     };
 
-    const params = await providerWoodpecker.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Woodpecker-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await providerWoodpecker.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -114,7 +140,15 @@ describe("Woodpecker Params", () => {
       slug: "",
     };
 
-    const params = await providerWoodpecker.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "Woodpecker-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await providerWoodpecker.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 });

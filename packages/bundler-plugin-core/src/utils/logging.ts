@@ -40,8 +40,17 @@ export function cyan(msg: string): void {
   return l(Chalk.cyan(prepareMessage(msg)));
 }
 
-// Disable eslint because we want to allow any type of message when debugging
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function debug(msg: any): void {
-  return l(Chalk.italic.yellow(prepareMessage(msg)));
+interface DebugOptions {
+  enabled?: boolean;
+}
+
+export function debug(
+  // Disable eslint because we want to allow any type of message when debugging
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  msg: any,
+  { enabled = true }: DebugOptions = { enabled: true },
+): void {
+  if (enabled) {
+    return l(Chalk.italic.yellow(prepareMessage(msg)));
+  }
 }

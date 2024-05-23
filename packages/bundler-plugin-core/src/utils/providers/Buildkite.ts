@@ -3,6 +3,8 @@ import {
   type ProviderServiceParams,
   type ProviderUtilInputs,
 } from "../../types.ts";
+import { type Output } from "../Output.ts";
+import { debug } from "../logging.ts";
 import { setSlug } from "../provider.ts";
 
 export function detect(envs: ProviderEnvs): boolean {
@@ -11,7 +13,10 @@ export function detect(envs: ProviderEnvs): boolean {
 
 function _getBuild(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-  return args?.build ?? envs?.BUILDKITE_BUILD_NUMBER ?? "";
+  if (args?.build && args.build !== "") {
+    return args.build;
+  }
+  return envs?.BUILDKITE_BUILD_NUMBER ?? "";
 }
 
 function _getBuildURL(inputs: ProviderUtilInputs): string {
@@ -20,7 +25,10 @@ function _getBuildURL(inputs: ProviderUtilInputs): string {
 
 function _getBranch(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-  return args?.branch ?? envs?.BUILDKITE_BRANCH ?? "";
+  if (args?.branch && args.branch !== "") {
+    return args.branch;
+  }
+  return envs?.BUILDKITE_BRANCH ?? "";
 }
 
 function _getJob(envs: ProviderEnvs): string {
@@ -40,13 +48,17 @@ export function getServiceName(): string {
   return "Buildkite";
 }
 
-function _getSHA(inputs: ProviderUtilInputs): string {
+function _getSHA(inputs: ProviderUtilInputs, output: Output): string {
   const { args, envs } = inputs;
-  if (Boolean(args?.sha) || Boolean(envs?.BUILDKITE_COMMIT)) {
-    return args?.sha ?? envs?.BUILDKITE_COMMIT ?? "";
+  if (args?.sha && args.sha !== "") {
+    debug(`Using commit: ${args.sha}`, { enabled: output.debug });
+    return args.sha;
   }
 
-  throw new Error("Unable to detect sha, please set manually with the -C flag");
+  debug(`Using commit: ${args?.sha ?? envs?.BUILDKITE_COMMIT}`, {
+    enabled: output.debug,
+  });
+  return envs?.BUILDKITE_COMMIT ?? "";
 }
 
 function _getSlug(inputs: ProviderUtilInputs): string {
@@ -61,12 +73,13 @@ function _getSlug(inputs: ProviderUtilInputs): string {
 // eslint-disable-next-line @typescript-eslint/require-await
 export async function getServiceParams(
   inputs: ProviderUtilInputs,
+  output: Output,
 ): Promise<ProviderServiceParams> {
   return {
     branch: _getBranch(inputs),
     build: _getBuild(inputs),
     buildURL: _getBuildURL(inputs),
-    commit: _getSHA(inputs),
+    commit: _getSHA(inputs, output),
     job: _getJob(inputs.envs),
     pr: _getPR(inputs),
     service: _getService(),

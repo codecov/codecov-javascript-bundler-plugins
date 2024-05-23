@@ -3,6 +3,8 @@ import {
   type ProviderServiceParams,
   type ProviderUtilInputs,
 } from "../../types.ts";
+import { type Output } from "../Output.ts";
+import { debug } from "../logging.ts";
 import { setSlug } from "../provider.ts";
 
 export function detect(envs: ProviderEnvs): boolean {
@@ -25,19 +27,21 @@ export function getServiceName(): string {
 
 function _getBranch(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-  if (args?.branch && args?.branch !== "") {
-    return args?.branch;
+  if (args?.branch && args.branch !== "") {
+    return args.branch;
   }
 
   return envs?.CIRCLE_BRANCH ?? "";
 }
 
-function _getSHA(inputs: ProviderUtilInputs): string {
+function _getSHA(inputs: ProviderUtilInputs, output: Output): string {
   const { args, envs } = inputs;
-  if (args?.sha && args?.sha !== "") {
-    return args?.sha;
+  if (args?.sha && args.sha !== "") {
+    debug(`Using commit: ${args.sha}`, { enabled: output.debug });
+    return args.sha;
   }
 
+  debug(`Using commit: ${envs?.CIRCLE_SHA1}`, { enabled: output.debug });
   return envs?.CIRCLE_SHA1 ?? "";
 }
 
@@ -49,10 +53,6 @@ function _getSlug(inputs: ProviderUtilInputs): string {
     envs?.CIRCLE_PROJECT_REPONAME,
   );
 
-  if (slug !== "") {
-    return slug;
-  }
-
   if (envs?.CIRCLE_REPOSITORY_URL && envs?.CIRCLE_REPOSITORY_URL !== "") {
     return `${envs?.CIRCLE_REPOSITORY_URL?.split(":")[1]?.split(".git")[0]}`;
   }
@@ -61,8 +61,8 @@ function _getSlug(inputs: ProviderUtilInputs): string {
 
 function _getBuild(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-  if (args?.build && args?.build !== "") {
-    return args?.build;
+  if (args?.build && args.build !== "") {
+    return args.build;
   }
 
   return envs?.CIRCLE_BUILD_NUM ?? "";
@@ -70,8 +70,8 @@ function _getBuild(inputs: ProviderUtilInputs): string {
 
 function _getPR(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-  if (args?.pr && args?.pr !== "") {
-    return args?.pr;
+  if (args?.pr && args.pr !== "") {
+    return args.pr;
   }
 
   return envs?.CIRCLE_PR_NUMBER ?? "";
@@ -84,12 +84,13 @@ function _getJob(envs: ProviderEnvs): string {
 // eslint-disable-next-line @typescript-eslint/require-await
 export async function getServiceParams(
   inputs: ProviderUtilInputs,
+  output: Output,
 ): Promise<ProviderServiceParams> {
   return {
     branch: _getBranch(inputs),
     build: _getBuild(inputs),
     buildURL: _getBuildURL(inputs),
-    commit: _getSHA(inputs),
+    commit: _getSHA(inputs, output),
     job: _getJob(inputs.envs),
     pr: _getPR(inputs),
     service: _getService(),

@@ -9,6 +9,7 @@ import {
 } from "../../../types.ts";
 import { SPAWN_PROCESS_BUFFER_SIZE } from "../../constants.ts";
 import * as AzurePipelines from "../AzurePipelines.ts";
+import { Output } from "../../Output.ts";
 
 describe("Azure Pipelines CI Params", () => {
   describe("detect()", () => {
@@ -57,7 +58,15 @@ describe("Azure Pipelines CI Params", () => {
       }),
     ).thenReturn({ stdout: Buffer.from("") });
 
-    const params = await AzurePipelines.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "AzurePipelines-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await AzurePipelines.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -90,7 +99,16 @@ describe("Azure Pipelines CI Params", () => {
     td.when(
       execFileSync("git", ["show", "--no-patch", "--format=%P"]),
     ).thenReturn(Buffer.from("nonmergesha23456789012345678901234567890"));
-    const params = await AzurePipelines.getServiceParams(inputs);
+
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "AzurePipelines-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await AzurePipelines.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -123,7 +141,16 @@ describe("Azure Pipelines CI Params", () => {
     td.when(
       execFileSync("git", ["show", "--no-patch", "--format=%P"]),
     ).thenReturn(Buffer.from("nonmergesha23456789012345678901234567890"));
-    const params = await AzurePipelines.getServiceParams(inputs);
+
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "AzurePipelines-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await AzurePipelines.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -159,7 +186,16 @@ describe("Azure Pipelines CI Params", () => {
     ).thenReturn({
       stdout: Buffer.from("https://github.com/testOrg/testRepo.git"),
     });
-    const params = await AzurePipelines.getServiceParams(inputs);
+
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "AzurePipelines-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await AzurePipelines.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -196,7 +232,16 @@ describe("Azure Pipelines CI Params", () => {
         "testingsha123456789012345678901234567890 testingmergecommitsha2345678901234567890",
       ),
     );
-    const params = await AzurePipelines.getServiceParams(inputs);
+
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "AzurePipelines-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await AzurePipelines.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 
@@ -228,7 +273,15 @@ describe("Azure Pipelines CI Params", () => {
       slug: "testOrg/otherTestRepo",
     };
 
-    const params = await AzurePipelines.getServiceParams(inputs);
+    const output = new Output({
+      apiUrl: "http://localhost",
+      bundleName: "AzurePipelines-test",
+      debug: false,
+      dryRun: true,
+      enableBundleAnalysis: true,
+      retryCount: 0,
+    });
+    const params = await AzurePipelines.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
 });

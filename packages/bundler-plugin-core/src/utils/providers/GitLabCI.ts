@@ -3,7 +3,9 @@ import {
   type ProviderServiceParams,
   type ProviderUtilInputs,
 } from "../../types.ts";
+import { type Output } from "../Output.ts";
 import { parseSlugFromRemoteAddr } from "../git.ts";
+import { debug } from "../logging.ts";
 
 export function detect(envs: ProviderEnvs): boolean {
   return Boolean(envs?.GITLAB_CI);
@@ -11,7 +13,10 @@ export function detect(envs: ProviderEnvs): boolean {
 
 function _getBuild(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-  return args?.build ?? envs?.CI_BUILD_ID ?? envs?.CI_JOB_ID ?? "";
+  if (args?.build && args.build !== "") {
+    return args.build;
+  }
+  return envs?.CI_BUILD_ID ?? envs?.CI_JOB_ID ?? "";
 }
 
 function _getBuildURL(): string {
@@ -20,9 +25,10 @@ function _getBuildURL(): string {
 
 function _getBranch(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-  return (
-    args?.branch ?? envs?.CI_BUILD_REF_NAME ?? envs?.CI_COMMIT_REF_NAME ?? ""
-  );
+  if (args?.branch && args.branch !== "") {
+    return args.branch;
+  }
+  return envs?.CI_BUILD_REF_NAME ?? envs?.CI_COMMIT_REF_NAME ?? "";
 }
 
 function _getJob(): string {
@@ -42,20 +48,27 @@ export function getServiceName(): string {
   return "GitLab CI";
 }
 
-function _getSHA(inputs: ProviderUtilInputs): string {
+function _getSHA(inputs: ProviderUtilInputs, output: Output): string {
   const { args, envs } = inputs;
-  return (
-    args?.sha ??
+  if (args?.sha && args.sha !== "") {
+    debug(`Using commit: ${args.sha}`, { enabled: output.debug });
+    return args.sha;
+  }
+
+  const sha =
     envs?.CI_MERGE_REQUEST_SOURCE_BRANCH_SHA ??
     envs?.CI_BUILD_REF ??
     envs?.CI_COMMIT_SHA ??
-    ""
-  );
+    "";
+  debug(`Using commit: ${sha}`, { enabled: output.debug });
+  return sha;
 }
 
 function _getSlug(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-  if (args?.slug && args?.slug !== "") return args?.slug;
+  if (args?.slug && args?.slug !== "") {
+    return args?.slug;
+  }
   const remoteAddr = envs?.CI_BUILD_REPO ?? envs?.CI_REPOSITORY_URL ?? "";
   return envs?.CI_PROJECT_PATH ?? parseSlugFromRemoteAddr(remoteAddr) ?? "";
 }
@@ -63,12 +76,13 @@ function _getSlug(inputs: ProviderUtilInputs): string {
 // eslint-disable-next-line @typescript-eslint/require-await
 export async function getServiceParams(
   inputs: ProviderUtilInputs,
+  output: Output,
 ): Promise<ProviderServiceParams> {
   return {
     branch: _getBranch(inputs),
     build: _getBuild(inputs),
     buildURL: _getBuildURL(),
-    commit: _getSHA(inputs),
+    commit: _getSHA(inputs, output),
     job: _getJob(),
     pr: _getPR(inputs),
     service: _getService(),

@@ -3,7 +3,9 @@ import {
   type ProviderServiceParams,
   type ProviderUtilInputs,
 } from "../../types.ts";
+import { type Output } from "../Output.ts";
 import { parseSlugFromRemoteAddr } from "../git.ts";
+import { debug } from "../logging.ts";
 
 export function detect(envs: ProviderEnvs): boolean {
   return Boolean(envs?.TEAMCITY_VERSION);
@@ -25,23 +27,38 @@ export function getServiceName(): string {
 
 function _getBranch(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-  return args?.branch ?? envs?.BRANCH_NAME ?? "";
+  if (args?.branch && args.branch !== "") {
+    return args.branch;
+  }
+  return envs?.BRANCH_NAME ?? "";
 }
 
-function _getSHA(inputs: ProviderUtilInputs): string {
+function _getSHA(inputs: ProviderUtilInputs, output: Output): string {
   const { args, envs } = inputs;
-  return args?.sha ?? envs?.BUILD_VCS_NUMBER ?? "";
+  if (args?.sha && args.sha !== "") {
+    debug(`Using commit: ${args.sha}`, { enabled: output.debug });
+    return args.sha;
+  }
+
+  const sha = envs?.BUILD_VCS_NUMBER ?? "";
+  debug(`Using commit: ${sha}`, { enabled: output.debug });
+  return sha;
 }
 
 function _getSlug(inputs: ProviderUtilInputs): string {
   const { args } = inputs;
-  if (args?.slug && args?.slug !== "") return args?.slug;
+  if (args?.slug && args.slug !== "") {
+    return args.slug;
+  }
   return parseSlugFromRemoteAddr("") ?? "";
 }
 
 function _getBuild(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
-  return args?.build ?? envs?.BUILD_NUMBER ?? "";
+  if (args?.build && args.build !== "") {
+    return args.build;
+  }
+  return envs?.BUILD_NUMBER ?? "";
 }
 
 function _getPR(inputs: ProviderUtilInputs): string {
@@ -56,12 +73,13 @@ function _getJob(): string {
 // eslint-disable-next-line @typescript-eslint/require-await
 export async function getServiceParams(
   inputs: ProviderUtilInputs,
+  output: Output,
 ): Promise<ProviderServiceParams> {
   return {
     branch: _getBranch(inputs),
     build: _getBuild(inputs),
     buildURL: _getBuildURL(),
-    commit: _getSHA(inputs),
+    commit: _getSHA(inputs, output),
     job: _getJob(),
     pr: _getPR(inputs),
     service: _getService(),

@@ -138,10 +138,11 @@ export interface ProviderUtilInputs {
 }
 
 export interface ProviderUtil {
-  detect: (arg0: ProviderEnvs) => boolean;
+  detect: (envs: ProviderEnvs) => boolean;
   getServiceName: () => string;
   getServiceParams: (
-    arg0: ProviderUtilInputs,
+    inputs: ProviderUtilInputs,
+    output: Output,
   ) => Promise<ProviderServiceParams>;
   getEnvVarNames: () => string[];
 }
