@@ -4,7 +4,6 @@ import {
   createVitePlugin,
   type VitePlugin,
 } from "unplugin";
-import { type ModuleFormat } from "rollup";
 import {
   type Options,
   normalizeOptions,
@@ -75,5 +74,3 @@ export const codecovVitePlugin: (options: Options) => VitePlugin<any>[] =
  * @internal
  */
 export const _internal_viteBundleAnalysisPlugin = viteBundleAnalysisPlugin;
-
-export type { ModuleFormat as RollupModuleFormat };

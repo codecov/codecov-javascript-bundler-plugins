@@ -7,7 +7,7 @@ export default defineBuildConfig({
   outDir: "dist",
   declaration: "compatible",
   sourcemap: true,
-  externals: ["vite", "rollup"],
+  externals: ["vite"],
   rollup: {
     dts: {
       compilerOptions: {
