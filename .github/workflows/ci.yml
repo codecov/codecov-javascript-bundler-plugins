@@ -29,7 +29,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: 9
           run_install: false
 
       - name: Get pnpm store directory
@@ -69,7 +69,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: 9
           run_install: false
 
       - name: Get pnpm store directory
@@ -115,7 +115,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: 9
           run_install: false
 
       - name: Get pnpm store directory
@@ -161,7 +161,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: 9
           run_install: false
 
       - name: Get pnpm store directory
@@ -218,7 +218,7 @@ jobs:
           url: ${{ secrets.CODECOV_STAGING_URL }}
 
   integration-test:
-    name: Run Integration Tests (Node ${{ matrix.node-version }})
+    name: Run integration tests (Node ${{ matrix.node-version }})
     needs: install
     runs-on: ubuntu-latest
     services:
@@ -244,7 +244,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: 9
           run_install: false
 
       - name: Get pnpm store directory
@@ -279,7 +279,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        example: ["next-js", "nuxt", "rollup", "vite", "webpack"]
+        example: ["next-js", "nuxt", "rollup", "sveltekit", "vite", "webpack"]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -294,7 +294,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: 9
           run_install: false
 
       - name: Get pnpm store directory
@@ -342,7 +342,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        example: ["next-js", "nuxt", "rollup", "vite", "webpack"]
+        example: ["next-js", "nuxt", "rollup", "sveltekit", "vite", "webpack"]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -357,7 +357,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: 9
           run_install: false
 
       - name: Get pnpm store directory
@@ -410,6 +410,7 @@ jobs:
             "bundler-plugin-core",
             "nuxt-plugin",
             "rollup-plugin",
+            "sveltekit-plugin",
             "vite-plugin",
             "webpack-plugin",
           ]
@@ -427,7 +428,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: 9
           run_install: false
 
       - name: Get pnpm store directory
@@ -474,6 +475,7 @@ jobs:
             "bundler-plugin-core",
             "nuxt-plugin",
             "rollup-plugin",
+            "sveltekit-plugin",
             "vite-plugin",
             "webpack-plugin",
           ]
@@ -491,7 +493,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: 9
           run_install: false
 
       - name: Get pnpm store directory

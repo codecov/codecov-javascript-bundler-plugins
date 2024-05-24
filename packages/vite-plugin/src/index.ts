@@ -68,6 +68,9 @@ export const codecovVitePlugin: (options: Options) => VitePlugin<any>[] =
 /**
  * Do not use this plugin directly. For internal use only.
  *
- * @access package
+ * Used to expose the vite bundle analysis unplugin plugin that can be combined with other plugins
+ * to create a single plugin for a given meta-framework.
+ *
+ * @internal
  */
 export const _internal_viteBundleAnalysisPlugin = viteBundleAnalysisPlugin;

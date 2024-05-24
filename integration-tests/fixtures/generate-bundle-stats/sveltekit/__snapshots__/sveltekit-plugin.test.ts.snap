@@ -1,0 +1,43 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Generating sveltekit stats 2 {"format":"esm","expected":"esm"} matches the snapshot 1`] = `
+{
+  "assets": ExpectArrayContaining {},
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-sveltekit-v2-client-esm",
+  "bundler": {
+    "name": "rollup",
+    "version": "4.16.2",
+  },
+  "chunks": ExpectArrayContaining {},
+  "duration": Any<Number>,
+  "modules": ExpectArrayContaining {},
+  "outputPath": StringContaining ".svelte-kit",
+  "plugin": {
+    "name": StringMatching "@codecov/sveltekit-plugin",
+    "version": "0.0.1-beta.8",
+  },
+  "version": "1",
+}
+`;
+
+exports[`Generating sveltekit stats 2 {"format":"esm","expected":"esm"} matches the snapshot 2`] = `
+{
+  "assets": ExpectArrayContaining {},
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-sveltekit-v2-server-esm",
+  "bundler": {
+    "name": "rollup",
+    "version": "4.16.2",
+  },
+  "chunks": ExpectArrayContaining {},
+  "duration": Any<Number>,
+  "modules": ExpectArrayContaining {},
+  "outputPath": StringContaining ".svelte-kit",
+  "plugin": {
+    "name": StringMatching "@codecov/sveltekit-plugin",
+    "version": "0.0.1-beta.8",
+  },
+  "version": "1",
+}
+`;

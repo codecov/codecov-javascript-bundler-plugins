@@ -22,7 +22,8 @@ describe("Generating webpack stats", () => {
     describe.each(FORMATS)(`%o`, ({ format, expected }) => {
       beforeEach(async () => {
         const config = new GenerateConfig({
-          bundler: "webpack",
+          plugin: "webpack",
+          configFileName: "webpack",
           format,
           detectFormat: "commonjs",
           version: `v${version}`,
@@ -71,7 +72,8 @@ describe("Generating webpack stats", () => {
     describe("source maps are enabled", () => {
       beforeEach(async () => {
         const config = new GenerateConfig({
-          bundler: "webpack",
+          plugin: "webpack",
+          configFileName: "webpack",
           format: "module",
           detectFormat: "commonjs",
           version: `v${version}`,

@@ -29,6 +29,7 @@ const config = {
       "./packages/bundler-plugin-core/tsconfig.json",
       "./packages/nuxt-plugin/tsconfig.json",
       "./packages/rollup-plugin/tsconfig.json",
+      "./packages/sveltekit-plugin/tsconfig.json",
       "./packages/vite-plugin/tsconfig.json",
       "./packages/webpack-plugin/tsconfig.json",
     ],

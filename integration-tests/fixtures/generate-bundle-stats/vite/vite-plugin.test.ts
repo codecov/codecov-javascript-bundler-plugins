@@ -28,7 +28,8 @@ describe("Generating vite stats", () => {
     describe.each(FORMATS)("%o", ({ format, expected }) => {
       beforeEach(async () => {
         const config = new GenerateConfig({
-          bundler: "vite",
+          plugin: "vite",
+          configFileName: "vite",
           format,
           detectFormat: "esm",
           version: `v${version}`,
@@ -78,7 +79,8 @@ describe("Generating vite stats", () => {
     describe("source maps are enabled", () => {
       beforeEach(async () => {
         const config = new GenerateConfig({
-          bundler: "vite",
+          plugin: "vite",
+          configFileName: "vite",
           format: "esm",
           detectFormat: "esm",
           version: `v${version}`,

@@ -29,7 +29,8 @@ describe("Generating rollup stats", () => {
     describe.each(FORMATS)("%o", ({ format, expected }) => {
       beforeEach(async () => {
         const config = new GenerateConfig({
-          bundler: "rollup",
+          plugin: "rollup",
+          configFileName: "rollup",
           format,
           detectFormat: "esm",
           version: `v${version}`,
@@ -79,7 +80,8 @@ describe("Generating rollup stats", () => {
     describe("source maps are enabled", () => {
       beforeEach(async () => {
         const config = new GenerateConfig({
-          bundler: "rollup",
+          plugin: "rollup",
+          configFileName: "rollup",
           format: "esm",
           detectFormat: "esm",
           version: `v${version}`,
