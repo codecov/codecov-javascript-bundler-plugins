@@ -125,5 +125,44 @@ describe("Generating rollup stats", () => {
         });
       });
     });
+
+    describe("passing invalid bundle name", () => {
+      beforeEach(async () => {
+        const config = new GenerateConfig({
+          bundler: "rollup",
+          format: "esm",
+          detectFormat: "esm",
+          version: `v${version}`,
+          detectVersion: "v3",
+          file_format: "cjs",
+          enableSourceMaps: true,
+        });
+
+        await config.createConfig();
+        config.removeBundleName(`test-rollup-v${version}`);
+        await config.writeConfig();
+      });
+
+      afterEach(async () => {
+        await $`rm -rf ${rollupConfig(version, "esm")}`;
+        await $`rm -rf ${rollupApp}/distV${version}`;
+      });
+
+      it("warns users and exits process with a code 1", async () => {
+        const id = `rollup-v${version}-sourcemaps-${Date.now()}`;
+        const rollup = rollupPath(version);
+        const configFile = rollupConfig(version, "esm");
+        const API_URL = `http://localhost:8000/test-url/${id}/200/false`;
+
+        // build the app
+        const { exitCode, stdout } =
+          await $`API_URL=${API_URL} node ${rollup} -c ${configFile}`.nothrow();
+
+        expect(exitCode).toBe(1);
+        expect(stdout.toString()).toContain(
+          "[codecov] bundleName: `` does not match format: `/^[wd_:/@.{}[]$-]+$/`.",
+        );
+      });
+    });
   });
 });

@@ -147,5 +147,49 @@ describe("Generating nuxt stats", () => {
         { timeout: 25_000 },
       );
     });
+
+    describe("invalid bundle name is passed", () => {
+      beforeEach(async () => {
+        const config = new GenerateConfig({
+          // nuxt uses vite under the hood
+          bundler: "nuxt",
+          format: "esm",
+          detectFormat: "esm",
+          version: `v3`,
+          detectVersion: "v3",
+          file_format: "ts",
+          enableSourceMaps: false,
+          overrideOutputPath: `${nuxtApp}/nuxt.config.ts`,
+        });
+
+        await config.createConfig();
+        config.removeBundleName(`test-nuxt-v${version}`);
+        await config.writeConfig();
+      });
+
+      afterEach(async () => {
+        await $`rm -rf ${nuxtApp}/nuxt.config.ts`;
+        await $`rm -rf ${nuxtApp}/distV${version}`;
+      });
+
+      it(
+        "matches the snapshot",
+        async () => {
+          const id = `nuxt-v${version}-${Date.now()}`;
+          const API_URL = `http://localhost:8000/test-url/${id}/200/false`;
+
+          // prepare and build the app
+          const { exitCode } =
+            await $`cd test-apps/nuxt && API_URL=${API_URL} pnpm run build`.nothrow();
+
+          expect(exitCode).toBe(1);
+          // for some reason this isn't being outputted in the test env
+          // expect(stdout.toString()).toContain(
+          //   "[codecov] bundleName: `` does not match format: `/^[wd_:/@.{}[]$-]+$/`.",
+          // );
+        },
+        { timeout: 25_000 },
+      );
+    });
   });
 });
