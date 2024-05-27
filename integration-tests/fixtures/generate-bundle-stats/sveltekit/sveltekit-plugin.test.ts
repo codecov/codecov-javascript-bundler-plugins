@@ -139,5 +139,50 @@ describe("Generating sveltekit stats", () => {
         { timeout: 25_000 },
       );
     });
+
+    describe("invalid bundle name is passed", () => {
+      beforeEach(async () => {
+        const config = new GenerateConfig({
+          plugin: "sveltekit",
+          configFileName: "vite",
+          format: "esm",
+          detectFormat: "esm",
+          version: `v2`,
+          detectVersion: "v2",
+          file_format: "ts",
+          enableSourceMaps: false,
+          overrideOutputPath: `${sveltekitApp}/vite.config.ts`,
+        });
+
+        await config.createConfig();
+        config.removeBundleName(`test-sveltekit-v${version}`);
+        await config.writeConfig();
+      });
+
+      afterEach(async () => {
+        await $`rm -rf ${sveltekitApp}/vite.config.ts`;
+        await $`rm -rf ${sveltekitApp}/.svelte-kit`;
+        await $`rm -rf ./fixtures/generate-bundle-stats/sveltekit/.svelte-kit`;
+      });
+
+      it(
+        "warns users and exits process with a code 1",
+        async () => {
+          const id = `sveltekit-v${version}-${Date.now()}`;
+          const API_URL = `http://localhost:8000/test-url/${id}/200/false`;
+
+          // prepare and build the app
+          const { exitCode, stdout } =
+            await $`cd test-apps/sveltekit && API_URL=${API_URL} pnpm run build`.nothrow();
+
+          expect(exitCode).toBe(1);
+          // for some reason this isn't being outputted in the test env
+          expect(stdout.toString()).toContain(
+            "[codecov] bundleName: `` does not match format: `/^[wd_:/@.{}[]$-]+$/`.",
+          );
+        },
+        { timeout: 25_000 },
+      );
+    });
   });
 });

@@ -1,8 +1,17 @@
-import { describe, it, expect } from "vitest";
+import {
+  describe,
+  expect,
+  it,
+  vi,
+  beforeEach,
+  afterEach,
+  type MockInstance,
+} from "vitest";
 import { type Options } from "../../types.ts";
 import {
   normalizeOptions,
   type NormalizedOptionsResult,
+  handleErrors,
 } from "../normalizeOptions";
 
 interface Test {
@@ -193,5 +202,67 @@ describe("normalizeOptions", () => {
   it.each(tests)("$name", ({ input, expected }) => {
     const expectation = normalizeOptions(input.options);
     expect(expectation).toEqual(expected);
+  });
+});
+
+describe("handleErrors", () => {
+  let consoleSpy: MockInstance;
+
+  beforeEach(() => {
+    consoleSpy = vi.spyOn(console, "log");
+  });
+
+  afterEach(() => {
+    consoleSpy.mockReset();
+  });
+
+  describe("there is a bundleName error", () => {
+    it("logs out the error message", () => {
+      handleErrors({
+        success: false,
+        errors: [
+          "`bundleName` is required for uploading bundle analysis information.",
+        ],
+      });
+
+      expect(consoleSpy).toHaveBeenCalled();
+      expect(consoleSpy).toHaveBeenCalledWith(
+        "[codecov] `bundleName` is required for uploading bundle analysis information.",
+      );
+    });
+
+    it("returns shouldExit as true", () => {
+      const { shouldExit } = handleErrors({
+        success: false,
+        errors: [
+          "`bundleName` is required for uploading bundle analysis information.",
+        ],
+      });
+      expect(shouldExit).toBeTruthy();
+    });
+  });
+
+  describe("there is no bundleName error", () => {
+    it("logs out the error message", () => {
+      handleErrors({
+        success: false,
+        errors: [
+          "`bundleName` is required for uploading bundle analysis information.",
+        ],
+      });
+
+      expect(consoleSpy).toHaveBeenCalled();
+      expect(consoleSpy).toHaveBeenCalledWith(
+        "[codecov] `bundleName` is required for uploading bundle analysis information.",
+      );
+    });
+
+    it("returns shouldExit as false", () => {
+      const { shouldExit } = handleErrors({
+        success: false,
+        errors: ["random error"],
+      });
+      expect(shouldExit).toBeFalsy();
+    });
   });
 });

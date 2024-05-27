@@ -6,7 +6,7 @@ import { GenerateConfig } from "../../../scripts/gen-config";
 const vitePath = (version: number) =>
   `node_modules/viteV${version}/bin/vite.js`;
 const viteConfig = (version: number, format: string) =>
-  `fixtures/generate-bundle-stats/vite/vite-v${version}-${format}.config.ts`;
+  `fixtures/generate-bundle-stats/vite/vite-v${version}-${format}.config.*`;
 const viteApp = "test-apps/vite";
 
 const VERSIONS = [4, 5];
@@ -122,6 +122,46 @@ describe("Generating vite stats", () => {
             name: expect.stringMatching("@codecov/vite-plugin"),
           },
         });
+      });
+    });
+
+    describe("invalid bundle name is passed", () => {
+      beforeEach(async () => {
+        const config = new GenerateConfig({
+          plugin: "vite",
+          configFileName: "vite",
+          format: "esm",
+          detectFormat: "esm",
+          version: `v${version}`,
+          detectVersion: "v5",
+          file_format: "ts",
+          enableSourceMaps: true,
+        });
+
+        await config.createConfig();
+        config.removeBundleName(`test-vite-v${version}`);
+        await config.writeConfig();
+      });
+
+      afterEach(async () => {
+        await $`rm -rf ${viteConfig(version, "esm")}`;
+        await $`rm -rf ${viteApp}/distV${version}`;
+      });
+
+      it("warns users and exits process with a code 1", async () => {
+        const id = `vite-v${version}-sourcemaps-${Date.now()}`;
+        const vite = vitePath(version);
+        const configFile = viteConfig(version, "esm");
+        const API_URL = `http://localhost:8000/test-url/${id}/200/false`;
+
+        // build the app
+        const { exitCode, stdout } =
+          await $`API_URL=${API_URL} node ${vite} build -c ${configFile}`.nothrow();
+
+        expect(exitCode).toBe(1);
+        expect(stdout.toString()).toContain(
+          "[codecov] bundleName: `` does not match format: `/^[wd_:/@.{}[]$-]+$/`.",
+        );
       });
     });
   });
