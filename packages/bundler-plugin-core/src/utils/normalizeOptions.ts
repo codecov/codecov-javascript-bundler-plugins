@@ -142,23 +142,21 @@ export const normalizeOptions = (
 };
 
 /**
- * This function logs the errors to the console, and will exit if there are any `bundleName` errors.
+ * This function logs the errors to the console, and will return `shouldExit` if there are errors
+ * that we should exit the build process for.
  *
  * @param {NormalizedOptionsFailure} options - The normalized options that failed validation.
  */
 export const handleErrors = (options: NormalizedOptionsFailure) => {
-  let hasBundleNameError = false;
+  let shouldExit = false;
   // we probably don't want to exit early so we can provide all the errors to the user
   for (const error of options.errors) {
     // if the error is related to the bundleName, we should set a flag
     if (error.includes("bundleName")) {
-      hasBundleNameError = true;
+      shouldExit = true;
     }
     red(error);
   }
 
-  // since bundle names are required, we should exit if the bundleName fails validation
-  if (hasBundleNameError) {
-    process.exit(1);
-  }
+  return { shouldExit };
 };

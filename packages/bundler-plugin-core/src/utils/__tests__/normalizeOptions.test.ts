@@ -207,17 +207,12 @@ describe("normalizeOptions", () => {
 
 describe("handleErrors", () => {
   let consoleSpy: MockInstance;
-  let processExitSpy: MockInstance<[code?: number], never>;
 
   beforeEach(() => {
     consoleSpy = vi.spyOn(console, "log");
-    processExitSpy = vi
-      .spyOn(process, "exit")
-      .mockImplementation(() => undefined as never);
   });
 
   afterEach(() => {
-    processExitSpy.mockReset();
     consoleSpy.mockReset();
   });
 
@@ -236,14 +231,38 @@ describe("handleErrors", () => {
       );
     });
 
-    it("exits the process with status code 1", () => {
+    it("returns shouldExit as true", () => {
+      const { shouldExit } = handleErrors({
+        success: false,
+        errors: [
+          "`bundleName` is required for uploading bundle analysis information.",
+        ],
+      });
+      expect(shouldExit).toBeTruthy();
+    });
+  });
+
+  describe("there is no bundleName error", () => {
+    it("logs out the error message", () => {
       handleErrors({
         success: false,
         errors: [
           "`bundleName` is required for uploading bundle analysis information.",
         ],
       });
-      expect(processExitSpy).toHaveBeenCalledWith(1);
+
+      expect(consoleSpy).toHaveBeenCalled();
+      expect(consoleSpy).toHaveBeenCalledWith(
+        "[codecov] `bundleName` is required for uploading bundle analysis information.",
+      );
+    });
+
+    it("returns shouldExit as false", () => {
+      const { shouldExit } = handleErrors({
+        success: false,
+        errors: ["random error"],
+      });
+      expect(shouldExit).toBeFalsy();
     });
   });
 });
