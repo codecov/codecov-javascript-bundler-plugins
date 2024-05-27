@@ -24,7 +24,11 @@ const codecovNuxtPluginFactory = createVitePlugin<Options, true>(
 
     const normalizedOptions = normalizeOptions(userOptions);
     if (!normalizedOptions.success) {
-      handleErrors(normalizedOptions);
+      const { shouldExit } = handleErrors(normalizedOptions);
+
+      if (shouldExit) {
+        process.exit(1);
+      }
       return [];
     }
 
