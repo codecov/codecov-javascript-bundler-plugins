@@ -129,7 +129,8 @@ describe("Generating rollup stats", () => {
     describe("passing invalid bundle name", () => {
       beforeEach(async () => {
         const config = new GenerateConfig({
-          bundler: "rollup",
+          plugin: "rollup",
+          configFileName: "rollup",
           format: "esm",
           detectFormat: "esm",
           version: `v${version}`,

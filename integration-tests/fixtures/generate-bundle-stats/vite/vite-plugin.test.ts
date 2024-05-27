@@ -128,7 +128,8 @@ describe("Generating vite stats", () => {
     describe("invalid bundle name is passed", () => {
       beforeEach(async () => {
         const config = new GenerateConfig({
-          bundler: "vite",
+          plugin: "vite",
+          configFileName: "vite",
           format: "esm",
           detectFormat: "esm",
           version: `v${version}`,

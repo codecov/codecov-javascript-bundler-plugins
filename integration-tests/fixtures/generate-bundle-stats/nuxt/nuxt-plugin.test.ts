@@ -152,7 +152,8 @@ describe("Generating nuxt stats", () => {
       beforeEach(async () => {
         const config = new GenerateConfig({
           // nuxt uses vite under the hood
-          bundler: "nuxt",
+          plugin: "nuxt",
+          configFileName: "nuxt",
           format: "esm",
           detectFormat: "esm",
           version: `v3`,
@@ -173,7 +174,7 @@ describe("Generating nuxt stats", () => {
       });
 
       it(
-        "matches the snapshot",
+        "warns users and exits process with a code 1",
         async () => {
           const id = `nuxt-v${version}-${Date.now()}`;
           const API_URL = `http://localhost:8000/test-url/${id}/200/false`;

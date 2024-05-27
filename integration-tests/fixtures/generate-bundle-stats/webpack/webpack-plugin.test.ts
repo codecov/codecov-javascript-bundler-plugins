@@ -120,7 +120,8 @@ describe("Generating webpack stats", () => {
     describe("invalid bundle name is passed", () => {
       beforeEach(async () => {
         const config = new GenerateConfig({
-          bundler: "webpack",
+          plugin: "webpack",
+          configFileName: "webpack",
           format: "module",
           detectFormat: "commonjs",
           version: `v${version}`,
