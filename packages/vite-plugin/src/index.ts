@@ -7,9 +7,9 @@ import {
 import {
   type Options,
   normalizeOptions,
-  red,
   checkNodeVersion,
   Output,
+  handleErrors,
 } from "@codecov/bundler-plugin-core";
 
 import { viteBundleAnalysisPlugin } from "./vite-bundle-analysis/viteBundleAnalysisPlugin";
@@ -22,16 +22,14 @@ const codecovVitePluginFactory = createVitePlugin<Options, true>(
 
     const normalizedOptions = normalizeOptions(userOptions);
     if (!normalizedOptions.success) {
-      for (const error of normalizedOptions.errors) {
-        red(error);
-      }
+      handleErrors(normalizedOptions);
       return [];
     }
 
     const plugins: UnpluginOptions[] = [];
-    const output = new Output(normalizedOptions.options);
     const options = normalizedOptions.options;
     if (options.enableBundleAnalysis) {
+      const output = new Output(normalizedOptions.options);
       plugins.push(viteBundleAnalysisPlugin({ output }));
     }
 

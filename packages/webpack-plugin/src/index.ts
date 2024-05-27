@@ -6,10 +6,10 @@ import {
 } from "unplugin";
 import {
   normalizeOptions,
-  red,
   type Options,
   checkNodeVersion,
   Output,
+  handleErrors,
 } from "@codecov/bundler-plugin-core";
 
 import { webpackBundleAnalysisPlugin } from "./webpack-bundle-analysis/webpackBundleAnalysisPlugin";
@@ -22,9 +22,7 @@ const codecovWebpackPluginFactory = createWebpackPlugin<Options, true>(
 
     const normalizedOptions = normalizeOptions(userOptions);
     if (!normalizedOptions.success) {
-      for (const error of normalizedOptions.errors) {
-        red(error);
-      }
+      handleErrors(normalizedOptions);
       return [];
     }
 
