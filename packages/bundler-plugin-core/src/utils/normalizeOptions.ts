@@ -1,5 +1,6 @@
-import { type Options } from "../types.ts";
 import { z } from "zod";
+import { type Options } from "../types.ts";
+import { red } from "./logging.ts";
 
 export type NormalizedOptions = z.infer<
   ReturnType<typeof optionsSchemaFactory>
@@ -97,10 +98,23 @@ interface NormalizedOptionsSuccess {
   options: NormalizedOptions;
 }
 
+/**
+ * This type represents a union of possible results from the the function.
+ *
+ * @see {@link normalizeOptions}
+ */
 export type NormalizedOptionsResult =
   | NormalizedOptionsFailure
   | NormalizedOptionsSuccess;
 
+/**
+ * This function is used to normalize the options provided by the user. Validating the options
+ * passed by the user, and providing default values for a given set of options if none were
+ * provided.
+ *
+ * @param {Options} userOptions
+ * @returns {NormalizedOptionsResult}
+ */
 export const normalizeOptions = (
   userOptions: Options,
 ): NormalizedOptionsResult => {
@@ -125,4 +139,26 @@ export const normalizeOptions = (
     options: validatedOptions.data,
     success: true,
   };
+};
+
+/**
+ * This function logs the errors to the console, and will exit if there are any `bundleName` errors.
+ *
+ * @param {NormalizedOptionsFailure} options - The normalized options that failed validation.
+ */
+export const handleErrors = (options: NormalizedOptionsFailure) => {
+  let hasBundleNameError = false;
+  // we probably don't want to exit early so we can provide all the errors to the user
+  for (const error of options.errors) {
+    // if the error is related to the bundleName, we should set a flag
+    if (error.includes("bundleName")) {
+      hasBundleNameError = true;
+    }
+    red(error);
+  }
+
+  // since bundle names are required, we should exit if the bundleName fails validation
+  if (hasBundleNameError) {
+    process.exit(1);
+  }
 };

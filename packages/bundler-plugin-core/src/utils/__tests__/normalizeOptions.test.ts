@@ -1,8 +1,17 @@
-import { describe, it, expect } from "vitest";
+import {
+  describe,
+  expect,
+  it,
+  vi,
+  beforeEach,
+  afterEach,
+  type MockInstance,
+} from "vitest";
 import { type Options } from "../../types.ts";
 import {
   normalizeOptions,
   type NormalizedOptionsResult,
+  handleErrors,
 } from "../normalizeOptions";
 
 interface Test {
@@ -193,5 +202,48 @@ describe("normalizeOptions", () => {
   it.each(tests)("$name", ({ input, expected }) => {
     const expectation = normalizeOptions(input.options);
     expect(expectation).toEqual(expected);
+  });
+});
+
+describe("handleErrors", () => {
+  let consoleSpy: MockInstance;
+  let processExitSpy: MockInstance<[code?: number], never>;
+
+  beforeEach(() => {
+    consoleSpy = vi.spyOn(console, "log");
+    processExitSpy = vi
+      .spyOn(process, "exit")
+      .mockImplementation(() => undefined as never);
+  });
+
+  afterEach(() => {
+    processExitSpy.mockReset();
+    consoleSpy.mockReset();
+  });
+
+  describe("there is a bundleName error", () => {
+    it("logs out the error message", () => {
+      handleErrors({
+        success: false,
+        errors: [
+          "`bundleName` is required for uploading bundle analysis information.",
+        ],
+      });
+
+      expect(consoleSpy).toHaveBeenCalled();
+      expect(consoleSpy).toHaveBeenCalledWith(
+        "[codecov] `bundleName` is required for uploading bundle analysis information.",
+      );
+    });
+
+    it("exits the process with status code 1", () => {
+      handleErrors({
+        success: false,
+        errors: [
+          "`bundleName` is required for uploading bundle analysis information.",
+        ],
+      });
+      expect(processExitSpy).toHaveBeenCalledWith(1);
+    });
   });
 });
