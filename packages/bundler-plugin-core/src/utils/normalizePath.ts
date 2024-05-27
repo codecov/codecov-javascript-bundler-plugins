@@ -34,8 +34,11 @@ export const normalizePath = (path: string, format: string): string => {
     )})`;
 
     // grab the ending delimiter and create a regex group for it
-    const endingDelimiter =
+    let endingDelimiter =
       format.at(match.hashIndex + match.hashString.length) ?? "";
+    if (endingDelimiter === "[") {
+      endingDelimiter = ".";
+    }
     const endingRegex = `(?<endingDelimiter>${escapeRegex(endingDelimiter)})`;
 
     // create a regex that will match the hash
