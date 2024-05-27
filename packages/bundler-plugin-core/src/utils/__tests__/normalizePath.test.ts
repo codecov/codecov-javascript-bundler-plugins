@@ -67,6 +67,14 @@ const tests: Test[] = [
     },
     expected: "test.*.chunk.js",
   },
+  {
+    name: "handle case where [extname] is used",
+    input: {
+      path: "test.12345678.js",
+      format: "[name].[hash][extname]",
+    },
+    expected: "test.*.js",
+  },
 ];
 
 describe("normalizePath", () => {
