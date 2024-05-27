@@ -7,9 +7,9 @@ import {
 import {
   type Options,
   normalizeOptions,
-  red,
   checkNodeVersion,
   Output,
+  handleErrors,
 } from "@codecov/bundler-plugin-core";
 import { _internal_viteBundleAnalysisPlugin } from "@codecov/vite-plugin";
 
@@ -23,9 +23,7 @@ const codecovSvelteKitPluginFactory = createVitePlugin<Options, true>(
 
     const normalizedOptions = normalizeOptions(userOptions);
     if (!normalizedOptions.success) {
-      for (const error of normalizedOptions.errors) {
-        red(error);
-      }
+      handleErrors(normalizedOptions);
       return [];
     }
 
