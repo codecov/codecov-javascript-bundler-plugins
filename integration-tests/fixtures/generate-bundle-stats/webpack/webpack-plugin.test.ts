@@ -6,7 +6,7 @@ import { GenerateConfig } from "../../../scripts/gen-config";
 const webpackPath = (version: number) =>
   `node_modules/webpackV${version}/bin/webpack.js`;
 const webpackConfig = (version: number, format: string) =>
-  `fixtures/generate-bundle-stats/webpack/webpack-v${version}-${format}.config.cjs`;
+  `fixtures/generate-bundle-stats/webpack/webpack-v${version}-${format}.config.*`;
 const webpackApp = "test-apps/webpack";
 
 const VERSIONS = [5];
@@ -114,6 +114,46 @@ describe("Generating webpack stats", () => {
             name: expect.stringMatching("@codecov/webpack-plugin"),
           },
         });
+      });
+    });
+
+    describe("invalid bundle name is passed", () => {
+      beforeEach(async () => {
+        const config = new GenerateConfig({
+          plugin: "webpack",
+          configFileName: "webpack",
+          format: "module",
+          detectFormat: "commonjs",
+          version: `v${version}`,
+          detectVersion: "v5",
+          file_format: "cjs",
+          enableSourceMaps: false,
+        });
+
+        await config.createConfig();
+        config.removeBundleName(`test-webpack-v${version}`);
+        await config.writeConfig();
+      });
+
+      afterEach(async () => {
+        await $`rm -rf ${webpackConfig(version, "module")}`;
+        await $`rm -rf ${webpackApp}/distV${version}`;
+      });
+
+      it("warns users and exits process with a code 1", async () => {
+        const id = `webpack-v${version}-sourcemaps-${Date.now()}`;
+        const webpack = webpackPath(version);
+        const configFile = webpackConfig(version, "module");
+        const API_URL = `http://localhost:8000/test-url/${id}/200/false`;
+
+        // build the app
+        const { exitCode, stdout } =
+          await $`API_URL=${API_URL} node ${webpack} --config ${configFile}`.nothrow();
+
+        expect(exitCode).toBe(1);
+        expect(stdout.toString()).toContain(
+          "[codecov] bundleName: `` does not match format: `/^[wd_:/@.{}[]$-]+$/`.",
+        );
       });
     });
   });

@@ -114,6 +114,15 @@ export class GenerateConfig {
     return this.newConfigContents;
   }
 
+  removeBundleName(bundleName: string) {
+    if (typeof this.newConfigContents === "string") {
+      this.newConfigContents = this.newConfigContents.replaceAll(
+        bundleName,
+        "",
+      );
+    }
+  }
+
   async writeConfig() {
     if (typeof this.newConfigContents === "string") {
       await Bun.write(this.outFilePath, this.newConfigContents);
