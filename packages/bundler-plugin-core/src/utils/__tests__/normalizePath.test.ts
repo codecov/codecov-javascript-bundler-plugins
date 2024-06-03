@@ -75,6 +75,14 @@ const tests: Test[] = [
     },
     expected: "test.*.js",
   },
+  {
+    name: "input path with no extension present",
+    input: {
+      path: "test.12345678",
+      format: "[name].[hash]",
+    },
+    expected: "test.*",
+  },
 ];
 
 describe("normalizePath", () => {
