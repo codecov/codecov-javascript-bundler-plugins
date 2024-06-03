@@ -7,7 +7,7 @@
     "@codecov/vite-plugin": "0.0.0",
     "@codecov/webpack-plugin": "0.0.0",
     "@codecov/nuxt-plugin": "0.0.0",
-    "@codecov/sveltekit-plugin": "0.0.1-beta.8"
+    "@codecov/sveltekit-plugin": "0.0.0"
   },
   "changesets": [
     "chilled-eagles-protect",
