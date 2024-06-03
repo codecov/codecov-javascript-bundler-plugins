@@ -5,7 +5,6 @@ export default defineNuxtConfig({
     [
       "@codecov/nuxt-plugin",
       {
-        dryRun: true,
         enableBundleAnalysis: true,
         bundleName: "@codecov/example-nuxt-app",
         uploadToken: process.env.VITE_UPLOAD_TOKEN,
