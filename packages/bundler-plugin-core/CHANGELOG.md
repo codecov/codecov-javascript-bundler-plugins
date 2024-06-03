@@ -1,5 +1,14 @@
 # @codecov/bundler-plugin-core
 
+## 0.0.1-beta.9
+
+### Patch Changes
+
+- 297cd29: Add in support for bundle analysis for SvelteKit through new SvelteKit plugin
+- 297cd29: Update license to 2024
+- fe21d8a: Update normalizePath function to handle [hash][extname] case.
+- d74a176: When a user submits a invalid bundle name, we will hard fail and exit the bundle process now.
+
 ## 0.0.1-beta.8
 
 ### Patch Changes
