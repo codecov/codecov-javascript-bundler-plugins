@@ -327,8 +327,12 @@ jobs:
         env:
           NEXT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           NEXT_API_URL: ${{ secrets.CODECOV_API_URL }}
+          NUXT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          NUXT_API_URL: ${{ secrets.CODECOV_API_URL }}
           ROLLUP_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           ROLLUP_API_URL: ${{ secrets.CODECOV_API_URL }}
+          SVELTEKIT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          SVELTEKIT_API_URL: ${{ secrets.CODECOV_API_URL }}
           VITE_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           VITE_API_URL: ${{ secrets.CODECOV_API_URL }}
           WEBPACK_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
@@ -390,8 +394,12 @@ jobs:
         env:
           NEXT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
           NEXT_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
+          NUXT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          NUXT_API_URL: ${{ secrets.CODECOV_API_URL }}
           ROLLUP_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
           ROLLUP_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
+          SVELTEKIT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          SVELTEKIT_API_URL: ${{ secrets.CODECOV_API_URL }}
           VITE_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
           VITE_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
           WEBPACK_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
