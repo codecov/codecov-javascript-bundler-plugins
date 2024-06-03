@@ -6,10 +6,10 @@ export default defineConfig({
   plugins: [
     sveltekit(),
     codecovSvelteKitPlugin({
-      dryRun: true,
       enableBundleAnalysis: true,
-      uploadToken: "test-token",
       bundleName: "@codecov/example-sveltekit-app",
+      uploadToken: process.env.SVELTEKIT_UPLOAD_TOKEN,
+      apiUrl: process.env.SVELTEKIT_API_URL,
     }),
   ],
 });
