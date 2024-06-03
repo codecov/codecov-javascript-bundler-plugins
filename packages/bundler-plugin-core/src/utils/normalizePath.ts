@@ -34,8 +34,16 @@ export const normalizePath = (path: string, format: string): string => {
     )})`;
 
     // grab the ending delimiter and create a regex group for it
-    const endingDelimiter =
+    let endingDelimiter =
       format.at(match.hashIndex + match.hashString.length) ?? "";
+
+    // If the ending delimiter is `[extname]` there won't be a
+    // `.<file-extension>` so we need to replace it with a `.` for the
+    // handling the actual filename, which will have the `.` in the * string.
+
+    if (endingDelimiter === "[") {
+      endingDelimiter = ".";
+    }
     const endingRegex = `(?<endingDelimiter>${escapeRegex(endingDelimiter)})`;
 
     // create a regex that will match the hash
