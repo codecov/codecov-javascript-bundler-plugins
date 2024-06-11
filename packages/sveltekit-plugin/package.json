@@ -1,6 +1,6 @@
 {
   "name": "@codecov/sveltekit-plugin",
-  "version": "0.0.1-beta.8",
+  "version": "0.0.1-beta.9",
   "description": "Official Codecov SvelteKit plugin",
   "author": "Codecov",
   "license": "MIT",

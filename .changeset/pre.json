@@ -6,7 +6,8 @@
     "@codecov/rollup-plugin": "0.0.0",
     "@codecov/vite-plugin": "0.0.0",
     "@codecov/webpack-plugin": "0.0.0",
-    "@codecov/nuxt-plugin": "0.0.0"
+    "@codecov/nuxt-plugin": "0.0.0",
+    "@codecov/sveltekit-plugin": "0.0.0"
   },
   "changesets": [
     "chilled-eagles-protect",
@@ -18,12 +19,16 @@
     "hungry-toes-hide",
     "itchy-wolves-accept",
     "khaki-lions-glow",
+    "light-ants-thank",
     "little-knives-hunt",
     "many-berries-grab",
     "many-peas-repeat",
+    "orange-lemons-run",
     "popular-chicken-confess",
     "shaggy-snakes-sip",
     "silent-pugs-add",
+    "thirty-cheetahs-teach",
+    "two-spies-talk",
     "warm-feet-cry"
   ]
 }
