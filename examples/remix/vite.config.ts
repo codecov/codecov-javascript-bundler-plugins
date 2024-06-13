@@ -1,6 +1,7 @@
 import { vitePlugin as remix } from "@remix-run/dev";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
+import { codecovRemixPlugin } from "@codecov/remix-plugin";
 
 export default defineConfig({
   plugins: [
@@ -12,5 +13,11 @@ export default defineConfig({
       },
     }),
     tsconfigPaths(),
+    codecovRemixPlugin({
+      enableBundleAnalysis: true,
+      bundleName: "@codecov/example-remix-app",
+      uploadToken: process.env.VITE_UPLOAD_TOKEN,
+      apiUrl: process.env.VITE_API_URL,
+    }),
   ],
 });

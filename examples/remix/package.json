@@ -1,5 +1,5 @@
 {
-  "name": "remix",
+  "name": "@codecov/example-remix-app",
   "private": true,
   "sideEffects": false,
   "type": "module",
@@ -19,6 +19,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@codecov/remix-plugin": "workspace:^",
     "@remix-run/dev": "^2.9.2",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
