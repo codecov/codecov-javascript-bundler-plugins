@@ -279,7 +279,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        example: ["next-js", "nuxt", "rollup", "sveltekit", "vite", "webpack"]
+        example:
+          ["next-js", "nuxt", "remix", "rollup", "sveltekit", "vite", "webpack"]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -329,6 +330,8 @@ jobs:
           NEXT_API_URL: ${{ secrets.CODECOV_API_URL }}
           NUXT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           NUXT_API_URL: ${{ secrets.CODECOV_API_URL }}
+          REMIX_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          REMIX_API_URL: ${{ secrets.CODECOV_API_URL }}
           ROLLUP_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           ROLLUP_API_URL: ${{ secrets.CODECOV_API_URL }}
           SVELTEKIT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
@@ -346,7 +349,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        example: ["next-js", "nuxt", "rollup", "sveltekit", "vite", "webpack"]
+        example:
+          ["next-js", "nuxt", "remix", "rollup", "sveltekit", "vite", "webpack"]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -396,6 +400,8 @@ jobs:
           NEXT_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
           NUXT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           NUXT_API_URL: ${{ secrets.CODECOV_API_URL }}
+          REMIX_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          REMIX_API_URL: ${{ secrets.CODECOV_API_URL }}
           ROLLUP_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
           ROLLUP_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
           SVELTEKIT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
@@ -417,6 +423,7 @@ jobs:
           [
             "bundler-plugin-core",
             "nuxt-plugin",
+            "remix-plugin",
             "rollup-plugin",
             "sveltekit-plugin",
             "vite-plugin",
@@ -482,6 +489,7 @@ jobs:
           [
             "bundler-plugin-core",
             "nuxt-plugin",
+            "remix-plugin",
             "rollup-plugin",
             "sveltekit-plugin",
             "vite-plugin",

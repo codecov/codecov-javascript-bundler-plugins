@@ -3,21 +3,21 @@ import { $ } from "bun";
 import { describe, it, expect, afterEach, beforeEach } from "bun:test";
 import { GenerateConfig } from "../../../scripts/gen-config";
 
-const sveltekitApp = "test-apps/sveltekit";
+const remixApp = "test-apps/remix";
 
 const VERSIONS = [2];
 
 // Default Rollup formats: https://rollupjs.org/configuration-options/#output-format
 const FORMATS = [{ format: "esm", expected: "esm" }];
 
-describe("Generating sveltekit stats", () => {
+describe("Generating remix stats", () => {
   describe.each(VERSIONS)("%d", (version) => {
     describe.each(FORMATS)("%o", ({ format, expected }) => {
       beforeEach(async () => {
         const config = new GenerateConfig({
-          // need to re-write config script so that it can point to sveltekit dir but still output the vite config file
-          // sveltekit uses vite under the hood
-          plugin: "sveltekit",
+          // need to re-write config script so that it can point to remix dir but still output the vite config file
+          // remix uses vite under the hood
+          plugin: "remix",
           configFileName: "vite",
           format,
           detectFormat: "esm",
@@ -25,7 +25,7 @@ describe("Generating sveltekit stats", () => {
           detectVersion: "v2",
           file_format: "ts",
           enableSourceMaps: false,
-          overrideOutputPath: `${sveltekitApp}/vite.config.ts`,
+          overrideOutputPath: `${remixApp}/vite.config.ts`,
         });
 
         await config.createConfig();
@@ -33,23 +33,22 @@ describe("Generating sveltekit stats", () => {
       });
 
       afterEach(async () => {
-        await $`rm -rf ${sveltekitApp}/vite.config.ts`;
-        await $`rm -rf ${sveltekitApp}/.svelte-kit`;
-        await $`rm -rf ${sveltekitApp}/vite.config.ts.timestamp-*`;
-        await $`rm -rf ./fixtures/generate-bundle-stats/sveltekit/.svelte-kit`;
+        await $`rm -rf ${remixApp}/vite.config.ts`;
+        await $`rm -rf ${remixApp}/.svelte-kit`;
+        await $`rm -rf ./fixtures/generate-bundle-stats/remix/build`;
       });
 
       it(
         "matches the snapshot",
         async () => {
-          const id = `sveltekit-v${version}-${format}-${Date.now()}`;
+          const id = `remix-v${version}-${format}-${Date.now()}`;
           const API_URL = `http://localhost:8000/test-url/${id}/200/false`;
 
           // prepare and build the app
-          await $`cd test-apps/sveltekit && API_URL=${API_URL} pnpm run build`;
+          await $`cd test-apps/remix && API_URL=${API_URL} pnpm run build`;
 
-          const serverBundleName = `test-sveltekit-v${version}-server-esm`;
-          const clientBundleName = `test-sveltekit-v${version}-client-${expected}`;
+          const serverBundleName = `test-remix-v${version}-server-esm`;
+          const clientBundleName = `test-remix-v${version}-client-${expected}`;
 
           // fetch stats from the server
           const clientRes = await fetch(
@@ -61,12 +60,12 @@ describe("Generating sveltekit stats", () => {
           expect(clientStats).toMatchSnapshot({
             builtAt: expect.any(Number),
             duration: expect.any(Number),
-            outputPath: expect.stringContaining(`.svelte-kit`),
+            outputPath: expect.stringContaining(`build`),
             bundleName: expect.stringContaining(
-              `test-sveltekit-v${version}-client-${expected}`,
+              `test-remix-v${version}-client-${expected}`,
             ),
             plugin: {
-              name: expect.stringMatching("@codecov/sveltekit-plugin"),
+              name: expect.stringMatching("@codecov/remix-plugin"),
             },
             assets: expect.arrayContaining([
               {
@@ -104,12 +103,12 @@ describe("Generating sveltekit stats", () => {
           expect(serverStats).toMatchSnapshot({
             builtAt: expect.any(Number),
             duration: expect.any(Number),
-            outputPath: expect.stringContaining(`.svelte-kit`),
+            outputPath: expect.stringContaining(`build`),
             bundleName: expect.stringContaining(
-              `test-sveltekit-v${version}-server-${expected}`,
+              `test-remix-v${version}-server-${expected}`,
             ),
             plugin: {
-              name: expect.stringMatching("@codecov/sveltekit-plugin"),
+              name: expect.stringMatching("@codecov/remix-plugin"),
             },
             assets: expect.arrayContaining([
               {
@@ -144,7 +143,7 @@ describe("Generating sveltekit stats", () => {
     describe("invalid bundle name is passed", () => {
       beforeEach(async () => {
         const config = new GenerateConfig({
-          plugin: "sveltekit",
+          plugin: "remix",
           configFileName: "vite",
           format: "esm",
           detectFormat: "esm",
@@ -152,30 +151,30 @@ describe("Generating sveltekit stats", () => {
           detectVersion: "v2",
           file_format: "ts",
           enableSourceMaps: false,
-          overrideOutputPath: `${sveltekitApp}/vite.config.ts`,
+          overrideOutputPath: `${remixApp}/vite.config.ts`,
         });
 
         await config.createConfig();
-        config.removeBundleName(`test-sveltekit-v${version}`);
+        config.removeBundleName(`test-remix-v${version}`);
         await config.writeConfig();
       });
 
       afterEach(async () => {
-        await $`rm -rf ${sveltekitApp}/vite.config.ts`;
-        await $`rm -rf ${sveltekitApp}/.svelte-kit`;
-        await $`rm -rf ${sveltekitApp}/vite.config.ts.timestamp-*`;
-        await $`rm -rf ./fixtures/generate-bundle-stats/sveltekit/.svelte-kit`;
+        await $`rm -rf ${remixApp}/vite.config.ts`;
+        await $`rm -rf ${remixApp}/vite.config.ts.timestamp-*`;
+        await $`rm -rf ${remixApp}/build`;
+        await $`rm -rf ./fixtures/generate-bundle-stats/remix/build`;
       });
 
       it(
         "warns users and exits process with a code 1",
         async () => {
-          const id = `sveltekit-v${version}-${Date.now()}`;
+          const id = `remix-v${version}-${Date.now()}`;
           const API_URL = `http://localhost:8000/test-url/${id}/200/false`;
 
           // prepare and build the app
           const { exitCode, stdout } =
-            await $`cd test-apps/sveltekit && API_URL=${API_URL} pnpm run build`.nothrow();
+            await $`cd test-apps/remix && API_URL=${API_URL} pnpm run build`.nothrow();
 
           expect(exitCode).toBe(1);
           // for some reason this isn't being outputted in the test env
