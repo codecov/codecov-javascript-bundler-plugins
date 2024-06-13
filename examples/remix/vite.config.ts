@@ -16,8 +16,8 @@ export default defineConfig({
     codecovRemixPlugin({
       enableBundleAnalysis: true,
       bundleName: "@codecov/example-remix-app",
-      uploadToken: process.env.VITE_UPLOAD_TOKEN,
-      apiUrl: process.env.VITE_API_URL,
+      uploadToken: process.env.REMIX_UPLOAD_TOKEN,
+      apiUrl: process.env.REMIX_API_URL,
     }),
   ],
 });
