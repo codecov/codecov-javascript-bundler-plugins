@@ -35,6 +35,7 @@ describe("Generating sveltekit stats", () => {
       afterEach(async () => {
         await $`rm -rf ${sveltekitApp}/vite.config.ts`;
         await $`rm -rf ${sveltekitApp}/.svelte-kit`;
+        await $`rm -rf ${sveltekitApp}/vite.config.ts.timestamp-*`;
         await $`rm -rf ./fixtures/generate-bundle-stats/sveltekit/.svelte-kit`;
       });
 
@@ -162,6 +163,7 @@ describe("Generating sveltekit stats", () => {
       afterEach(async () => {
         await $`rm -rf ${sveltekitApp}/vite.config.ts`;
         await $`rm -rf ${sveltekitApp}/.svelte-kit`;
+        await $`rm -rf ${sveltekitApp}/vite.config.ts.timestamp-*`;
         await $`rm -rf ./fixtures/generate-bundle-stats/sveltekit/.svelte-kit`;
       });
 
