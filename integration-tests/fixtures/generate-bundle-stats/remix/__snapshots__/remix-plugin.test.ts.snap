@@ -1,0 +1,43 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Generating remix stats 2 {"format":"esm","expected":"esm"} matches the snapshot 1`] = `
+{
+  "assets": ExpectArrayContaining {},
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-remix-v2-client-esm",
+  "bundler": {
+    "name": "rollup",
+    "version": "4.16.2",
+  },
+  "chunks": ExpectArrayContaining {},
+  "duration": Any<Number>,
+  "modules": ExpectArrayContaining {},
+  "outputPath": StringContaining "build",
+  "plugin": {
+    "name": StringMatching "@codecov/remix-plugin",
+    "version": "0.0.1-beta.9",
+  },
+  "version": "1",
+}
+`;
+
+exports[`Generating remix stats 2 {"format":"esm","expected":"esm"} matches the snapshot 2`] = `
+{
+  "assets": ExpectArrayContaining {},
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-remix-v2-server-esm",
+  "bundler": {
+    "name": "rollup",
+    "version": "4.16.2",
+  },
+  "chunks": ExpectArrayContaining {},
+  "duration": Any<Number>,
+  "modules": ExpectArrayContaining {},
+  "outputPath": StringContaining "build",
+  "plugin": {
+    "name": StringMatching "@codecov/remix-plugin",
+    "version": "0.0.1-beta.9",
+  },
+  "version": "1",
+}
+`;
