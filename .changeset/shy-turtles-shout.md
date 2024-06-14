@@ -1,6 +1,6 @@
 ---
 "@codecov/sveltekit-plugin": patch
-"@codecov/remix-plugin": patch
+"@codecov/remix-vite-plugin": patch
 "@codecov/bundler-plugin-core": patch
 "@codecov/nuxt-plugin": patch
 "@codecov/rollup-plugin": patch
@@ -8,4 +8,4 @@
 "@codecov/webpack-plugin": patch
 ---
 
-Add in new Remix plugin
+Add in new Remix Vite plugin
