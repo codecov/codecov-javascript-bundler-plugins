@@ -21,19 +21,19 @@
 Using npm:
 
 ```bash
-npm install @codecov/remix-plugin --save-dev
+npm install @codecov/remix-vite-plugin --save-dev
 ```
 
 Using yarn:
 
 ```bash
-yarn add @codecov/remix-plugin --dev
+yarn add @codecov/remix-vite-plugin --dev
 ```
 
 Using pnpm:
 
 ```bash
-pnpm add @codecov/remix-plugin --save-dev
+pnpm add @codecov/remix-vite-plugin --save-dev
 ```
 
 ## Example
@@ -43,7 +43,7 @@ pnpm add @codecov/remix-plugin --save-dev
 import { vitePlugin as remix } from "@remix-run/dev";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
-import { codecovRemixPlugin } from "@codecov/remix-plugin";
+import { codecovRemixPlugin } from "@codecov/remix-vite-plugin";
 
 export default defineConfig({
   plugins: [

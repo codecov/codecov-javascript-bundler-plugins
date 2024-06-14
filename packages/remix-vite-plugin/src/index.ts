@@ -15,7 +15,7 @@ import { _internal_viteBundleAnalysisPlugin } from "@codecov/vite-plugin";
 
 import { remixBundleAnalysisPlugin } from "./remix-bundle-analysis/remixBundleAnalysisPlugin";
 
-const codecovRemixPluginFactory = createVitePlugin<Options, true>(
+const codecovRemixVitePluginFactory = createVitePlugin<Options, true>(
   (userOptions, unpluginMetaContext) => {
     if (checkNodeVersion(unpluginMetaContext)) {
       return [];
@@ -50,27 +50,27 @@ const codecovRemixPluginFactory = createVitePlugin<Options, true>(
  *
  * @example
  * ```typescript
-// vite.config.ts
-import { vitePlugin as remix } from "@remix-run/dev";
-import { defineConfig } from "vite";
-import tsconfigPaths from "vite-tsconfig-paths";
-import { codecovRemixPlugin } from "@codecov/remix-plugin";
-
-export default defineConfig({
-  plugins: [
-    remix(),
-    tsconfigPaths()
-    // Put the Codecov SvelteKit plugin after all other plugins
-    codecovRemixPlugin({
-      enableBundleAnalysis: true,
-      bundleName: "example-remix-bundle",
-      uploadToken: process.env.CODECOV_TOKEN,
-    }),
-  ],
+ * // vite.config.ts
+ * import { vitePlugin as remix } from "@remix-run/dev";
+ * import { defineConfig } from "vite";
+ * import tsconfigPaths from "vite-tsconfig-paths";
+ * import { codecovRemixVitePlugin } from "@codecov/remix-vite-plugin";
+ *
+ * export default defineConfig({
+ *   plugins: [
+ *     remix(),
+ *     tsconfigPaths()
+ *     // Put the Codecov SvelteKit plugin after all other plugins
+ *     codecovRemixVitePlugin({
+ *       enableBundleAnalysis: true,
+ *       bundleName: "example-remix-bundle",
+ *       uploadToken: process.env.CODECOV_TOKEN,
+ *     }),
+ *   ],
  * });
  * ```
  *
  * @see {@link @codecov/bundler-plugin-core!Options | Options} for list of options.
  */
-export const codecovRemixPlugin: (options: Options) => VitePlugin<any>[] =
-  codecovRemixPluginFactory;
+export const codecovRemixVitePlugin: (options: Options) => VitePlugin<any>[] =
+  codecovRemixVitePluginFactory;
