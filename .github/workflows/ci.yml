@@ -423,7 +423,7 @@ jobs:
           [
             "bundler-plugin-core",
             "nuxt-plugin",
-            "remix-plugin",
+            "remix-vite-plugin",
             "rollup-plugin",
             "sveltekit-plugin",
             "vite-plugin",
@@ -489,7 +489,7 @@ jobs:
           [
             "bundler-plugin-core",
             "nuxt-plugin",
-            "remix-plugin",
+            "remix-vite-plugin",
             "rollup-plugin",
             "sveltekit-plugin",
             "vite-plugin",
