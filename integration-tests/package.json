@@ -27,7 +27,7 @@
   "devDependencies": {
     "@codecov/bundler-plugin-core": "workspace:^",
     "@codecov/nuxt-plugin": "workspace:^",
-    "@codecov/remix-plugin": "workspace:^",
+    "@codecov/remix-vite-plugin": "workspace:^",
     "@codecov/rollup-plugin": "workspace:^",
     "@codecov/sveltekit-plugin": "workspace:^",
     "@codecov/vite-plugin": "workspace:^",
