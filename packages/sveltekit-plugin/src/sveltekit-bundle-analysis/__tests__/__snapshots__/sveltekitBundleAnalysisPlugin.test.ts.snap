@@ -3,7 +3,7 @@
 exports[`sveltekitBundleAnalysisPlugin > when called > returns a plugin object 1`] = `
 {
   "name": "@codecov/sveltekit-plugin",
-  "pluginVersion": "0.0.1-beta.9",
+  "pluginVersion": "0.0.1-beta.10",
   "version": "1",
   "vite": {
     "generateBundle": [Function],
