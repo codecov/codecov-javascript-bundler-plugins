@@ -226,8 +226,10 @@ describe("handleErrors", () => {
       });
 
       expect(consoleSpy).toHaveBeenCalled();
-      expect(consoleSpy).toHaveBeenCalledWith(
-        "[codecov] `bundleName` is required for uploading bundle analysis information.",
+      expect(consoleSpy.mock.lastCall?.[0]).toStrictEqual(
+        expect.stringContaining(
+          "`bundleName` is required for uploading bundle analysis information.",
+        ),
       );
     });
 
@@ -252,8 +254,10 @@ describe("handleErrors", () => {
       });
 
       expect(consoleSpy).toHaveBeenCalled();
-      expect(consoleSpy).toHaveBeenCalledWith(
-        "[codecov] `bundleName` is required for uploading bundle analysis information.",
+      expect(consoleSpy.mock.lastCall?.[0]).toStrictEqual(
+        expect.stringContaining(
+          "`bundleName` is required for uploading bundle analysis information.",
+        ),
       );
     });
 

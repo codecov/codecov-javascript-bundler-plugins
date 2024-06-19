@@ -12,6 +12,7 @@ import { red } from "./utils/logging.ts";
 import { handleErrors, normalizeOptions } from "./utils/normalizeOptions.ts";
 import { normalizePath } from "./utils/normalizePath.ts";
 import { Output } from "./utils/Output.ts";
+import { getCompressedSize } from "./utils/getCompressedSize.ts";
 
 export type {
   Asset,
@@ -26,6 +27,7 @@ export type {
 export {
   checkNodeVersion,
   handleErrors,
+  getCompressedSize,
   normalizeOptions,
   normalizePath,
   Output,
