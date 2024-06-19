@@ -8,4 +8,4 @@
 "@codecov/vite-plugin": patch
 ---
 
-Collect gzip information in plugins
+Set version from passed output arg, and collect gzip information in plugins
