@@ -9,7 +9,7 @@ exports[`rollupBundleAnalysisPlugin > when called > returns a plugin object 1`] 
   "rollup": {
     "generateBundle": [Function],
   },
-  "version": "1",
+  "version": "2",
   "writeBundle": [Function],
 }
 `;

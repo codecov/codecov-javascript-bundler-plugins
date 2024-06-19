@@ -4,6 +4,7 @@ import {
   normalizePath,
   type BundleAnalysisUploadPlugin,
   type Asset,
+  getCompressedSize,
 } from "@codecov/bundler-plugin-core";
 import * as webpack from "webpack";
 
@@ -17,7 +18,7 @@ const PLUGIN_VERSION = __PACKAGE_VERSION__ as string;
 export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
   output,
 }) => ({
-  version: "1",
+  version: output.version,
   name: PLUGIN_NAME,
   pluginVersion: PLUGIN_VERSION,
   buildStart: () => {
@@ -32,12 +33,12 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
   },
   webpack(compiler) {
     compiler.hooks.thisCompilation.tap(PLUGIN_NAME, (compilation) => {
-      compilation.hooks.processAssets.tap(
+      compilation.hooks.processAssets.tapPromise(
         {
           name: PLUGIN_NAME,
           stage: webpack.Compilation.PROCESS_ASSETS_STAGE_REPORT,
         },
-        () => {
+        async () => {
           // TODO - remove this once we hard fail on not having a bundle name
           // don't need to do anything if the bundle name is not present or empty
           if (!output.bundleName || output.bundleName === "") {
@@ -115,9 +116,20 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
                 continue;
               }
 
+              const currentAsset = compilation.getAsset(asset.name);
+
+              let compressedSize = null;
+              if (currentAsset) {
+                compressedSize = await getCompressedSize({
+                  fileName: asset.name,
+                  code: currentAsset.source.source(),
+                });
+              }
+
               collectedAssets.push({
                 name: asset.name,
                 size: asset.size,
+                gzipSize: compressedSize,
                 normalized: normalizePath(asset.name, format),
               });
             }

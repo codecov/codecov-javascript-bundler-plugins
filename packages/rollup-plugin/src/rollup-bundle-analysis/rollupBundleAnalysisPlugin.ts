@@ -6,6 +6,7 @@ import {
   type BundleAnalysisUploadPlugin,
   red,
   normalizePath,
+  getCompressedSize,
 } from "@codecov/bundler-plugin-core";
 
 // @ts-expect-error this value is being replaced by rollup
@@ -16,7 +17,7 @@ const PLUGIN_VERSION = __PACKAGE_VERSION__ as string;
 export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
   output,
 }) => ({
-  version: "1",
+  version: output.version,
   name: PLUGIN_NAME,
   pluginVersion: PLUGIN_VERSION,
   buildStart: () => {
@@ -30,7 +31,7 @@ export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
     await output.write();
   },
   rollup: {
-    generateBundle(this, options, bundle) {
+    async generateBundle(this, options, bundle) {
       // TODO - remove this once we hard fail on not having a bundle name
       // don't need to do anything if the bundle name is not present or empty
       if (!output.bundleName || output.bundleName === "") {
@@ -78,9 +79,15 @@ export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
               continue;
             }
 
+            const compressedSize = await getCompressedSize({
+              fileName,
+              code: item.source,
+            });
+
             assets.push({
               name: fileName,
               size: size,
+              gzipSize: compressedSize,
               normalized: normalizePath(fileName, assetFormatString),
             });
           } else {
@@ -91,9 +98,15 @@ export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
               continue;
             }
 
+            const compressedSize = await getCompressedSize({
+              fileName,
+              code: item.source,
+            });
+
             assets.push({
               name: fileName,
               size: size,
+              gzipSize: compressedSize,
               normalized: normalizePath(fileName, assetFormatString),
             });
           }
@@ -110,9 +123,15 @@ export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
             continue;
           }
 
+          const compressedSize = await getCompressedSize({
+            fileName,
+            code: item.code,
+          });
+
           assets.push({
             name: fileName,
             size: size,
+            gzipSize: compressedSize,
             normalized: normalizePath(fileName, chunkFormatString),
           });
 
