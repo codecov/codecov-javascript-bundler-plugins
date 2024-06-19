@@ -7,8 +7,13 @@ const remixApp = "test-apps/remix";
 
 const VERSIONS = [2];
 
-// Default Rollup formats: https://rollupjs.org/configuration-options/#output-format
-const FORMATS = [{ format: "esm", expected: "esm" }];
+const FORMATS = [
+  { format: "amd", expected: "amd" },
+  { format: "cjs", expected: "cjs" },
+  { format: "es", expected: "esm" },
+  { format: "esm", expected: "esm" },
+  { format: "module", expected: "esm" },
+];
 
 describe("Generating remix stats", () => {
   describe.each(VERSIONS)("%d", (version) => {
@@ -72,6 +77,7 @@ describe("Generating remix stats", () => {
                 name: expect.any(String),
                 normalized: expect.any(String),
                 size: expect.any(Number),
+                gzipSize: expect.anything(),
               },
             ]),
             chunks: expect.arrayContaining([
@@ -104,9 +110,7 @@ describe("Generating remix stats", () => {
             builtAt: expect.any(Number),
             duration: expect.any(Number),
             outputPath: expect.stringContaining(`build`),
-            bundleName: expect.stringContaining(
-              `test-remix-v${version}-server-${expected}`,
-            ),
+            bundleName: expect.stringContaining(serverBundleName),
             plugin: {
               name: expect.stringMatching("@codecov/remix-vite-plugin"),
             },
@@ -115,6 +119,7 @@ describe("Generating remix stats", () => {
                 name: expect.any(String),
                 normalized: expect.any(String),
                 size: expect.any(Number),
+                gzipSize: expect.anything(),
               },
             ]),
             chunks: expect.arrayContaining([

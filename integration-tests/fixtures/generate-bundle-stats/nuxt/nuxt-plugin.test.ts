@@ -80,6 +80,7 @@ describe("Generating nuxt stats", () => {
                 name: expect.any(String),
                 normalized: expect.any(String),
                 size: expect.any(Number),
+                gzipSize: expect.anything(),
               },
             ]),
             chunks: expect.arrayContaining([
@@ -123,6 +124,7 @@ describe("Generating nuxt stats", () => {
                 name: expect.any(String),
                 normalized: expect.any(String),
                 size: expect.any(Number),
+                gzipSize: expect.anything(),
               },
             ]),
             chunks: expect.arrayContaining([

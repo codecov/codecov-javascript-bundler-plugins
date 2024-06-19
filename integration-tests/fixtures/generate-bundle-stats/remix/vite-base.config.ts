@@ -4,6 +4,13 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import { codecovRemixVitePlugin } from "@codecov/remix-vite-plugin";
 
 export default defineConfig({
+  build: {
+    rollupOptions: {
+      output: {
+        format: "esm",
+      },
+    },
+  },
   plugins: [
     remix({
       future: {
