@@ -4,6 +4,7 @@ exports[`Generating webpack stats 5 {"format":"array-push","expected":"array-pus
 {
   "assets": [
     {
+      "gzipSize": 25254,
       "name": "main-6c1d26e76f6ba1fc75c8.js",
       "normalized": "main-*.js",
       "size": 70961,
@@ -70,7 +71,7 @@ exports[`Generating webpack stats 5 {"format":"array-push","expected":"array-pus
     "name": StringMatching "@codecov/webpack-plugin",
     "version": "0.0.1-beta.10",
   },
-  "version": "1",
+  "version": "2",
 }
 `;
 
@@ -78,6 +79,7 @@ exports[`Generating webpack stats 5 {"format":"commonjs","expected":"cjs"} match
 {
   "assets": [
     {
+      "gzipSize": 25254,
       "name": "main-6c1d26e76f6ba1fc75c8.js",
       "normalized": "main-*.js",
       "size": 70961,
@@ -144,7 +146,7 @@ exports[`Generating webpack stats 5 {"format":"commonjs","expected":"cjs"} match
     "name": StringMatching "@codecov/webpack-plugin",
     "version": "0.0.1-beta.10",
   },
-  "version": "1",
+  "version": "2",
 }
 `;
 
@@ -152,6 +154,7 @@ exports[`Generating webpack stats 5 {"format":"module","expected":"esm"} matches
 {
   "assets": [
     {
+      "gzipSize": 25254,
       "name": "main-6c1d26e76f6ba1fc75c8.js",
       "normalized": "main-*.js",
       "size": 70961,
@@ -218,7 +221,7 @@ exports[`Generating webpack stats 5 {"format":"module","expected":"esm"} matches
     "name": StringMatching "@codecov/webpack-plugin",
     "version": "0.0.1-beta.10",
   },
-  "version": "1",
+  "version": "2",
 }
 `;
 
@@ -226,6 +229,7 @@ exports[`Generating webpack stats 5 source maps are enabled does not include any
 {
   "assets": [
     {
+      "gzipSize": 25254,
       "name": "main-6c1d26e76f6ba1fc75c8.js",
       "normalized": "main-*.js",
       "size": 70961,
@@ -292,6 +296,6 @@ exports[`Generating webpack stats 5 source maps are enabled does not include any
     "name": StringMatching "@codecov/webpack-plugin",
     "version": "0.0.1-beta.10",
   },
-  "version": "1",
+  "version": "2",
 }
 `;
