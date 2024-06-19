@@ -12,7 +12,7 @@ const PLUGIN_VERSION = __PACKAGE_VERSION__ as string;
 export const remixBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
   output,
 }) => ({
-  version: "1",
+  version: output.version,
   name: PLUGIN_NAME,
   pluginVersion: PLUGIN_VERSION,
   vite: {
