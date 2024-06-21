@@ -5,9 +5,8 @@ import {
   type Module,
   type BundleAnalysisUploadPlugin,
   red,
-  normalizePath,
-  getCompressedSize,
 } from "@codecov/bundler-plugin-core";
+import { createAsset } from "./createAsset";
 
 // @ts-expect-error this value is being replaced by rollup
 const PLUGIN_NAME = __PACKAGE_NAME__ as string;
@@ -69,116 +68,87 @@ export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
       }
 
       let counter = 0;
-      for (const item of items) {
-        if (item?.type === "asset") {
-          if (typeof item.source === "string") {
+      await Promise.all(
+        items.map(async (item) => {
+          if (item?.type === "asset") {
             const fileName = item?.fileName ?? "";
-            const size = Buffer.from(item.source).byteLength;
-
             if (path.extname(fileName) === ".map") {
-              continue;
+              return;
             }
 
-            const compressedSize = await getCompressedSize({
-              fileName,
-              code: item.source,
+            const asset = await createAsset({
+              fileName: fileName,
+              source: item.source,
+              formatString: assetFormatString,
             });
-
-            assets.push({
-              name: fileName,
-              size: size,
-              gzipSize: compressedSize,
-              normalized: normalizePath(fileName, assetFormatString),
-            });
-          } else {
+            assets.push(asset);
+          } else if (item?.type === "chunk") {
             const fileName = item?.fileName ?? "";
-            const size = item?.source?.byteLength;
-
             if (path.extname(fileName) === ".map") {
-              continue;
+              return;
             }
 
-            const compressedSize = await getCompressedSize({
+            const asset = await createAsset({
               fileName,
-              code: item.source,
+              source: item.code,
+              formatString: chunkFormatString,
+            });
+            assets.push(asset);
+
+            const chunkId = item?.name ?? "";
+            const uniqueId = `${counter}-${chunkId}`;
+
+            chunks.push({
+              id: chunkId,
+              uniqueId: uniqueId,
+              entry: item?.isEntry,
+              initial: item?.isDynamicEntry,
+              files: [fileName],
+              names: [item?.name],
             });
 
-            assets.push({
-              name: fileName,
-              size: size,
-              gzipSize: compressedSize,
-              normalized: normalizePath(fileName, assetFormatString),
-            });
-          }
-        }
+            const moduleEntries = Object.entries(item?.modules ?? {});
+            for (const [modulePath, moduleInfo] of moduleEntries) {
+              const normalizedModulePath = modulePath.replace("\u0000", "");
+              const relativeModulePath = path.relative(
+                cwd,
+                normalizedModulePath,
+              );
+              const relativeModulePathWithPrefix = relativeModulePath.match(
+                /^\.\./,
+              )
+                ? relativeModulePath
+                : `.${path.sep}${relativeModulePath}`;
 
-        if (item?.type === "chunk") {
-          const chunkId = item?.name ?? "";
-          const fileName = item?.fileName ?? "";
-          const moduleEntries = Object.entries(item?.modules ?? {});
-          const size = item?.code?.length;
-          const uniqueId = `${counter}-${chunkId}`;
+              // try to grab module already set in map
+              const moduleEntry = moduleByFileName.get(
+                relativeModulePathWithPrefix,
+              );
 
-          if (path.extname(fileName) === ".map") {
-            continue;
-          }
+              // if the modules exists append chunk ids to the grabbed module
+              // else create a new module and create a new entry in the map
+              if (moduleEntry) {
+                moduleEntry.chunkUniqueIds.push(uniqueId);
+              } else {
+                const size = customOptions.moduleOriginalSize
+                  ? moduleInfo.originalLength
+                  : moduleInfo.renderedLength;
 
-          const compressedSize = await getCompressedSize({
-            fileName,
-            code: item.code,
-          });
+                const module: Module = {
+                  name: relativeModulePathWithPrefix,
+                  size: size,
+                  chunkUniqueIds: [uniqueId],
+                };
 
-          assets.push({
-            name: fileName,
-            size: size,
-            gzipSize: compressedSize,
-            normalized: normalizePath(fileName, chunkFormatString),
-          });
-
-          chunks.push({
-            id: chunkId,
-            uniqueId: uniqueId,
-            entry: item?.isEntry,
-            initial: item?.isDynamicEntry,
-            files: [fileName],
-            names: [item?.name],
-          });
-
-          for (const [modulePath, moduleInfo] of moduleEntries) {
-            const normalizedModulePath = modulePath.replace("\u0000", "");
-            const relativeModulePath = path.relative(cwd, normalizedModulePath);
-            const relativeModulePathWithPrefix = relativeModulePath.match(
-              /^\.\./,
-            )
-              ? relativeModulePath
-              : `.${path.sep}${relativeModulePath}`;
-
-            // try to grab module already set in map
-            const moduleEntry = moduleByFileName.get(
-              relativeModulePathWithPrefix,
-            );
-
-            // if the modules exists append chunk ids to the grabbed module
-            // else create a new module and create a new entry in the map
-            if (moduleEntry) {
-              moduleEntry.chunkUniqueIds.push(uniqueId);
-            } else {
-              const size = customOptions.moduleOriginalSize
-                ? moduleInfo.originalLength
-                : moduleInfo.renderedLength;
-
-              const module: Module = {
-                name: relativeModulePathWithPrefix,
-                size: size,
-                chunkUniqueIds: [uniqueId],
-              };
-
-              moduleByFileName.set(relativeModulePathWithPrefix, module);
+                moduleByFileName.set(relativeModulePathWithPrefix, module);
+              }
             }
+            counter += 1;
           }
-          counter += 1;
-        }
-      }
+
+          return;
+        }),
+      );
 
       // grab the modules from the map and convert it to an array
       const modules = Array.from(moduleByFileName.values());
