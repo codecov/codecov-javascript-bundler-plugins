@@ -102,37 +102,41 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
                 ? outputOptions.chunkFilename
                 : "";
 
-            for (const asset of assets) {
-              const format = findFilenameFormat({
-                assetName: asset.name,
-                filename,
-                assetModuleFilename,
-                chunkFilename,
-                cssFilename,
-                cssChunkFilename,
-              });
-
-              if (path.extname(asset.name) === ".map") {
-                continue;
-              }
-
-              const currentAsset = compilation.getAsset(asset.name);
-
-              let compressedSize = null;
-              if (currentAsset) {
-                compressedSize = await getCompressedSize({
-                  fileName: asset.name,
-                  code: currentAsset.source.source(),
+            await Promise.all(
+              assets.map(async (asset) => {
+                const format = findFilenameFormat({
+                  assetName: asset.name,
+                  filename,
+                  assetModuleFilename,
+                  chunkFilename,
+                  cssFilename,
+                  cssChunkFilename,
                 });
-              }
 
-              collectedAssets.push({
-                name: asset.name,
-                size: asset.size,
-                gzipSize: compressedSize,
-                normalized: normalizePath(asset.name, format),
-              });
-            }
+                if (path.extname(asset.name) === ".map") {
+                  return;
+                }
+
+                const currentAsset = compilation.getAsset(asset.name);
+
+                let compressedSize = null;
+                if (currentAsset) {
+                  compressedSize = await getCompressedSize({
+                    fileName: asset.name,
+                    code: currentAsset.source.source(),
+                  });
+                }
+
+                collectedAssets.push({
+                  name: asset.name,
+                  size: asset.size,
+                  gzipSize: compressedSize,
+                  normalized: normalizePath(asset.name, format),
+                });
+
+                return;
+              }),
+            );
 
             output.assets = collectedAssets;
           }
