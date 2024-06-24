@@ -5,8 +5,8 @@ import {
   type Module,
   type BundleAnalysisUploadPlugin,
   red,
+  createRollupAsset,
 } from "@codecov/bundler-plugin-core";
-import { createAsset } from "./createAsset";
 
 // @ts-expect-error this value is being replaced by rollup
 const PLUGIN_NAME = __PACKAGE_NAME__ as string;
@@ -77,7 +77,7 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
               return;
             }
 
-            const asset = await createAsset({
+            const asset = await createRollupAsset({
               fileName: fileName,
               source: item.source,
               formatString: assetFormatString,
@@ -89,7 +89,7 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
               return;
             }
 
-            const asset = await createAsset({
+            const asset = await createRollupAsset({
               fileName,
               source: item.code,
               formatString: chunkFormatString,
