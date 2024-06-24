@@ -1,10 +1,10 @@
 import { describe, it, expect } from "vitest";
 
-import { createAsset } from "../createAsset";
+import { createRollupAsset } from "../createRollupAsset";
 
-describe("createAsset", () => {
+describe("createRollupAsset", () => {
   it("sets the asset name", async () => {
-    const asset = await createAsset({
+    const asset = await createRollupAsset({
       fileName: "test.D4lWaVuy.js",
       source: Buffer.from("test"),
       formatString: "[name].[hash].js",
@@ -14,7 +14,7 @@ describe("createAsset", () => {
   });
 
   it("sets the normalized name", async () => {
-    const asset = await createAsset({
+    const asset = await createRollupAsset({
       fileName: "test.D4lWaVuy.js",
       source: Buffer.from("test"),
       formatString: "[name].[hash].js",
@@ -25,7 +25,7 @@ describe("createAsset", () => {
 
   describe("when the source is a Buffer", () => {
     it("sets the size", async () => {
-      const asset = await createAsset({
+      const asset = await createRollupAsset({
         fileName: "test.D4lWaVuy.js",
         source: Buffer.from("test"),
         formatString: "[name].[hash].js",
@@ -35,7 +35,7 @@ describe("createAsset", () => {
     });
 
     it("sets the gzip size", async () => {
-      const asset = await createAsset({
+      const asset = await createRollupAsset({
         fileName: "test.D4lWaVuy.js",
         source: Buffer.from("test"),
         formatString: "[name].[hash].js",
@@ -46,7 +46,7 @@ describe("createAsset", () => {
 
   describe("when the source is a string", () => {
     it("sets the size", async () => {
-      const asset = await createAsset({
+      const asset = await createRollupAsset({
         fileName: "test.D4lWaVuy.js",
         source: "test",
         formatString: "[name].[hash].js",
@@ -56,7 +56,7 @@ describe("createAsset", () => {
     });
 
     it("sets the gzip size", async () => {
-      const asset = await createAsset({
+      const asset = await createRollupAsset({
         fileName: "test.D4lWaVuy.js",
         source: "test",
         formatString: "[name].[hash].js",

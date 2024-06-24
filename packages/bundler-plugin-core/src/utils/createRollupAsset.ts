@@ -1,4 +1,5 @@
-import { getCompressedSize, normalizePath } from "@codecov/bundler-plugin-core";
+import { getCompressedSize } from "./getCompressedSize.ts";
+import { normalizePath } from "./normalizePath.ts";
 
 interface CreateAssetOptions {
   fileName: string;
@@ -6,17 +7,15 @@ interface CreateAssetOptions {
   formatString: string;
 }
 
-export const createAsset = async ({
+export const createRollupAsset = async ({
   source,
   fileName,
   formatString,
 }: CreateAssetOptions) => {
-  let size = 0;
-  if (source instanceof Buffer) {
-    size = source?.byteLength;
-  } else {
-    size = Buffer.from(source).byteLength;
-  }
+  const size =
+    source instanceof Buffer
+      ? source.byteLength
+      : Buffer.from(source).byteLength;
 
   const gzipSize = await getCompressedSize({
     fileName,
