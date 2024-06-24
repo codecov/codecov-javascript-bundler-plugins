@@ -9,6 +9,7 @@ export interface Dependency {
 export interface Asset {
   name: string;
   size: number;
+  gzipSize: number | null;
   normalized: string;
 }
 

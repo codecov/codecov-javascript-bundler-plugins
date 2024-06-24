@@ -5,7 +5,7 @@ import {
   type Module,
   type BundleAnalysisUploadPlugin,
   red,
-  normalizePath,
+  createRollupAsset,
 } from "@codecov/bundler-plugin-core";
 
 // @ts-expect-error this value is being replaced by rollup
@@ -16,7 +16,7 @@ const PLUGIN_VERSION = __PACKAGE_VERSION__ as string;
 export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
   output,
 }) => ({
-  version: "1",
+  version: output.version,
   name: PLUGIN_NAME,
   pluginVersion: PLUGIN_VERSION,
   buildStart: () => {
@@ -30,7 +30,7 @@ export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
     await output.write();
   },
   rollup: {
-    generateBundle(this, options, bundle) {
+    async generateBundle(this, options, bundle) {
       // TODO - remove this once we hard fail on not having a bundle name
       // don't need to do anything if the bundle name is not present or empty
       if (!output.bundleName || output.bundleName === "") {
@@ -68,98 +68,87 @@ export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
       }
 
       let counter = 0;
-      for (const item of items) {
-        if (item?.type === "asset") {
-          if (typeof item.source === "string") {
+      await Promise.all(
+        items.map(async (item) => {
+          if (item?.type === "asset") {
             const fileName = item?.fileName ?? "";
-            const size = Buffer.from(item.source).byteLength;
-
             if (path.extname(fileName) === ".map") {
-              continue;
+              return;
             }
 
-            assets.push({
-              name: fileName,
-              size: size,
-              normalized: normalizePath(fileName, assetFormatString),
+            const asset = await createRollupAsset({
+              fileName: fileName,
+              source: item.source,
+              formatString: assetFormatString,
             });
-          } else {
+            assets.push(asset);
+          } else if (item?.type === "chunk") {
             const fileName = item?.fileName ?? "";
-            const size = item?.source?.byteLength;
-
             if (path.extname(fileName) === ".map") {
-              continue;
+              return;
             }
 
-            assets.push({
-              name: fileName,
-              size: size,
-              normalized: normalizePath(fileName, assetFormatString),
+            const asset = await createRollupAsset({
+              fileName,
+              source: item.code,
+              formatString: chunkFormatString,
             });
-          }
-        }
+            assets.push(asset);
 
-        if (item?.type === "chunk") {
-          const chunkId = item?.name ?? "";
-          const fileName = item?.fileName ?? "";
-          const moduleEntries = Object.entries(item?.modules ?? {});
-          const size = item?.code?.length;
-          const uniqueId = `${counter}-${chunkId}`;
+            const chunkId = item?.name ?? "";
+            const uniqueId = `${counter}-${chunkId}`;
 
-          if (path.extname(fileName) === ".map") {
-            continue;
-          }
+            chunks.push({
+              id: chunkId,
+              uniqueId: uniqueId,
+              entry: item?.isEntry,
+              initial: item?.isDynamicEntry,
+              files: [fileName],
+              names: [item?.name],
+            });
 
-          assets.push({
-            name: fileName,
-            size: size,
-            normalized: normalizePath(fileName, chunkFormatString),
-          });
+            const moduleEntries = Object.entries(item?.modules ?? {});
+            for (const [modulePath, moduleInfo] of moduleEntries) {
+              const normalizedModulePath = modulePath.replace("\u0000", "");
+              const relativeModulePath = path.relative(
+                cwd,
+                normalizedModulePath,
+              );
+              const relativeModulePathWithPrefix = relativeModulePath.match(
+                /^\.\./,
+              )
+                ? relativeModulePath
+                : `.${path.sep}${relativeModulePath}`;
 
-          chunks.push({
-            id: chunkId,
-            uniqueId: uniqueId,
-            entry: item?.isEntry,
-            initial: item?.isDynamicEntry,
-            files: [fileName],
-            names: [item?.name],
-          });
+              // try to grab module already set in map
+              const moduleEntry = moduleByFileName.get(
+                relativeModulePathWithPrefix,
+              );
 
-          for (const [modulePath, moduleInfo] of moduleEntries) {
-            const normalizedModulePath = modulePath.replace("\u0000", "");
-            const relativeModulePath = path.relative(cwd, normalizedModulePath);
-            const relativeModulePathWithPrefix = relativeModulePath.match(
-              /^\.\./,
-            )
-              ? relativeModulePath
-              : `.${path.sep}${relativeModulePath}`;
+              // if the modules exists append chunk ids to the grabbed module
+              // else create a new module and create a new entry in the map
+              if (moduleEntry) {
+                moduleEntry.chunkUniqueIds.push(uniqueId);
+              } else {
+                const size = customOptions.moduleOriginalSize
+                  ? moduleInfo.originalLength
+                  : moduleInfo.renderedLength;
 
-            // try to grab module already set in map
-            const moduleEntry = moduleByFileName.get(
-              relativeModulePathWithPrefix,
-            );
+                const module: Module = {
+                  name: relativeModulePathWithPrefix,
+                  size: size,
+                  chunkUniqueIds: [uniqueId],
+                };
 
-            // if the modules exists append chunk ids to the grabbed module
-            // else create a new module and create a new entry in the map
-            if (moduleEntry) {
-              moduleEntry.chunkUniqueIds.push(uniqueId);
-            } else {
-              const size = customOptions.moduleOriginalSize
-                ? moduleInfo.originalLength
-                : moduleInfo.renderedLength;
-
-              const module: Module = {
-                name: relativeModulePathWithPrefix,
-                size: size,
-                chunkUniqueIds: [uniqueId],
-              };
-
-              moduleByFileName.set(relativeModulePathWithPrefix, module);
+                moduleByFileName.set(relativeModulePathWithPrefix, module);
+              }
             }
+            counter += 1;
           }
-          counter += 1;
-        }
-      }
+
+          return;
+        }),
+      );
 
       // grab the modules from the map and convert it to an array
       const modules = Array.from(moduleByFileName.values());

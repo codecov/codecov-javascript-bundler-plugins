@@ -7,11 +7,16 @@ import {
   type ProviderUtilInputs,
   type UploadOverrides,
 } from "./types.ts";
-import { checkNodeVersion } from "./utils/checkNodeVersion.ts";
-import { red } from "./utils/logging.ts";
-import { handleErrors, normalizeOptions } from "./utils/normalizeOptions.ts";
-import { normalizePath } from "./utils/normalizePath.ts";
-import { Output } from "./utils/Output.ts";
+import {
+  checkNodeVersion,
+  createRollupAsset,
+  getCompressedSize,
+  handleErrors,
+  normalizeOptions,
+  normalizePath,
+  Output,
+  red,
+} from "./utils";
 
 export type {
   Asset,
@@ -25,7 +30,9 @@ export type {
 
 export {
   checkNodeVersion,
+  createRollupAsset,
   handleErrors,
+  getCompressedSize,
   normalizeOptions,
   normalizePath,
   Output,

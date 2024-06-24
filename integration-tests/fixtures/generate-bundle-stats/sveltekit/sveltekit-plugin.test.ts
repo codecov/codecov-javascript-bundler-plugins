@@ -7,8 +7,11 @@ const sveltekitApp = "test-apps/sveltekit";
 
 const VERSIONS = [2];
 
-// Default Rollup formats: https://rollupjs.org/configuration-options/#output-format
-const FORMATS = [{ format: "esm", expected: "esm" }];
+const FORMATS = [
+  { format: "es", expected: "esm" },
+  { format: "esm", expected: "esm" },
+  { format: "module", expected: "esm" },
+];
 
 describe("Generating sveltekit stats", () => {
   describe.each(VERSIONS)("%d", (version) => {
@@ -61,9 +64,7 @@ describe("Generating sveltekit stats", () => {
             builtAt: expect.any(Number),
             duration: expect.any(Number),
             outputPath: expect.stringContaining(`.svelte-kit`),
-            bundleName: expect.stringContaining(
-              `test-sveltekit-v${version}-client-${expected}`,
-            ),
+            bundleName: expect.stringContaining(clientBundleName),
             plugin: {
               name: expect.stringMatching("@codecov/sveltekit-plugin"),
             },
@@ -72,6 +73,7 @@ describe("Generating sveltekit stats", () => {
                 name: expect.any(String),
                 normalized: expect.any(String),
                 size: expect.any(Number),
+                gzipSize: expect.anything(),
               },
             ]),
             chunks: expect.arrayContaining([
@@ -104,9 +106,7 @@ describe("Generating sveltekit stats", () => {
             builtAt: expect.any(Number),
             duration: expect.any(Number),
             outputPath: expect.stringContaining(`.svelte-kit`),
-            bundleName: expect.stringContaining(
-              `test-sveltekit-v${version}-server-${expected}`,
-            ),
+            bundleName: expect.stringContaining(serverBundleName),
             plugin: {
               name: expect.stringMatching("@codecov/sveltekit-plugin"),
             },
@@ -115,6 +115,7 @@ describe("Generating sveltekit stats", () => {
                 name: expect.any(String),
                 normalized: expect.any(String),
                 size: expect.any(Number),
+                gzipSize: expect.anything(),
               },
             ]),
             chunks: expect.arrayContaining([
