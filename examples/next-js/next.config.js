@@ -9,6 +9,7 @@ const nextConfig = {
         bundleName: "@codecov/example-next-app",
         uploadToken: process.env.NEXT_UPLOAD_TOKEN,
         apiUrl: process.env.NEXT_API_URL,
+        debug: true,
       }),
     );
 

@@ -9,6 +9,7 @@ export default defineNuxtConfig({
         bundleName: "@codecov/example-nuxt-app",
         uploadToken: process.env.NUXT_UPLOAD_TOKEN,
         apiUrl: process.env.NUXT_API_URL,
+        debug: true,
       },
     ],
   ],
