@@ -326,6 +326,8 @@ jobs:
       - name: Build ${{ matrix.example }} app for production
         working-directory: ./examples/${{ matrix.example }}
         env:
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
           NEXT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           NEXT_API_URL: ${{ secrets.CODECOV_API_URL }}
           NUXT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
@@ -396,6 +398,8 @@ jobs:
       - name: Build ${{ matrix.example }} app for staging
         working-directory: ./examples/${{ matrix.example }}
         env:
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
           NEXT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
           NEXT_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
           NUXT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
