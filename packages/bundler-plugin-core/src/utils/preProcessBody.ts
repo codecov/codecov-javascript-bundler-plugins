@@ -10,6 +10,11 @@ export const preProcessBody = (
       body[key] = encodeSlug(value);
     }
 
+    // temporary removal for testing
+    if (key === "compareSha") {
+      delete body[key];
+    }
+
     if (!value || value === "") {
       body[key] = null;
     }
