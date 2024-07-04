@@ -20,6 +20,11 @@ const UploadOverridesSchema = z.object({
       invalid_type_error: "`build` must be a string.",
     })
     .optional(),
+  compareSha: z
+    .string({
+      invalid_type_error: "`compareSha` must be a string.",
+    })
+    .optional(),
   pr: z
     .string({
       invalid_type_error: "`pr` must be a string.",

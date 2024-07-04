@@ -55,6 +55,7 @@ const tests: Test[] = [
         uploadOverrides: {
           branch: "test-branch",
           build: "test-build",
+          compareSha: "test-compare-sha",
           sha: "test-sha",
           slug: "test-slug",
           pr: "1234",
@@ -74,6 +75,7 @@ const tests: Test[] = [
         uploadOverrides: {
           branch: "test-branch",
           build: "test-build",
+          compareSha: "test-compare-sha",
           sha: "test-sha",
           slug: "test-slug",
           pr: "1234",
@@ -104,6 +106,8 @@ const tests: Test[] = [
           // @ts-expect-error - testing invalid input
           build: 123,
           // @ts-expect-error - testing invalid input
+          compareSha: 123,
+          // @ts-expect-error - testing invalid input
           sha: 123,
           // @ts-expect-error - testing invalid input
           slug: 123,
@@ -123,6 +127,7 @@ const tests: Test[] = [
         "`uploadToken` must be a string.",
         "`branch` must be a string.",
         "`build` must be a string.",
+        "`compareSha` must be a string.",
         "`pr` must be a string.",
         "`sha` must be a string.",
         "`slug` must be a string.",
