@@ -123,6 +123,8 @@ export interface UploadOverrides {
   branch?: string;
   /** Specify the build number manually. */
   build?: string;
+  /** Specify the compare SHA manually. **GH Actions only**. */
+  compareSha?: string;
   /** Specify the pull request number manually. */
   pr?: string;
   /** Specify the commit SHA manually. */
@@ -153,6 +155,8 @@ export interface ProviderServiceParams {
   build: string;
   buildURL: string;
   commit: string;
+  // this is a custom field that is only used for GH pre-merge commits
+  compareSha?: string;
   job: string;
   pr: string;
   service: string;
