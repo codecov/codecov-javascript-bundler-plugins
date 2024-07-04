@@ -23,6 +23,10 @@ export default defineConfig({
       apiUrl: process.env.ROLLUP_API_URL,
       uploadToken: process.env.ROLLUP_UPLOAD_TOKEN,
       debug: true,
+      uploadOverrides: {
+        sha: process.env.HEAD_SHA,
+        compareSha: process.env.BASE_SHA,
+      },
     }),
   ],
 });
