@@ -1,5 +1,18 @@
 # @codecov/sveltekit-plugin
 
+## 0.0.1-beta.11
+
+### Patch Changes
+
+- dfb26db: Adjust asset type to contain gzipSize, add new function to collect gzip values
+- dfb26db: Set version from passed output arg, and collect gzip information in plugins
+- dfb26db: Update meta-framework plugins to collect version generated in output arg
+- Updated dependencies [dfb26db]
+- Updated dependencies [dfb26db]
+- Updated dependencies [dfb26db]
+  - @codecov/bundler-plugin-core@0.0.1-beta.11
+  - @codecov/vite-plugin@0.0.1-beta.11
+
 ## 0.0.1-beta.10
 
 ### Patch Changes
