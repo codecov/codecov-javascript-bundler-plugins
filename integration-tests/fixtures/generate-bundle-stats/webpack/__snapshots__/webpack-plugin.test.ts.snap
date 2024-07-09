@@ -69,7 +69,7 @@ exports[`Generating webpack stats 5 {"format":"array-push","expected":"array-pus
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/webpack-plugin",
-    "version": "0.0.1-beta.10",
+    "version": "0.0.1-beta.11",
   },
   "version": "2",
 }
@@ -144,7 +144,7 @@ exports[`Generating webpack stats 5 {"format":"commonjs","expected":"cjs"} match
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/webpack-plugin",
-    "version": "0.0.1-beta.10",
+    "version": "0.0.1-beta.11",
   },
   "version": "2",
 }
@@ -219,7 +219,7 @@ exports[`Generating webpack stats 5 {"format":"module","expected":"esm"} matches
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/webpack-plugin",
-    "version": "0.0.1-beta.10",
+    "version": "0.0.1-beta.11",
   },
   "version": "2",
 }
@@ -294,7 +294,7 @@ exports[`Generating webpack stats 5 source maps are enabled does not include any
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/webpack-plugin",
-    "version": "0.0.1-beta.10",
+    "version": "0.0.1-beta.11",
   },
   "version": "2",
 }
