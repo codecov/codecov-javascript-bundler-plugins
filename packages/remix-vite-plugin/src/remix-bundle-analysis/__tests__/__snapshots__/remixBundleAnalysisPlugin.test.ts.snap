@@ -3,7 +3,7 @@
 exports[`remixBundleAnalysisPlugin > when called > returns a plugin object 1`] = `
 {
   "name": "@codecov/remix-vite-plugin",
-  "pluginVersion": "0.0.1-beta.10",
+  "pluginVersion": "0.0.1-beta.11",
   "version": "2",
   "vite": {
     "generateBundle": [Function],
