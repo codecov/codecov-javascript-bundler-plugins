@@ -158,6 +158,43 @@ function _getSHA(inputs: ProviderUtilInputs, output: Output): string {
   return commit ?? "";
 }
 
+function _getCompareSHA(inputs: ProviderUtilInputs, output: Output): string {
+  const { args } = inputs;
+  if (args?.compareSha && args.compareSha !== "") {
+    debug(`Using commit: ${args.compareSha}`, { enabled: output.debug });
+    return args.compareSha;
+  }
+
+  let compareSha = "";
+  const pr = _getPR(inputs);
+  if (pr) {
+    const mergeCommitRegex = /^[a-z0-9]{40} [a-z0-9]{40}$/;
+    const mergeCommitMessage = runExternalProgram("git", [
+      "show",
+      "--no-patch",
+      "--format=%P",
+    ]);
+
+    debug(`Merge commit message: ${mergeCommitMessage}`, {
+      enabled: output.debug,
+    });
+
+    if (mergeCommitRegex.exec(mergeCommitMessage)) {
+      const splitMergeCommit = mergeCommitMessage.split(" ");
+
+      debug(`Split commit message: ${splitMergeCommit}`, {
+        enabled: output.debug,
+      });
+
+      compareSha = splitMergeCommit?.[0] ? splitMergeCommit[0] : "";
+    }
+  }
+
+  debug(`Using compareSha: ${compareSha ?? ""}`, { enabled: output.debug });
+
+  return compareSha ?? "";
+}
+
 function _getSlug(inputs: ProviderUtilInputs): string {
   const { args, envs } = inputs;
   if (args?.slug && args.slug !== "") {
@@ -175,6 +212,7 @@ export async function getServiceParams(
     build: _getBuild(inputs),
     buildURL: await _getBuildURL(inputs),
     commit: _getSHA(inputs, output),
+    compareSha: _getCompareSHA(inputs, output),
     job: _getJob(inputs.envs),
     pr: _getPR(inputs),
     service: _getService(),

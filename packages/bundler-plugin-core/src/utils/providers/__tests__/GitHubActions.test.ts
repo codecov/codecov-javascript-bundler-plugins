@@ -90,6 +90,7 @@ describe("GitHub Actions Params", () => {
       build: "2",
       buildURL: "https://github.com/testOrg/testRepo/actions/runs/2",
       commit: "testingsha",
+      compareSha: "",
       job: "testWorkflow",
       pr: "",
       service: "github-actions",
@@ -123,16 +124,6 @@ describe("GitHub Actions Params", () => {
         GITHUB_WORKFLOW: "testWorkflow",
       },
     };
-    const expected: ProviderServiceParams = {
-      branch: "branch",
-      build: "2",
-      buildURL: "https://github.com/testOrg/testRepo/actions/runs/2",
-      commit: "testingsha",
-      job: "testWorkflow",
-      pr: "1",
-      service: "github-actions",
-      slug: "testOrg/testRepo",
-    };
 
     const spawnSync = td.replace(childProcess, "spawnSync");
     td.when(
@@ -152,6 +143,18 @@ describe("GitHub Actions Params", () => {
       retryCount: 0,
     });
     const params = await GitHubActions.getServiceParams(inputs, output);
+
+    const expected: ProviderServiceParams = {
+      branch: "branch",
+      build: "2",
+      buildURL: "https://github.com/testOrg/testRepo/actions/runs/2",
+      commit: "testingsha",
+      compareSha: "",
+      job: "testWorkflow",
+      pr: "1",
+      service: "github-actions",
+      slug: "testOrg/testRepo",
+    };
     expect(params).toMatchObject(expected);
   });
 
@@ -191,17 +194,6 @@ describe("GitHub Actions Params", () => {
       },
     };
 
-    const expected: ProviderServiceParams = {
-      branch: "branch",
-      build: "2",
-      buildURL: "https://github.com/testOrg/testRepo/actions/runs/2",
-      commit: "testingsha",
-      job: "testWorkflow",
-      pr: "1",
-      service: "github-actions",
-      slug: "testOrg/testRepo",
-    };
-
     const spawnSync = td.replace(childProcess, "spawnSync");
     td.when(
       spawnSync("git", ["show", "--no-patch", "--format=%P"], {
@@ -220,6 +212,18 @@ describe("GitHub Actions Params", () => {
       retryCount: 0,
     });
     const params = await GitHubActions.getServiceParams(inputs, output);
+
+    const expected: ProviderServiceParams = {
+      branch: "branch",
+      build: "2",
+      buildURL: "https://github.com/testOrg/testRepo/actions/runs/2",
+      commit: "testingsha",
+      compareSha: "",
+      job: "testWorkflow",
+      pr: "1",
+      service: "github-actions",
+      slug: "testOrg/testRepo",
+    };
     expect(params).toMatchObject(expected);
   });
 
@@ -257,16 +261,6 @@ describe("GitHub Actions Params", () => {
         GITHUB_WORKFLOW: "testWorkflow",
       },
     };
-    const expected: ProviderServiceParams = {
-      branch: "branch",
-      build: "2",
-      buildURL: "https://github.com/testOrg/testRepo/actions/runs/2/jobs/2",
-      commit: "testingsha",
-      job: "testWorkflow",
-      pr: "1",
-      service: "github-actions",
-      slug: "testOrg/testRepo",
-    };
 
     const spawnSync = td.replace(childProcess, "spawnSync");
     td.when(
@@ -286,6 +280,18 @@ describe("GitHub Actions Params", () => {
       retryCount: 0,
     });
     const params = await GitHubActions.getServiceParams(inputs, output);
+
+    const expected: ProviderServiceParams = {
+      branch: "branch",
+      build: "2",
+      buildURL: "https://github.com/testOrg/testRepo/actions/runs/2/jobs/2",
+      commit: "testingsha",
+      compareSha: "",
+      job: "testWorkflow",
+      pr: "1",
+      service: "github-actions",
+      slug: "testOrg/testRepo",
+    };
     expect(params).toMatchObject(expected);
   });
 
@@ -303,16 +309,6 @@ describe("GitHub Actions Params", () => {
         GITHUB_SHA: "testingmergecommitsha",
         GITHUB_WORKFLOW: "testWorkflow",
       },
-    };
-    const expected: ProviderServiceParams = {
-      branch: "branch",
-      build: "2",
-      buildURL: "https://github.com/testOrg/testRepo/actions/runs/2",
-      commit: "testingmergecommitsha2345678901234567890",
-      job: "testWorkflow",
-      pr: "1",
-      service: "github-actions",
-      slug: "testOrg/testRepo",
     };
 
     const spawnSync = td.replace(childProcess, "spawnSync");
@@ -335,6 +331,18 @@ describe("GitHub Actions Params", () => {
       retryCount: 0,
     });
     const params = await GitHubActions.getServiceParams(inputs, output);
+
+    const expected: ProviderServiceParams = {
+      branch: "branch",
+      build: "2",
+      buildURL: "https://github.com/testOrg/testRepo/actions/runs/2",
+      commit: "testingmergecommitsha2345678901234567890",
+      compareSha: "testingsha123456789012345678901234567890",
+      job: "testWorkflow",
+      pr: "1",
+      service: "github-actions",
+      slug: "testOrg/testRepo",
+    };
     expect(params).toMatchObject(expected);
   });
 
@@ -356,16 +364,6 @@ describe("GitHub Actions Params", () => {
         GITHUB_SERVER_URL: "https://github.com",
       },
     };
-    const expected: ProviderServiceParams = {
-      branch: "branch",
-      build: "3",
-      buildURL: "https://github.com/testOrg/testRepo/actions/runs/3",
-      commit: "testsha",
-      job: "",
-      pr: "2",
-      service: "github-actions",
-      slug: "testOrg/testRepo",
-    };
 
     const spawnSync = td.replace(childProcess, "spawnSync");
     td.when(
@@ -383,6 +381,18 @@ describe("GitHub Actions Params", () => {
       retryCount: 0,
     });
     const params = await GitHubActions.getServiceParams(inputs, output);
+
+    const expected: ProviderServiceParams = {
+      branch: "branch",
+      build: "3",
+      buildURL: "https://github.com/testOrg/testRepo/actions/runs/3",
+      commit: "testsha",
+      compareSha: "",
+      job: "",
+      pr: "2",
+      service: "github-actions",
+      slug: "testOrg/testRepo",
+    };
     expect(params).toMatchObject(expected);
   });
 
@@ -401,16 +411,6 @@ describe("GitHub Actions Params", () => {
         GITHUB_WORKFLOW: "testWorkflow",
       },
     };
-    const expected: ProviderServiceParams = {
-      branch: "branch",
-      build: "2",
-      buildURL: "https://github.com/testOrg/testRepo/actions/runs/2",
-      commit: "testingsha",
-      job: "testWorkflow",
-      pr: "1",
-      service: "github-actions",
-      slug: "testOrg/testRepo",
-    };
 
     const spawnSync = td.replace(childProcess, "spawnSync");
     td.when(
@@ -428,6 +428,18 @@ describe("GitHub Actions Params", () => {
       retryCount: 0,
     });
     const params = await GitHubActions.getServiceParams(inputs, output);
+
+    const expected: ProviderServiceParams = {
+      branch: "branch",
+      build: "2",
+      buildURL: "https://github.com/testOrg/testRepo/actions/runs/2",
+      commit: "testingsha",
+      compareSha: "",
+      job: "testWorkflow",
+      pr: "1",
+      service: "github-actions",
+      slug: "testOrg/testRepo",
+    };
     expect(params).toMatchObject(expected);
   });
 });
