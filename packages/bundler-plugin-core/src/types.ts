@@ -151,14 +151,14 @@ export interface ProviderUtil {
 }
 
 export interface ProviderServiceParams {
-  branch: string;
-  build: string;
-  buildURL: string;
-  commit: string;
+  branch: string | null;
+  build: string | null;
+  buildURL: string | null;
+  commit: string | null;
   // this is a custom field that is only used for GH pre-merge commits
-  compareSha?: string;
-  job: string;
-  pr: string;
-  service: string;
-  slug: string;
+  compareSha?: string | null;
+  job: string | null;
+  pr: string | null;
+  service: string | null;
+  slug: string | null;
 }
