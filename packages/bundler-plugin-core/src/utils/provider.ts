@@ -39,5 +39,5 @@ export function setSlug(
     return `${orgEnv}/${repoEnv}`;
   }
 
-  return "";
+  return null;
 }
