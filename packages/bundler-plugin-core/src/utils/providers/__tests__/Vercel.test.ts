@@ -51,11 +51,11 @@ describe("Vercel Params", () => {
 
     const expected: ProviderServiceParams = {
       branch: "super-cool-branch",
-      build: "",
-      buildURL: "",
+      build: null,
+      buildURL: null,
       commit: "testingsha",
-      job: "",
-      pr: "",
+      job: null,
+      pr: null,
       service: "vercel",
       slug: "testOrg/testRepo",
     };
@@ -93,9 +93,9 @@ describe("Vercel Params", () => {
     const expected: ProviderServiceParams = {
       branch: "main",
       build: "2",
-      buildURL: "",
+      buildURL: null,
       commit: "cool-commit-sha",
-      job: "",
+      job: null,
       pr: "1",
       service: "vercel",
       slug: "testOrg/testRepo",
@@ -120,14 +120,14 @@ describe("Vercel Params", () => {
     };
 
     const expected: ProviderServiceParams = {
-      branch: "",
-      build: "",
-      buildURL: "",
-      commit: "",
-      job: "",
-      pr: "",
+      branch: null,
+      build: null,
+      buildURL: null,
+      commit: null,
+      job: null,
+      pr: null,
       service: "vercel",
-      slug: "",
+      slug: null,
     };
 
     const output = new Output({

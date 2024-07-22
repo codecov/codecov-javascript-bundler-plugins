@@ -53,10 +53,10 @@ describe("Local Params", () => {
 
     const expected: ProviderServiceParams = {
       branch: "main",
-      build: "",
-      buildURL: "",
+      build: null,
+      buildURL: null,
       commit: "testingsha",
-      job: "",
+      job: null,
       pr: "1",
       service: "",
       slug: "owner/repo",
@@ -91,10 +91,10 @@ describe("Local Params", () => {
 
     const expected: ProviderServiceParams = {
       branch: "main",
-      build: "",
-      buildURL: "",
+      build: null,
+      buildURL: null,
       commit: "testingsha",
-      job: "",
+      job: null,
       pr: "1",
       service: "",
       slug: "owner/repo",

@@ -12,40 +12,42 @@ export function detect(envs: ProviderEnvs): boolean {
   return Boolean(envs?.CI) && Boolean(envs?.BITBUCKET_BUILD_NUMBER);
 }
 
-function _getBuild(inputs: ProviderUtilInputs): string {
+function _getBuild(inputs: ProviderUtilInputs): ProviderServiceParams["build"] {
   const { args, envs } = inputs;
   if (args?.build && args.build !== "") {
     return args.build;
   }
-  return envs?.BITBUCKET_BUILD_NUMBER ?? "";
+  return envs?.BITBUCKET_BUILD_NUMBER ?? null;
 }
 
-function _getBuildURL(): string {
+function _getBuildURL(): ProviderServiceParams["buildURL"] {
   // TODO: https://github.com/codecov/uploader/issues/267
-  return "";
+  return null;
 }
 
-function _getBranch(inputs: ProviderUtilInputs): string {
+function _getBranch(
+  inputs: ProviderUtilInputs,
+): ProviderServiceParams["branch"] {
   const { args, envs } = inputs;
   if (args?.branch && args?.branch !== "") {
     return args?.branch;
   }
-  return envs?.BITBUCKET_BRANCH ?? "";
+  return envs?.BITBUCKET_BRANCH ?? null;
 }
 
-function _getJob(envs: ProviderEnvs): string {
-  return envs?.BITBUCKET_BUILD_NUMBER ?? "";
+function _getJob(envs: ProviderEnvs): ProviderServiceParams["job"] {
+  return envs?.BITBUCKET_BUILD_NUMBER ?? null;
 }
 
-function _getPR(inputs: ProviderUtilInputs): string {
+function _getPR(inputs: ProviderUtilInputs): ProviderServiceParams["pr"] {
   const { args, envs } = inputs;
   if (args?.pr && args.pr !== "") {
     return args.pr;
   }
-  return envs?.BITBUCKET_PR_ID ?? "";
+  return envs?.BITBUCKET_PR_ID ?? null;
 }
 
-function _getService(): string {
+function _getService(): ProviderServiceParams["service"] {
   return "bitbucket";
 }
 
@@ -53,7 +55,10 @@ export function getServiceName(): string {
   return "Bitbucket";
 }
 
-function _getSHA(inputs: ProviderUtilInputs, output: Output): string {
+function _getSHA(
+  inputs: ProviderUtilInputs,
+  output: Output,
+): ProviderServiceParams["commit"] {
   const { args, envs } = inputs;
   if (args?.sha && args.sha !== "") {
     debug(`Using commit: ${args.sha}`, { enabled: output.debug });
@@ -66,15 +71,15 @@ function _getSHA(inputs: ProviderUtilInputs, output: Output): string {
   }
 
   debug(`Using commit: ${commit ?? ""}`, { enabled: output.debug });
-  return commit ?? "";
+  return commit ?? null;
 }
 
-function _getSlug(inputs: ProviderUtilInputs): string {
+function _getSlug(inputs: ProviderUtilInputs): ProviderServiceParams["slug"] {
   const { args, envs } = inputs;
   if (args?.slug && args.slug !== "") {
     return args.slug;
   }
-  return envs?.BITBUCKET_REPO_FULL_NAME ?? "";
+  return envs?.BITBUCKET_REPO_FULL_NAME ?? null;
 }
 
 // eslint-disable-next-line @typescript-eslint/require-await
@@ -94,6 +99,6 @@ export async function getServiceParams(
   };
 }
 
-export function getEnvVarNames(): string[] {
+export function getEnvVarNames() {
   return ["CI", "BITBUCKET_BUILD_NUMBER"];
 }

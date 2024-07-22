@@ -11,37 +11,41 @@ export function detect(envs: ProviderEnvs): boolean {
   return Boolean(envs?.WERCKER_MAIN_PIPELINE_STARTED);
 }
 
-function _getBuild(inputs: ProviderUtilInputs): string {
+function _getBuild(inputs: ProviderUtilInputs): ProviderServiceParams["build"] {
   const { args, envs } = inputs;
   if (args?.build && args.build !== "") {
     return args.build;
   }
-  return envs?.WERCKER_MAIN_PIPELINE_STARTED ?? "";
+  return envs?.WERCKER_MAIN_PIPELINE_STARTED ?? null;
 }
 
-function _getBuildURL(inputs: ProviderUtilInputs): string {
+function _getBuildURL(
+  inputs: ProviderUtilInputs,
+): ProviderServiceParams["buildURL"] {
   const { envs } = inputs;
-  return envs?.WERCKER_BUILD_URL ?? "";
+  return envs?.WERCKER_BUILD_URL ?? null;
 }
 
-function _getBranch(inputs: ProviderUtilInputs): string {
+function _getBranch(
+  inputs: ProviderUtilInputs,
+): ProviderServiceParams["branch"] {
   const { args, envs } = inputs;
   if (args?.branch && args.branch !== "") {
     return args.branch;
   }
-  return envs?.WERCKER_GIT_BRANCH ?? "";
+  return envs?.WERCKER_GIT_BRANCH ?? null;
 }
 
-function _getJob(): string {
-  return "";
+function _getJob(): ProviderServiceParams["job"] {
+  return null;
 }
 
-function _getPR(inputs: ProviderUtilInputs): string {
+function _getPR(inputs: ProviderUtilInputs): ProviderServiceParams["pr"] {
   const { args } = inputs;
-  return args?.pr ?? "";
+  return args?.pr ?? null;
 }
 
-function _getService(): string {
+function _getService(): ProviderServiceParams["service"] {
   return "wercker";
 }
 
@@ -49,18 +53,21 @@ export function getServiceName(): string {
   return "Wercker CI";
 }
 
-function _getSHA(inputs: ProviderUtilInputs, output: Output): string {
+function _getSHA(
+  inputs: ProviderUtilInputs,
+  output: Output,
+): ProviderServiceParams["commit"] {
   const { args, envs } = inputs;
   if (args?.sha && args.sha !== "") {
     debug(`Using commit: ${args.sha}`, { enabled: output.debug });
     return args.sha;
   }
-  const sha = envs?.WERCKER_GIT_COMMIT ?? "";
+  const sha = envs?.WERCKER_GIT_COMMIT ?? null;
   debug(`Using commit: ${sha}`, { enabled: output.debug });
   return sha;
 }
 
-function _getSlug(inputs: ProviderUtilInputs): string {
+function _getSlug(inputs: ProviderUtilInputs): ProviderServiceParams["slug"] {
   const { args, envs } = inputs;
   return setSlug(
     args?.slug,
@@ -86,6 +93,6 @@ export async function getServiceParams(
   };
 }
 
-export function getEnvVarNames(): string[] {
+export function getEnvVarNames() {
   return ["WERCKER_MAIN_PIPELINE_STARTED"];
 }

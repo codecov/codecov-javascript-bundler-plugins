@@ -56,7 +56,7 @@ describe("CircleCI Params", () => {
     const expected: ProviderServiceParams = {
       branch: "master",
       build: "2",
-      buildURL: "",
+      buildURL: null,
       commit: "testingsha",
       job: "3",
       pr: "1",
@@ -94,7 +94,7 @@ describe("CircleCI Params", () => {
     const expected: ProviderServiceParams = {
       branch: "master",
       build: "2",
-      buildURL: "",
+      buildURL: null,
       commit: "testingsha",
       job: "3",
       pr: "1",
@@ -139,7 +139,7 @@ describe("CircleCI Params", () => {
     const expected: ProviderServiceParams = {
       branch: "main",
       build: "2",
-      buildURL: "",
+      buildURL: null,
       commit: "cool-commit-sha",
       job: "3",
       pr: "1",

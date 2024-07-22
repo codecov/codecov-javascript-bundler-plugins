@@ -56,7 +56,7 @@ describe("Buildkite Params", () => {
       buildURL: "https://buildkite.com/testOrg/testRepo",
       commit: "testingsha",
       job: "3",
-      pr: "",
+      pr: null,
       service: "buildkite",
       slug: "testOrg/testRepo",
     };
@@ -93,9 +93,9 @@ describe("Buildkite Params", () => {
     const expected: ProviderServiceParams = {
       branch: "branch",
       build: "3",
-      buildURL: "",
+      buildURL: null,
       commit: "testsha",
-      job: "",
+      job: null,
       pr: "2",
       service: "buildkite",
       slug: "testOrg/testRepo",

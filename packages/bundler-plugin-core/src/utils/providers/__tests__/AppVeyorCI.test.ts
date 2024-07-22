@@ -76,7 +76,7 @@ describe("AppveyorCI Params", () => {
       buildURL: "https://appveyor.com/project/testOrg/testRepo/builds/2/job/1",
       commit: "testingsha",
       job: "testOrg/testRepo/3",
-      pr: "",
+      pr: null,
       service: "appveyor",
       slug: "testOrg/testRepo",
     };
@@ -156,9 +156,9 @@ describe("AppveyorCI Params", () => {
     const expected: ProviderServiceParams = {
       branch: "branch",
       build: "3",
-      buildURL: "",
+      buildURL: null,
       commit: "testsha",
-      job: "",
+      job: null,
       pr: "2",
       service: "appveyor",
       slug: "testOrg/testRepo",
@@ -183,14 +183,14 @@ describe("AppveyorCI Params", () => {
     };
 
     const expected: ProviderServiceParams = {
-      branch: "",
-      build: "",
-      buildURL: "",
-      commit: "",
-      job: "",
-      pr: "",
+      branch: null,
+      build: null,
+      buildURL: null,
+      commit: null,
+      job: null,
+      pr: null,
       service: "appveyor",
-      slug: "",
+      slug: null,
     };
 
     const output = new Output({

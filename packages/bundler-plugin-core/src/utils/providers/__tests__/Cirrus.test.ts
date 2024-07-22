@@ -53,9 +53,9 @@ describe("Cirrus Params", () => {
     const expected: ProviderServiceParams = {
       branch: "master",
       build: "2",
-      buildURL: "",
+      buildURL: null,
       commit: "testingsha",
-      job: "",
+      job: null,
       pr: "1",
       service: "cirrus-ci",
       slug: "testOrg/testRepo",
@@ -99,9 +99,9 @@ describe("Cirrus Params", () => {
     const expected: ProviderServiceParams = {
       branch: "branch",
       build: "3",
-      buildURL: "",
+      buildURL: null,
       commit: "testsha",
-      job: "",
+      job: null,
       pr: "2",
       service: "cirrus-ci",
       slug: "testOrg/testRepo",

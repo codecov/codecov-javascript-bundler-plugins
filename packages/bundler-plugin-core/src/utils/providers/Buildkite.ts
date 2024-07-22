@@ -11,36 +11,40 @@ export function detect(envs: ProviderEnvs): boolean {
   return Boolean(envs?.BUILDKITE);
 }
 
-function _getBuild(inputs: ProviderUtilInputs): string {
+function _getBuild(inputs: ProviderUtilInputs): ProviderServiceParams["build"] {
   const { args, envs } = inputs;
   if (args?.build && args.build !== "") {
     return args.build;
   }
-  return envs?.BUILDKITE_BUILD_NUMBER ?? "";
+  return envs?.BUILDKITE_BUILD_NUMBER ?? null;
 }
 
-function _getBuildURL(inputs: ProviderUtilInputs): string {
-  return inputs.envs?.BUILDKITE_BUILD_URL ?? "";
+function _getBuildURL(
+  inputs: ProviderUtilInputs,
+): ProviderServiceParams["buildURL"] {
+  return inputs.envs?.BUILDKITE_BUILD_URL ?? null;
 }
 
-function _getBranch(inputs: ProviderUtilInputs): string {
+function _getBranch(
+  inputs: ProviderUtilInputs,
+): ProviderServiceParams["branch"] {
   const { args, envs } = inputs;
   if (args?.branch && args.branch !== "") {
     return args.branch;
   }
-  return envs?.BUILDKITE_BRANCH ?? "";
+  return envs?.BUILDKITE_BRANCH ?? null;
 }
 
-function _getJob(envs: ProviderEnvs): string {
-  return envs?.BUILDKITE_JOB_ID ?? "";
+function _getJob(envs: ProviderEnvs): ProviderServiceParams["job"] {
+  return envs?.BUILDKITE_JOB_ID ?? null;
 }
 
-function _getPR(inputs: ProviderUtilInputs): string {
+function _getPR(inputs: ProviderUtilInputs): ProviderServiceParams["pr"] {
   const { args } = inputs;
-  return args?.pr ?? "";
+  return args?.pr ?? null;
 }
 
-export function _getService(): string {
+export function _getService(): ProviderServiceParams["service"] {
   return "buildkite";
 }
 
@@ -48,7 +52,10 @@ export function getServiceName(): string {
   return "Buildkite";
 }
 
-function _getSHA(inputs: ProviderUtilInputs, output: Output): string {
+function _getSHA(
+  inputs: ProviderUtilInputs,
+  output: Output,
+): ProviderServiceParams["commit"] {
   const { args, envs } = inputs;
   if (args?.sha && args.sha !== "") {
     debug(`Using commit: ${args.sha}`, { enabled: output.debug });
@@ -58,10 +65,10 @@ function _getSHA(inputs: ProviderUtilInputs, output: Output): string {
   debug(`Using commit: ${args?.sha ?? envs?.BUILDKITE_COMMIT}`, {
     enabled: output.debug,
   });
-  return envs?.BUILDKITE_COMMIT ?? "";
+  return envs?.BUILDKITE_COMMIT ?? null;
 }
 
-function _getSlug(inputs: ProviderUtilInputs): string {
+function _getSlug(inputs: ProviderUtilInputs): ProviderServiceParams["slug"] {
   const { args, envs } = inputs;
   return setSlug(
     args?.slug,
@@ -87,7 +94,7 @@ export async function getServiceParams(
   };
 }
 
-export function getEnvVarNames(): string[] {
+export function getEnvVarNames() {
   return [
     "BUILDKITE",
     "BUILDKITE_BRANCH",

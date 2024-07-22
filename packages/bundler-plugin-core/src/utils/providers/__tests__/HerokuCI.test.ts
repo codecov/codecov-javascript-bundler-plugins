@@ -44,14 +44,14 @@ describe("HerokuCI Params", () => {
       envs: {},
     };
     const expected: ProviderServiceParams = {
-      branch: "",
-      build: "",
-      buildURL: "",
-      commit: "",
-      job: "",
-      pr: "",
+      branch: null,
+      build: null,
+      buildURL: null,
+      commit: null,
+      job: null,
+      pr: null,
       service: "heroku",
-      slug: "",
+      slug: null,
     };
     const spawnSync = td.replace(childProcess, "spawnSync");
     td.when(
@@ -85,10 +85,10 @@ describe("HerokuCI Params", () => {
     const expected: ProviderServiceParams = {
       branch: "testBranch",
       build: "2",
-      buildURL: "",
+      buildURL: null,
       commit: "testSha",
-      job: "",
-      pr: "",
+      job: null,
+      pr: null,
       service: "heroku",
       slug: "testOrg/testRepo",
     };
@@ -130,9 +130,9 @@ describe("HerokuCI Params", () => {
     const expected: ProviderServiceParams = {
       branch: "branch",
       build: "3",
-      buildURL: "",
+      buildURL: null,
       commit: "testsha",
-      job: "",
+      job: null,
       pr: "2",
       service: "heroku",
       slug: "testOrg/testRepo",

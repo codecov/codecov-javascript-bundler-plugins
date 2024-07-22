@@ -51,12 +51,12 @@ describe("Netlify Params", () => {
     const expected: ProviderServiceParams = {
       branch: "main",
       build: "2",
-      buildURL: "",
+      buildURL: null,
       commit: "testingsha",
-      job: "",
-      pr: "",
+      job: null,
+      pr: null,
       service: "netlify",
-      slug: "",
+      slug: null,
     };
 
     const output = new Output({
@@ -91,9 +91,9 @@ describe("Netlify Params", () => {
     const expected: ProviderServiceParams = {
       branch: "main",
       build: "2",
-      buildURL: "",
+      buildURL: null,
       commit: "cool-commit-sha",
-      job: "",
+      job: null,
       pr: "1",
       service: "netlify",
       slug: "testOrg/testRepo",
@@ -118,14 +118,14 @@ describe("Netlify Params", () => {
     };
 
     const expected: ProviderServiceParams = {
-      branch: "",
-      build: "",
-      buildURL: "",
-      commit: "",
-      job: "",
-      pr: "",
+      branch: null,
+      build: null,
+      buildURL: null,
+      commit: null,
+      job: null,
+      pr: null,
       service: "netlify",
-      slug: "",
+      slug: null,
     };
 
     const output = new Output({

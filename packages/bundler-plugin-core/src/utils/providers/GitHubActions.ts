@@ -12,15 +12,15 @@ export function detect(envs: ProviderEnvs): boolean {
   return Boolean(envs?.GITHUB_ACTIONS);
 }
 
-function _getBuild(inputs: ProviderUtilInputs): string {
+function _getBuild(inputs: ProviderUtilInputs): ProviderServiceParams["build"] {
   const { args, envs } = inputs;
   if (args?.build && args.build !== "") {
     return args.build;
   }
-  return envs?.GITHUB_RUN_ID ?? "";
+  return envs?.GITHUB_RUN_ID ?? null;
 }
 
-async function _getJobURL(inputs: ProviderUtilInputs): Promise<string> {
+async function _getJobURL(inputs: ProviderUtilInputs): Promise<string | null> {
   const url = `https://api.github.com/repos/${_getSlug(
     inputs,
   )}/actions/runs/${_getBuild(inputs)}/jobs`;
@@ -29,8 +29,9 @@ async function _getJobURL(inputs: ProviderUtilInputs): Promise<string> {
       "User-Agent": "Awesome-Octocat-App",
     },
   });
+
   if (res.status !== 200) {
-    return "";
+    return null;
   }
 
   const rawJson = await res.json();
@@ -57,22 +58,27 @@ async function _getJobURL(inputs: ProviderUtilInputs): Promise<string> {
     }
   }
 
-  return "";
+  return null;
 }
 
-async function _getBuildURL(inputs: ProviderUtilInputs): Promise<string> {
+async function _getBuildURL(
+  inputs: ProviderUtilInputs,
+): Promise<ProviderServiceParams["buildURL"]> {
   const { envs } = inputs;
 
   const url = await _getJobURL(inputs);
-  if (url !== "") {
+  if (url !== null) {
     return url;
   }
+
   return `${envs?.GITHUB_SERVER_URL}/${_getSlug(
     inputs,
   )}/actions/runs/${_getBuild(inputs)}`;
 }
 
-function _getBranch(inputs: ProviderUtilInputs): string {
+function _getBranch(
+  inputs: ProviderUtilInputs,
+): ProviderServiceParams["branch"] {
   const { args, envs } = inputs;
   if (args?.branch && args.branch !== "") {
     return args.branch;
@@ -88,14 +94,14 @@ function _getBranch(inputs: ProviderUtilInputs): string {
   if (envs?.GITHUB_HEAD_REF && envs?.GITHUB_HEAD_REF !== "") {
     branch = envs?.GITHUB_HEAD_REF;
   }
-  return branch ?? "";
+  return branch ?? null;
 }
 
-function _getJob(envs: ProviderEnvs): string {
-  return envs?.GITHUB_WORKFLOW ?? "";
+function _getJob(envs: ProviderEnvs): ProviderServiceParams["job"] {
+  return envs?.GITHUB_WORKFLOW ?? null;
 }
 
-function _getPR(inputs: ProviderUtilInputs): string {
+function _getPR(inputs: ProviderUtilInputs): ProviderServiceParams["pr"] {
   const { args, envs } = inputs;
   if (args?.pr && args.pr !== "") {
     return args.pr;
@@ -109,10 +115,10 @@ function _getPR(inputs: ProviderUtilInputs): string {
       match = matches[1];
     }
   }
-  return match ?? "";
+  return match ?? null;
 }
 
-function _getService(): string {
+function _getService(): ProviderServiceParams["service"] {
   return "github-actions";
 }
 
@@ -120,7 +126,10 @@ export function getServiceName(): string {
   return "GitHub Actions";
 }
 
-function _getSHA(inputs: ProviderUtilInputs, output: Output): string {
+function _getSHA(
+  inputs: ProviderUtilInputs,
+  output: Output,
+): ProviderServiceParams["commit"] {
   const { args, envs } = inputs;
   if (args?.sha && args.sha !== "") {
     debug(`Using commit: ${args.sha}`, { enabled: output.debug });
@@ -153,19 +162,22 @@ function _getSHA(inputs: ProviderUtilInputs, output: Output): string {
     }
   }
 
-  debug(`Using commit: ${commit ?? ""}`, { enabled: output.debug });
+  debug(`Using commit: ${commit ?? null}`, { enabled: output.debug });
 
-  return commit ?? "";
+  return commit ?? null;
 }
 
-function _getCompareSHA(inputs: ProviderUtilInputs, output: Output): string {
+function _getCompareSHA(
+  inputs: ProviderUtilInputs,
+  output: Output,
+): ProviderServiceParams["compareSha"] {
   const { args } = inputs;
   if (args?.compareSha && args.compareSha !== "") {
     debug(`Using commit: ${args.compareSha}`, { enabled: output.debug });
     return args.compareSha;
   }
 
-  let compareSha = "";
+  let compareSha = null;
   const pr = _getPR(inputs);
   if (pr) {
     const mergeCommitRegex = /^[a-z0-9]{40} [a-z0-9]{40}$/;
@@ -186,21 +198,21 @@ function _getCompareSHA(inputs: ProviderUtilInputs, output: Output): string {
         enabled: output.debug,
       });
 
-      compareSha = splitMergeCommit?.[0] ? splitMergeCommit[0] : "";
+      compareSha = splitMergeCommit?.[0] ? splitMergeCommit[0] : null;
     }
   }
 
-  debug(`Using compareSha: ${compareSha ?? ""}`, { enabled: output.debug });
+  debug(`Using compareSha: ${compareSha ?? null}`, { enabled: output.debug });
 
-  return compareSha ?? "";
+  return compareSha ?? null;
 }
 
-function _getSlug(inputs: ProviderUtilInputs): string {
+function _getSlug(inputs: ProviderUtilInputs): ProviderServiceParams["slug"] {
   const { args, envs } = inputs;
   if (args?.slug && args.slug !== "") {
     return args.slug;
   }
-  return envs?.GITHUB_REPOSITORY ?? "";
+  return envs?.GITHUB_REPOSITORY ?? null;
 }
 
 export async function getServiceParams(
@@ -220,7 +232,7 @@ export async function getServiceParams(
   };
 }
 
-export function getEnvVarNames(): string[] {
+export function getEnvVarNames() {
   return [
     "GITHUB_ACTION",
     "GITHUB_HEAD_REF",

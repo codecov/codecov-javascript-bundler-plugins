@@ -52,12 +52,12 @@ describe("TeamCity Params", () => {
     const expected: ProviderServiceParams = {
       branch: "main",
       build: "1",
-      buildURL: "",
+      buildURL: null,
       commit: "testingsha",
-      job: "",
-      pr: "",
+      job: null,
+      pr: null,
       service: "teamcity",
-      slug: "",
+      slug: null,
     };
     const spawnSync = td.replace(childProcess, "spawnSync");
     td.when(
@@ -92,10 +92,10 @@ describe("TeamCity Params", () => {
     const expected: ProviderServiceParams = {
       branch: "main",
       build: "1",
-      buildURL: "",
+      buildURL: null,
       commit: "testingsha",
-      job: "",
-      pr: "",
+      job: null,
+      pr: null,
       service: "teamcity",
       slug: "testOrg/testRepo",
     };
@@ -149,9 +149,9 @@ describe("TeamCity Params", () => {
     const expected: ProviderServiceParams = {
       branch: "branch",
       build: "3",
-      buildURL: "",
+      buildURL: null,
       commit: "testsha",
-      job: "",
+      job: null,
       pr: "2",
       service: "teamcity",
       slug: "testOrg/testRepo",
@@ -183,14 +183,14 @@ describe("TeamCity Params", () => {
     ).thenReturn({ stdout: Buffer.from("") });
 
     const expected: ProviderServiceParams = {
-      branch: "",
-      build: "",
-      buildURL: "",
-      commit: "",
-      job: "",
-      pr: "",
+      branch: null,
+      build: null,
+      buildURL: null,
+      commit: null,
+      job: null,
+      pr: null,
       service: "teamcity",
-      slug: "",
+      slug: null,
     };
 
     const output = new Output({

@@ -13,18 +13,20 @@ export function detect(): boolean {
   return isProgramInstalled("git");
 }
 
-function _getBuild(inputs: ProviderUtilInputs): string {
+function _getBuild(inputs: ProviderUtilInputs): ProviderServiceParams["build"] {
   const { args } = inputs;
-  return args?.build ?? "";
+  return args?.build ?? null;
 }
 
-function _getBuildURL(): string {
-  return "";
+function _getBuildURL(): ProviderServiceParams["buildURL"] {
+  return null;
 }
 
-function _getBranch(inputs: ProviderUtilInputs): string {
+function _getBranch(
+  inputs: ProviderUtilInputs,
+): ProviderServiceParams["branch"] {
   const { args, envs } = inputs;
-  const branch = args?.branch ?? envs?.GIT_BRANCH ?? envs?.BRANCH_NAME ?? "";
+  const branch = args?.branch ?? envs?.GIT_BRANCH ?? envs?.BRANCH_NAME ?? null;
   if (branch !== "") {
     return branch;
   }
@@ -43,17 +45,17 @@ function _getBranch(inputs: ProviderUtilInputs): string {
   }
 }
 
-function _getJob(): string {
-  return "";
+function _getJob(): ProviderServiceParams["job"] {
+  return null;
 }
 
-function _getPR(inputs: ProviderUtilInputs): string {
+function _getPR(inputs: ProviderUtilInputs): ProviderServiceParams["pr"] {
   const { args } = inputs;
-  return args?.pr ?? "";
+  return args?.pr ?? null;
 }
 
 // This is the value that gets passed to the Codecov uploader
-function _getService(): string {
+function _getService(): ProviderServiceParams["service"] {
   return "";
 }
 
@@ -62,9 +64,12 @@ export function getServiceName(): string {
   return "Local";
 }
 
-function _getSHA(inputs: ProviderUtilInputs, output: Output) {
+function _getSHA(
+  inputs: ProviderUtilInputs,
+  output: Output,
+): ProviderServiceParams["commit"] {
   const { args, envs } = inputs;
-  const sha = args?.sha ?? envs?.GIT_COMMIT ?? "";
+  const sha = args?.sha ?? envs?.GIT_COMMIT ?? null;
   if (sha !== "") {
     debug(`Using commit: ${sha}`, { enabled: output.debug });
     return sha;
@@ -81,7 +86,7 @@ function _getSHA(inputs: ProviderUtilInputs, output: Output) {
   }
 }
 
-function _getSlug(inputs: ProviderUtilInputs): string {
+function _getSlug(inputs: ProviderUtilInputs): ProviderServiceParams["slug"] {
   const { args } = inputs;
   if (args?.slug && args?.slug !== "") {
     return args.slug;
@@ -117,6 +122,6 @@ export async function getServiceParams(
   };
 }
 
-export function getEnvVarNames(): string[] {
+export function getEnvVarNames() {
   return ["BRANCH_NAME", "CI", "GIT_BRANCH", "GIT_COMMIT"];
 }

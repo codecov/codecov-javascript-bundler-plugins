@@ -66,9 +66,9 @@ describe("TravisCI Params", () => {
     };
 
     const expected: ProviderServiceParams = {
-      branch: "",
+      branch: null,
       build: "1",
-      buildURL: "",
+      buildURL: null,
       commit: "testingsha",
       job: "2",
       pr: "",
@@ -109,7 +109,7 @@ describe("TravisCI Params", () => {
     const expected: ProviderServiceParams = {
       branch: "branch",
       build: "1",
-      buildURL: "",
+      buildURL: null,
       commit: "testingprsha",
       job: "2",
       pr: "",
@@ -149,7 +149,7 @@ describe("TravisCI Params", () => {
     const expected: ProviderServiceParams = {
       branch: "branch",
       build: "1",
-      buildURL: "",
+      buildURL: null,
       commit: "testingprsha",
       job: "2",
       pr: "",
@@ -190,9 +190,9 @@ describe("TravisCI Params", () => {
     const expected: ProviderServiceParams = {
       branch: "branch",
       build: "3",
-      buildURL: "",
+      buildURL: null,
       commit: "testsha",
-      job: "",
+      job: null,
       pr: "2",
       service: "travis",
       slug: "testOrg/testRepo",
@@ -217,14 +217,14 @@ describe("TravisCI Params", () => {
     };
 
     const expected: ProviderServiceParams = {
-      branch: "",
-      build: "",
-      buildURL: "",
-      commit: "",
-      job: "",
-      pr: "",
+      branch: null,
+      build: null,
+      buildURL: null,
+      commit: null,
+      job: null,
+      pr: null,
       service: "travis",
-      slug: "",
+      slug: null,
     };
 
     const output = new Output({
