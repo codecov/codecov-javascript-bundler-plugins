@@ -1,0 +1,23 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`solidstartBundleAnalysisPlugin > when called > returns a plugin object 1`] = `
+{
+  "name": "@codecov/solidstart-plugin",
+  "pluginVersion": "0.0.1-beta.11",
+  "version": "2",
+  "vite": {
+    "generateBundle": [Function],
+  },
+}
+`;
+
+exports[`sveltekitBundleAnalysisPlugin > when called > returns a plugin object 1`] = `
+{
+  "name": "@codecov/sveltekit-plugin",
+  "pluginVersion": "0.0.1-beta.11",
+  "version": "2",
+  "vite": {
+    "generateBundle": [Function],
+  },
+}
+`;

@@ -4,58 +4,55 @@
   </a>
 </p>
 
-# Codecov Nuxt Plugin
+# Codecov SolidStart Plugin
 
 > [!WARNING]
 > These plugins are currently in beta and are subject to change.
 >
-> A Nuxt plugin that provides bundle analysis support for Codecov.
+> A SolidStart plugin that provides bundle analysis support for Codecov.
 >
 > The plugin does not support code coverage, see our [docs](https://docs.codecov.com/docs/quick-start) to set up coverage today!
 
 > [!NOTE]
-> This plugin only supports Nuxt 3.x when building with Vite.
+> This plugin only supports SolidStart 1.x when building with Vite.
 
 ## Installation
 
 Using npm:
 
 ```bash
-npm install @codecov/nuxt-plugin --save-dev
+npm install @codecov/solidstart-plugin --save-dev
 ```
 
 Using yarn:
 
 ```bash
-yarn add @codecov/nuxt-plugin --dev
+yarn add @codecov/solidstart-plugin --dev
 ```
 
 Using pnpm:
 
 ```bash
-pnpm add @codecov/nuxt-plugin --save-dev
+pnpm add @codecov/solidstart-plugin --save-dev
 ```
 
-## Example
+## Example (UPDATE THIS)
 
-```js
-// nuxt.config.ts
-import { defineNuxtConfig } from "nuxt/config";
+```ts
+// vite.config.ts
+import solid from "solid-start/vite";
+import { defineConfig } from "vite";
+import { codecovSolidStartPlugin } from "@codecov/solidstart-plugin";
 
-export default defineNuxtConfig({
-  devtools: { enabled: true },
-  // Ensure that the builder is set to "vite"
-  builder: "vite",
-  // Ensure that the plugin is added to the modules array
-  modules: [
-    [
-      "@codecov/nuxt-plugin",
-      {
-        enableBundleAnalysis: true,
-        bundleName: "nuxt-bundle-analysis",
-        uploadToken: process.env.CODECOV_UPLOAD_TOKEN,
-      },
-    ],
+export default defineConfig({
+  plugins: [
+    solid(),
+    // Put the Codecov SolidStart plugin after all other plugins
+    codecovSolidStartPlugin({
+      enableBundleAnalysis: true,
+      bundleName: "example-solidstart-bundle",
+      uploadToken: process.env.CODECOV_TOKEN,
+    }),
   ],
 });
 ```

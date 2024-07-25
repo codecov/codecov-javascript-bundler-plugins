@@ -14,7 +14,7 @@
 > The plugin does not support code coverage, see our [docs](https://docs.codecov.com/docs/quick-start) to set up coverage today!
 
 > [!NOTE]
-> This plugin only support SvelteKit 2.x when building with Vite.
+> This plugin only supports SvelteKit 2.x when building with Vite.
 
 ## Installation
 
