@@ -48,7 +48,7 @@ describe("Generating solidstart stats", () => {
           const API_URL = `http://localhost:8000/test-url/${id}/200/false`;
 
           // prepare and build the app
-          await $`cd test-apps/solidstart && API_URL=${API_URL} pnpm run build`;
+          await $`cd test-apps/solidstart && API_URL=${API_URL} pnpm -w run build`;
 
           const serverBundleName = `test-solidstart-v${version}-server-esm`;
           const clientBundleName = `test-solidstart-v${version}-client-${expected}`;
@@ -175,7 +175,7 @@ describe("Generating solidstart stats", () => {
 
           // prepare and build the app
           const { exitCode, stdout } =
-            await $`cd test-apps/solidstart && API_URL=${API_URL} pnpm run build`.nothrow();
+            await $`cd test-apps/solidstart && API_URL=${API_URL} pnpm -w run build`.nothrow();
 
           expect(exitCode).toBe(1);
           // for some reason this isn't being outputted in the test env
