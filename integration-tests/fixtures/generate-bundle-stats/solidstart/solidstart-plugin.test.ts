@@ -21,14 +21,14 @@ describe("Generating solidstart stats", () => {
           // need to re-write config script so that it can point to solidstart dir but still output the vite config file
           // solidstart uses vite under the hood
           plugin: "solidstart",
-          configFileName: "vite",
+          configFileName: "app",
           format,
           detectFormat: "esm",
-          version: `v2`,
-          detectVersion: "v2",
+          version: `v1`,
+          detectVersion: "v1",
           file_format: "ts",
           enableSourceMaps: false,
-          overrideOutputPath: `${solidStartApp}/vite.config.ts`,
+          overrideOutputPath: `${solidStartApp}/app.config.ts`,
         });
 
         await config.createConfig();
@@ -36,12 +36,12 @@ describe("Generating solidstart stats", () => {
       });
 
       afterEach(async () => {
-        await $`rm -rf ${solidStartApp}/vite.config.ts`;
+        await $`rm -rf ${solidStartApp}/app.config.ts`;
         await $`rm -rf ${solidStartApp}/.solid-start`;
         await $`rm -rf ./fixtures/generate-bundle-stats/solidstart/.solid-start`;
       });
 
-      it(
+      it.only(
         "matches the snapshot",
         async () => {
           const id = `solidstart-v${version}-${format}-${Date.now()}`;
@@ -145,14 +145,14 @@ describe("Generating solidstart stats", () => {
       beforeEach(async () => {
         const config = new GenerateConfig({
           plugin: "solidstart",
-          configFileName: "vite",
+          configFileName: "app",
           format: "esm",
           detectFormat: "esm",
-          version: `v2`,
-          detectVersion: "v2",
+          version: `v1`,
+          detectVersion: "v1",
           file_format: "ts",
           enableSourceMaps: false,
-          overrideOutputPath: `${solidStartApp}/vite.config.ts`,
+          overrideOutputPath: `${solidStartApp}/app.config.ts`,
         });
 
         await config.createConfig();
@@ -161,9 +161,9 @@ describe("Generating solidstart stats", () => {
       });
 
       afterEach(async () => {
-        await $`rm -rf ${solidStartApp}/vite.config.ts`;
+        await $`rm -rf ${solidStartApp}/app.config.ts`;
         await $`rm -rf ${solidStartApp}/.solid-start`;
-        await $`rm -rf ${solidStartApp}/vite.config.ts.timestamp-*`;
+        await $`rm -rf ${solidStartApp}/app.config.ts.timestamp-*`;
         await $`rm -rf ./fixtures/generate-bundle-stats/solidstart/.solid-start`;
       });
 

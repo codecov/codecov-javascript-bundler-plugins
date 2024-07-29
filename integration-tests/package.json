@@ -24,7 +24,8 @@
   },
   "dependencies": {
     "lodash": "^4.17.21",
-    "solid-start": "^0.3.11"
+    "solid-start": "^0.3.11",
+    "vite-plugin-solid": "^2.10.2"
   },
   "devDependencies": {
     "@codecov/bundler-plugin-core": "workspace:^",
