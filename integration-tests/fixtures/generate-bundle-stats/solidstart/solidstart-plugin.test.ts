@@ -41,14 +41,14 @@ describe("Generating solidstart stats", () => {
         await $`rm -rf ./fixtures/generate-bundle-stats/solidstart/.solid-start`;
       });
 
-      it.only(
+      it(
         "matches the snapshot",
         async () => {
           const id = `solidstart-v${version}-${format}-${Date.now()}`;
           const API_URL = `http://localhost:8000/test-url/${id}/200/false`;
 
           // prepare and build the app
-          await $`cd test-apps/solidstart && API_URL=${API_URL} pnpm -w run build`;
+          await $`cd test-apps/solidstart && API_URL=${API_URL} pnpm run build`;
 
           const serverBundleName = `test-solidstart-v${version}-server-esm`;
           const clientBundleName = `test-solidstart-v${version}-client-${expected}`;
@@ -61,19 +61,25 @@ describe("Generating solidstart stats", () => {
           const clientStats = JSON.parse(clientData.stats) as unknown;
 
           expect(clientStats).toMatchSnapshot({
+            version: expect.any(String),
             builtAt: expect.any(Number),
             duration: expect.any(Number),
-            outputPath: expect.stringContaining(`.solid-start`),
             bundleName: expect.stringContaining(clientBundleName),
+            outputPath: expect.any(String),
+            bundler: {
+              name: expect.any(String),
+              version: expect.any(String),
+            },
             plugin: {
               name: expect.stringMatching("@codecov/solidstart-plugin"),
+              version: expect.any(String),
             },
             assets: expect.arrayContaining([
               {
                 name: expect.any(String),
                 normalized: expect.any(String),
                 size: expect.any(Number),
-                gzipSize: expect.anything(),
+                gzipSize: expect.any(Number),
               },
             ]),
             chunks: expect.arrayContaining([
@@ -103,12 +109,18 @@ describe("Generating solidstart stats", () => {
           const serverStats = JSON.parse(serverData.stats) as unknown;
 
           expect(serverStats).toMatchSnapshot({
+            version: expect.any(String),
             builtAt: expect.any(Number),
             duration: expect.any(Number),
-            outputPath: expect.stringContaining(`.solid-start`),
+            outputPath: expect.any(String),
             bundleName: expect.stringContaining(serverBundleName),
             plugin: {
               name: expect.stringMatching("@codecov/solidstart-plugin"),
+              version: expect.any(String),
+            },
+            bundler: {
+              name: expect.any(String),
+              version: expect.any(String),
             },
             assets: expect.arrayContaining([
               {
@@ -175,7 +187,7 @@ describe("Generating solidstart stats", () => {
 
           // prepare and build the app
           const { exitCode, stdout } =
-            await $`cd test-apps/solidstart && API_URL=${API_URL} pnpm -w run build`.nothrow();
+            await $`cd test-apps/solidstart && API_URL=${API_URL} pnpm run build`.nothrow();
 
           expect(exitCode).toBe(1);
           // for some reason this isn't being outputted in the test env

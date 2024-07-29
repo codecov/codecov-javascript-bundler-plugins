@@ -50,9 +50,12 @@ export class GenerateConfig {
     configFileName,
   }: CreateConfigOpts) {
     const bundlerDir = `fixtures/generate-bundle-stats/${plugin}`;
+    console.log(bundlerDir);
     const baseConfigPath = `${bundlerDir}/${configFileName}-base.config.${file_format}`;
+    console.log(baseConfigPath, "BASE CONFIG PATH");
     const outFileName = `${configFileName}-${version}-${format}.config.${file_format}`;
 
+    console.log(format, "FORMAT");
     if (overrideOutputPath) {
       this.outFilePath = overrideOutputPath;
     } else {
@@ -132,6 +135,7 @@ export class GenerateConfig {
 
   async writeConfig() {
     if (typeof this.newConfigContents === "string") {
+      console.log("config log here", this.newConfigContents);
       await Bun.write(this.outFilePath, this.newConfigContents);
     } else {
       console.error("No new config contents to write");

@@ -1,0 +1,127 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Generating solidstart stats 1 {"format":"es","expected":"esm"} matches the snapshot 1`] = `
+{
+  "assets": ExpectArrayContaining {},
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-solidstart-v1-client-esm",
+  "bundler": {
+    "name": Any<String>,
+    "version": Any<String>,
+  },
+  "chunks": ExpectArrayContaining {},
+  "duration": Any<Number>,
+  "modules": ExpectArrayContaining {},
+  "outputPath": Any<String>,
+  "plugin": {
+    "name": StringMatching "@codecov/solidstart-plugin",
+    "version": Any<String>,
+  },
+  "version": Any<String>,
+}
+`;
+
+exports[`Generating solidstart stats 1 {"format":"esm","expected":"esm"} matches the snapshot 1`] = `
+{
+  "assets": ExpectArrayContaining {},
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-solidstart-v1-client-esm",
+  "bundler": {
+    "name": Any<String>,
+    "version": Any<String>,
+  },
+  "chunks": ExpectArrayContaining {},
+  "duration": Any<Number>,
+  "modules": ExpectArrayContaining {},
+  "outputPath": Any<String>,
+  "plugin": {
+    "name": StringMatching "@codecov/solidstart-plugin",
+    "version": Any<String>,
+  },
+  "version": Any<String>,
+}
+`;
+
+exports[`Generating solidstart stats 1 {"format":"module","expected":"esm"} matches the snapshot 1`] = `
+{
+  "assets": ExpectArrayContaining {},
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-solidstart-v1-client-esm",
+  "bundler": {
+    "name": Any<String>,
+    "version": Any<String>,
+  },
+  "chunks": ExpectArrayContaining {},
+  "duration": Any<Number>,
+  "modules": ExpectArrayContaining {},
+  "outputPath": Any<String>,
+  "plugin": {
+    "name": StringMatching "@codecov/solidstart-plugin",
+    "version": Any<String>,
+  },
+  "version": Any<String>,
+}
+`;
+
+exports[`Generating solidstart stats 1 {"format":"es","expected":"esm"} matches the snapshot 2`] = `
+{
+  "assets": ExpectArrayContaining {},
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-solidstart-v1-server-esm",
+  "bundler": {
+    "name": Any<String>,
+    "version": Any<String>,
+  },
+  "chunks": ExpectArrayContaining {},
+  "duration": Any<Number>,
+  "modules": ExpectArrayContaining {},
+  "outputPath": Any<String>,
+  "plugin": {
+    "name": StringMatching "@codecov/solidstart-plugin",
+    "version": Any<String>,
+  },
+  "version": Any<String>,
+}
+`;
+
+exports[`Generating solidstart stats 1 {"format":"esm","expected":"esm"} matches the snapshot 2`] = `
+{
+  "assets": ExpectArrayContaining {},
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-solidstart-v1-server-esm",
+  "bundler": {
+    "name": Any<String>,
+    "version": Any<String>,
+  },
+  "chunks": ExpectArrayContaining {},
+  "duration": Any<Number>,
+  "modules": ExpectArrayContaining {},
+  "outputPath": Any<String>,
+  "plugin": {
+    "name": StringMatching "@codecov/solidstart-plugin",
+    "version": Any<String>,
+  },
+  "version": Any<String>,
+}
+`;
+
+exports[`Generating solidstart stats 1 {"format":"module","expected":"esm"} matches the snapshot 2`] = `
+{
+  "assets": ExpectArrayContaining {},
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-solidstart-v1-server-esm",
+  "bundler": {
+    "name": Any<String>,
+    "version": Any<String>,
+  },
+  "chunks": ExpectArrayContaining {},
+  "duration": Any<Number>,
+  "modules": ExpectArrayContaining {},
+  "outputPath": Any<String>,
+  "plugin": {
+    "name": StringMatching "@codecov/solidstart-plugin",
+    "version": Any<String>,
+  },
+  "version": Any<String>,
+}
+`;
