@@ -36,24 +36,26 @@ Using pnpm:
 pnpm add @codecov/solidstart-plugin --save-dev
 ```
 
-## Example (UPDATE THIS)
+## Example
 
 ```ts
-// vite.config.ts
-import solid from "solid-start/vite";
-import { defineConfig } from "vite";
+// app.config.ts
+import { defineConfig } from "@solidjs/start/config";
+import solidPlugin from "vite-plugin-solid";
 import { codecovSolidStartPlugin } from "@codecov/solidstart-plugin";
 
 export default defineConfig({
-  plugins: [
-    solid(),
-    // Put the Codecov SolidStart plugin after all other plugins
-    codecovSolidStartPlugin({
-      enableBundleAnalysis: true,
-      bundleName: "example-solidstart-bundle",
-      uploadToken: process.env.CODECOV_TOKEN,
-    }),
-  ],
+  vite: {
+    plugins: [
+      // Put the Codecov SolidStart plugin after all other plugins
+      solidPlugin(),
+      codecovSolidStartPlugin({
+        enableBundleAnalysis: true,
+        bundleName: "example-solidstart-bundle",
+        uploadToken: process.env.CODECOV_TOKEN,
+      }),
+    ],
+  },
 });
 ```
 

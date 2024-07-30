@@ -18,7 +18,6 @@ export default defineConfig({
         enableBundleAnalysis: true,
         bundleName: "test-solidstart-v1",
         uploadToken: "test-token",
-        apiUrl: process.env.API_URL,
       }) as any,
     ],
   },
