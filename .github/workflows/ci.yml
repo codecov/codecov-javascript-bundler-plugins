@@ -280,7 +280,7 @@ jobs:
       fail-fast: false
       matrix:
         example:
-          ["next-js", "nuxt", "remix", "rollup", "sveltekit", "vite", "webpack"]
+          ["next-js", "nuxt", "remix", "rollup", "sveltekit", "vite", "webpack", "solidstart"]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -336,6 +336,8 @@ jobs:
           REMIX_API_URL: ${{ secrets.CODECOV_API_URL }}
           ROLLUP_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           ROLLUP_API_URL: ${{ secrets.CODECOV_API_URL }}
+          SOLIDSTART_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          SOLIDSTART_API_URL: ${{ secrets.CODECOV_API_URL }}
           SVELTEKIT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           SVELTEKIT_API_URL: ${{ secrets.CODECOV_API_URL }}
           VITE_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
@@ -352,7 +354,7 @@ jobs:
       fail-fast: false
       matrix:
         example:
-          ["next-js", "nuxt", "remix", "rollup", "sveltekit", "vite", "webpack"]
+          ["next-js", "nuxt", "remix", "rollup", "sveltekit", "vite", "webpack", "solidstart"]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -408,6 +410,8 @@ jobs:
           REMIX_API_URL: ${{ secrets.CODECOV_API_URL }}
           ROLLUP_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
           ROLLUP_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
+          SOLIDSTART_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          SOLIDSTART_API_URL: ${{ secrets.CODECOV_API_URL }}
           SVELTEKIT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           SVELTEKIT_API_URL: ${{ secrets.CODECOV_API_URL }}
           VITE_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
@@ -432,6 +436,7 @@ jobs:
             "sveltekit-plugin",
             "vite-plugin",
             "webpack-plugin",
+            "solidstart-plugin",
           ]
     steps:
       - name: Checkout
@@ -498,6 +503,7 @@ jobs:
             "sveltekit-plugin",
             "vite-plugin",
             "webpack-plugin",
+            "solidstart-plugin",
           ]
     steps:
       - name: Checkout

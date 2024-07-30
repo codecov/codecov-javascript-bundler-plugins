@@ -30,6 +30,7 @@ const config = {
       "./packages/nuxt-plugin/tsconfig.json",
       "./packages/remix-vite-plugin/tsconfig.json",
       "./packages/rollup-plugin/tsconfig.json",
+      "./packages/solidstart-plugin/tsconfig.json",
       "./packages/sveltekit-plugin/tsconfig.json",
       "./packages/vite-plugin/tsconfig.json",
       "./packages/webpack-plugin/tsconfig.json",
