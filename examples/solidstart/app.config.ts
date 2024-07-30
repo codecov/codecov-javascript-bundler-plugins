@@ -12,7 +12,6 @@ export default defineConfig({
         uploadToken: process.env.SOLIDSTART_UPLOAD_TOKEN,
         apiUrl: process.env.SOLIDSTART_API_URL,
         debug: true,
-        dryRun: true,
       }) as any,
     ],
   },
