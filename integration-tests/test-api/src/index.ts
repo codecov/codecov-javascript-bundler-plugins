@@ -32,6 +32,7 @@ app.all(
     const badPUT = c.req.param("badPUT") === "true";
     const url = new URL(c.req.url);
     const putURL = `${url.protocol}//${url.host}/file-upload/${id}/${status}`;
+
     if (status >= 400 && !badPUT) {
       return c.text(`Error code: ${status}`, { status });
     }
@@ -50,6 +51,7 @@ app.all(
 app.all("/file-upload/:id/:status{[0-9]{3}}", async (c) => {
   const id = c.req.param("id");
   const status = parseInt(c.req.param("status"));
+
   if (status >= 400) {
     return c.text(`Error code: ${status}`, { status });
   }

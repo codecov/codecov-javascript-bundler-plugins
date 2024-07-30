@@ -173,9 +173,9 @@ describe("Generating solidstart stats", () => {
       });
 
       afterEach(async () => {
-        await $`rm -rf ${solidStartApp}/app.config.ts`;
+        await $`rm -rf ${solidStartApp}/app-base.config.ts`;
         await $`rm -rf ${solidStartApp}/.solid-start`;
-        await $`rm -rf ${solidStartApp}/app.config.ts.timestamp-*`;
+        await $`rm -rf ${solidStartApp}/app-base.config.ts.timestamp-*`;
         await $`rm -rf ./fixtures/generate-bundle-stats/solidstart/.solid-start`;
       });
 

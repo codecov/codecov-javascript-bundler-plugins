@@ -1,5 +1,5 @@
 {
-  "name": "example-basic",
+  "name": "test-solidstart",
   "type": "module",
   "scripts": {
     "dev": "vinxi dev",
