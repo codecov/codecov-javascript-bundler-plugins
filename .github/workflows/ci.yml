@@ -436,6 +436,7 @@ jobs:
             "sveltekit-plugin",
             "vite-plugin",
             "webpack-plugin",
+            "solidstart-plugin",
           ]
     steps:
       - name: Checkout
@@ -502,6 +503,7 @@ jobs:
             "sveltekit-plugin",
             "vite-plugin",
             "webpack-plugin",
+            "solidstart-plugin",
           ]
     steps:
       - name: Checkout
