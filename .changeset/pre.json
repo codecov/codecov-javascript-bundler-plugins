@@ -8,15 +8,18 @@
     "@codecov/webpack-plugin": "0.0.0",
     "@codecov/nuxt-plugin": "0.0.0",
     "@codecov/sveltekit-plugin": "0.0.0",
-    "@codecov/remix-vite-plugin": "0.0.0"
+    "@codecov/remix-vite-plugin": "0.0.0",
+    "@codecov/solidstart-plugin": "0.0.1-beta.11"
   },
   "changesets": [
     "big-socks-impress",
     "chilled-eagles-protect",
     "cool-sheep-care",
     "early-phones-prove",
+    "early-years-walk",
     "flat-mails-buy",
     "four-houses-drive",
+    "gorgeous-donuts-complain",
     "healthy-foxes-joke",
     "hungry-toes-hide",
     "itchy-wolves-accept",
