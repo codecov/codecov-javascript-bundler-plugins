@@ -14,6 +14,7 @@
     "test:e2e:sveltekit": "bun test fixtures/**/sveltekit/*",
     "test:e2e:vite": "bun test fixtures/**/vite/*",
     "test:e2e:webpack": "bun test fixtures/**/webpack/*",
+    "test:e2e:solidstart": "bun test fixtures/**/solidstart/*",
     "type-check": "tsc --noEmit",
     "clean": "rm -rf node_modules",
     "lint": "eslint . --ext .ts,.tsx",
@@ -22,19 +23,23 @@
     "format:check": "prettier '**/*.{cjs,mjs,ts,tsx,md,json}' --ignore-path ../.gitignore --ignore-unknown --no-error-on-unmatched-pattern --check"
   },
   "dependencies": {
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "solid-start": "^0.3.11",
+    "vite-plugin-solid": "^2.10.2"
   },
   "devDependencies": {
     "@codecov/bundler-plugin-core": "workspace:^",
     "@codecov/nuxt-plugin": "workspace:^",
     "@codecov/remix-vite-plugin": "workspace:^",
     "@codecov/rollup-plugin": "workspace:^",
+    "@codecov/solidstart-plugin": "workspace:^",
     "@codecov/sveltekit-plugin": "workspace:^",
     "@codecov/vite-plugin": "workspace:^",
     "@codecov/webpack-plugin": "workspace:^",
     "@remix-run/dev": "^2.9.2",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
+    "@solidjs/start": "^1.0.6",
     "@sveltejs/kit": "^2.0.0",
     "@types/bun": "^1.0.6",
     "@types/node": "^20.11.15",

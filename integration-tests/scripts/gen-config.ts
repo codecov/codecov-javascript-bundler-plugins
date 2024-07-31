@@ -2,7 +2,14 @@
 import * as Bun from "bun";
 import { unlink } from "node:fs/promises";
 
-type Plugins = "rollup" | "vite" | "webpack" | "nuxt" | "sveltekit" | "remix";
+type Plugins =
+  | "rollup"
+  | "vite"
+  | "webpack"
+  | "nuxt"
+  | "sveltekit"
+  | "remix"
+  | "solidstart";
 
 interface CreateConfigOpts {
   plugin: Plugins;
