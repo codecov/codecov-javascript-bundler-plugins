@@ -9,7 +9,7 @@
     "@codecov/nuxt-plugin": "0.0.0",
     "@codecov/sveltekit-plugin": "0.0.0",
     "@codecov/remix-vite-plugin": "0.0.0",
-    "@codecov/solidstart-plugin": "0.0.1-beta.11"
+    "@codecov/solidstart-plugin": "0.0.0"
   },
   "changesets": [
     "big-socks-impress",
