@@ -50,11 +50,11 @@ describe("Render Params", () => {
 
     const expected: ProviderServiceParams = {
       branch: "main",
-      build: "",
-      buildURL: "",
+      build: null,
+      buildURL: null,
       commit: "testing-sha",
-      job: "",
-      pr: "",
+      job: null,
+      pr: null,
       service: "render",
       slug: "testOrg/testRepo",
     };
@@ -91,9 +91,9 @@ describe("Render Params", () => {
     const expected: ProviderServiceParams = {
       branch: "main",
       build: "2",
-      buildURL: "",
+      buildURL: null,
       commit: "cool-commit-sha",
-      job: "",
+      job: null,
       pr: "1",
       service: "render",
       slug: "testOrg/testRepo",
@@ -118,14 +118,14 @@ describe("Render Params", () => {
     };
 
     const expected: ProviderServiceParams = {
-      branch: "",
-      build: "",
-      buildURL: "",
-      commit: "",
-      job: "",
-      pr: "",
+      branch: null,
+      build: null,
+      buildURL: null,
+      commit: null,
+      job: null,
+      pr: null,
       service: "render",
-      slug: "",
+      slug: null,
     };
 
     const output = new Output({

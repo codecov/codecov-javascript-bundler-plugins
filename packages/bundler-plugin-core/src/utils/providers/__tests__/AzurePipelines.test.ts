@@ -42,14 +42,14 @@ describe("Azure Pipelines CI Params", () => {
       },
     };
     const expected: ProviderServiceParams = {
-      branch: "",
-      build: "",
-      buildURL: "",
-      commit: "",
-      job: "",
-      pr: "",
+      branch: null,
+      build: null,
+      buildURL: null,
+      commit: null,
+      job: null,
+      pr: null,
       service: "azure_pipelines",
-      slug: "",
+      slug: null,
     };
     const spawnSync = td.replace(childProcess, "spawnSync");
     td.when(
@@ -173,7 +173,7 @@ describe("Azure Pipelines CI Params", () => {
       buildURL: "https://example.azure.comtestOrg/_build/results?buildId=2",
       commit: "testingsha",
       job: "2",
-      pr: "",
+      pr: null,
       service: "azure_pipelines",
       slug: "testOrg/testRepo",
     };
@@ -265,9 +265,9 @@ describe("Azure Pipelines CI Params", () => {
     const expected: ProviderServiceParams = {
       branch: "branch",
       build: "3",
-      buildURL: "",
+      buildURL: null,
       commit: "testsha",
-      job: "",
+      job: null,
       pr: "2",
       service: "azure_pipelines",
       slug: "testOrg/otherTestRepo",

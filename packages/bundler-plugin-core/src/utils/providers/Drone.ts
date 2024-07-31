@@ -10,42 +10,49 @@ export function detect(envs: ProviderEnvs): boolean {
   return Boolean(envs?.DRONE);
 }
 
-function _getBuild(inputs: ProviderUtilInputs): string {
+function _getBuild(inputs: ProviderUtilInputs): ProviderServiceParams["build"] {
   const { args, envs } = inputs;
   if (args?.build && args.build !== "") {
     return args.build;
   }
-  return envs?.DRONE_BUILD_NUMBER ?? "";
+  return envs?.DRONE_BUILD_NUMBER ?? null;
 }
 
-function _getBuildURL(inputs: ProviderUtilInputs): string {
+function _getBuildURL(
+  inputs: ProviderUtilInputs,
+): ProviderServiceParams["buildURL"] {
   const { envs } = inputs;
   return (
-    envs?.DRONE_BUILD_LINK ?? envs?.DRONE_BUILD_URL ?? envs?.CI_BUILD_URL ?? ""
+    envs?.DRONE_BUILD_LINK ??
+    envs?.DRONE_BUILD_URL ??
+    envs?.CI_BUILD_URL ??
+    null
   );
 }
 
-function _getBranch(inputs: ProviderUtilInputs): string {
+function _getBranch(
+  inputs: ProviderUtilInputs,
+): ProviderServiceParams["branch"] {
   const { args, envs } = inputs;
   if (args?.branch && args.branch !== "") {
     return args?.branch;
   }
-  return envs?.DRONE_BRANCH ?? "";
+  return envs?.DRONE_BRANCH ?? null;
 }
 
-function _getJob(): string {
-  return "";
+function _getJob(): ProviderServiceParams["job"] {
+  return null;
 }
 
-function _getPR(inputs: ProviderUtilInputs): string {
+function _getPR(inputs: ProviderUtilInputs): ProviderServiceParams["pr"] {
   const { args, envs } = inputs;
   if (args?.pr && args.pr !== "") {
     return args?.pr;
   }
-  return envs?.DRONE_PULL_REQUEST ?? "";
+  return envs?.DRONE_PULL_REQUEST ?? null;
 }
 
-function _getService(): string {
+function _getService(): ProviderServiceParams["service"] {
   return "drone.io";
 }
 
@@ -53,24 +60,27 @@ export function getServiceName(): string {
   return "Drone";
 }
 
-function _getSHA(inputs: ProviderUtilInputs, output: Output): string {
+function _getSHA(
+  inputs: ProviderUtilInputs,
+  output: Output,
+): ProviderServiceParams["commit"] {
   const { args, envs } = inputs;
   if (args?.sha && args.sha !== "") {
     debug(`Using commit: ${args.sha}`, { enabled: output.debug });
     return args.sha;
   }
 
-  const sha = envs?.DRONE_COMMIT_SHA ?? "";
+  const sha = envs?.DRONE_COMMIT_SHA ?? null;
   debug(`Using commit: ${sha}`, { enabled: output.debug });
   return sha;
 }
 
-function _getSlug(inputs: ProviderUtilInputs): string {
+function _getSlug(inputs: ProviderUtilInputs): ProviderServiceParams["slug"] {
   const { args, envs } = inputs;
   if (args?.slug && args?.slug !== "") {
     return args?.slug;
   }
-  return envs?.DRONE_REPO ?? "";
+  return envs?.DRONE_REPO ?? null;
 }
 
 // eslint-disable-next-line @typescript-eslint/require-await
@@ -90,7 +100,7 @@ export async function getServiceParams(
   };
 }
 
-export function getEnvVarNames(): string[] {
+export function getEnvVarNames() {
   return [
     "DRONE",
     "DRONE_BRANCH",

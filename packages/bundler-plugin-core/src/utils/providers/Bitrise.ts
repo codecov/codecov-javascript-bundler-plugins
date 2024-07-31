@@ -11,40 +11,44 @@ export function detect(envs: ProviderEnvs): boolean {
   return Boolean(envs?.CI) && Boolean(envs?.BITRISE_IO);
 }
 
-function _getBuild(inputs: ProviderUtilInputs): string {
+function _getBuild(inputs: ProviderUtilInputs): ProviderServiceParams["build"] {
   const { args, envs } = inputs;
   if (args?.build && args.build !== "") {
     return args.build;
   }
-  return envs?.BITRISE_BUILD_NUMBER ?? "";
+  return envs?.BITRISE_BUILD_NUMBER ?? null;
 }
 
-function _getBuildURL(inputs: ProviderUtilInputs): string {
+function _getBuildURL(
+  inputs: ProviderUtilInputs,
+): ProviderServiceParams["buildURL"] {
   const { envs } = inputs;
-  return envs?.BITRISE_BUILD_URL ?? "";
+  return envs?.BITRISE_BUILD_URL ?? null;
 }
 
-function _getBranch(inputs: ProviderUtilInputs): string {
+function _getBranch(
+  inputs: ProviderUtilInputs,
+): ProviderServiceParams["branch"] {
   const { args, envs } = inputs;
   if (args?.branch && args.branch !== "") {
     return args.branch;
   }
-  return envs?.BITRISE_GIT_BRANCH ?? "";
+  return envs?.BITRISE_GIT_BRANCH ?? null;
 }
 
-function _getJob() {
-  return "";
+function _getJob(): ProviderServiceParams["job"] {
+  return null;
 }
 
-function _getPR(inputs: ProviderUtilInputs): string {
+function _getPR(inputs: ProviderUtilInputs): ProviderServiceParams["pr"] {
   const { args, envs } = inputs;
   if (args?.pr && args.pr !== "") {
     return args.pr;
   }
-  return envs?.BITRISE_PULL_REQUEST ?? "";
+  return envs?.BITRISE_PULL_REQUEST ?? null;
 }
 
-function _getService(): string {
+function _getService(): ProviderServiceParams["service"] {
   return "bitrise";
 }
 
@@ -52,7 +56,10 @@ export function getServiceName(): string {
   return "Bitrise CI";
 }
 
-function _getSHA(inputs: ProviderUtilInputs, output: Output): string {
+function _getSHA(
+  inputs: ProviderUtilInputs,
+  output: Output,
+): ProviderServiceParams["commit"] {
   const { args, envs } = inputs;
   if (args?.sha && args.sha !== "") {
     debug(`Using commit: ${args.sha}`, { enabled: output.debug });
@@ -63,15 +70,15 @@ function _getSHA(inputs: ProviderUtilInputs, output: Output): string {
     enabled: output.debug,
   });
 
-  return envs?.GIT_CLONE_COMMIT_HASH ?? "";
+  return envs?.GIT_CLONE_COMMIT_HASH ?? null;
 }
 
-function _getSlug(inputs: ProviderUtilInputs): string {
+function _getSlug(inputs: ProviderUtilInputs): ProviderServiceParams["slug"] {
   const { args } = inputs;
   if (args?.slug && args.slug !== "") {
     return args.slug;
   }
-  return parseSlugFromRemoteAddr("") ?? "";
+  return parseSlugFromRemoteAddr("") ?? null;
 }
 
 // eslint-disable-next-line @typescript-eslint/require-await
@@ -91,7 +98,7 @@ export async function getServiceParams(
   };
 }
 
-export function getEnvVarNames(): string[] {
+export function getEnvVarNames() {
   return [
     "BITRISE_BUILD_NUMBER",
     "BITRISE_BUILD_URL",

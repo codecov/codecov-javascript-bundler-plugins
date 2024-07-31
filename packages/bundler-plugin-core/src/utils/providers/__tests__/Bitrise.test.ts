@@ -61,14 +61,14 @@ describe("Bitrise Params", () => {
       },
     };
     const expected: ProviderServiceParams = {
-      branch: "",
-      build: "",
-      buildURL: "",
-      commit: "",
-      job: "",
-      pr: "",
+      branch: null,
+      build: null,
+      buildURL: null,
+      commit: null,
+      job: null,
+      pr: null,
       service: "bitrise",
-      slug: "",
+      slug: null,
     };
     const spawnSync = td.replace(childProcess, "spawnSync");
     td.when(
@@ -107,8 +107,8 @@ describe("Bitrise Params", () => {
       build: "2",
       buildURL: "https://bitrise.com/testOrg/testRepo/2",
       commit: "testingSha",
-      job: "",
-      pr: "",
+      job: null,
+      pr: null,
       service: "bitrise",
       slug: "testOrg/testRepo",
     };
@@ -151,7 +151,7 @@ describe("Bitrise Params", () => {
       build: "2",
       buildURL: "https://bitrise.com/testOrg/testRepo/2",
       commit: "testingSha",
-      job: "",
+      job: null,
       pr: "3",
       service: "bitrise",
       slug: "testOrg/testRepo",
@@ -205,7 +205,7 @@ describe("Bitrise Params", () => {
       build: "10",
       buildURL: "https://bitrise.com/testOrg/testRepo/2",
       commit: "otherTestingSha",
-      job: "",
+      job: null,
       pr: "11",
       service: "bitrise",
       slug: "neworg/newRepo",

@@ -55,8 +55,8 @@ describe("Wercker CI Params", () => {
       build: "1",
       buildURL: "https://example.com/build",
       commit: "testingsha",
-      job: "",
-      pr: "",
+      job: null,
+      pr: null,
       service: "wercker",
       slug: "testOrg/testRepo",
     };
@@ -101,7 +101,7 @@ describe("Wercker CI Params", () => {
       build: "3",
       buildURL: "https://example.com/build",
       commit: "testsha",
-      job: "",
+      job: null,
       pr: "2",
       service: "wercker",
       slug: "testOrg/testRepo",
@@ -125,14 +125,14 @@ describe("Wercker CI Params", () => {
       envs: {},
     };
     const expected: ProviderServiceParams = {
-      branch: "",
-      build: "",
-      buildURL: "",
-      commit: "",
-      job: "",
-      pr: "",
+      branch: null,
+      build: null,
+      buildURL: null,
+      commit: null,
+      job: null,
+      pr: null,
       service: "wercker",
-      slug: "",
+      slug: null,
     };
 
     const output = new Output({

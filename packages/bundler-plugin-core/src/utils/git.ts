@@ -25,8 +25,8 @@ export function parseSlug(slug: unknown): string {
   throw new Error(`Unable to parse slug URL: ${slug}`);
 }
 
-export function parseSlugFromRemoteAddr(remoteAddr?: string): string {
-  let slug = "";
+export function parseSlugFromRemoteAddr(remoteAddr?: string) {
+  let slug = null;
   if (!remoteAddr) {
     remoteAddr =
       runExternalProgram("git", ["config", "--get", "remote.origin.url"]) || "";
@@ -37,7 +37,7 @@ export function parseSlugFromRemoteAddr(remoteAddr?: string): string {
   }
 
   if (slug === "/") {
-    slug = "";
+    slug = null;
   }
   return slug;
 }

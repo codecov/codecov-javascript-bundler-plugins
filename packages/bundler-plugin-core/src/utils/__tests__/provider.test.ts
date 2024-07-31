@@ -109,7 +109,7 @@ describe("setSlug", () => {
   describe("all values are undefined", () => {
     it("returns an empty string", () => {
       const result = setSlug(undefined, undefined, undefined);
-      expect(result).toEqual("");
+      expect(result).toEqual(null);
     });
   });
 });

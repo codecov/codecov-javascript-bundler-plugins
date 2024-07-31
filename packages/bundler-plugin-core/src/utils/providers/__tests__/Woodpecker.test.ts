@@ -56,7 +56,7 @@ describe("Woodpecker Params", () => {
       buildURL:
         "https://ci.woodpecker-ci.org/woodpecker-ci/woodpecker/build/1629",
       commit: "testingsha",
-      pr: "",
+      pr: null,
       job: "12",
       service: "woodpecker",
       slug: "testOrg/testRepo",
@@ -130,14 +130,14 @@ describe("Woodpecker Params", () => {
       envs: {},
     };
     const expected: ProviderServiceParams = {
-      branch: "",
-      build: "",
-      buildURL: "",
-      commit: "",
-      job: "",
-      pr: "",
+      branch: null,
+      build: null,
+      buildURL: null,
+      commit: null,
+      job: null,
+      pr: null,
       service: "woodpecker",
-      slug: "",
+      slug: null,
     };
 
     const output = new Output({

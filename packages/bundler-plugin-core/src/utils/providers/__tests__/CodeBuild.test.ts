@@ -53,7 +53,7 @@ describe("CodeBuild Params", () => {
       const expected: ProviderServiceParams = {
         branch: "master",
         build: "2",
-        buildURL: "",
+        buildURL: null,
         commit: "testingsha",
         job: "2",
         pr: "1",
@@ -98,7 +98,7 @@ describe("CodeBuild Params", () => {
       const expected: ProviderServiceParams = {
         branch: "branch",
         build: "3",
-        buildURL: "",
+        buildURL: null,
         commit: "testsha",
         job: "2",
         pr: "7",

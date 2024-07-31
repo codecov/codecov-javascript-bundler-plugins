@@ -13,33 +13,35 @@ export function detect(envs: ProviderEnvs): boolean {
   return Boolean(envs?.VERCEL);
 }
 
-function _getBuild(inputs: ProviderUtilInputs): string {
+function _getBuild(inputs: ProviderUtilInputs): ProviderServiceParams["build"] {
   const { args } = inputs;
-  return args?.build ?? "";
+  return args?.build ?? null;
 }
 
-function _getBuildURL(): string {
-  return "";
+function _getBuildURL(): ProviderServiceParams["buildURL"] {
+  return null;
 }
 
-function _getBranch(inputs: ProviderUtilInputs): string {
+function _getBranch(
+  inputs: ProviderUtilInputs,
+): ProviderServiceParams["branch"] {
   const { args, envs } = inputs;
   if (args?.branch && args.branch !== "") {
     return args.branch;
   }
-  return envs?.VERCEL_GIT_COMMIT_REF ?? "";
+  return envs?.VERCEL_GIT_COMMIT_REF ?? null;
 }
 
-function _getJob(): string {
-  return "";
+function _getJob(): ProviderServiceParams["job"] {
+  return null;
 }
 
-function _getPR(inputs: ProviderUtilInputs): string {
+function _getPR(inputs: ProviderUtilInputs): ProviderServiceParams["pr"] {
   const { args } = inputs;
-  return args?.pr ?? "";
+  return args?.pr ?? null;
 }
 
-function _getService(): string {
+function _getService(): ProviderServiceParams["service"] {
   return "vercel";
 }
 
@@ -47,24 +49,27 @@ export function getServiceName(): string {
   return "Vercel";
 }
 
-function _getSHA(inputs: ProviderUtilInputs, output: Output): string {
+function _getSHA(
+  inputs: ProviderUtilInputs,
+  output: Output,
+): ProviderServiceParams["commit"] {
   const { args, envs } = inputs;
   if (args?.sha && args.sha !== "") {
     debug(`Using commit: ${args.sha}`, { enabled: output.debug });
     return args.sha;
   }
-  const sha = envs?.VERCEL_GIT_COMMIT_SHA ?? "";
+  const sha = envs?.VERCEL_GIT_COMMIT_SHA ?? null;
   debug(`Using commit: ${sha}`, { enabled: output.debug });
   return sha;
 }
 
-function _getSlug(inputs: ProviderUtilInputs): string {
+function _getSlug(inputs: ProviderUtilInputs): ProviderServiceParams["slug"] {
   const { args, envs } = inputs;
   if (args?.slug && args.slug !== "") {
     return args.slug;
   }
 
-  let slug = "";
+  let slug = null;
   const owner = envs?.VERCEL_GIT_REPO_OWNER ?? "";
   const repo = envs?.VERCEL_GIT_REPO_SLUG ?? "";
   if (owner && repo) {
@@ -91,7 +96,7 @@ export async function getServiceParams(
   };
 }
 
-export function getEnvVarNames(): string[] {
+export function getEnvVarNames() {
   return [
     "VERCEL",
     "CI",

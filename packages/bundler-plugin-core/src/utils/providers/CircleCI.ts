@@ -11,12 +11,23 @@ export function detect(envs: ProviderEnvs): boolean {
   return Boolean(envs?.CI) && Boolean(envs?.CIRCLECI);
 }
 
-function _getBuildURL(inputs: ProviderUtilInputs): string {
-  return inputs.envs?.CIRCLE_BUILD_URL ?? "";
+function _getBuild(inputs: ProviderUtilInputs): ProviderServiceParams["build"] {
+  const { args, envs } = inputs;
+  if (args?.build && args.build !== "") {
+    return args.build;
+  }
+
+  return envs?.CIRCLE_BUILD_NUM ?? null;
+}
+
+function _getBuildURL(
+  inputs: ProviderUtilInputs,
+): ProviderServiceParams["buildURL"] {
+  return inputs.envs?.CIRCLE_BUILD_URL ?? null;
 }
 
 // This is the value that gets passed to the Codecov uploader
-function _getService(): string {
+function _getService(): ProviderServiceParams["service"] {
   return "circleci";
 }
 
@@ -25,16 +36,21 @@ export function getServiceName(): string {
   return "CircleCI";
 }
 
-function _getBranch(inputs: ProviderUtilInputs): string {
+function _getBranch(
+  inputs: ProviderUtilInputs,
+): ProviderServiceParams["branch"] {
   const { args, envs } = inputs;
   if (args?.branch && args.branch !== "") {
     return args.branch;
   }
 
-  return envs?.CIRCLE_BRANCH ?? "";
+  return envs?.CIRCLE_BRANCH ?? null;
 }
 
-function _getSHA(inputs: ProviderUtilInputs, output: Output): string {
+function _getSHA(
+  inputs: ProviderUtilInputs,
+  output: Output,
+): ProviderServiceParams["commit"] {
   const { args, envs } = inputs;
   if (args?.sha && args.sha !== "") {
     debug(`Using commit: ${args.sha}`, { enabled: output.debug });
@@ -42,10 +58,10 @@ function _getSHA(inputs: ProviderUtilInputs, output: Output): string {
   }
 
   debug(`Using commit: ${envs?.CIRCLE_SHA1}`, { enabled: output.debug });
-  return envs?.CIRCLE_SHA1 ?? "";
+  return envs?.CIRCLE_SHA1 ?? null;
 }
 
-function _getSlug(inputs: ProviderUtilInputs): string {
+function _getSlug(inputs: ProviderUtilInputs): ProviderServiceParams["slug"] {
   const { args, envs } = inputs;
   const slug = setSlug(
     args?.slug,
@@ -59,26 +75,17 @@ function _getSlug(inputs: ProviderUtilInputs): string {
   return slug;
 }
 
-function _getBuild(inputs: ProviderUtilInputs): string {
-  const { args, envs } = inputs;
-  if (args?.build && args.build !== "") {
-    return args.build;
-  }
-
-  return envs?.CIRCLE_BUILD_NUM ?? "";
-}
-
-function _getPR(inputs: ProviderUtilInputs): string {
+function _getPR(inputs: ProviderUtilInputs): ProviderServiceParams["pr"] {
   const { args, envs } = inputs;
   if (args?.pr && args.pr !== "") {
     return args.pr;
   }
 
-  return envs?.CIRCLE_PR_NUMBER ?? "";
+  return envs?.CIRCLE_PR_NUMBER ?? null;
 }
 
-function _getJob(envs: ProviderEnvs): string {
-  return envs?.CIRCLE_NODE_INDEX ?? "";
+function _getJob(envs: ProviderEnvs): ProviderServiceParams["job"] {
+  return envs?.CIRCLE_NODE_INDEX ?? null;
 }
 
 // eslint-disable-next-line @typescript-eslint/require-await
@@ -98,6 +105,6 @@ export async function getServiceParams(
   };
 }
 
-export function getEnvVarNames(): string[] {
+export function getEnvVarNames() {
   return ["CI", "CIRCLECI"];
 }

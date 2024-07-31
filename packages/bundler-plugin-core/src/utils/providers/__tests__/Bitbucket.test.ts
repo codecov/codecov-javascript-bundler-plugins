@@ -52,14 +52,14 @@ describe("Bitbucket Params", () => {
       },
     };
     const expected: ProviderServiceParams = {
-      branch: "",
+      branch: null,
       build: "1",
-      buildURL: "",
+      buildURL: null,
       commit: "",
       job: "1",
-      pr: "",
+      pr: null,
       service: "bitbucket",
-      slug: "",
+      slug: null,
     };
 
     const output = new Output({
@@ -89,7 +89,7 @@ describe("Bitbucket Params", () => {
     const expected: ProviderServiceParams = {
       branch: "main",
       build: "1",
-      buildURL: "",
+      buildURL: null,
       commit: "testingsha",
       job: "1",
       pr: "2",
@@ -123,10 +123,10 @@ describe("Bitbucket Params", () => {
     const expected: ProviderServiceParams = {
       branch: "main",
       build: "1",
-      buildURL: "",
+      buildURL: null,
       commit: "testingsha",
       job: "1",
-      pr: "",
+      pr: null,
       service: "bitbucket",
       slug: "testOwner/testSlug",
     };
@@ -158,10 +158,10 @@ describe("Bitbucket Params", () => {
     const expected: ProviderServiceParams = {
       branch: "main",
       build: "1",
-      buildURL: "",
+      buildURL: null,
       commit: "0e8f15380b54",
       job: "1",
-      pr: "",
+      pr: null,
       service: "bitbucket",
       slug: "testOwner/testSlug",
     };
@@ -209,7 +209,7 @@ describe("Bitbucket Params", () => {
     const expected: ProviderServiceParams = {
       branch: "feature",
       build: "3",
-      buildURL: "",
+      buildURL: null,
       commit: "overwriteSha",
       job: "1",
       pr: "4",

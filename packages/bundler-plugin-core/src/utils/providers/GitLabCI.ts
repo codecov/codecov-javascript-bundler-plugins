@@ -11,36 +11,38 @@ export function detect(envs: ProviderEnvs): boolean {
   return Boolean(envs?.GITLAB_CI);
 }
 
-function _getBuild(inputs: ProviderUtilInputs): string {
+function _getBuild(inputs: ProviderUtilInputs): ProviderServiceParams["build"] {
   const { args, envs } = inputs;
   if (args?.build && args.build !== "") {
     return args.build;
   }
-  return envs?.CI_BUILD_ID ?? envs?.CI_JOB_ID ?? "";
+  return envs?.CI_BUILD_ID ?? envs?.CI_JOB_ID ?? null;
 }
 
-function _getBuildURL(): string {
-  return "";
+function _getBuildURL(): ProviderServiceParams["buildURL"] {
+  return null;
 }
 
-function _getBranch(inputs: ProviderUtilInputs): string {
+function _getBranch(
+  inputs: ProviderUtilInputs,
+): ProviderServiceParams["branch"] {
   const { args, envs } = inputs;
   if (args?.branch && args.branch !== "") {
     return args.branch;
   }
-  return envs?.CI_BUILD_REF_NAME ?? envs?.CI_COMMIT_REF_NAME ?? "";
+  return envs?.CI_BUILD_REF_NAME ?? envs?.CI_COMMIT_REF_NAME ?? null;
 }
 
-function _getJob(): string {
-  return "";
+function _getJob(): ProviderServiceParams["job"] {
+  return null;
 }
 
-function _getPR(inputs: ProviderUtilInputs): string {
+function _getPR(inputs: ProviderUtilInputs): ProviderServiceParams["pr"] {
   const { args } = inputs;
-  return args?.pr ?? "";
+  return args?.pr ?? null;
 }
 
-function _getService(): string {
+function _getService(): ProviderServiceParams["service"] {
   return "gitlab";
 }
 
@@ -48,7 +50,10 @@ export function getServiceName(): string {
   return "GitLab CI";
 }
 
-function _getSHA(inputs: ProviderUtilInputs, output: Output): string {
+function _getSHA(
+  inputs: ProviderUtilInputs,
+  output: Output,
+): ProviderServiceParams["commit"] {
   const { args, envs } = inputs;
   if (args?.sha && args.sha !== "") {
     debug(`Using commit: ${args.sha}`, { enabled: output.debug });
@@ -59,18 +64,18 @@ function _getSHA(inputs: ProviderUtilInputs, output: Output): string {
     envs?.CI_MERGE_REQUEST_SOURCE_BRANCH_SHA ??
     envs?.CI_BUILD_REF ??
     envs?.CI_COMMIT_SHA ??
-    "";
+    null;
   debug(`Using commit: ${sha}`, { enabled: output.debug });
   return sha;
 }
 
-function _getSlug(inputs: ProviderUtilInputs): string {
+function _getSlug(inputs: ProviderUtilInputs): ProviderServiceParams["slug"] {
   const { args, envs } = inputs;
   if (args?.slug && args?.slug !== "") {
     return args?.slug;
   }
   const remoteAddr = envs?.CI_BUILD_REPO ?? envs?.CI_REPOSITORY_URL ?? "";
-  return envs?.CI_PROJECT_PATH ?? parseSlugFromRemoteAddr(remoteAddr) ?? "";
+  return envs?.CI_PROJECT_PATH ?? parseSlugFromRemoteAddr(remoteAddr) ?? null;
 }
 
 // eslint-disable-next-line @typescript-eslint/require-await
@@ -90,7 +95,7 @@ export async function getServiceParams(
   };
 }
 
-export function getEnvVarNames(): string[] {
+export function getEnvVarNames() {
   return [
     "CI_BUILD_ID",
     "CI_BUILD_REF",
