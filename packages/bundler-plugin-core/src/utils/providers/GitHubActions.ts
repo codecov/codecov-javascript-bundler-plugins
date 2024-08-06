@@ -1,3 +1,4 @@
+import * as GitHub from "@actions/github";
 import { jsonSchema } from "../../schemas.ts";
 import {
   type ProviderEnvs,
@@ -6,7 +7,7 @@ import {
 } from "../../types.ts";
 import { type Output } from "../Output.ts";
 import { debug } from "../logging.ts";
-import { runExternalProgram } from "../runExternalProgram.ts";
+import { type PullRequestEvent } from "@octokit/webhooks-definitions/schema";
 
 export function detect(envs: ProviderEnvs): boolean {
   return Boolean(envs?.GITHUB_ACTIONS);
@@ -136,30 +137,15 @@ function _getSHA(
     return args.sha;
   }
 
-  const pr = _getPR(inputs);
+  const context = GitHub.context;
 
   let commit = envs?.GITHUB_SHA;
-  if (pr) {
-    const mergeCommitRegex = /^[a-z0-9]{40} [a-z0-9]{40}$/;
-    const mergeCommitMessage = runExternalProgram("git", [
-      "show",
-      "--no-patch",
-      "--format=%P",
-    ]);
-
-    debug(`Merge commit message: ${mergeCommitMessage}`, {
-      enabled: output.debug,
-    });
-
-    if (mergeCommitRegex.exec(mergeCommitMessage)) {
-      const splitMergeCommit = mergeCommitMessage.split(" ");
-
-      debug(`Split commit message: ${splitMergeCommit}`, {
-        enabled: output.debug,
-      });
-
-      commit = splitMergeCommit[1];
-    }
+  if (
+    `${context.eventName}` == "pull_request" ||
+    `${context.eventName}` == "pull_request_target"
+  ) {
+    const payload = context.payload as PullRequestEvent;
+    commit = payload.pull_request.head.sha;
   }
 
   debug(`Using commit: ${commit ?? null}`, { enabled: output.debug });
@@ -178,28 +164,13 @@ function _getCompareSHA(
   }
 
   let compareSha = null;
-  const pr = _getPR(inputs);
-  if (pr) {
-    const mergeCommitRegex = /^[a-z0-9]{40} [a-z0-9]{40}$/;
-    const mergeCommitMessage = runExternalProgram("git", [
-      "show",
-      "--no-patch",
-      "--format=%P",
-    ]);
-
-    debug(`Merge commit message: ${mergeCommitMessage}`, {
-      enabled: output.debug,
-    });
-
-    if (mergeCommitRegex.exec(mergeCommitMessage)) {
-      const splitMergeCommit = mergeCommitMessage.split(" ");
-
-      debug(`Split commit message: ${splitMergeCommit}`, {
-        enabled: output.debug,
-      });
-
-      compareSha = splitMergeCommit?.[0] ? splitMergeCommit[0] : null;
-    }
+  const context = GitHub.context;
+  if (
+    `${context.eventName}` == "pull_request" ||
+    `${context.eventName}` == "pull_request_target"
+  ) {
+    const payload = context.payload as PullRequestEvent;
+    compareSha = payload.pull_request.base.sha;
   }
 
   debug(`Using compareSha: ${compareSha ?? null}`, { enabled: output.debug });
