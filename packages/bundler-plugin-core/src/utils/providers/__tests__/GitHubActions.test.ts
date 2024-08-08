@@ -1,18 +1,34 @@
+import * as GitHub from "@actions/github";
 import { createEmptyArgs } from "@test-utils/helpers.ts";
-import childProcess from "child_process";
 import { HttpResponse, http } from "msw";
 import { setupServer } from "msw/node";
-import * as td from "testdouble";
-import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
+import {
+  afterAll,
+  afterEach,
+  beforeAll,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import {
   type ProviderServiceParams,
   type ProviderUtilInputs,
 } from "../../../types.ts";
-import { SPAWN_PROCESS_BUFFER_SIZE } from "../../constants.ts";
 import { Output } from "../../Output.ts";
 import * as GitHubActions from "../GitHubActions.ts";
 
 const server = setupServer();
+
+const mocks = vi.hoisted(() => ({
+  eventName: vi.fn().mockReturnValue(""),
+}));
+
+vi.mock("@actions/github", async (importOriginal) => {
+  // eslint-disable-next-line @typescript-eslint/consistent-type-imports
+  const original = await importOriginal<typeof import("@actions/github")>();
+  return original;
+});
 
 beforeAll(() => {
   server.listen();
@@ -20,6 +36,7 @@ beforeAll(() => {
 
 afterEach(() => {
   server.resetHandlers();
+  vi.resetAllMocks();
 });
 
 afterAll(() => {
@@ -27,7 +44,31 @@ afterAll(() => {
 });
 
 describe("GitHub Actions Params", () => {
-  function setup(data: object) {
+  function setup(
+    {
+      data = {},
+      eventName = "",
+    }: {
+      data?: object;
+      eventName?: "" | "pull_request" | "pull_request_target";
+    } = { data: {}, eventName: "" },
+  ) {
+    mocks.eventName.mockReturnValue(eventName);
+    vi.mocked(GitHub).context = {
+      eventName,
+      payload: {
+        // @ts-expect-error - forcing the payload to be a PullRequestEvent
+        pull_request: {
+          head: {
+            sha: "test-head-sha",
+          },
+          base: {
+            sha: "test-base-sha",
+          },
+        },
+      },
+    };
+
     server.use(
       http.get(
         "https://api.github.com/repos/:org/:repo/actions/runs/:id/jobs",
@@ -38,19 +79,16 @@ describe("GitHub Actions Params", () => {
     );
   }
 
-  afterEach(() => {
-    td.reset();
-  });
-
   describe("detect()", () => {
     it("does not run without GitHub Actions env variable", () => {
+      setup({});
       const inputs: ProviderUtilInputs = {
         args: { ...createEmptyArgs() },
         envs: {
           GITHUB_REF: "refs/heads/master",
           GITHUB_REPOSITORY: "testOrg/testRepo",
           GITHUB_RUN_ID: "2",
-          GITHUB_SHA: "testingsha",
+          GITHUB_SHA: "test-head-sha",
           GITHUB_WORKFLOW: "testWorkflow",
         },
       };
@@ -71,7 +109,7 @@ describe("GitHub Actions Params", () => {
   });
 
   it("gets correct params for a push event", async () => {
-    setup({});
+    setup({ eventName: "" });
     const inputs: ProviderUtilInputs = {
       args: { ...createEmptyArgs() },
       envs: {
@@ -80,7 +118,7 @@ describe("GitHub Actions Params", () => {
         GITHUB_REPOSITORY: "testOrg/testRepo",
         GITHUB_RUN_ID: "2",
         GITHUB_SERVER_URL: "https://github.com",
-        GITHUB_SHA: "testingsha",
+        GITHUB_SHA: "test-head-sha",
         GITHUB_WORKFLOW: "testWorkflow",
       },
     };
@@ -89,7 +127,7 @@ describe("GitHub Actions Params", () => {
       branch: "master",
       build: "2",
       buildURL: "https://github.com/testOrg/testRepo/actions/runs/2",
-      commit: "testingsha",
+      commit: "test-head-sha",
       compareSha: null,
       job: "testWorkflow",
       pr: null,
@@ -110,7 +148,7 @@ describe("GitHub Actions Params", () => {
   });
 
   it("gets correct params for a PR", async () => {
-    setup({});
+    setup({ eventName: "pull_request" });
     const inputs: ProviderUtilInputs = {
       args: { ...createEmptyArgs() },
       envs: {
@@ -120,19 +158,10 @@ describe("GitHub Actions Params", () => {
         GITHUB_REPOSITORY: "testOrg/testRepo",
         GITHUB_RUN_ID: "2",
         GITHUB_SERVER_URL: "https://github.com",
-        GITHUB_SHA: "testingsha",
+        GITHUB_SHA: "test-head-sha",
         GITHUB_WORKFLOW: "testWorkflow",
       },
     };
-
-    const spawnSync = td.replace(childProcess, "spawnSync");
-    td.when(
-      spawnSync("git", ["show", "--no-patch", "--format=%P"], {
-        maxBuffer: SPAWN_PROCESS_BUFFER_SIZE,
-      }),
-    ).thenReturn({
-      stdout: Buffer.from("testingsha"),
-    });
 
     const output = new Output({
       apiUrl: "http://localhost",
@@ -148,8 +177,8 @@ describe("GitHub Actions Params", () => {
       branch: "branch",
       build: "2",
       buildURL: "https://github.com/testOrg/testRepo/actions/runs/2",
-      commit: "testingsha",
-      compareSha: null,
+      commit: "test-head-sha",
+      compareSha: "test-base-sha",
       job: "testWorkflow",
       pr: "1",
       service: "github-actions",
@@ -160,23 +189,26 @@ describe("GitHub Actions Params", () => {
 
   it("gets correct buildURL for a PR", async () => {
     setup({
-      jobs: [
-        {
-          id: 1,
-          name: "fakeJob",
-          html_url: "https://fake.com",
-        },
-        {
-          id: 2,
-          name: "seocondFakeJob",
-          html_url: "https://github.com/testOrg/testRepo/actions/runs/2/jobs/2",
-        },
-        {
-          id: 3,
-          name: "anotherFakeJob",
-          html_url: "https://example.com",
-        },
-      ],
+      data: {
+        jobs: [
+          {
+            id: 1,
+            name: "fakeJob",
+            html_url: "https://fake.com",
+          },
+          {
+            id: 2,
+            name: "seocondFakeJob",
+            html_url:
+              "https://github.com/testOrg/testRepo/actions/runs/2/jobs/2",
+          },
+          {
+            id: 3,
+            name: "anotherFakeJob",
+            html_url: "https://example.com",
+          },
+        ],
+      },
     });
 
     const inputs: ProviderUtilInputs = {
@@ -189,19 +221,10 @@ describe("GitHub Actions Params", () => {
         GITHUB_REPOSITORY: "testOrg/testRepo",
         GITHUB_RUN_ID: "2",
         GITHUB_SERVER_URL: "https://github.com",
-        GITHUB_SHA: "testingsha",
+        GITHUB_SHA: "test-head-sha",
         GITHUB_WORKFLOW: "testWorkflow",
       },
     };
-
-    const spawnSync = td.replace(childProcess, "spawnSync");
-    td.when(
-      spawnSync("git", ["show", "--no-patch", "--format=%P"], {
-        maxBuffer: SPAWN_PROCESS_BUFFER_SIZE,
-      }),
-    ).thenReturn({
-      stdout: Buffer.from("testingsha"),
-    });
 
     const output = new Output({
       apiUrl: "http://localhost",
@@ -217,7 +240,7 @@ describe("GitHub Actions Params", () => {
       branch: "branch",
       build: "2",
       buildURL: "https://github.com/testOrg/testRepo/actions/runs/2",
-      commit: "testingsha",
+      commit: "test-head-sha",
       compareSha: null,
       job: "testWorkflow",
       pr: "1",
@@ -229,24 +252,28 @@ describe("GitHub Actions Params", () => {
 
   it("gets correct buildURL by default for a PR", async () => {
     setup({
-      jobs: [
-        {
-          id: 1,
-          name: "fakeJob",
-          html_url: "https://fake.com",
-        },
-        {
-          id: 2,
-          name: "testJob",
-          html_url: "https://github.com/testOrg/testRepo/actions/runs/2/jobs/2",
-        },
-        {
-          id: 3,
-          name: "anotherFakeJob",
-          html_url: "https://example.com",
-        },
-      ],
+      data: {
+        jobs: [
+          {
+            id: 1,
+            name: "fakeJob",
+            html_url: "https://fake.com",
+          },
+          {
+            id: 2,
+            name: "testJob",
+            html_url:
+              "https://github.com/testOrg/testRepo/actions/runs/2/jobs/2",
+          },
+          {
+            id: 3,
+            name: "anotherFakeJob",
+            html_url: "https://example.com",
+          },
+        ],
+      },
     });
+
     const inputs: ProviderUtilInputs = {
       args: { ...createEmptyArgs() },
       envs: {
@@ -257,19 +284,10 @@ describe("GitHub Actions Params", () => {
         GITHUB_REPOSITORY: "testOrg/testRepo",
         GITHUB_RUN_ID: "2",
         GITHUB_SERVER_URL: "https://github.com",
-        GITHUB_SHA: "testingsha",
+        GITHUB_SHA: "test-head-sha",
         GITHUB_WORKFLOW: "testWorkflow",
       },
     };
-
-    const spawnSync = td.replace(childProcess, "spawnSync");
-    td.when(
-      spawnSync("git", ["show", "--no-patch", "--format=%P"], {
-        maxBuffer: SPAWN_PROCESS_BUFFER_SIZE,
-      }),
-    ).thenReturn({
-      stdout: Buffer.from("testingsha"),
-    });
 
     const output = new Output({
       apiUrl: "http://localhost",
@@ -285,7 +303,7 @@ describe("GitHub Actions Params", () => {
       branch: "branch",
       build: "2",
       buildURL: "https://github.com/testOrg/testRepo/actions/runs/2/jobs/2",
-      commit: "testingsha",
+      commit: "test-head-sha",
       compareSha: null,
       job: "testWorkflow",
       pr: "1",
@@ -296,7 +314,7 @@ describe("GitHub Actions Params", () => {
   });
 
   it("gets correct params for a merge", async () => {
-    setup({});
+    setup({ eventName: "pull_request" });
     const inputs: ProviderUtilInputs = {
       args: { ...createEmptyArgs() },
       envs: {
@@ -310,17 +328,6 @@ describe("GitHub Actions Params", () => {
         GITHUB_WORKFLOW: "testWorkflow",
       },
     };
-
-    const spawnSync = td.replace(childProcess, "spawnSync");
-    td.when(
-      spawnSync("git", ["show", "--no-patch", "--format=%P"], {
-        maxBuffer: SPAWN_PROCESS_BUFFER_SIZE,
-      }),
-    ).thenReturn({
-      stdout: Buffer.from(
-        "testingsha123456789012345678901234567890 testingmergecommitsha2345678901234567890",
-      ),
-    });
 
     const output = new Output({
       apiUrl: "http://localhost",
@@ -336,8 +343,8 @@ describe("GitHub Actions Params", () => {
       branch: "branch",
       build: "2",
       buildURL: "https://github.com/testOrg/testRepo/actions/runs/2",
-      commit: "testingmergecommitsha2345678901234567890",
-      compareSha: "testingsha123456789012345678901234567890",
+      commit: "test-head-sha",
+      compareSha: "test-base-sha",
       job: "testWorkflow",
       pr: "1",
       service: "github-actions",
@@ -355,7 +362,8 @@ describe("GitHub Actions Params", () => {
           branch: "branch",
           build: "3",
           pr: "2",
-          sha: "testsha",
+          sha: "test-head-sha",
+          compareSha: "test-base-sha",
           slug: "testOrg/testRepo",
         },
       },
@@ -364,13 +372,6 @@ describe("GitHub Actions Params", () => {
         GITHUB_SERVER_URL: "https://github.com",
       },
     };
-
-    const spawnSync = td.replace(childProcess, "spawnSync");
-    td.when(
-      spawnSync("git", ["show", "--no-patch", "--format=%P"], {
-        maxBuffer: SPAWN_PROCESS_BUFFER_SIZE,
-      }),
-    ).thenReturn({ stdout: Buffer.from("testsha") });
 
     const output = new Output({
       apiUrl: "http://localhost",
@@ -386,57 +387,10 @@ describe("GitHub Actions Params", () => {
       branch: "branch",
       build: "3",
       buildURL: "https://github.com/testOrg/testRepo/actions/runs/3",
-      commit: "testsha",
-      compareSha: null,
+      commit: "test-head-sha",
+      compareSha: "test-base-sha",
       job: null,
       pr: "2",
-      service: "github-actions",
-      slug: "testOrg/testRepo",
-    };
-    expect(params).toMatchObject(expected);
-  });
-
-  it("gets an improper merge commit message", async () => {
-    setup({});
-    const inputs: ProviderUtilInputs = {
-      args: { ...createEmptyArgs() },
-      envs: {
-        GITHUB_ACTIONS: "true",
-        GITHUB_HEAD_REF: "branch",
-        GITHUB_REF: "refs/pull/1/merge",
-        GITHUB_REPOSITORY: "testOrg/testRepo",
-        GITHUB_RUN_ID: "2",
-        GITHUB_SERVER_URL: "https://github.com",
-        GITHUB_SHA: "testingsha",
-        GITHUB_WORKFLOW: "testWorkflow",
-      },
-    };
-
-    const spawnSync = td.replace(childProcess, "spawnSync");
-    td.when(
-      spawnSync("git", ["show", "--no-patch", "--format=%P"], {
-        maxBuffer: SPAWN_PROCESS_BUFFER_SIZE,
-      }),
-    ).thenReturn({ stdout: Buffer.from("") });
-
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "GHA-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-    });
-    const params = await GitHubActions.getServiceParams(inputs, output);
-
-    const expected: ProviderServiceParams = {
-      branch: "branch",
-      build: "2",
-      buildURL: "https://github.com/testOrg/testRepo/actions/runs/2",
-      commit: "testingsha",
-      compareSha: null,
-      job: "testWorkflow",
-      pr: "1",
       service: "github-actions",
       slug: "testOrg/testRepo",
     };

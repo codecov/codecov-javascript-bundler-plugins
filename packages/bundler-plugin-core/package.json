@@ -39,12 +39,14 @@
     "generate:typedoc": "typedoc --options ./typedoc.json"
   },
   "dependencies": {
+    "@actions/github": "^6.0.0",
     "chalk": "4.1.2",
     "semver": "^7.5.4",
     "unplugin": "^1.10.1",
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@octokit/webhooks-definitions": "^3.67.3",
     "@types/node": "^20.11.15",
     "@types/semver": "^7.5.6",
     "@vitest/coverage-v8": "^1.5.0",
