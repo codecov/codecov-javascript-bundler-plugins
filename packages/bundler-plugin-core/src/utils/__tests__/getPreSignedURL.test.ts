@@ -10,10 +10,8 @@ import {
 } from "vitest";
 import { HttpResponse, http } from "msw";
 import { setupServer } from "msw/node";
-
 import { getPreSignedURL } from "../getPreSignedURL.ts";
 import { FailedFetchError } from "../../errors/FailedFetchError.ts";
-import { NoUploadTokenError } from "../../errors/NoUploadTokenError.ts";
 import { UploadLimitReachedError } from "../../errors/UploadLimitReachedError.ts";
 
 const server = setupServer();
@@ -86,31 +84,20 @@ describe("getPreSignedURL", () => {
 
   describe("unsuccessful request", () => {
     describe("no upload token found", () => {
-      it("throws an error", async () => {
-        const { consoleSpy } = setup({
+      it("returns the pre-signed URL", async () => {
+        setup({
           data: { url: "http://example.com" },
         });
 
-        let error;
-        try {
-          await getPreSignedURL({
-            apiURL: "http://localhost",
-            serviceParams: {
-              commit: "123",
-            },
-            retryCount: 0,
-          });
-        } catch (e) {
-          error = e;
-        }
+        const url = await getPreSignedURL({
+          apiURL: "http://localhost",
+          serviceParams: {
+            commit: "123",
+          },
+          retryCount: 0,
+        });
 
-        expect(consoleSpy).toHaveBeenCalled();
-        // for some reason, this test fails even tho it's the same values
-        //   Expected: "No upload token found"
-        //   Received: "No upload token found"
-        //   Number of calls: 1
-        // expect(consoleSpy).toHaveBeenCalledWith("No upload token found");
-        expect(error).toBeInstanceOf(NoUploadTokenError);
+        expect(url).toEqual("http://example.com");
       });
     });
 

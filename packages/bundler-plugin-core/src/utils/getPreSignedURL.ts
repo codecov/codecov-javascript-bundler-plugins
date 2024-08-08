@@ -1,7 +1,6 @@
 import { z } from "zod";
 
 import { FailedFetchError } from "../errors/FailedFetchError.ts";
-import { NoUploadTokenError } from "../errors/NoUploadTokenError.ts";
 import { UploadLimitReachedError } from "../errors/UploadLimitReachedError.ts";
 import { type ProviderServiceParams } from "../types.ts";
 import { DEFAULT_RETRY_COUNT } from "./constants.ts";
@@ -26,12 +25,15 @@ export const getPreSignedURL = async ({
   serviceParams,
   retryCount = DEFAULT_RETRY_COUNT,
 }: GetPreSignedURLArgs) => {
-  if (!uploadToken) {
-    red("No upload token found");
-    throw new NoUploadTokenError("No upload token found");
-  }
-
   const url = `${apiURL}/upload/bundle_analysis/v1`;
+
+  const headers = new Headers({
+    "Content-Type": "application/json",
+  });
+
+  if (uploadToken) {
+    headers.set("Authorization", `token ${uploadToken}`);
+  }
 
   let response: Response;
   try {
@@ -41,10 +43,7 @@ export const getPreSignedURL = async ({
       name: "`get-pre-signed-url`",
       requestData: {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `token ${uploadToken}`,
-        },
+        headers: headers,
         body: JSON.stringify(preProcessBody(serviceParams)),
       },
     });
