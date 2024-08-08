@@ -140,10 +140,7 @@ function _getSHA(
   const context = GitHub.context;
 
   let commit = envs?.GITHUB_SHA;
-  if (
-    `${context.eventName}` == "pull_request" ||
-    `${context.eventName}` == "pull_request_target"
-  ) {
+  if (["pull_request", " pull_request_target"].includes(context.eventName)) {
     const payload = context.payload as PullRequestEvent;
     commit = payload.pull_request.head.sha;
   }
@@ -165,10 +162,7 @@ function _getCompareSHA(
 
   let compareSha = null;
   const context = GitHub.context;
-  if (
-    `${context.eventName}` == "pull_request" ||
-    `${context.eventName}` == "pull_request_target"
-  ) {
+  if (["pull_request", " pull_request_target"].includes(context.eventName)) {
     const payload = context.payload as PullRequestEvent;
     compareSha = payload.pull_request.base.sha;
   }
