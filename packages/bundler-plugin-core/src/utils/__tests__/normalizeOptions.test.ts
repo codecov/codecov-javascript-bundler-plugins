@@ -61,6 +61,7 @@ const tests: Test[] = [
           pr: "1234",
         },
         debug: true,
+        gitService: "bitbucket",
       },
     },
     expected: {
@@ -81,6 +82,7 @@ const tests: Test[] = [
           pr: "1234",
         },
         debug: true,
+        gitService: "bitbucket",
       },
     },
   },
@@ -114,6 +116,10 @@ const tests: Test[] = [
           // @ts-expect-error - testing invalid input
           pr: 123,
         },
+        // @ts-expect-error - testing invalid input
+        debug: "true",
+        // @ts-expect-error - testing invalid input
+        gitService: 123,
       },
     },
     expected: {
@@ -131,6 +137,8 @@ const tests: Test[] = [
         "`pr` must be a string.",
         "`sha` must be a string.",
         "`slug` must be a string.",
+        "`debug` must be a boolean.",
+        "`gitService` must be a valid git service.",
       ],
     },
   },
