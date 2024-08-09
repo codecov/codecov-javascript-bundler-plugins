@@ -1,5 +1,4 @@
 import { z } from "zod";
-
 import { FailedFetchError } from "../errors/FailedFetchError.ts";
 import { UploadLimitReachedError } from "../errors/UploadLimitReachedError.ts";
 import { type ProviderServiceParams } from "../types.ts";
@@ -7,6 +6,9 @@ import { DEFAULT_RETRY_COUNT } from "./constants.ts";
 import { fetchWithRetry } from "./fetchWithRetry.ts";
 import { green, red } from "./logging.ts";
 import { preProcessBody } from "./preProcessBody.ts";
+import { NoUploadTokenError } from "../errors/NoUploadTokenError.ts";
+import { findGitService } from "./findGitService.ts";
+import { UndefinedGitServiceError } from "../errors/UndefinedGitServiceError.ts";
 
 interface GetPreSignedURLArgs {
   apiURL: string;
@@ -14,6 +16,8 @@ interface GetPreSignedURLArgs {
   serviceParams: Partial<ProviderServiceParams>;
   retryCount?: number;
 }
+
+type RequestBody = Record<string, string | null | undefined>;
 
 const PreSignedURLSchema = z.object({
   url: z.string(),
@@ -31,8 +35,25 @@ export const getPreSignedURL = async ({
     "Content-Type": "application/json",
   });
 
-  if (uploadToken) {
+  const requestBody: RequestBody = serviceParams;
+  /**
+   * We currently require the branch to be in the format `owner:branch` to identify that it is a
+   * proper tokenless upload.
+   * See: https://github.com/codecov/codecov-api/pull/741
+   */
+  if (!uploadToken && serviceParams.branch?.includes(":")) {
+    const gitService = findGitService();
+    if (!gitService || gitService === "") {
+      red("Failed to find git service for tokenless upload");
+      throw new UndefinedGitServiceError("No upload token provided");
+    }
+
+    requestBody.git_service = gitService;
+  } else if (uploadToken) {
     headers.set("Authorization", `token ${uploadToken}`);
+  } else {
+    red("No upload token provided");
+    throw new NoUploadTokenError("No upload token provided");
   }
 
   let response: Response;
@@ -44,7 +65,7 @@ export const getPreSignedURL = async ({
       requestData: {
         method: "POST",
         headers: headers,
-        body: JSON.stringify(preProcessBody(serviceParams)),
+        body: JSON.stringify(preProcessBody(requestBody)),
       },
     });
   } catch (e) {
