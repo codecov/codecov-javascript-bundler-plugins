@@ -15,6 +15,7 @@ interface GetPreSignedURLArgs {
   uploadToken?: string;
   serviceParams: Partial<ProviderServiceParams>;
   retryCount?: number;
+  gitService?: string;
 }
 
 type RequestBody = Record<string, string | null | undefined>;
@@ -28,6 +29,7 @@ export const getPreSignedURL = async ({
   uploadToken,
   serviceParams,
   retryCount = DEFAULT_RETRY_COUNT,
+  gitService,
 }: GetPreSignedURLArgs) => {
   const url = `${apiURL}/upload/bundle_analysis/v1`;
 
@@ -42,13 +44,17 @@ export const getPreSignedURL = async ({
    * See: https://github.com/codecov/codecov-api/pull/741
    */
   if (!uploadToken && serviceParams.branch?.includes(":")) {
-    const gitService = findGitService();
-    if (!gitService || gitService === "") {
-      red("Failed to find git service for tokenless upload");
-      throw new UndefinedGitServiceError("No upload token provided");
-    }
+    if (gitService && gitService !== "") {
+      requestBody.git_service = gitService;
+    } else {
+      const foundGitService = findGitService();
+      if (!foundGitService || foundGitService === "") {
+        red("Failed to find git service for tokenless upload");
+        throw new UndefinedGitServiceError("No upload token provided");
+      }
 
-    requestBody.git_service = gitService;
+      requestBody.git_service = foundGitService;
+    }
   } else if (uploadToken) {
     headers.set("Authorization", `token ${uploadToken}`);
   } else {

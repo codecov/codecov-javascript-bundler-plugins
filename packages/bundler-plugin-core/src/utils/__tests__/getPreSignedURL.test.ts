@@ -113,26 +113,53 @@ describe("getPreSignedURL", () => {
           });
         });
 
-        it('returns the pre-signed URL with "git_service" in the request body', async () => {
-          setup({
-            data: { url: "http://example.com" },
-          });
+        describe('user does not provide "gitService"', () => {
+          it('returns the pre-signed URL with "git_service" in the request body', async () => {
+            setup({
+              data: { url: "http://example.com" },
+            });
 
-          const url = await getPreSignedURL({
-            apiURL: "http://localhost",
-            serviceParams: {
-              commit: "123",
-              branch: "owner:branch",
-            },
-            retryCount: 0,
-          });
+            const url = await getPreSignedURL({
+              apiURL: "http://localhost",
+              serviceParams: {
+                commit: "123",
+                branch: "owner:branch",
+              },
+              retryCount: 0,
+            });
 
-          expect(url).toEqual("http://example.com");
-          expect(requestBodyMock).toHaveBeenCalledWith(
-            expect.objectContaining({
-              git_service: "github",
-            }),
-          );
+            expect(url).toEqual("http://example.com");
+            expect(requestBodyMock).toHaveBeenCalledWith(
+              expect.objectContaining({
+                git_service: "github",
+              }),
+            );
+          });
+        });
+
+        describe('user provides "gitService"', () => {
+          it('returns the pre-signed URL with the passed"git_service" in the request body', async () => {
+            setup({
+              data: { url: "http://example.com" },
+            });
+
+            const url = await getPreSignedURL({
+              apiURL: "http://localhost",
+              serviceParams: {
+                commit: "123",
+                branch: "owner:branch",
+              },
+              retryCount: 0,
+              gitService: "github_enterprise",
+            });
+
+            expect(url).toEqual("http://example.com");
+            expect(requestBodyMock).toHaveBeenCalledWith(
+              expect.objectContaining({
+                git_service: "github_enterprise",
+              }),
+            );
+          });
         });
       });
     });
