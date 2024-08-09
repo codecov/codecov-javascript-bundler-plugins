@@ -1,5 +1,6 @@
 import { type UnpluginOptions } from "unplugin";
 import { type Output } from "./utils/Output";
+import { type ValidGitService } from "./utils/normalizeOptions";
 
 export interface Dependency {
   name: string;
@@ -51,7 +52,7 @@ export interface BundleAnalysisUploadPluginArgs {
   output: Output;
 }
 
-/** Configuration ptions for the Codcove bundler plugin. */
+/** Configuration options for the Codecov bundler plugin. */
 export interface Options {
   /**
    * The upload token to use for uploading the bundle analysis information.
@@ -67,6 +68,8 @@ export interface Options {
    *
    * Only required if self-hosting codecov.
    *
+   * Example: `apiUrl: 'https://api.codecov.io'`
+   *
    * Defaults to `https://api.codecov.io`.
    */
   apiUrl?: string;
@@ -81,6 +84,8 @@ export interface Options {
   /**
    * When enabled information will not be uploaded to Codecov.
    *
+   * Example: `dryRun: true`
+   *
    * Defaults to `false`
    */
   dryRun?: boolean;
@@ -92,12 +97,14 @@ export interface Options {
    *
    * The name must match the pattern `/^[\w\d_:/@\.{}\[\]$-]+$/`.
    *
-   * Example: `@codecov/rollup-plugin`
+   * Example: `bundleName: '@codecov/rollup-plugin'`
    */
   bundleName?: string;
 
   /**
    * Whether you would like bundle analysis to be enabled. *
+   *
+   * Example: `enableBundleAnalysis: true`
    *
    * Defaults to `false`
    */
@@ -108,6 +115,21 @@ export interface Options {
 
   /** Option to enable debug logs for the plugin. */
   debug?: boolean;
+
+  /**
+   * Override value for git service used for tokenless uploads.
+   *
+   * The value must be one of the following:
+   * - `github`
+   * - `gitlab`
+   * - `bitbucket`
+   * - `github_enterprise`
+   * - `gitlab_enterprise`
+   * - `bitbucket_server`
+   *
+   * Example `gitService: 'github'`
+   */
+  gitService?: ValidGitService;
 }
 
 export type BundleAnalysisUploadPlugin = (

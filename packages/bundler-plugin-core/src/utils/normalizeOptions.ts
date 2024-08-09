@@ -9,6 +9,20 @@ export type NormalizedOptions = z.infer<
 
 const validBundleName = /^[\w\d_:/@\.{}\[\]$-]+$/;
 
+export type ValidGitService = z.infer<typeof ValidGitServiceSchema>;
+
+const ValidGitServiceSchema = z.union(
+  [
+    z.literal("github"),
+    z.literal("gitlab"),
+    z.literal("bitbucket"),
+    z.literal("github_enterprise"),
+    z.literal("gitlab_enterprise"),
+    z.literal("bitbucket_server"),
+  ],
+  { invalid_type_error: "`gitService` must be a valid git service." },
+);
+
 const UploadOverridesSchema = z.object({
   branch: z
     .string({
@@ -91,6 +105,24 @@ const optionsSchemaFactory = (options: Options) =>
         invalid_type_error: "`debug` must be a boolean.",
       })
       .default(false),
+    /**
+     * Using an enum here, as custom error messages for union types seem to be broken currently.
+     *
+     * Issue: https://github.com/colinhacks/zod/issues/3675
+     */
+    gitService: z
+      .enum(
+        [
+          "github",
+          "gitlab",
+          "bitbucket",
+          "github_enterprise",
+          "gitlab_enterprise",
+          "bitbucket_server",
+        ],
+        { invalid_type_error: "`gitService` must be a valid git service." },
+      )
+      .optional(),
   });
 
 interface NormalizedOptionsFailure {
