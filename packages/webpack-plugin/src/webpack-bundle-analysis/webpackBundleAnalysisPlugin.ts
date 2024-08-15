@@ -1,14 +1,7 @@
-import path from "node:path";
-import {
-  red,
-  normalizePath,
-  type BundleAnalysisUploadPlugin,
-  type Asset,
-  getCompressedSize,
-} from "@codecov/bundler-plugin-core";
+import { type BundleAnalysisUploadPlugin } from "@codecov/bundler-plugin-core";
 import * as webpack from "webpack";
 
-import { findFilenameFormat } from "./findFileFormat";
+import { processAssets, processChunks, processModules } from "./utils";
 
 // @ts-expect-error this value is being replaced by rollup
 const PLUGIN_NAME = __PACKAGE_NAME__ as string;
@@ -39,13 +32,6 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
           stage: webpack.Compilation.PROCESS_ASSETS_STAGE_REPORT,
         },
         async () => {
-          // TODO - remove this once we hard fail on not having a bundle name
-          // don't need to do anything if the bundle name is not present or empty
-          if (!output.bundleName || output.bundleName === "") {
-            red("Bundle name is not present or empty. Skipping upload.");
-            return;
-          }
-
           output.setBundleName(output.bundleName);
           // Webpack base chunk format options: https://webpack.js.org/configuration/output/#outputchunkformat
           if (typeof compilation.outputOptions.chunkFormat === "string") {
@@ -79,108 +65,22 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
           const outputOptions = compilation.outputOptions;
           const { assets, chunks, modules } = compilationStats;
 
-          const collectedAssets: Asset[] = [];
           if (assets) {
-            const filename =
-              typeof outputOptions.filename === "string"
-                ? outputOptions.filename
-                : "";
-            const assetModuleFilename =
-              typeof outputOptions.assetModuleFilename === "string"
-                ? outputOptions.assetModuleFilename
-                : "";
-            const chunkFilename =
-              typeof outputOptions.chunkFilename === "string"
-                ? outputOptions.chunkFilename
-                : "";
-            const cssFilename =
-              typeof outputOptions.cssFilename === "string"
-                ? outputOptions.cssFilename
-                : "";
-            const cssChunkFilename =
-              typeof outputOptions.chunkFilename === "string"
-                ? outputOptions.chunkFilename
-                : "";
-
-            await Promise.all(
-              assets.map(async (asset) => {
-                const format = findFilenameFormat({
-                  assetName: asset.name,
-                  filename,
-                  assetModuleFilename,
-                  chunkFilename,
-                  cssFilename,
-                  cssChunkFilename,
-                });
-
-                if (path.extname(asset.name) === ".map") {
-                  return;
-                }
-
-                const currentAsset = compilation.getAsset(asset.name);
-
-                let compressedSize = null;
-                if (currentAsset) {
-                  compressedSize = await getCompressedSize({
-                    fileName: asset.name,
-                    code: currentAsset.source.source(),
-                  });
-                }
-
-                collectedAssets.push({
-                  name: asset.name,
-                  size: asset.size,
-                  gzipSize: compressedSize,
-                  normalized: normalizePath(asset.name, format),
-                });
-
-                return;
-              }),
-            );
+            const collectedAssets = await processAssets({
+              assets,
+              compilation,
+            });
 
             output.assets = collectedAssets;
           }
 
           const chunkIdMap = new Map<number | string, string>();
-
           if (chunks) {
-            let idCounter = 0;
-            output.chunks = chunks.map((chunk) => {
-              const chunkId = chunk.id ?? "";
-              const uniqueId = `${idCounter}-${chunkId}`;
-              chunkIdMap.set(chunkId, uniqueId);
-              idCounter += 1;
-
-              return {
-                id: chunk.id?.toString() ?? "",
-                uniqueId: uniqueId,
-                entry: chunk.entry,
-                initial: chunk.initial,
-                files: chunk.files ?? [],
-                names: chunk.names ?? [],
-              };
-            });
+            output.chunks = processChunks({ chunks, chunkIdMap });
           }
 
           if (modules) {
-            output.modules = modules.map((module) => {
-              const chunks = module.chunks ?? [];
-              const chunkUniqueIds: string[] = [];
-
-              chunks.forEach((chunk) => {
-                const chunkUniqueId = chunkIdMap.get(chunk);
-
-                if (chunkUniqueId) {
-                  chunkUniqueIds.push(chunkUniqueId);
-                }
-              });
-
-              return {
-                name: module.name ?? "",
-                size: module.size ?? 0,
-                chunkUniqueIds: chunkUniqueIds,
-              };
-            });
+            output.modules = processModules({ modules, chunkIdMap });
           }
 
           output.duration = Date.now() - (output.builtAt ?? 0);
