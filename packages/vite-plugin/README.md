@@ -101,6 +101,23 @@ export default defineConfig({
 });
 ```
 
+```js
+// vite.config.js
+import { defineConfig } from "vite";
+import { codecovVitePlugin } from "@codecov/vite-plugin";
+
+export default defineConfig({
+  plugins: [
+    // Put the Codecov vite plugin after all other plugins
+    codecovVitePlugin({
+      enableBundleAnalysis: true,
+      bundleName: "example-vite-bundle",
+      gitService: "github",
+    }),
+  ],
+});
+```
+
 ## More information
 
 - [Vite Config Docs](https://codecov.github.io/codecov-javascript-bundler-plugins/modules/_codecov_vite_plugin.html)

@@ -119,6 +119,31 @@ module.exports = {
 };
 ```
 
+## Tokenless Example
+
+```js
+// webpack.config.js
+const path = require("path");
+const { codecovWebpackPlugin } = require("@codecov/webpack-plugin");
+
+module.exports = {
+  entry: "./src/index.js",
+  mode: "production",
+  output: {
+    filename: "main.js",
+    path: path.resolve(__dirname, "dist"),
+  },
+  plugins: [
+    // Put the Codecov vite plugin after all other plugins
+    codecovWebpackPlugin({
+      enableBundleAnalysis: true,
+      bundleName: "example-webpack-bundle",
+      gitService: "github",
+    }),
+  ],
+};
+```
+
 ## More information
 
 - [Webpack Config Docs](https://codecov.github.io/codecov-javascript-bundler-plugins/modules/_codecov_webpack_plugin.html)

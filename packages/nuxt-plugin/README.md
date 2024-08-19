@@ -119,6 +119,30 @@ export default defineNuxtConfig({
 });
 ```
 
+## Tokenless Example
+
+```js
+// nuxt.config.ts
+import { defineNuxtConfig } from "nuxt/config";
+
+export default defineNuxtConfig({
+  devtools: { enabled: true },
+  // Ensure that the builder is set to "vite"
+  builder: "vite",
+  // Ensure that the plugin is added to the modules array
+  modules: [
+    [
+      "@codecov/nuxt-plugin",
+      {
+        enableBundleAnalysis: true,
+        bundleName: "nuxt-bundle-analysis",
+        gitService: "github",
+      },
+    ],
+  ],
+});
+```
+
 ## More information
 
 - [Codecov Documentation](https://docs.codecov.com/docs)
