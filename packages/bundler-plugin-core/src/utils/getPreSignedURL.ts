@@ -44,7 +44,7 @@ export const getPreSignedURL = async ({
    * See: https://github.com/codecov/codecov-api/pull/741
    */
   if (!uploadToken && serviceParams.branch?.includes(":")) {
-    if (gitService && gitService !== "") {
+    if (gitService) {
       requestBody.git_service = gitService;
     } else {
       const foundGitService = findGitService();

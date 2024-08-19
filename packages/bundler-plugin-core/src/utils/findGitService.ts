@@ -25,7 +25,7 @@ export const findGitService = () => {
   const remoteName =
     remotes.find((remote) => remote.includes("origin")) ?? remotes?.[0];
 
-  if (!remoteName || remoteName === "") {
+  if (!remoteName) {
     throw new Error("No remote found");
   }
 
@@ -39,28 +39,25 @@ export const findGitService = () => {
 };
 
 export const parseGitService = (gitService: string) => {
-  let validURL = false;
-  try {
-    new URL(gitService);
-    validURL = true;
-  } catch (e) {
-    validURL = false;
-  }
-
-  let service = "";
-
-  if (validURL) {
-    const parsedURL = new URL(gitService);
-    const { protocol } = parsedURL;
-    service = splitPath(gitService.replace(`${protocol}//`, ""));
-  } else if (gitService.startsWith("git@")) {
-    service = splitPath(gitService);
-  }
+  const service = gitService.startsWith("git@")
+    ? splitPath(gitService)
+    : findGitServiceFromURL(gitService);
 
   if (GIT_SERVICES.includes(service)) {
     return service;
   }
   return;
+};
+
+const findGitServiceFromURL = (gitService: string) => {
+  try {
+    const parsedURL = new URL(gitService);
+    return splitPath(gitService.replace(`${parsedURL.protocol}//`, ""));
+  } catch {
+    // empty
+  }
+
+  return "";
 };
 
 export const splitPath = (path: string) => {
