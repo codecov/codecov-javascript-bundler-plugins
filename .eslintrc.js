@@ -27,6 +27,7 @@ const config = {
       "./tsconfig.json",
       "./integration-tests/tsconfig.json",
       "./packages/bundler-plugin-core/tsconfig.json",
+      "./packages/nextjs-webpack-plugin/tsconfig.json",
       "./packages/nuxt-plugin/tsconfig.json",
       "./packages/remix-vite-plugin/tsconfig.json",
       "./packages/rollup-plugin/tsconfig.json",
