@@ -47,8 +47,12 @@ export interface OutputPayload {
   };
 }
 
-export interface BundleAnalysisUploadPluginArgs<TArgs extends object> {
+export interface BundleAnalysisUploadPluginArgs {
   output: Output;
+}
+
+export interface ExtendedBAUploadArgs<TArgs extends object>
+  extends BundleAnalysisUploadPluginArgs {
   options: TArgs;
 }
 
@@ -111,8 +115,15 @@ export interface Options {
   debug?: boolean;
 }
 
-export type BundleAnalysisUploadPlugin<TArgs extends object> = (
-  args: BundleAnalysisUploadPluginArgs<TArgs>,
+export type BundleAnalysisUploadPlugin = (
+  args: BundleAnalysisUploadPluginArgs,
+) => UnpluginOptions & {
+  pluginVersion: string;
+  version: string;
+};
+
+export type ExtendedBAUploadPlugin<TArgs extends object> = (
+  args: ExtendedBAUploadArgs<TArgs>,
 ) => UnpluginOptions & {
   pluginVersion: string;
   version: string;

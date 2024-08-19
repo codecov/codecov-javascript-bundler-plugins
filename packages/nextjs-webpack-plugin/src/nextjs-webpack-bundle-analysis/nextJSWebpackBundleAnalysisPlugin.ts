@@ -1,7 +1,4 @@
-import {
-  red,
-  type BundleAnalysisUploadPlugin,
-} from "@codecov/bundler-plugin-core";
+import { red, type ExtendedBAUploadPlugin } from "@codecov/bundler-plugin-core";
 import type * as webpack from "webpack";
 
 import {
@@ -15,7 +12,7 @@ const PLUGIN_NAME = __PACKAGE_NAME__ as string;
 // @ts-expect-error this value is being replaced by rollup
 const PLUGIN_VERSION = __PACKAGE_VERSION__ as string;
 
-export const nextJSWebpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin<{
+export const nextJSWebpackBundleAnalysisPlugin: ExtendedBAUploadPlugin<{
   webpack: typeof webpack | null;
 }> = ({ output, options: { webpack } }) => ({
   version: output.version,
