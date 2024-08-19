@@ -15,6 +15,7 @@ const config = {
     "**/node_modules/**",
     "**/test-apps/**",
     "**/integration-tests/**/*.cjs",
+    "**/integration-tests/**/*.mjs",
     "**/integration-tests/test-api/**/*",
     "**/scripts/publish-docs.mjs",
     "**/typedoc/plugin-remove-references.js",
