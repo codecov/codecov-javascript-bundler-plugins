@@ -47,11 +47,12 @@ export interface OutputPayload {
   };
 }
 
-export interface BundleAnalysisUploadPluginArgs {
+export interface BundleAnalysisUploadPluginArgs<TArgs extends object> {
   output: Output;
+  options: TArgs;
 }
 
-/** Configuration ptions for the Codcove bundler plugin. */
+/** Configuration options for the Codecov bundler plugin. */
 export interface Options {
   /**
    * The upload token to use for uploading the bundle analysis information.
@@ -110,8 +111,8 @@ export interface Options {
   debug?: boolean;
 }
 
-export type BundleAnalysisUploadPlugin = (
-  args: BundleAnalysisUploadPluginArgs,
+export type BundleAnalysisUploadPlugin<TArgs extends object> = (
+  args: BundleAnalysisUploadPluginArgs<TArgs>,
 ) => UnpluginOptions & {
   pluginVersion: string;
   version: string;
