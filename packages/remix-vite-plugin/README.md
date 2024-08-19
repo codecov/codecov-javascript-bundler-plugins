@@ -59,6 +59,29 @@ export default defineConfig({
 });
 ```
 
+## Tokenless Example
+
+```ts
+// vite.config.ts
+import { vitePlugin as remix } from "@remix-run/dev";
+import { defineConfig } from "vite";
+import tsconfigPaths from "vite-tsconfig-paths";
+import { codecovRemixPlugin } from "@codecov/remix-vite-plugin";
+
+export default defineConfig({
+  plugins: [
+    remix(),
+    tsconfigPaths()
+    // Put the Codecov Remix plugin after all other plugins
+    codecovRemixPlugin({
+      enableBundleAnalysis: true,
+      bundleName: "example-remix-bundle",
+      gitService: "github",
+    }),
+  ],
+});
+```
+
 ## More information
 
 - [Codecov Documentation](https://docs.codecov.com/docs)

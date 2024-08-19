@@ -59,6 +59,29 @@ export default defineConfig({
 });
 ```
 
+## Tokenless Example
+
+```ts
+// app.config.ts
+import { defineConfig } from "@solidjs/start/config";
+import solidPlugin from "vite-plugin-solid";
+import { codecovSolidStartPlugin } from "@codecov/solidstart-plugin";
+
+export default defineConfig({
+  vite: {
+    plugins: [
+      // Put the Codecov SolidStart plugin after all other plugins
+      solidPlugin(),
+      codecovSolidStartPlugin({
+        enableBundleAnalysis: true,
+        bundleName: "example-solidstart-bundle",
+        gitService: "github",
+      }),
+    ],
+  },
+});
+```
+
 ## More information
 
 - [Codecov Documentation](https://docs.codecov.com/docs)

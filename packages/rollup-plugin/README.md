@@ -52,6 +52,25 @@ export default defineConfig({
 });
 ```
 
+## Tokenless Example
+
+```js
+// rollup.config.js
+import { defineConfig } from "rollup";
+import { codecovRollupPlugin } from "@codecov/rollup-plugin";
+
+export default defineConfig({
+  plugins: [
+    // Put the Codecov rollup plugin after all other plugins
+    codecovRollupPlugin({
+      enableBundleAnalysis: true,
+      bundleName: "example-rollup-bundle",
+      gitService: "github",
+    }),
+  ],
+});
+```
+
 ## More information
 
 - [Rollup Config Docs](https://codecov.github.io/codecov-javascript-bundler-plugins/modules/_codecov_rollup_plugin.html)
