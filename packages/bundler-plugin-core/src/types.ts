@@ -60,15 +60,6 @@ export interface ExtendedBAUploadArgs<TArgs extends object>
 /** Configuration options for the Codecov bundler plugin. */
 export interface Options {
   /**
-   * The upload token to use for uploading the bundle analysis information.
-   *
-   * This value can either be an global upload token or a repo token.
-   * - The global upload token can be found under the organization settings page.
-   * - The repo token can be found under the repo settings page under the general tab.
-   */
-  uploadToken?: string;
-
-  /**
    * The api url used to fetch the upload url.
    *
    * Only required if self-hosting codecov.
@@ -80,20 +71,37 @@ export interface Options {
   apiUrl?: string;
 
   /**
+   * Override value for git service used for tokenless uploads.
+   *
+   * Note: If an uploadToken is provided you do not need to set a gitService.
+   *
+   * The value must be one of the following:
+   * - `github`
+   * - `gitlab`
+   * - `bitbucket`
+   * - `github_enterprise`
+   * - `gitlab_enterprise`
+   * - `bitbucket_server`
+   *
+   * Example `gitService: 'github'`
+   */
+  gitService?: ValidGitService;
+
+  /**
+   * The upload token to use for uploading the bundle analysis information.
+   *
+   * This value can either be an global upload token or a repo token.
+   * - The global upload token can be found under the organization settings page.
+   * - The repo token can be found under the repo settings page under the general tab.
+   */
+  uploadToken?: string;
+
+  /**
    * The amount of times the upload function will retry to upload bundle analysis information.
    *
    * Defaults to `3`
    */
   retryCount?: number;
-
-  /**
-   * When enabled information will not be uploaded to Codecov.
-   *
-   * Example: `dryRun: true`
-   *
-   * Defaults to `false`
-   */
-  dryRun?: boolean;
 
   /**
    * The name for the bundle being built.
@@ -122,19 +130,13 @@ export interface Options {
   debug?: boolean;
 
   /**
-   * Override value for git service used for tokenless uploads.
+   * When enabled information will not be uploaded to Codecov.
    *
-   * The value must be one of the following:
-   * - `github`
-   * - `gitlab`
-   * - `bitbucket`
-   * - `github_enterprise`
-   * - `gitlab_enterprise`
-   * - `bitbucket_server`
+   * Example: `dryRun: true`
    *
-   * Example `gitService: 'github'`
+   * Defaults to `false`
    */
-  gitService?: ValidGitService;
+  dryRun?: boolean;
 }
 
 export type BundleAnalysisUploadPlugin = (
