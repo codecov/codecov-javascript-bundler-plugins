@@ -71,9 +71,10 @@ export interface Options {
   apiUrl?: string;
 
   /**
-   * Override value for git service used for tokenless uploads.
+   * Override value for git service used for tokenless uploads. Using tokenless uploads is only
+   * supported for public repositories.
    *
-   * Note: If an uploadToken is provided you do not need to set a gitService.
+   * Note: If an `uploadToken` is provided you do not need to provide a `gitService`.
    *
    * The value must be one of the following:
    * - `github`
@@ -88,7 +89,8 @@ export interface Options {
   gitService?: ValidGitService;
 
   /**
-   * The upload token to use for uploading the bundle analysis information.
+   * The upload token to use for uploading the bundle analysis information. This field is
+   * **required** for uploading bundle analysis information in private repositories.
    *
    * This value can either be an global upload token or a repo token.
    * - The global upload token can be found under the organization settings page.
