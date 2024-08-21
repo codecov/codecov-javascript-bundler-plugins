@@ -62,7 +62,7 @@ const codecovSvelteKitPluginFactory = createVitePlugin<Options, true>(
  *     codecovSvelteKitPlugin({
  *       enableBundleAnalysis: true,
  *       bundleName: "example-sveltekit-bundle",
- *       uploadToken: process.env.CODECOV_TOKEN,
+ *       gitService: "github",
  *     }),
  *   ],
  * });

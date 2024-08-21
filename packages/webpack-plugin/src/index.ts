@@ -73,7 +73,7 @@ const codecovWebpackPluginFactory = createWebpackPlugin<Options, true>(
  *     codecovWebpackPlugin({
  *       enableBundleAnalysis: true,
  *       bundleName: "example-webpack-bundle",
- *       uploadToken: process.env.CODECOV_TOKEN,
+ *       gitService: "github",
  *     }),
  *    ],
  * };
