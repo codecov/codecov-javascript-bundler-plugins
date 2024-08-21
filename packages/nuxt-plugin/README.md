@@ -121,6 +121,8 @@ export default defineNuxtConfig({
 
 ## Tokenless Example
 
+This is the recommended way to use the plugin. This configuration will automatically upload the bundle analysis to Codecov.
+
 ```js
 // nuxt.config.ts
 import { defineNuxtConfig } from "nuxt/config";
@@ -137,6 +139,32 @@ export default defineNuxtConfig({
         enableBundleAnalysis: true,
         bundleName: "nuxt-bundle-analysis",
         gitService: "github",
+      },
+    ],
+  ],
+});
+```
+
+## Upload Token Example - Required for Private Repositories
+
+This is the required way to use the plugin for private repositories. This configuration will automatically upload the bundle analysis to Codecov.
+
+```js
+// nuxt.config.ts
+import { defineNuxtConfig } from "nuxt/config";
+
+export default defineNuxtConfig({
+  devtools: { enabled: true },
+  // Ensure that the builder is set to "vite"
+  builder: "vite",
+  // Ensure that the plugin is added to the modules array
+  modules: [
+    [
+      "@codecov/nuxt-plugin",
+      {
+        enableBundleAnalysis: true,
+        bundleName: "nuxt-bundle-analysis",
+        uploadToken: process.env.CODECOV_UPLOAD_TOKEN,
       },
     ],
   ],

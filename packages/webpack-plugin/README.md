@@ -121,6 +121,8 @@ module.exports = {
 
 ## Tokenless Example
 
+This is the recommended way to use the plugin. This configuration will automatically upload the bundle analysis to Codecov.
+
 ```js
 // webpack.config.js
 const path = require("path");
@@ -139,6 +141,33 @@ module.exports = {
       enableBundleAnalysis: true,
       bundleName: "example-webpack-bundle",
       gitService: "github",
+    }),
+  ],
+};
+```
+
+## Upload Token Example - Required for Private Repositories
+
+This is the required way to use the plugin for private repositories. This configuration will automatically upload the bundle analysis to Codecov.
+
+```js
+// webpack.config.js
+const path = require("path");
+const { codecovWebpackPlugin } = require("@codecov/webpack-plugin");
+
+module.exports = {
+  entry: "./src/index.js",
+  mode: "production",
+  output: {
+    filename: "main.js",
+    path: path.resolve(__dirname, "dist"),
+  },
+  plugins: [
+    // Put the Codecov vite plugin after all other plugins
+    codecovWebpackPlugin({
+      enableBundleAnalysis: true,
+      bundleName: "example-webpack-bundle",
+      uploadToken: process.env.CODECOV_TOKEN,
     }),
   ],
 };

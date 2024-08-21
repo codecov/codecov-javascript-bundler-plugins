@@ -103,6 +103,8 @@ export default defineConfig({
 
 ## Tokenless Example
 
+This is the recommended way to use the plugin. This configuration will automatically upload the bundle analysis to Codecov.
+
 ```js
 // rollup.config.js
 import { defineConfig } from "rollup";
@@ -115,6 +117,27 @@ export default defineConfig({
       enableBundleAnalysis: true,
       bundleName: "example-rollup-bundle",
       gitService: "github",
+    }),
+  ],
+});
+```
+
+## Upload Token Example - Required for Private Repositories
+
+This is the required way to use the plugin for private repositories. This configuration will automatically upload the bundle analysis to Codecov.
+
+```js
+// rollup.config.js
+import { defineConfig } from "rollup";
+import { codecovRollupPlugin } from "@codecov/rollup-plugin";
+
+export default defineConfig({
+  plugins: [
+    // Put the Codecov rollup plugin after all other plugins
+    codecovRollupPlugin({
+      enableBundleAnalysis: true,
+      bundleName: "example-rollup-bundle",
+      uploadToken: process.env.CODECOV_TOKEN,
     }),
   ],
 });
