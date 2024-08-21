@@ -36,30 +36,9 @@ Using pnpm:
 pnpm add @codecov/remix-vite-plugin --save-dev
 ```
 
-## Example
-
-```ts
-// vite.config.ts
-import { vitePlugin as remix } from "@remix-run/dev";
-import { defineConfig } from "vite";
-import tsconfigPaths from "vite-tsconfig-paths";
-import { codecovRemixPlugin } from "@codecov/remix-vite-plugin";
-
-export default defineConfig({
-  plugins: [
-    remix(),
-    tsconfigPaths()
-    // Put the Codecov Remix plugin after all other plugins
-    codecovRemixPlugin({
-      enableBundleAnalysis: true,
-      bundleName: "example-remix-bundle",
-      uploadToken: process.env.CODECOV_TOKEN,
-    }),
-  ],
-});
-```
-
 ## Tokenless Example
+
+This is the recommended way to use the plugin. This configuration will automatically upload the bundle analysis to Codecov.
 
 ```ts
 // vite.config.ts
@@ -77,6 +56,31 @@ export default defineConfig({
       enableBundleAnalysis: true,
       bundleName: "example-remix-bundle",
       gitService: "github",
+    }),
+  ],
+});
+```
+
+## Upload Token Example - Required for Private Repositories
+
+This is the required way to use the plugin for private repositories. This configuration will automatically upload the bundle analysis to Codecov.
+
+```ts
+// vite.config.ts
+import { vitePlugin as remix } from "@remix-run/dev";
+import { defineConfig } from "vite";
+import tsconfigPaths from "vite-tsconfig-paths";
+import { codecovRemixPlugin } from "@codecov/remix-vite-plugin";
+
+export default defineConfig({
+  plugins: [
+    remix(),
+    tsconfigPaths()
+    // Put the Codecov Remix plugin after all other plugins
+    codecovRemixPlugin({
+      enableBundleAnalysis: true,
+      bundleName: "example-remix-bundle",
+      uploadToken: process.env.CODECOV_TOKEN,
     }),
   ],
 });

@@ -33,24 +33,9 @@ Using pnpm:
 pnpm add @codecov/vite-plugin --save-dev
 ```
 
-## Example
+## Tokenless Example
 
-```js
-// vite.config.js
-import { defineConfig } from "vite";
-import { codecovVitePlugin } from "@codecov/vite-plugin";
-
-export default defineConfig({
-  plugins: [
-    // Put the Codecov vite plugin after all other plugins
-    codecovVitePlugin({
-      enableBundleAnalysis: true,
-      bundleName: "example-vite-bundle",
-      uploadToken: process.env.CODECOV_TOKEN,
-    }),
-  ],
-});
-```
+This is the recommended way to use the plugin. This configuration will automatically upload the bundle analysis to Codecov.
 
 ```js
 // vite.config.js
@@ -64,6 +49,27 @@ export default defineConfig({
       enableBundleAnalysis: true,
       bundleName: "example-vite-bundle",
       gitService: "github",
+    }),
+  ],
+});
+```
+
+## Upload Token Example - Required for Private Repositories
+
+This is the required way to use the plugin for private repositories. This configuration will automatically upload the bundle analysis to Codecov.
+
+```js
+// vite.config.js
+import { defineConfig } from "vite";
+import { codecovVitePlugin } from "@codecov/vite-plugin";
+
+export default defineConfig({
+  plugins: [
+    // Put the Codecov vite plugin after all other plugins
+    codecovVitePlugin({
+      enableBundleAnalysis: true,
+      bundleName: "example-vite-bundle",
+      uploadToken: process.env.CODECOV_TOKEN,
     }),
   ],
 });

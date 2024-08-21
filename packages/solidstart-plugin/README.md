@@ -36,30 +36,9 @@ Using pnpm:
 pnpm add @codecov/solidstart-plugin --save-dev
 ```
 
-## Example
-
-```ts
-// app.config.ts
-import { defineConfig } from "@solidjs/start/config";
-import solidPlugin from "vite-plugin-solid";
-import { codecovSolidStartPlugin } from "@codecov/solidstart-plugin";
-
-export default defineConfig({
-  vite: {
-    plugins: [
-      // Put the Codecov SolidStart plugin after all other plugins
-      solidPlugin(),
-      codecovSolidStartPlugin({
-        enableBundleAnalysis: true,
-        bundleName: "example-solidstart-bundle",
-        uploadToken: process.env.CODECOV_TOKEN,
-      }),
-    ],
-  },
-});
-```
-
 ## Tokenless Example
+
+This is the recommended way to use the plugin. This configuration will automatically upload the bundle analysis to Codecov.
 
 ```ts
 // app.config.ts
@@ -76,6 +55,31 @@ export default defineConfig({
         enableBundleAnalysis: true,
         bundleName: "example-solidstart-bundle",
         gitService: "github",
+      }),
+    ],
+  },
+});
+```
+
+## Upload Example - Required for Private Repositories
+
+This is the required way to use the plugin for private repositories. This configuration will automatically upload the bundle analysis to Codecov.
+
+```ts
+// app.config.ts
+import { defineConfig } from "@solidjs/start/config";
+import solidPlugin from "vite-plugin-solid";
+import { codecovSolidStartPlugin } from "@codecov/solidstart-plugin";
+
+export default defineConfig({
+  vite: {
+    plugins: [
+      // Put the Codecov SolidStart plugin after all other plugins
+      solidPlugin(),
+      codecovSolidStartPlugin({
+        enableBundleAnalysis: true,
+        bundleName: "example-solidstart-bundle",
+        uploadToken: process.env.CODECOV_TOKEN,
       }),
     ],
   },

@@ -36,28 +36,9 @@ Using pnpm:
 pnpm add @codecov/sveltekit-plugin --save-dev
 ```
 
-## Example
-
-```ts
-// vite.config.ts
-import { sveltekit } from "@sveltejs/kit/vite";
-import { defineConfig } from "vite";
-import { codecovSvelteKitPlugin } from "@codecov/sveltekit-plugin";
-
-export default defineConfig({
-  plugins: [
-    sveltekit(),
-    // Put the Codecov SvelteKit plugin after all other plugins
-    codecovSvelteKitPlugin({
-      enableBundleAnalysis: true,
-      bundleName: "example-sveltekit-bundle",
-      uploadToken: process.env.CODECOV_TOKEN,
-    }),
-  ],
-});
-```
-
 ## Tokenless Example
+
+This is the recommended way to use the plugin. This configuration will automatically upload the bundle analysis to Codecov.
 
 ```ts
 // vite.config.ts
@@ -73,6 +54,29 @@ export default defineConfig({
       enableBundleAnalysis: true,
       bundleName: "example-sveltekit-bundle",
       gitService: "github",
+    }),
+  ],
+});
+```
+
+## Upload Token Example - Required for Private Repositories
+
+This is the required way to use the plugin for private repositories. This configuration will automatically upload the bundle analysis to Codecov.
+
+```ts
+// vite.config.ts
+import { sveltekit } from "@sveltejs/kit/vite";
+import { defineConfig } from "vite";
+import { codecovSvelteKitPlugin } from "@codecov/sveltekit-plugin";
+
+export default defineConfig({
+  plugins: [
+    sveltekit(),
+    // Put the Codecov SvelteKit plugin after all other plugins
+    codecovSvelteKitPlugin({
+      enableBundleAnalysis: true,
+      bundleName: "example-sveltekit-bundle",
+      uploadToken: process.env.CODECOV_TOKEN,
     }),
   ],
 });
