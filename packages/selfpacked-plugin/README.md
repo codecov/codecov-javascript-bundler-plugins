@@ -4,7 +4,7 @@
   </a>
 </p>
 
-# Codecov No-Bundler Plugin
+# Codecov Self-packed / No-bundler Plugin
 
 > [!WARNING]  
 > These plugins are currently in beta and are subject to change.
@@ -18,19 +18,19 @@
 Using npm:
 
 ```bash
-npm install @codecov/nobundler-plugin --save-dev
+npm install @codecov/selfpacked-plugin --save-dev
 ```
 
 Using yarn:
 
 ```bash
-yarn add @codecov/nobundler-plugin --dev
+yarn add @codecov/selfpacked-plugin --dev
 ```
 
 Using pnpm:
 
 ```bash
-pnpm add @codecov/nobundler-plugin --save-dev
+pnpm add @codecov/selfpacked-plugin --save-dev
 ```
 
 ## Example
@@ -38,14 +38,14 @@ pnpm add @codecov/nobundler-plugin --save-dev
 ```js
 // vite.config.js
 import { defineConfig } from "vite";
-import { codecovNobundlerPlugin } from "@codecov/nobundler-plugin";
+import { codecovSelfpackedPlugin } from "@codecov/selfpacked-plugin";
 
 export default defineConfig({
   plugins: [
-    // Put the Codecov No-bundler plugin after all other plugins
-    codecovNobundlerPlugin({
+    // Put the Codecov self-packed plugin after all other plugins
+    codecovSelfpackedPlugin({
       enableBundleAnalysis: true,
-      bundleName: "example-nobundler-bundle",
+      bundleName: "example-selfpacked",
       uploadToken: process.env.CODECOV_TOKEN,
     }),
   ],

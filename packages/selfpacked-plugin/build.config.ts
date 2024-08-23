@@ -3,7 +3,9 @@ import { codecovRollupPlugin } from "codecovProdRollupPlugin";
 import packageJson from "./package.json";
 
 export default defineBuildConfig({
+  // entrypoints for the build
   entries: ["./src/index"],
+  // output directory for the build
   outDir: "dist",
   declaration: "compatible",
   sourcemap: true,
@@ -29,7 +31,6 @@ export default defineBuildConfig({
   hooks: {
     "rollup:options": (_ctx, opts) => {
       if (process.env.PLUGIN_CODECOV_TOKEN && Array.isArray(opts.plugins)) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         opts.plugins = [
           ...opts.plugins,
           codecovRollupPlugin({

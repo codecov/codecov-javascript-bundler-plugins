@@ -1,13 +1,13 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`viteBundleAnalysisPlugin > when called > returns a plugin object 1`] = `
+exports[`selfpackedBundleAnalysisPlugin > when called > returns a plugin object 1`] = `
 {
   "buildEnd": [Function],
   "buildStart": [Function],
-  "name": "@codecov/vite-plugin",
+  "name": "@codecov/selfpacked-plugin",
   "pluginVersion": "0.0.1-beta.12",
   "version": "2",
-  "vite": {
+  "selfpacked": {
     "generateBundle": [Function],
   },
   "writeBundle": [Function],

@@ -1,13 +1,15 @@
 {
-  "name": "@codecov/nobundler-plugin",
+  "name": "@codecov/selfpacked-plugin",
   "version": "0.0.1-beta.12",
-  "description": "Official Codecov No-bundler plugin",
+  "description": "Official Codecov self-packed bundler plugin",
   "author": "Codecov",
   "license": "MIT",
   "keywords": [
     "Codecov",
-    "No bundler",
+    "no-bundler",
     "bundlerless",
+    "selfpacked",
+    "self-packed",
     "bundler",
     "plugin"
   ],

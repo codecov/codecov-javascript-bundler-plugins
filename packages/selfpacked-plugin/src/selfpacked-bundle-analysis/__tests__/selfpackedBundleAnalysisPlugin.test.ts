@@ -1,11 +1,11 @@
 import { Output } from "@codecov/bundler-plugin-core";
 import { describe, it, expect } from "vitest";
-import { nobundlerBundleAnalysisPlugin } from "../nobundlerBundleAnalysisPlugin";
+import { selfpackedBundleAnalysisPlugin } from "../selfpackedBundleAnalysisPlugin";
 
-describe("viteBundleAnalysisPlugin", () => {
+describe("selfpackedBundleAnalysisPlugin", () => {
   describe("when called", () => {
     it("returns a plugin object", () => {
-      const plugin = nobundlerBundleAnalysisPlugin({
+      const plugin = selfpackedBundleAnalysisPlugin({
         output: new Output({
           apiUrl: "http://localhost",
           bundleName: "test-bundle",

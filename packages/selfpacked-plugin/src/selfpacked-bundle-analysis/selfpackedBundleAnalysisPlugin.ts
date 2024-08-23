@@ -13,7 +13,7 @@ const PLUGIN_NAME = __PACKAGE_NAME__ as string;
 // @ts-expect-error this value is being replaced by rollup
 const PLUGIN_VERSION = __PACKAGE_VERSION__ as string;
 
-export const nobundlerBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
+export const selfpackedBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
   output,
 }) => ({
   version: output.version,

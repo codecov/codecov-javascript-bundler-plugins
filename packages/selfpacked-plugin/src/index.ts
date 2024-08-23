@@ -1,9 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-  type UnpluginOptions,
-  createVitePlugin,
-  type VitePlugin,
-} from "unplugin";
 import {
   type Options,
   normalizeOptions,
@@ -12,9 +6,9 @@ import {
   handleErrors,
 } from "@codecov/bundler-plugin-core";
 
-import { nobundlerBundleAnalysisPlugin as nobundlerBundleAnalysisPlugin } from "./nobundler-bundle-analysis/nobundlerBundleAnalysisPlugin";
+import { selfpackedBundleAnalysisPlugin as selfpackedBundleAnalysisPlugin } from "./selfpacked-bundle-analysis/selfpackedBundleAnalysisPlugin";
 
-const codecovVitePluginFactory = createVitePlugin<Options, true>(
+const codecovSelfpackedPluginFactory = createSelfpackedPlugin<Options, true>(
   (userOptions, unpluginMetaContext) => {
     if (checkNodeVersion(unpluginMetaContext)) {
       return [];
@@ -34,7 +28,7 @@ const codecovVitePluginFactory = createVitePlugin<Options, true>(
     const options = normalizedOptions.options;
     if (options.enableBundleAnalysis) {
       const output = new Output(normalizedOptions.options);
-      plugins.push(nobundlerBundleAnalysisPlugin({ output }));
+      plugins.push(selfpackedBundleAnalysisPlugin({ output }));
     }
 
     return plugins;
@@ -42,7 +36,7 @@ const codecovVitePluginFactory = createVitePlugin<Options, true>(
 );
 
 /**
- * Details for the Codecov Vite plugin.
+ * Details for the Codecov Self-packed plugin.
  *
  * @example
  * ```typescript
@@ -64,15 +58,15 @@ const codecovVitePluginFactory = createVitePlugin<Options, true>(
  *
  * @see {@link @codecov/bundler-plugin-core!Options | Options} for list of options.
  */
-export const codecovVitePlugin: (options: Options) => VitePlugin<any>[] =
-  codecovVitePluginFactory;
+export const codecovSelfpackedPlugin: (options: Options) => SelfpackedPlugin<any>[] =
+  codecovSelfpackedPluginFactory;
 
 /**
  * Do not use this plugin directly. For internal use only.
  *
- * Used to expose the vite bundle analysis unplugin plugin that can be combined with other plugins
+ * Used to expose the bundle analysis plugin that can be combined with other plugins
  * to create a single plugin for a given meta-framework.
  *
  * @internal
  */
-export const _internal_viteBundleAnalysisPlugin = nobundlerBundleAnalysisPlugin;
+export const _internal_selfpackedBundleAnalysisPlugin = selfpackedBundleAnalysisPlugin;
