@@ -15,7 +15,7 @@ exports[`Generating nuxt stats 3 {"format":"amd","expected":"amd"} matches the s
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "0.0.1-beta.11",
+    "version": "0.0.1-beta.12",
   },
   "version": "2",
 }
@@ -36,7 +36,7 @@ exports[`Generating nuxt stats 3 {"format":"amd","expected":"amd"} matches the s
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "0.0.1-beta.11",
+    "version": "0.0.1-beta.12",
   },
   "version": "2",
 }
@@ -57,7 +57,7 @@ exports[`Generating nuxt stats 3 {"format":"cjs","expected":"cjs"} matches the s
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "0.0.1-beta.11",
+    "version": "0.0.1-beta.12",
   },
   "version": "2",
 }
@@ -78,7 +78,7 @@ exports[`Generating nuxt stats 3 {"format":"cjs","expected":"cjs"} matches the s
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "0.0.1-beta.11",
+    "version": "0.0.1-beta.12",
   },
   "version": "2",
 }
@@ -99,7 +99,7 @@ exports[`Generating nuxt stats 3 {"format":"es","expected":"esm"} matches the sn
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "0.0.1-beta.11",
+    "version": "0.0.1-beta.12",
   },
   "version": "2",
 }
@@ -120,7 +120,7 @@ exports[`Generating nuxt stats 3 {"format":"es","expected":"esm"} matches the sn
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "0.0.1-beta.11",
+    "version": "0.0.1-beta.12",
   },
   "version": "2",
 }
@@ -141,7 +141,7 @@ exports[`Generating nuxt stats 3 {"format":"esm","expected":"esm"} matches the s
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "0.0.1-beta.11",
+    "version": "0.0.1-beta.12",
   },
   "version": "2",
 }
@@ -162,7 +162,7 @@ exports[`Generating nuxt stats 3 {"format":"esm","expected":"esm"} matches the s
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "0.0.1-beta.11",
+    "version": "0.0.1-beta.12",
   },
   "version": "2",
 }
@@ -183,7 +183,7 @@ exports[`Generating nuxt stats 3 {"format":"module","expected":"esm"} matches th
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "0.0.1-beta.11",
+    "version": "0.0.1-beta.12",
   },
   "version": "2",
 }
@@ -204,7 +204,7 @@ exports[`Generating nuxt stats 3 {"format":"module","expected":"esm"} matches th
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "0.0.1-beta.11",
+    "version": "0.0.1-beta.12",
   },
   "version": "2",
 }
@@ -225,7 +225,7 @@ exports[`Generating nuxt stats 3 {"format":"iife","expected":"iife"} matches the
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "0.0.1-beta.11",
+    "version": "0.0.1-beta.12",
   },
   "version": "2",
 }
@@ -246,7 +246,7 @@ exports[`Generating nuxt stats 3 {"format":"iife","expected":"iife"} matches the
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "0.0.1-beta.11",
+    "version": "0.0.1-beta.12",
   },
   "version": "2",
 }
@@ -267,7 +267,7 @@ exports[`Generating nuxt stats 3 {"format":"umd","expected":"umd"} matches the s
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "0.0.1-beta.11",
+    "version": "0.0.1-beta.12",
   },
   "version": "2",
 }
@@ -288,7 +288,7 @@ exports[`Generating nuxt stats 3 {"format":"umd","expected":"umd"} matches the s
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "0.0.1-beta.11",
+    "version": "0.0.1-beta.12",
   },
   "version": "2",
 }
@@ -309,7 +309,7 @@ exports[`Generating nuxt stats 3 {"format":"system","expected":"system"} matches
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "0.0.1-beta.11",
+    "version": "0.0.1-beta.12",
   },
   "version": "2",
 }
@@ -330,7 +330,7 @@ exports[`Generating nuxt stats 3 {"format":"system","expected":"system"} matches
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "0.0.1-beta.11",
+    "version": "0.0.1-beta.12",
   },
   "version": "2",
 }
@@ -351,7 +351,7 @@ exports[`Generating nuxt stats 3 {"format":"systemjs","expected":"system"} match
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "0.0.1-beta.11",
+    "version": "0.0.1-beta.12",
   },
   "version": "2",
 }
@@ -372,7 +372,7 @@ exports[`Generating nuxt stats 3 {"format":"systemjs","expected":"system"} match
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "0.0.1-beta.11",
+    "version": "0.0.1-beta.12",
   },
   "version": "2",
 }
