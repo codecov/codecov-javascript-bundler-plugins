@@ -78,9 +78,9 @@ importers:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
     devDependencies:
-      '@codecov/webpack-plugin':
+      '@codecov/nextjs-webpack-plugin':
         specifier: workspace:^
-        version: link:../../packages/webpack-plugin
+        version: link:../../packages/nextjs-webpack-plugin
       '@types/node':
         specifier: ^20.16.1
         version: 20.16.1
@@ -267,7 +267,7 @@ importers:
         version: 0.14.1(solid-js@1.8.19)
       '@solidjs/start':
         specifier: ^1.0.6
-        version: 1.0.6(rollup@4.21.1)(solid-js@1.8.19)(vinxi@0.4.1(@types/node@22.5.0)(encoding@0.1.13)(ioredis@5.4.1)(terser@5.27.0))(vite@5.4.2(@types/node@22.5.0)(terser@5.27.0))
+        version: 1.0.6(rollup@4.16.2)(solid-js@1.8.19)(vinxi@0.4.1(@types/node@22.5.0)(encoding@0.1.13)(ioredis@5.4.1)(terser@5.27.0))(vite@5.4.2(@types/node@22.5.0)(terser@5.27.0))
       solid-js:
         specifier: ^1.8.18
         version: 1.8.19
@@ -505,7 +505,7 @@ importers:
     dependencies:
       nuxt:
         specifier: ^3.12.4
-        version: 3.13.0(@parcel/watcher@2.4.1)(@types/node@22.5.0)(encoding@0.1.13)(eslint@8.57.0)(ioredis@5.4.1)(magicast@0.3.4)(optionator@0.9.4)(rollup@4.21.1)(terser@5.27.0)(typescript@5.5.4)(vite@5.4.2(@types/node@22.5.0)(terser@5.27.0))
+        version: 3.13.0(@parcel/watcher@2.4.1)(@types/node@22.5.0)(encoding@0.1.13)(eslint@8.57.0)(ioredis@5.4.1)(magicast@0.3.4)(optionator@0.9.4)(rollup@4.21.1)(terser@5.27.0)(typescript@5.5.4)(vite@5.4.2(@types/node@20.16.1)(terser@5.27.0))
       vue:
         specifier: ^3.4.21
         version: 3.4.24(typescript@5.5.4)
@@ -603,7 +603,7 @@ importers:
         version: 0.14.1(solid-js@1.8.19)
       '@solidjs/start':
         specifier: ^1.0.6
-        version: 1.0.6(rollup@4.16.2)(solid-js@1.8.19)(vinxi@0.4.1(@types/node@22.5.0)(encoding@0.1.13)(ioredis@5.4.1)(terser@5.27.0))(vite@5.4.2(@types/node@22.5.0)(terser@5.27.0))
+        version: 1.0.6(rollup@4.21.1)(solid-js@1.8.19)(vinxi@0.4.1(@types/node@22.5.0)(encoding@0.1.13)(ioredis@5.4.1)(terser@5.27.0))(vite@5.4.2(@types/node@22.5.0)(terser@5.27.0))
       solid-js:
         specifier: ^1.8.18
         version: 1.8.19
@@ -5266,7 +5266,6 @@ packages:
 
   bun@1.1.4:
     resolution: {integrity: sha512-J78P9T2gMv2eki64AJnHjmAgSU1WuE4QPVvlYuhy/UmLClTwFaCnyoU0Rza7T5q97O4JIoGhmVCpEfI0Ri6anw==}
-    cpu: [arm64, x64]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -20541,6 +20540,113 @@ snapshots:
     optionalDependencies:
       '@parcel/watcher': 2.4.1
       '@types/node': 20.16.1
+    transitivePeerDependencies:
+      - '@azure/app-configuration'
+      - '@azure/cosmos'
+      - '@azure/data-tables'
+      - '@azure/identity'
+      - '@azure/keyvault-secrets'
+      - '@azure/storage-blob'
+      - '@biomejs/biome'
+      - '@capacitor/preferences'
+      - '@libsql/client'
+      - '@netlify/blobs'
+      - '@planetscale/database'
+      - '@upstash/redis'
+      - '@vercel/kv'
+      - better-sqlite3
+      - bufferutil
+      - drizzle-orm
+      - encoding
+      - eslint
+      - idb-keyval
+      - ioredis
+      - less
+      - lightningcss
+      - magicast
+      - meow
+      - optionator
+      - rollup
+      - sass
+      - sass-embedded
+      - stylelint
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+      - typescript
+      - uWebSockets.js
+      - utf-8-validate
+      - vite
+      - vls
+      - vti
+      - vue-tsc
+      - xml2js
+
+  nuxt@3.13.0(@parcel/watcher@2.4.1)(@types/node@22.5.0)(encoding@0.1.13)(eslint@8.57.0)(ioredis@5.4.1)(magicast@0.3.4)(optionator@0.9.4)(rollup@4.21.1)(terser@5.27.0)(typescript@5.5.4)(vite@5.4.2(@types/node@20.16.1)(terser@5.27.0)):
+    dependencies:
+      '@nuxt/devalue': 2.0.2
+      '@nuxt/devtools': 1.3.14(rollup@4.21.1)(vite@5.4.2(@types/node@20.16.1)(terser@5.27.0))
+      '@nuxt/kit': 3.13.0(magicast@0.3.4)(rollup@4.21.1)
+      '@nuxt/schema': 3.13.0(rollup@4.21.1)
+      '@nuxt/telemetry': 2.5.4(magicast@0.3.4)(rollup@4.21.1)
+      '@nuxt/vite-builder': 3.13.0(@types/node@22.5.0)(eslint@8.57.0)(magicast@0.3.4)(optionator@0.9.4)(rollup@4.21.1)(terser@5.27.0)(typescript@5.5.4)(vue@3.4.38(typescript@5.5.4))
+      '@unhead/dom': 1.10.0
+      '@unhead/ssr': 1.10.0
+      '@unhead/vue': 1.10.0(vue@3.4.38(typescript@5.5.4))
+      '@vue/shared': 3.4.38
+      acorn: 8.12.1
+      c12: 1.11.1(magicast@0.3.4)
+      chokidar: 3.6.0
+      compatx: 0.1.8
+      consola: 3.2.3
+      cookie-es: 1.2.2
+      defu: 6.1.4
+      destr: 2.0.3
+      devalue: 5.0.0
+      errx: 0.1.0
+      esbuild: 0.23.1
+      escape-string-regexp: 5.0.0
+      estree-walker: 3.0.3
+      globby: 14.0.2
+      h3: 1.12.0
+      hookable: 5.5.3
+      ignore: 5.3.2
+      jiti: 1.21.6
+      klona: 2.0.6
+      knitwork: 1.1.0
+      magic-string: 0.30.11
+      mlly: 1.7.1
+      nitropack: 2.9.7(encoding@0.1.13)(magicast@0.3.4)
+      nuxi: 3.13.0
+      nypm: 0.3.11
+      ofetch: 1.3.4
+      ohash: 1.1.3
+      pathe: 1.1.2
+      perfect-debounce: 1.0.0
+      pkg-types: 1.2.0
+      radix3: 1.1.2
+      scule: 1.3.0
+      semver: 7.6.3
+      std-env: 3.7.0
+      strip-literal: 2.1.0
+      ufo: 1.5.4
+      ultrahtml: 1.5.3
+      uncrypto: 0.1.3
+      unctx: 2.3.1
+      unenv: 1.10.0
+      unimport: 3.11.1(rollup@4.21.1)
+      unplugin: 1.12.2
+      unplugin-vue-router: 0.10.7(rollup@4.21.1)(vue-router@4.4.3(vue@3.4.38(typescript@5.5.4)))(vue@3.4.38(typescript@5.5.4))
+      unstorage: 1.10.2(ioredis@5.4.1)
+      untyped: 1.4.2
+      vue: 3.4.38(typescript@5.5.4)
+      vue-bundle-renderer: 2.1.0
+      vue-devtools-stub: 0.1.0
+      vue-router: 4.4.3(vue@3.4.38(typescript@5.5.4))
+    optionalDependencies:
+      '@parcel/watcher': 2.4.1
+      '@types/node': 22.5.0
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
