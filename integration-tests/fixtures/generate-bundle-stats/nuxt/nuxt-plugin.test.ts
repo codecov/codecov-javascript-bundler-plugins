@@ -73,7 +73,7 @@ describe("Generating nuxt stats", () => {
             ),
             bundler: {
               name: "rollup",
-              version: "4.21.0",
+              version: "4.16.2",
             },
             plugin: {
               name: expect.stringMatching("@codecov/nuxt-plugin"),
@@ -121,7 +121,7 @@ describe("Generating nuxt stats", () => {
             ),
             bundler: {
               name: "rollup",
-              version: "4.21.0",
+              version: "4.16.2",
             },
             plugin: {
               name: expect.stringMatching("@codecov/nuxt-plugin"),
