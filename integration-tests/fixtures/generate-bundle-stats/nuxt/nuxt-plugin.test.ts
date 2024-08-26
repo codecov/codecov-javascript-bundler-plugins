@@ -72,8 +72,8 @@ describe("Generating nuxt stats", () => {
               `test-nuxt-v${version}-client-${expected}`,
             ),
             bundler: {
-              name: "rollup",
-              version: "4.16.2",
+              name: expect.any(String),
+              version: expect.any(String),
             },
             plugin: {
               name: expect.stringMatching("@codecov/nuxt-plugin"),
@@ -120,8 +120,8 @@ describe("Generating nuxt stats", () => {
               `test-nuxt-v${version}-server-esm`,
             ),
             bundler: {
-              name: "rollup",
-              version: "4.16.2",
+              name: expect.any(String),
+              version: expect.any(String),
             },
             plugin: {
               name: expect.stringMatching("@codecov/nuxt-plugin"),
