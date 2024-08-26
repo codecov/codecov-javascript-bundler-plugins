@@ -64,6 +64,7 @@ describe("Generating nuxt stats", () => {
           );
           const clientData = (await clientRes.json()) as { stats: string };
           const clientStats = JSON.parse(clientData.stats) as unknown;
+
           expect(clientStats).toMatchSnapshot({
             builtAt: expect.any(Number),
             duration: expect.any(Number),
