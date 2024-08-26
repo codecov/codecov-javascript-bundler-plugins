@@ -1,4 +1,5 @@
 ---
+"@codecov/nextjs-webpack-plugin": minor
 "@codecov/bundler-plugin-core": patch
 "@codecov/nuxt-plugin": patch
 "@codecov/remix-vite-plugin": patch
