@@ -33,7 +33,33 @@ Using pnpm:
 pnpm add @codecov/nextjs-webpack-plugin --save-dev
 ```
 
-## Example
+## Tokenless Example
+
+This configuration will automatically upload the bundle analysis to Codecov. See the [below configuration](#upload-token-example---required-for-private-repositories) for private repositories.
+
+```typescript
+// next.config.mjs
+import { codecovNextJSWebpackPlugin } from "@codecov/nextjs-webpack-plugin";
+
+export default {
+  webpack: (config, options) => {
+    config.plugins.push(
+      codecovNextJSWebpackPlugin({
+        enableBundleAnalysis: true,
+        bundleName: "example-nextjs-webpack-bundle",
+        gitService: "github",
+        webpack: options.webpack,
+      }),
+    );
+
+    return config;
+  },
+};
+```
+
+## Upload Token Example - Required for Private Repositories
+
+This is the required way to use the plugin for private repositories. This configuration will automatically upload the bundle analysis to Codecov.
 
 ```typescript
 // next.config.mjs
