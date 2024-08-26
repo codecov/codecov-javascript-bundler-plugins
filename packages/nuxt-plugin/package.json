@@ -65,7 +65,7 @@
     "vitest": "^1.5.0"
   },
   "peerDependencies": {
-    "nuxt": "3.x"
+    "nuxt": "^3.12.4"
   },
   "volta": {
     "extends": "../../package.json"
