@@ -280,7 +280,17 @@ jobs:
       fail-fast: false
       matrix:
         example:
-          ["next-js", "nuxt", "remix", "rollup", "sveltekit", "vite", "webpack", "solidstart"]
+          [
+            "next-js",
+            "next-js-15",
+            "nuxt",
+            "remix",
+            "rollup",
+            "sveltekit",
+            "vite",
+            "webpack",
+            "solidstart",
+          ]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -354,7 +364,17 @@ jobs:
       fail-fast: false
       matrix:
         example:
-          ["next-js", "nuxt", "remix", "rollup", "sveltekit", "vite", "webpack", "solidstart"]
+          [
+            "next-js",
+            "next-js-15",
+            "nuxt",
+            "remix",
+            "rollup",
+            "sveltekit",
+            "vite",
+            "webpack",
+            "solidstart",
+          ]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -430,6 +450,7 @@ jobs:
         package:
           [
             "bundler-plugin-core",
+            "nextjs-webpack-plugin",
             "nuxt-plugin",
             "remix-vite-plugin",
             "rollup-plugin",
@@ -497,6 +518,7 @@ jobs:
         package:
           [
             "bundler-plugin-core",
+            "nextjs-webpack-plugin",
             "nuxt-plugin",
             "remix-vite-plugin",
             "rollup-plugin",

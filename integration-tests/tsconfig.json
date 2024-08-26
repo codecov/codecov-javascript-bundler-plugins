@@ -6,9 +6,10 @@
     "node_modules/**/*",
     "./test-apps/**/*",
     "fixtures/**/*.cjs",
-    "test-api/**/*",
+    "fixtures/**/*.mjs",
+    "test-api/**/*"
   ],
   "compilerOptions": {
-    "types": ["node"],
-  },
+    "types": ["node"]
+  }
 }
