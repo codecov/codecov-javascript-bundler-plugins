@@ -25,6 +25,6 @@ export default defineConfig({
       bundleName: "test-remix-v2",
       uploadToken: "test-token",
       apiUrl: process.env.API_URL,
-    }) as any,
+    }),
   ],
 });
