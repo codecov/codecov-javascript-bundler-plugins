@@ -35,7 +35,7 @@ pnpm add @codecov/vite-plugin --save-dev
 
 ## Tokenless Example
 
-This is the recommended way to use the plugin. This configuration will automatically upload the bundle analysis to Codecov.
+This configuration will automatically upload the bundle analysis to Codecov. See the [below configuration](#upload-token-example---required-for-private-repositories) for private repositories.
 
 ```js
 // vite.config.js

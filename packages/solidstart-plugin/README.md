@@ -38,7 +38,7 @@ pnpm add @codecov/solidstart-plugin --save-dev
 
 ## Tokenless Example
 
-This is the recommended way to use the plugin. This configuration will automatically upload the bundle analysis to Codecov.
+This configuration will automatically upload the bundle analysis to Codecov. See the [below configuration](#upload-token-example---required-for-private-repositories) for private repositories.
 
 ```ts
 // app.config.ts
@@ -61,7 +61,7 @@ export default defineConfig({
 });
 ```
 
-## Upload Example - Required for Private Repositories
+## Upload Token Example - Required for Private Repositories
 
 This is the required way to use the plugin for private repositories. This configuration will automatically upload the bundle analysis to Codecov.
 
