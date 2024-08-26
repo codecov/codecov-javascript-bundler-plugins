@@ -47,7 +47,7 @@
   "dependencies": {
     "@codecov/bundler-plugin-core": "workspace:^",
     "@codecov/vite-plugin": "workspace:^",
-    "@nuxt/kit": "^3.11.2",
+    "@nuxt/kit": "^3.12.4",
     "unplugin": "^1.10.1"
   },
   "devDependencies": {
