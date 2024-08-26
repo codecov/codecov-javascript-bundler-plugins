@@ -11,7 +11,6 @@ export default {
         apiUrl: process.env.NEXT_API_URL,
         webpack: options.webpack,
         debug: true,
-        dryRun: true,
       }),
     );
 
