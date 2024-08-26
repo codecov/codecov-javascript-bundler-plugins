@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "@codecov/webpack-plugin": "workspace:^",
-    "@types/node": "^20.12.12",
+    "@types/node": "^20.16.1",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "autoprefixer": "^10.4.19",
