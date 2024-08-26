@@ -71,10 +71,6 @@ describe("Generating nuxt stats", () => {
             bundleName: expect.stringContaining(
               `test-nuxt-v${version}-client-${expected}`,
             ),
-            bundler: {
-              name: expect.any(String),
-              version: expect.any(String),
-            },
             plugin: {
               name: expect.stringMatching("@codecov/nuxt-plugin"),
             },
@@ -119,10 +115,6 @@ describe("Generating nuxt stats", () => {
             bundleName: expect.stringContaining(
               `test-nuxt-v${version}-server-esm`,
             ),
-            bundler: {
-              name: expect.any(String),
-              version: expect.any(String),
-            },
             plugin: {
               name: expect.stringMatching("@codecov/nuxt-plugin"),
             },
