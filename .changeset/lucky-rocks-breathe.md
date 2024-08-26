@@ -1,13 +1,13 @@
 ---
-"@codecov/bundler-plugin-core": patch
-"@codecov/nextjs-webpack-plugin": patch
-"@codecov/nuxt-plugin": patch
-"@codecov/remix-vite-plugin": patch
-"@codecov/rollup-plugin": patch
-"@codecov/solidstart-plugin": patch
-"@codecov/sveltekit-plugin": patch
-"@codecov/vite-plugin": patch
-"@codecov/webpack-plugin": patch
+"@codecov/bundler-plugin-core": minor
+"@codecov/nextjs-webpack-plugin": minor
+"@codecov/nuxt-plugin": minor
+"@codecov/remix-vite-plugin": minor
+"@codecov/rollup-plugin": minor
+"@codecov/solidstart-plugin": minor
+"@codecov/sveltekit-plugin": minor
+"@codecov/vite-plugin": minor
+"@codecov/webpack-plugin": minor
 ---
 
 Add in new package for nextjs webpack
