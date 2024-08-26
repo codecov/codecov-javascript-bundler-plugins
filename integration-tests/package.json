@@ -8,6 +8,7 @@
   "scripts": {
     "test:e2e": "bun test fixtures/*",
     "test:e2e:update": "bun test --update-snapshots",
+    "test:e2e:nextjs": "bun test fixtures/**/nextjs/*",
     "test:e2e:nuxt": "bun test fixtures/**/nuxt/*",
     "test:e2e:remix": "bun test fixtures/**/remix/*",
     "test:e2e:rollup": "bun test fixtures/**/rollup/* ",

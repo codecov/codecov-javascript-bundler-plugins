@@ -1,6 +1,9 @@
 import {
   type Asset,
   type BundleAnalysisUploadPlugin,
+  type BundleAnalysisUploadPluginArgs,
+  type ExtendedBAUploadArgs,
+  type ExtendedBAUploadPlugin,
   type Chunk,
   type Module,
   type Options,
@@ -21,6 +24,9 @@ import {
 export type {
   Asset,
   BundleAnalysisUploadPlugin,
+  BundleAnalysisUploadPluginArgs,
+  ExtendedBAUploadArgs,
+  ExtendedBAUploadPlugin,
   Chunk,
   Module,
   Options,

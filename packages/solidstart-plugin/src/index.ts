@@ -70,7 +70,6 @@ const codecovSolidStartPluginFactory = createVitePlugin<Options, true>(
  * });
  * ```
  *
- *
  * @see {@link @codecov/bundler-plugin-core!Options | Options} for list of options.
  */
 export const codecovSolidStartPlugin: (options: Options) => VitePlugin<any>[] =

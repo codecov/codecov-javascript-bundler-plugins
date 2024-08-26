@@ -51,7 +51,12 @@ export interface BundleAnalysisUploadPluginArgs {
   output: Output;
 }
 
-/** Configuration ptions for the Codcove bundler plugin. */
+export interface ExtendedBAUploadArgs<TArgs extends object>
+  extends BundleAnalysisUploadPluginArgs {
+  options: TArgs;
+}
+
+/** Configuration options for the Codecov bundler plugin. */
 export interface Options {
   /**
    * The upload token to use for uploading the bundle analysis information.
@@ -112,6 +117,13 @@ export interface Options {
 
 export type BundleAnalysisUploadPlugin = (
   args: BundleAnalysisUploadPluginArgs,
+) => UnpluginOptions & {
+  pluginVersion: string;
+  version: string;
+};
+
+export type ExtendedBAUploadPlugin<TArgs extends object> = (
+  args: ExtendedBAUploadArgs<TArgs>,
 ) => UnpluginOptions & {
   pluginVersion: string;
   version: string;
