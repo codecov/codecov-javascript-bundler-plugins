@@ -64,7 +64,6 @@ describe("Generating nuxt stats", () => {
           );
           const clientData = (await clientRes.json()) as { stats: string };
           const clientStats = JSON.parse(clientData.stats) as unknown;
-
           expect(clientStats).toMatchSnapshot({
             builtAt: expect.any(Number),
             duration: expect.any(Number),
@@ -73,8 +72,8 @@ describe("Generating nuxt stats", () => {
               `test-nuxt-v${version}-client-${expected}`,
             ),
             bundler: {
-              name: expect.any(String),
-              version: expect.any(String),
+              name: "rollup",
+              version: "4.16.2",
             },
             plugin: {
               name: expect.stringMatching("@codecov/nuxt-plugin"),
@@ -121,8 +120,8 @@ describe("Generating nuxt stats", () => {
               `test-nuxt-v${version}-server-esm`,
             ),
             bundler: {
-              name: expect.any(String),
-              version: expect.any(String),
+              name: "rollup",
+              version: "4.16.2",
             },
             plugin: {
               name: expect.stringMatching("@codecov/nuxt-plugin"),
