@@ -22,6 +22,8 @@ const server = setupServer();
 
 const mocks = vi.hoisted(() => ({
   eventName: vi.fn().mockReturnValue(""),
+  baseLabel: vi.fn().mockReturnValue(""),
+  headLabel: vi.fn().mockReturnValue(""),
 }));
 
 vi.mock("@actions/github", async (importOriginal) => {
@@ -48,12 +50,19 @@ describe("GitHub Actions Params", () => {
     {
       data = {},
       eventName = "",
+      baseLabel = "",
+      headLabel = "",
     }: {
       data?: object;
       eventName?: "" | "pull_request" | "pull_request_target";
+      baseLabel?: string;
+      headLabel?: string;
     } = { data: {}, eventName: "" },
   ) {
     mocks.eventName.mockReturnValue(eventName);
+    mocks.baseLabel.mockReturnValue(baseLabel);
+    mocks.headLabel.mockReturnValue(headLabel);
+
     vi.mocked(GitHub).context = {
       eventName,
       payload: {
@@ -61,9 +70,11 @@ describe("GitHub Actions Params", () => {
         pull_request: {
           head: {
             sha: "test-head-sha",
+            label: headLabel,
           },
           base: {
             sha: "test-base-sha",
+            label: baseLabel,
           },
         },
       },
@@ -248,6 +259,118 @@ describe("GitHub Actions Params", () => {
       slug: "testOrg/testRepo",
     };
     expect(params).toMatchObject(expected);
+  });
+
+  describe("handling branch names", () => {
+    it("gets the correct branch from forked PR", async () => {
+      setup({
+        data: {
+          jobs: [
+            {
+              id: 1,
+              name: "fakeJob",
+              html_url: "https://fake.com",
+            },
+          ],
+        },
+        eventName: "pull_request_target",
+        baseLabel: "codecov:baseBranch",
+        headLabel: "testOrg:headBranch",
+      });
+
+      const inputs: ProviderUtilInputs = {
+        args: { ...createEmptyArgs() },
+        envs: {
+          GITHUB_ACTIONS: "true",
+          GITHUB_HEAD_REF: "branch",
+          GITHUB_JOB: "testJob",
+          GITHUB_REF: "refs/pull/1/merge",
+          GITHUB_REPOSITORY: "testOrg/testRepo",
+          GITHUB_RUN_ID: "2",
+          GITHUB_SERVER_URL: "https://github.com",
+          GITHUB_SHA: "test-head-sha",
+          GITHUB_WORKFLOW: "testWorkflow",
+        },
+      };
+
+      const output = new Output({
+        apiUrl: "http://localhost",
+        bundleName: "GHA-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+      });
+      const params = await GitHubActions.getServiceParams(inputs, output);
+
+      const expected: ProviderServiceParams = {
+        branch: "testOrg:headBranch",
+        build: "2",
+        buildURL: "https://github.com/testOrg/testRepo/actions/runs/2",
+        commit: "test-head-sha",
+        compareSha: null,
+        job: "testWorkflow",
+        pr: "1",
+        service: "github-actions",
+        slug: "testOrg/testRepo",
+      };
+      expect(params).toMatchObject(expected);
+    });
+
+    it("gets the correct branch from local PR", async () => {
+      setup({
+        data: {
+          jobs: [
+            {
+              id: 1,
+              name: "fakeJob",
+              html_url: "https://fake.com",
+            },
+          ],
+        },
+        eventName: "pull_request_target",
+        baseLabel: "codecov:baseBranch",
+        headLabel: "codecov:headBranch",
+      });
+
+      const inputs: ProviderUtilInputs = {
+        args: { ...createEmptyArgs() },
+        envs: {
+          GITHUB_ACTIONS: "true",
+          GITHUB_HEAD_REF: "branch",
+          GITHUB_JOB: "testJob",
+          GITHUB_REF: "refs/pull/1/merge",
+          GITHUB_REPOSITORY: "testOrg/testRepo",
+          GITHUB_RUN_ID: "2",
+          GITHUB_SERVER_URL: "https://github.com",
+          GITHUB_SHA: "test-head-sha",
+          GITHUB_WORKFLOW: "testWorkflow",
+        },
+      };
+
+      const output = new Output({
+        apiUrl: "http://localhost",
+        bundleName: "GHA-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+      });
+      const params = await GitHubActions.getServiceParams(inputs, output);
+
+      const expected: ProviderServiceParams = {
+        branch: "branch",
+        build: "2",
+        buildURL: "https://github.com/testOrg/testRepo/actions/runs/2",
+        commit: "test-head-sha",
+        compareSha: null,
+        job: "testWorkflow",
+        pr: "1",
+        service: "github-actions",
+        slug: "testOrg/testRepo",
+      };
+      expect(params).toMatchObject(expected);
+    });
   });
 
   it("gets correct buildURL by default for a PR", async () => {
