@@ -118,7 +118,7 @@ export default defineConfig({
 
 ## Tokenless Example
 
-This configuration will automatically upload the bundle analysis to Codecov. See the [below configuration](#upload-token-example---required-for-private-repositories) for private repositories.
+This configuration will automatically upload the bundle analysis to Codecov for public repositories. When an internal PR is created it will use the Codecov token set in your secrets, and if running from a forked PR, it will use the tokenless setting automatically. For setups not using GitHub Actions see the following [example](#public-repo-example---non-github-actions). For private repositories see the following [example](#private-repo-example).
 
 ```ts
 // app.config.ts
@@ -134,6 +134,7 @@ export default defineConfig({
       codecovSolidStartPlugin({
         enableBundleAnalysis: true,
         bundleName: "example-solidstart-bundle",
+        uploadToken: process.env.CODECOV_TOKEN,
         gitService: "github",
       }),
     ],
@@ -141,7 +142,36 @@ export default defineConfig({
 });
 ```
 
-## Upload Token Example - Required for Private Repositories
+## Public Repo Example - Non-GitHub Actions
+
+This setup is for public repositories that are not using GitHub Actions, this configuration will automatically upload the bundle analysis to Codecov. You will need to configure the it similar to the GitHub Actions example, however you will need to provide a branch override, and ensure that it will pass the correct branch name, and with forks including the fork-owner i.e. `fork-owner:branch`.
+
+```ts
+// app.config.ts
+import { defineConfig } from "@solidjs/start/config";
+import solidPlugin from "vite-plugin-solid";
+import { codecovSolidStartPlugin } from "@codecov/solidstart-plugin";
+
+export default defineConfig({
+  vite: {
+    plugins: [
+      // Put the Codecov SolidStart plugin after all other plugins
+      solidPlugin(),
+      codecovSolidStartPlugin({
+        enableBundleAnalysis: true,
+        bundleName: "example-solidstart-bundle",
+        uploadToken: process.env.CODECOV_TOKEN,
+        gitService: "github",
+        uploadOverrides: {
+          branch: "<branch value>",
+        },
+      }),
+    ],
+  },
+});
+```
+
+## Private Repo Example
 
 This is the required way to use the plugin for private repositories. This configuration will automatically upload the bundle analysis to Codecov.
 

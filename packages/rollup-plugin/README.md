@@ -103,7 +103,7 @@ export default defineConfig({
 
 ## Tokenless Example
 
-This configuration will automatically upload the bundle analysis to Codecov. See the [below configuration](#upload-token-example---required-for-private-repositories) for private repositories.
+This configuration will automatically upload the bundle analysis to Codecov for public repositories. When an internal PR is created it will use the Codecov token set in your secrets, and if running from a forked PR, it will use the tokenless setting automatically. For setups not using GitHub Actions see the following [example](#public-repo-example---non-github-actions). For private repositories see the following [example](#private-repo-example).
 
 ```js
 // rollup.config.js
@@ -116,13 +116,39 @@ export default defineConfig({
     codecovRollupPlugin({
       enableBundleAnalysis: true,
       bundleName: "example-rollup-bundle",
+      uploadToken: process.env.CODECOV_TOKEN,
       gitService: "github",
     }),
   ],
 });
 ```
 
-## Upload Token Example - Required for Private Repositories
+## Public Repo Example - Non-GitHub Actions
+
+This setup is for public repositories that are not using GitHub Actions, this configuration will automatically upload the bundle analysis to Codecov. You will need to configure the it similar to the GitHub Actions example, however you will need to provide a branch override, and ensure that it will pass the correct branch name, and with forks including the fork-owner i.e. `fork-owner:branch`.
+
+```js
+// rollup.config.js
+import { defineConfig } from "rollup";
+import { codecovRollupPlugin } from "@codecov/rollup-plugin";
+
+export default defineConfig({
+  plugins: [
+    // Put the Codecov rollup plugin after all other plugins
+    codecovRollupPlugin({
+      enableBundleAnalysis: true,
+      bundleName: "example-rollup-bundle",
+      uploadToken: process.env.CODECOV_TOKEN,
+      gitService: "github",
+      uploadOverrides: {
+        branch: "<branch value>",
+      },
+    }),
+  ],
+});
+```
+
+## Private Repo Example
 
 This is the required way to use the plugin for private repositories. This configuration will automatically upload the bundle analysis to Codecov.
 
