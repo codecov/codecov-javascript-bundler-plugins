@@ -26,7 +26,6 @@ const config = {
     project: [
       "./tsconfig.json",
       "./integration-tests/tsconfig.json",
-      "./packages/bundle-analyzer/tsconfig.json",
       "./packages/bundler-plugin-core/tsconfig.json",
       "./packages/nuxt-plugin/tsconfig.json",
       "./packages/remix-vite-plugin/tsconfig.json",
