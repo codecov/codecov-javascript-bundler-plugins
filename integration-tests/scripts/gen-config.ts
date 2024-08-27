@@ -9,8 +9,7 @@ type Plugins =
   | "nuxt"
   | "sveltekit"
   | "remix"
-  | "solidstart"
-  | "selfpacked";
+  | "solidstart";
 
 interface CreateConfigOpts {
   plugin: Plugins;
