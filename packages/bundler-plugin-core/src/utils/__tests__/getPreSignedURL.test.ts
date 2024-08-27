@@ -19,6 +19,22 @@ import { FailedFetchError } from "../../errors/FailedFetchError.ts";
 import { NoUploadTokenError } from "../../errors/NoUploadTokenError.ts";
 import { UploadLimitReachedError } from "../../errors/UploadLimitReachedError.ts";
 import { UndefinedGitServiceError } from "../../errors/UndefinedGitServiceError.ts";
+import { Output } from "../Output.ts";
+import { BadOIDCServiceError } from "src/errors/BadOIDCServiceError.ts";
+import { FailedOIDCFetch } from "src/errors/FailedOIDCFetch.ts";
+
+const mocks = vi.hoisted(() => ({
+  getIDToken: vi.fn().mockReturnValue(""),
+}));
+
+vi.mock("@actions/core", async (importOriginal) => {
+  // eslint-disable-next-line @typescript-eslint/consistent-type-imports
+  const original = await importOriginal<typeof import("@actions/core")>();
+  return {
+    ...original,
+    getIDToken: mocks.getIDToken,
+  };
+});
 
 const server = setupServer();
 
@@ -40,15 +56,29 @@ interface SetupArgs {
   data?: object;
   retryCount?: number;
   sendError?: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getIDTokenValue?: any;
 }
 
 describe("getPreSignedURL", () => {
   let consoleSpy: MockInstance;
   const requestBodyMock = vi.fn();
+  const requestTokenMock = vi.fn();
   const spawnSync = td.replace(childProcess, "spawnSync");
 
-  function setup({ status = 200, data = {}, sendError = false }: SetupArgs) {
+  function setup({
+    status = 200,
+    data = {},
+    sendError = false,
+    getIDTokenValue,
+  }: SetupArgs) {
     consoleSpy = vi.spyOn(console, "log").mockImplementation(() => null);
+
+    if (getIDTokenValue instanceof Error) {
+      mocks.getIDToken.mockRejectedValue(getIDTokenValue);
+    } else {
+      mocks.getIDToken.mockReturnValue(getIDTokenValue);
+    }
 
     server.use(
       http.post(
@@ -57,8 +87,14 @@ describe("getPreSignedURL", () => {
           if (sendError) {
             return HttpResponse.error();
           }
+
           const requestBody = await request.json();
           requestBodyMock(requestBody);
+
+          if (request.headers.get("Authorization")) {
+            requestTokenMock(request.headers.get("Authorization"));
+          }
+
           return HttpResponse.json(data, { status });
         },
       ),
@@ -82,12 +118,18 @@ describe("getPreSignedURL", () => {
           });
 
           const url = await getPreSignedURL({
-            apiURL: "http://localhost",
-            uploadToken: "super-cool-token",
+            output: new Output({
+              apiUrl: "http://localhost",
+              uploadToken: "cool-upload-token",
+              debug: false,
+              bundleName: "test-bundle",
+              retryCount: 0,
+              enableBundleAnalysis: true,
+              dryRun: false,
+            }),
             serviceParams: {
               commit: "123",
             },
-            retryCount: 0,
           });
 
           expect(url).toEqual("http://example.com");
@@ -120,12 +162,18 @@ describe("getPreSignedURL", () => {
             });
 
             const url = await getPreSignedURL({
-              apiURL: "http://localhost",
+              output: new Output({
+                apiUrl: "http://localhost",
+                debug: false,
+                bundleName: "test-bundle",
+                retryCount: 0,
+                enableBundleAnalysis: true,
+                dryRun: false,
+              }),
               serviceParams: {
                 commit: "123",
                 branch: "owner:branch",
               },
-              retryCount: 0,
             });
 
             expect(url).toEqual("http://example.com");
@@ -144,13 +192,19 @@ describe("getPreSignedURL", () => {
             });
 
             const url = await getPreSignedURL({
-              apiURL: "http://localhost",
+              output: new Output({
+                apiUrl: "http://localhost",
+                debug: false,
+                bundleName: "test-bundle",
+                retryCount: 0,
+                enableBundleAnalysis: true,
+                dryRun: false,
+                gitService: "github_enterprise",
+              }),
               serviceParams: {
                 commit: "123",
                 branch: "owner:branch",
               },
-              retryCount: 0,
-              gitService: "github_enterprise",
             });
 
             expect(url).toEqual("http://example.com");
@@ -160,6 +214,37 @@ describe("getPreSignedURL", () => {
               }),
             );
           });
+        });
+      });
+
+      describe("using oidc and github actions", () => {
+        it("returns the pre-signed URL", async () => {
+          setup({
+            data: { url: "http://example.com" },
+            getIDTokenValue: "cool-token",
+          });
+
+          const url = await getPreSignedURL({
+            output: new Output({
+              apiUrl: "http://localhost",
+              debug: false,
+              bundleName: "test-bundle",
+              retryCount: 0,
+              enableBundleAnalysis: true,
+              dryRun: false,
+              oidc: {
+                OIDCEndpoint: "http://localhost",
+                useGitHubOIDC: true,
+              },
+            }),
+            serviceParams: {
+              commit: "123",
+              service: "github-actions",
+            },
+          });
+
+          expect(url).toEqual("http://example.com");
+          expect(requestTokenMock).toHaveBeenCalledWith("token cool-token");
         });
       });
     });
@@ -176,12 +261,19 @@ describe("getPreSignedURL", () => {
           let error;
           try {
             await getPreSignedURL({
-              apiURL: "http://localhost",
+              output: new Output({
+                apiUrl: "http://localhost",
+                debug: false,
+                bundleName: "test-bundle",
+                retryCount: 0,
+                enableBundleAnalysis: true,
+                dryRun: false,
+                gitService: "github",
+              }),
               serviceParams: {
                 commit: "123",
                 branch: "main",
               },
-              retryCount: 0,
             });
           } catch (e) {
             error = e;
@@ -224,12 +316,18 @@ describe("getPreSignedURL", () => {
           let error;
           try {
             await getPreSignedURL({
-              apiURL: "http://localhost",
+              output: new Output({
+                apiUrl: "http://localhost",
+                debug: false,
+                bundleName: "test-bundle",
+                retryCount: 0,
+                enableBundleAnalysis: true,
+                dryRun: false,
+              }),
               serviceParams: {
                 commit: "123",
                 branch: "owner:branch",
               },
-              retryCount: 0,
             });
           } catch (e) {
             error = e;
@@ -255,12 +353,18 @@ describe("getPreSignedURL", () => {
         let error;
         try {
           await getPreSignedURL({
-            apiURL: "http://localhost",
-            uploadToken: "cool-upload-token",
+            output: new Output({
+              apiUrl: "http://localhost",
+              uploadToken: "cool-upload-token",
+              debug: false,
+              bundleName: "test-bundle",
+              retryCount: 0,
+              enableBundleAnalysis: true,
+              dryRun: false,
+            }),
             serviceParams: {
               commit: "123",
             },
-            retryCount: 0,
           });
         } catch (e) {
           error = e;
@@ -281,12 +385,18 @@ describe("getPreSignedURL", () => {
         let error;
         try {
           await getPreSignedURL({
-            apiURL: "http://localhost",
-            uploadToken: "super-cool-token",
+            output: new Output({
+              apiUrl: "http://localhost",
+              uploadToken: "cool-upload-token",
+              debug: false,
+              bundleName: "test-bundle",
+              retryCount: 0,
+              enableBundleAnalysis: true,
+              dryRun: false,
+            }),
             serviceParams: {
               commit: "123",
             },
-            retryCount: 0,
           });
         } catch (e) {
           error = e;
@@ -317,12 +427,18 @@ describe("getPreSignedURL", () => {
         let error;
         try {
           await getPreSignedURL({
-            apiURL: "http://localhost",
-            uploadToken: "super-cool-token",
+            output: new Output({
+              apiUrl: "http://localhost",
+              uploadToken: "cool-upload-token",
+              debug: false,
+              bundleName: "test-bundle",
+              retryCount: 0,
+              enableBundleAnalysis: true,
+              dryRun: false,
+            }),
             serviceParams: {
               commit: "123",
             },
-            retryCount: 0,
           });
         } catch (e) {
           error = e;
@@ -343,12 +459,18 @@ describe("getPreSignedURL", () => {
         let error;
         try {
           await getPreSignedURL({
-            apiURL: "http://localhost",
-            uploadToken: "super-cool-token",
+            output: new Output({
+              apiUrl: "http://localhost",
+              uploadToken: "cool-upload-token",
+              debug: false,
+              bundleName: "test-bundle",
+              retryCount: 0,
+              enableBundleAnalysis: true,
+              dryRun: false,
+            }),
             serviceParams: {
               commit: "123",
             },
-            retryCount: 0,
           });
         } catch (e) {
           error = e;
@@ -379,12 +501,18 @@ describe("getPreSignedURL", () => {
         let error;
         try {
           await getPreSignedURL({
-            apiURL: "http://localhost",
-            uploadToken: "super-cool-token",
+            output: new Output({
+              apiUrl: "http://localhost",
+              uploadToken: "cool-upload-token",
+              debug: false,
+              bundleName: "test-bundle",
+              retryCount: 0,
+              enableBundleAnalysis: true,
+              dryRun: false,
+            }),
             serviceParams: {
               commit: "123",
             },
-            retryCount: 0,
           });
         } catch (e) {
           error = e;
@@ -392,6 +520,78 @@ describe("getPreSignedURL", () => {
 
         expect(consoleSpy).toHaveBeenCalled();
         expect(error).toBeInstanceOf(FailedFetchError);
+      });
+    });
+
+    describe("using oidc and not github actions", () => {
+      it("throws an error", async () => {
+        setup({
+          data: { url: "http://example.com" },
+          getIDTokenValue: "cool-token",
+        });
+
+        let error;
+        try {
+          await getPreSignedURL({
+            output: new Output({
+              apiUrl: "http://localhost",
+              debug: false,
+              bundleName: "test-bundle",
+              retryCount: 0,
+              enableBundleAnalysis: true,
+              dryRun: false,
+              oidc: {
+                OIDCEndpoint: "http://localhost",
+                useGitHubOIDC: true,
+              },
+            }),
+            serviceParams: {
+              commit: "123",
+              service: "local",
+            },
+          });
+        } catch (e) {
+          error = e;
+        }
+
+        expect(consoleSpy).toHaveBeenCalled();
+        expect(error).toBeInstanceOf(BadOIDCServiceError);
+      });
+    });
+
+    describe("using oidc and getIDToken fails", () => {
+      it("throws an error", async () => {
+        setup({
+          data: { url: "http://example.com" },
+          getIDTokenValue: new Error("Failed to get token"),
+        });
+
+        let error;
+        try {
+          await getPreSignedURL({
+            output: new Output({
+              apiUrl: "http://localhost",
+              debug: false,
+              bundleName: "test-bundle",
+              retryCount: 0,
+              enableBundleAnalysis: true,
+              dryRun: false,
+              oidc: {
+                OIDCEndpoint: "http://localhost",
+                useGitHubOIDC: true,
+              },
+            }),
+            serviceParams: {
+              commit: "123",
+              service: "github-actions",
+            },
+          });
+        } catch (e) {
+          error = e;
+        }
+
+        expect(consoleSpy).toHaveBeenCalled();
+        expect(error).toBeInstanceOf(FailedOIDCFetch);
       });
     });
   });
