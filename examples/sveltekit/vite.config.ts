@@ -10,6 +10,7 @@ export default defineConfig({
       bundleName: "@codecov/example-sveltekit-app",
       uploadToken: process.env.SVELTEKIT_UPLOAD_TOKEN,
       apiUrl: process.env.SVELTEKIT_API_URL,
+      gitService: "github",
       debug: true,
     }),
   ],
