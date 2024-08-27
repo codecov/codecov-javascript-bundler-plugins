@@ -62,6 +62,10 @@ const tests: Test[] = [
         },
         debug: true,
         gitService: "bitbucket",
+        oidc: {
+          useGitHubOIDC: true,
+          OIDCEndpoint: "https://codecov.io",
+        },
       },
     },
     expected: {
@@ -83,6 +87,10 @@ const tests: Test[] = [
         },
         debug: true,
         gitService: "bitbucket",
+        oidc: {
+          useGitHubOIDC: true,
+          OIDCEndpoint: "https://codecov.io",
+        },
       },
     },
   },
@@ -120,6 +128,12 @@ const tests: Test[] = [
         debug: "true",
         // @ts-expect-error - testing invalid input
         gitService: 123,
+        oidc: {
+          // @ts-expect-error - testing invalid input
+          useGitHubOIDC: "true",
+          // @ts-expect-error - testing invalid input
+          OIDCEndpoint: 123,
+        },
       },
     },
     expected: {
@@ -139,6 +153,8 @@ const tests: Test[] = [
         "`slug` must be a string.",
         "`debug` must be a boolean.",
         "`gitService` must be a valid git service.",
+        "`useGitHubOIDC` must be a boolean.",
+        "`OIDCEndpoint` must be a string.",
       ],
     },
   },
@@ -207,6 +223,22 @@ const tests: Test[] = [
     expected: {
       success: false,
       errors: ["`retryCount` must be an integer."],
+    },
+  },
+  {
+    name: "OIDCEndpoint does not match URL format, returns format error message",
+    input: {
+      options: {
+        oidc: {
+          useGitHubOIDC: true,
+          OIDCEndpoint: "invalid-url",
+        },
+        bundleName: "test-bundle",
+      },
+    },
+    expected: {
+      success: false,
+      errors: ["OIDCEndpoint: `invalid-url` is not a valid URL."],
     },
   },
 ];

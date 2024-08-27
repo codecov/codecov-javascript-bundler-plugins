@@ -139,6 +139,23 @@ export interface Options {
    * Defaults to `false`
    */
   dryRun?: boolean;
+
+  /** Options for OIDC authentication. */
+  oidc?: {
+    /**
+     * Whether to use GitHub OIDC for authentication.
+     *
+     * Defaults to `false`
+     */
+    useGitHubOIDC: boolean;
+
+    /**
+     * The OIDC endpoint to use for authentication.
+     *
+     * Defaults to `https://codecov.io`
+     */
+    OIDCEndpoint: string;
+  };
 }
 
 export type BundleAnalysisUploadPlugin = (

@@ -56,6 +56,31 @@ const UploadOverridesSchema = z.object({
     .optional(),
 });
 
+const OIDCSchema = (options: Options) =>
+  z.object(
+    {
+      useGitHubOIDC: z
+        .boolean({
+          invalid_type_error: "`useGitHubOIDC` must be a boolean.",
+        })
+        .default(false),
+      /**
+       * Following along with how we handle this in our GH Action.
+       *
+       * See: https://github.com/codecov/codecov-action/blob/main/src/buildExec.ts#L53-L58
+       */
+      OIDCEndpoint: z
+        .string({
+          invalid_type_error: "`OIDCEndpoint` must be a string.",
+        })
+        .url({
+          message: `OIDCEndpoint: \`${options?.oidc?.OIDCEndpoint}\` is not a valid URL.`,
+        })
+        .default("https://codecov.io"),
+    },
+    { invalid_type_error: "`oidc` must be an object." },
+  );
+
 const optionsSchemaFactory = (options: Options) =>
   z.object({
     apiUrl: z
@@ -123,6 +148,7 @@ const optionsSchemaFactory = (options: Options) =>
         { invalid_type_error: "`gitService` must be a valid git service." },
       )
       .optional(),
+    oidc: OIDCSchema(options).optional(),
   });
 
 interface NormalizedOptionsFailure {
