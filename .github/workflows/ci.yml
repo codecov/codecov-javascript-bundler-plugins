@@ -290,7 +290,6 @@ jobs:
             "vite",
             "webpack",
             "solidstart",
-            "tokenless",
           ]
     steps:
       - name: Checkout
@@ -377,7 +376,6 @@ jobs:
             "vite",
             "webpack",
             "solidstart",
-            "tokenless",
           ]
     steps:
       - name: Checkout
