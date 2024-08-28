@@ -10,9 +10,9 @@ import { preProcessBody } from "./preProcessBody.ts";
 import { NoUploadTokenError } from "../errors/NoUploadTokenError.ts";
 import { findGitService } from "./findGitService.ts";
 import { UndefinedGitServiceError } from "../errors/UndefinedGitServiceError.ts";
-import { FailedOIDCFetch } from "src/errors/FailedOIDCFetch.ts";
+import { FailedOIDCFetch } from "../errors/FailedOIDCFetch.ts";
 import { type Output } from "./Output.ts";
-import { BadOIDCServiceError } from "src/errors/BadOIDCServiceError.ts";
+import { BadOIDCServiceError } from "../errors/BadOIDCServiceError.ts";
 
 interface GetPreSignedURLArgs {
   serviceParams: Partial<ProviderServiceParams>;

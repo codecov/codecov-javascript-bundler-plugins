@@ -154,7 +154,7 @@ export interface Options {
      *
      * Defaults to `https://codecov.io`
      */
-    OIDCEndpoint: string;
+    OIDCEndpoint?: string;
   };
 }
 

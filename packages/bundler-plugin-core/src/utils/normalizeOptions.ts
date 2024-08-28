@@ -76,6 +76,7 @@ const OIDCSchema = (options: Options) =>
         .url({
           message: `OIDCEndpoint: \`${options?.oidc?.OIDCEndpoint}\` is not a valid URL.`,
         })
+        .optional()
         .default("https://codecov.io"),
     },
     { invalid_type_error: "`oidc` must be an object." },
