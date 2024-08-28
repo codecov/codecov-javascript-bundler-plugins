@@ -69,9 +69,9 @@ export const getPreSignedURL = async ({
       token = await Core.getIDToken(output.oidc.OIDCEndpoint);
     } catch (err) {
       if (err instanceof Error) {
-        red(`Failed to get OIDC token with url: ${url}. ${err.message}`);
+        red(`Failed to get OIDC token with url:\`${url}\`. ${err.message}`);
         throw new FailedOIDCFetch(
-          `Failed to get OIDC token with url: ${url}. ${err.message}`,
+          `Failed to get OIDC token with url: \`${url}\`. ${err.message}`,
         );
       }
     }
