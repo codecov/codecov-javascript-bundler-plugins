@@ -92,7 +92,7 @@ export interface Options {
    * The upload token to use for uploading the bundle analysis information. This field is
    * **required** for uploading bundle analysis information in private repositories.
    *
-   * This value can either be an global upload token or a repo token.
+   * This value can either be a global upload token or a repo token.
    * - The global upload token can be found under the organization settings page.
    * - The repo token can be found under the repo settings page under the general tab.
    */
