@@ -10,6 +10,7 @@ export default {
         uploadToken: process.env.NEXT_UPLOAD_TOKEN,
         apiUrl: process.env.NEXT_API_URL,
         webpack: options.webpack,
+        gitService: "github",
         debug: true,
       }),
     );

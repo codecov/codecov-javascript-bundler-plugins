@@ -22,6 +22,7 @@ export default defineConfig({
       bundleName: "@codecov/example-rollup-app",
       apiUrl: process.env.ROLLUP_API_URL,
       uploadToken: process.env.ROLLUP_UPLOAD_TOKEN,
+      gitService: "github",
       debug: true,
       uploadOverrides: {
         sha: process.env.HEAD_SHA,

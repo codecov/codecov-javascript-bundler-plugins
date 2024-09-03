@@ -290,6 +290,7 @@ jobs:
             "vite",
             "webpack",
             "solidstart",
+            "tokenless",
           ]
     steps:
       - name: Checkout
@@ -352,6 +353,8 @@ jobs:
           SVELTEKIT_API_URL: ${{ secrets.CODECOV_API_URL }}
           VITE_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           VITE_API_URL: ${{ secrets.CODECOV_API_URL }}
+          TOKENLESS_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          TOKENLESS_API_URL: ${{ secrets.CODECOV_API_URL }}
           WEBPACK_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           WEBPACK_API_URL: ${{ secrets.CODECOV_API_URL }}
         run: pnpm run build
@@ -374,6 +377,7 @@ jobs:
             "vite",
             "webpack",
             "solidstart",
+            "tokenless",
           ]
     steps:
       - name: Checkout
@@ -436,6 +440,8 @@ jobs:
           SVELTEKIT_API_URL: ${{ secrets.CODECOV_API_URL }}
           VITE_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
           VITE_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
+          TOKENLESS_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          TOKENLESS_API_URL: ${{ secrets.CODECOV_API_URL }}
           WEBPACK_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
           WEBPACK_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
         run: pnpm run build

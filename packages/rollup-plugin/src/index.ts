@@ -64,7 +64,7 @@ const codecovRollupPluginFactory = createRollupPlugin<Options, true>(
  *     codecovRollupPlugin({
  *       enableBundleAnalysis: true,
  *       bundleName: "example-rollup-bundle",
- *       uploadToken: process.env.CODECOV_TOKEN,
+ *       gitService: "github",
  *     }),
  *   ],
  * });

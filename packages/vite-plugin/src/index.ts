@@ -56,7 +56,7 @@ const codecovVitePluginFactory = createVitePlugin<Options, true>(
  *     codecovVitePlugin({
  *       enableBundleAnalysis: true,
  *       bundleName: "example-vite-bundle",
- *       uploadToken: process.env.CODECOV_TOKEN,
+ *       gitService: "github",
  *     }),
  *   ],
  * });

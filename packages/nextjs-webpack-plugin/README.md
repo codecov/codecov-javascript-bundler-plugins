@@ -33,7 +33,62 @@ Using pnpm:
 pnpm add @codecov/nextjs-webpack-plugin --save-dev
 ```
 
-## Example
+## Public Repo Example - GitHub Actions
+
+This configuration will automatically upload the bundle analysis to Codecov for public repositories. When an internal PR is created it will use the Codecov token set in your secrets, and if running from a forked PR, it will use the tokenless setting automatically. For setups not using GitHub Actions see the following [example](#public-repo-example---non-github-actions). For private repositories see the following [example](#private-repo-example).
+
+```typescript
+// next.config.mjs
+import { codecovNextJSWebpackPlugin } from "@codecov/nextjs-webpack-plugin";
+
+export default {
+  webpack: (config, options) => {
+    config.plugins.push(
+      codecovNextJSWebpackPlugin({
+        enableBundleAnalysis: true,
+        bundleName: "example-nextjs-webpack-bundle",
+        uploadToken: process.env.CODECOV_TOKEN,
+        gitService: "github",
+        webpack: options.webpack,
+      }),
+    );
+
+    return config;
+  },
+};
+```
+
+## Public Repo Example - Non-GitHub Actions
+
+This setup is for public repositories that are not using GitHub Actions, this configuration will automatically upload the bundle analysis to Codecov. You will need to configure the it similar to the GitHub Actions example, however you will need to provide a branch override, and ensure that it will pass the correct branch name, and with forks including the fork-owner i.e. `fork-owner:branch`.
+
+```typescript
+// next.config.mjs
+import { codecovNextJSWebpackPlugin } from "@codecov/nextjs-webpack-plugin";
+
+export default {
+  webpack: (config, options) => {
+    config.plugins.push(
+      codecovNextJSWebpackPlugin({
+        enableBundleAnalysis: true,
+        bundleName: "example-nextjs-webpack-bundle",
+        uploadToken: process.env.CODECOV_TOKEN,
+        gitService: "github",
+        webpack: options.webpack,
+        uploadOverrides: {
+          branch: "<branch value>",
+        },
+      }),
+    );
+
+    return config;
+  },
+};
+```
+
+## Private Repo Example
+
+This is the required way to use the plugin for private repositories. This configuration will automatically upload the bundle analysis to Codecov.
 
 ```typescript
 // next.config.mjs

@@ -65,7 +65,7 @@ const codecovNuxtPluginFactory = createVitePlugin<Options, true>(
  *       {
  *         enableBundleAnalysis: true,
  *         bundleName: "nuxt-bundle-analysis",
- *         uploadToken: process.env.CODECOV_UPLOAD_TOKEN,
+ *         gitService: "github",
  *       },
  *     ],
  *   ],
