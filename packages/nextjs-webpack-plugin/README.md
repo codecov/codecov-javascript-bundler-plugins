@@ -110,6 +110,32 @@ export default {
 };
 ```
 
+## OIDC Configuration Example
+
+For users with [OpenID Connect(OIDC) enabled](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect), setting the `uploadToken` is not necessary. You can use OIDC with the `oidc` configuration as following.
+
+```typescript
+// next.config.mjs
+import { codecovNextJSWebpackPlugin } from "@codecov/nextjs-webpack-plugin";
+
+export default {
+  webpack: (config, options) => {
+    config.plugins.push(
+      codecovNextJSWebpackPlugin({
+        enableBundleAnalysis: true,
+        bundleName: "example-nextjs-webpack-bundle",
+        webpack: options.webpack,
+        oidc: {
+          useGitHubOIDC: true,
+        },
+      }),
+    );
+
+    return config;
+  },
+};
+```
+
 ## More information
 
 - [NextJS Config Docs](https://nextjs.org/docs/app/api-reference/next-config-js)

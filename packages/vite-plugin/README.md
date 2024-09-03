@@ -98,15 +98,14 @@ export default defineConfig({
       enableBundleAnalysis: true,
       bundleName: "example-vite-bundle",
       uploadToken: process.env.CODECOV_TOKEN,
-      gitService: "github",
     }),
   ],
 });
 ```
 
-## Public Repo Example - Non-GitHub Actions
+## OIDC Configuration Example
 
-This setup is for public repositories that are not using GitHub Actions, this configuration will automatically upload the bundle analysis to Codecov. You will need to configure the it similar to the GitHub Actions example, however you will need to provide a branch override, and ensure that it will pass the correct branch name, and with forks including the fork-owner i.e. `fork-owner:branch`.
+For users with [OpenID Connect(OIDC) enabled](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect), setting the `uploadToken` is not necessary. You can use OIDC with the `oidc` configuration as following.
 
 ```js
 // vite.config.js
@@ -119,32 +118,9 @@ export default defineConfig({
     codecovVitePlugin({
       enableBundleAnalysis: true,
       bundleName: "example-vite-bundle",
-      uploadToken: process.env.CODECOV_TOKEN,
-      gitService: "github",
-      uploadOverrides: {
-        branch: "<branch value>",
+      oidc: {
+        useGitHubOIDC: true,
       },
-    }),
-  ],
-});
-```
-
-## Private Repo Example
-
-This is the required way to use the plugin for private repositories. This configuration will automatically upload the bundle analysis to Codecov.
-
-```js
-// vite.config.js
-import { defineConfig } from "vite";
-import { codecovVitePlugin } from "@codecov/vite-plugin";
-
-export default defineConfig({
-  plugins: [
-    // Put the Codecov vite plugin after all other plugins
-    codecovVitePlugin({
-      enableBundleAnalysis: true,
-      bundleName: "example-vite-bundle",
-      uploadToken: process.env.CODECOV_TOKEN,
     }),
   ],
 });

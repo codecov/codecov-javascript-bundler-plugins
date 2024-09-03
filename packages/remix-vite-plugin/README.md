@@ -116,35 +116,9 @@ export default defineConfig({
 });
 ```
 
-## Tokenless Example
+## OIDC Configuration Example
 
-This configuration will automatically upload the bundle analysis to Codecov for public repositories. When an internal PR is created it will use the Codecov token set in your secrets, and if running from a forked PR, it will use the tokenless setting automatically. For setups not using GitHub Actions see the following [example](#public-repo-example---non-github-actions). For private repositories see the following [example](#private-repo-example).
-
-```ts
-// vite.config.ts
-import { vitePlugin as remix } from "@remix-run/dev";
-import { defineConfig } from "vite";
-import tsconfigPaths from "vite-tsconfig-paths";
-import { codecovRemixPlugin } from "@codecov/remix-vite-plugin";
-
-export default defineConfig({
-  plugins: [
-    remix(),
-    tsconfigPaths()
-    // Put the Codecov Remix plugin after all other plugins
-    codecovRemixPlugin({
-      enableBundleAnalysis: true,
-      bundleName: "example-remix-bundle",
-      uploadToken: process.env.CODECOV_TOKEN,
-      gitService: "github",
-    }),
-  ],
-});
-```
-
-## Public Repo Example - Non-GitHub Actions
-
-This setup is for public repositories that are not using GitHub Actions, this configuration will automatically upload the bundle analysis to Codecov. You will need to configure the it similar to the GitHub Actions example, however you will need to provide a branch override, and ensure that it will pass the correct branch name, and with forks including the fork-owner i.e. `fork-owner:branch`.
+For users with [OpenID Connect(OIDC) enabled](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect), setting the `uploadToken` is not necessary. You can use OIDC with the `oidc` configuration as following.
 
 ```ts
 // vite.config.ts
@@ -161,36 +135,9 @@ export default defineConfig({
     codecovRemixPlugin({
       enableBundleAnalysis: true,
       bundleName: "example-remix-bundle",
-      uploadToken: process.env.CODECOV_TOKEN,
-      gitService: "github",
-      uploadOverrides: {
-        branch: "<branch value>",
+      oidc: {
+        useGitHubOIDC: true,
       },
-    }),
-  ],
-});
-```
-
-## Private Repo Example
-
-This is the required way to use the plugin for private repositories. This configuration will automatically upload the bundle analysis to Codecov.
-
-```ts
-// vite.config.ts
-import { vitePlugin as remix } from "@remix-run/dev";
-import { defineConfig } from "vite";
-import tsconfigPaths from "vite-tsconfig-paths";
-import { codecovRemixPlugin } from "@codecov/remix-vite-plugin";
-
-export default defineConfig({
-  plugins: [
-    remix(),
-    tsconfigPaths()
-    // Put the Codecov Remix plugin after all other plugins
-    codecovRemixPlugin({
-      enableBundleAnalysis: true,
-      bundleName: "example-remix-bundle",
-      uploadToken: process.env.CODECOV_TOKEN,
     }),
   ],
 });
