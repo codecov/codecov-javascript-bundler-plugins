@@ -10,6 +10,7 @@ import { getPreSignedURL } from "./getPreSignedURL.ts";
 import { type NormalizedOptions } from "./normalizeOptions.ts";
 import { detectProvider } from "./provider.ts";
 import { uploadStats } from "./uploadStats.ts";
+import { type ValidGitService } from "./normalizeOptions";
 
 class Output {
   // base user options
@@ -19,6 +20,7 @@ class Output {
   enableBundleAnalysis: boolean;
   uploadToken?: string;
   debug: boolean;
+  gitService?: ValidGitService;
   originalBundleName: string;
   // uploader overrides
   branch?: string;
@@ -57,6 +59,7 @@ class Output {
     this.enableBundleAnalysis = userOptions.enableBundleAnalysis;
     this.uploadToken = userOptions.uploadToken;
     this.debug = userOptions.debug;
+    this.gitService = userOptions.gitService;
     this.originalBundleName = userOptions.bundleName;
 
     if (userOptions.uploadOverrides) {
@@ -144,6 +147,7 @@ class Output {
         uploadToken: this?.uploadToken,
         serviceParams: provider,
         retryCount: this?.retryCount,
+        gitService: this?.gitService,
       });
     } catch (error) {
       return;

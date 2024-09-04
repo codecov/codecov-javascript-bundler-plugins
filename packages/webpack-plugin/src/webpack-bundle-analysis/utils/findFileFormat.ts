@@ -1,6 +1,6 @@
 const STRIP_CHARS_REGEX = /(\w|\[|]|\/)/g;
 
-interface FindFilenameFormatArgs {
+export interface FindFilenameFormatArgs {
   assetName: string;
   filename: string;
   assetModuleFilename: string;

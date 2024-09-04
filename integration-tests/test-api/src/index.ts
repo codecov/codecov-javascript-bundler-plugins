@@ -27,6 +27,7 @@ app.all("/ping", (c) => {
 app.all(
   "/test-url/:id/:status/:badPUT{true|false}/upload/bundle_analysis/v1",
   (c) => {
+    console.log("hitting", c.req.url, "to fetch presigned url");
     const id = c.req.param("id");
     const status = parseInt(c.req.param("status"));
     const badPUT = c.req.param("badPUT") === "true";

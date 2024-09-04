@@ -9,7 +9,8 @@ type Plugins =
   | "nuxt"
   | "sveltekit"
   | "remix"
-  | "solidstart";
+  | "solidstart"
+  | "nextjs";
 
 interface CreateConfigOpts {
   plugin: Plugins;
@@ -18,7 +19,7 @@ interface CreateConfigOpts {
   detectFormat: string;
   version: string;
   detectVersion: string;
-  file_format: "ts" | "cjs";
+  file_format: "ts" | "cjs" | "mjs";
   enableSourceMaps: boolean;
   overrideOutputPath?: string;
 }

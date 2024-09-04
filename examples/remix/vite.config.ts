@@ -18,6 +18,7 @@ export default defineConfig({
       bundleName: "@codecov/example-remix-app",
       uploadToken: process.env.REMIX_UPLOAD_TOKEN,
       apiUrl: process.env.REMIX_API_URL,
+      gitService: "github",
       debug: true,
     }),
   ],

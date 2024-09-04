@@ -131,3 +131,10 @@ dist
 .pnp.*
 
 .DS_Store
+
+# vitest coverage
+*.junit.xml
+
+# typedoc generated files
+typedoc/*
+!typedoc/plugin-remove-references.js

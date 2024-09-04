@@ -1,20 +1,24 @@
 import { z } from "zod";
-
 import { FailedFetchError } from "../errors/FailedFetchError.ts";
-import { NoUploadTokenError } from "../errors/NoUploadTokenError.ts";
 import { UploadLimitReachedError } from "../errors/UploadLimitReachedError.ts";
 import { type ProviderServiceParams } from "../types.ts";
 import { DEFAULT_RETRY_COUNT } from "./constants.ts";
 import { fetchWithRetry } from "./fetchWithRetry.ts";
 import { green, red } from "./logging.ts";
 import { preProcessBody } from "./preProcessBody.ts";
+import { NoUploadTokenError } from "../errors/NoUploadTokenError.ts";
+import { findGitService } from "./findGitService.ts";
+import { UndefinedGitServiceError } from "../errors/UndefinedGitServiceError.ts";
 
 interface GetPreSignedURLArgs {
   apiURL: string;
   uploadToken?: string;
   serviceParams: Partial<ProviderServiceParams>;
   retryCount?: number;
+  gitService?: string;
 }
+
+type RequestBody = Record<string, string | null | undefined>;
 
 const PreSignedURLSchema = z.object({
   url: z.string(),
@@ -25,13 +29,38 @@ export const getPreSignedURL = async ({
   uploadToken,
   serviceParams,
   retryCount = DEFAULT_RETRY_COUNT,
+  gitService,
 }: GetPreSignedURLArgs) => {
-  if (!uploadToken) {
-    red("No upload token found");
-    throw new NoUploadTokenError("No upload token found");
-  }
-
   const url = `${apiURL}/upload/bundle_analysis/v1`;
+
+  const headers = new Headers({
+    "Content-Type": "application/json",
+  });
+
+  const requestBody: RequestBody = serviceParams;
+  /**
+   * We currently require the branch to be in the format `owner:branch` to identify that it is a
+   * proper tokenless upload.
+   * See: https://github.com/codecov/codecov-api/pull/741
+   */
+  if (!uploadToken && serviceParams.branch?.includes(":")) {
+    if (gitService) {
+      requestBody.git_service = gitService;
+    } else {
+      const foundGitService = findGitService();
+      if (!foundGitService || foundGitService === "") {
+        red("Failed to find git service for tokenless upload");
+        throw new UndefinedGitServiceError("No upload token provided");
+      }
+
+      requestBody.git_service = foundGitService;
+    }
+  } else if (uploadToken) {
+    headers.set("Authorization", `token ${uploadToken}`);
+  } else {
+    red("No upload token provided");
+    throw new NoUploadTokenError("No upload token provided");
+  }
 
   let response: Response;
   try {
@@ -41,11 +70,8 @@ export const getPreSignedURL = async ({
       name: "`get-pre-signed-url`",
       requestData: {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `token ${uploadToken}`,
-        },
-        body: JSON.stringify(preProcessBody(serviceParams)),
+        headers: headers,
+        body: JSON.stringify(preProcessBody(requestBody)),
       },
     });
   } catch (e) {

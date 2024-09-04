@@ -95,6 +95,21 @@ function _getBranch(
   if (envs?.GITHUB_HEAD_REF && envs?.GITHUB_HEAD_REF !== "") {
     branch = envs?.GITHUB_HEAD_REF;
   }
+
+  // Following along as how we grab the forked branch name in our action
+  // See: https://github.com/codecov/codecov-action/blob/main/src/buildExec.ts#L50
+  // And it's usage in the CLI: https://github.com/codecov/codecov-cli/blob/main/codecov_cli/services/commit/__init__.py#L48-L52
+  const context = GitHub.context;
+  if (["pull_request", "pull_request_target"].includes(context.eventName)) {
+    const payload = context.payload as PullRequestEvent;
+    const baseLabel = payload.pull_request.base.label;
+    const headLabel = payload.pull_request.head.label;
+    const isFork = baseLabel.split(":")?.[0] !== headLabel.split(":")?.[0];
+
+    // overriding the value if it is a fork, if not revert to the original branch value
+    branch = isFork ? payload.pull_request.head.label : branch;
+  }
+
   return branch ?? null;
 }
 

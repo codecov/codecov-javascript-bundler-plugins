@@ -1,0 +1,38 @@
+{
+  "name": "@codecov/example-standalone-analyzer-cli",
+  "version": "1.0.0",
+  "private": true,
+  "main": "src/main.js",
+  "exports": {
+    ".": {
+      "require": "./src/main.js",
+      "default": "./src/main.js"
+    },
+    "./a": "./a.js",
+    "./a.js": "./a.js",
+    "./lib/b": "./src/b.js",
+    "./lib/b.js": "./src/b.js",
+    "./lib/c": "./src/c.js",
+    "./lib/c.js": "./src/c.js",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "analyze": "pnpm standalone-analyzer ./dist --bundle-name=test-cli --upload-token=abcd --dry-run"
+  },
+  "devDependencies": {
+    "@codecov/standalone-analyzer": "workspace:^",
+    "@codecov/rollup-plugin": "workspace:^",
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "npm-run-all": "^4.1.5",
+    "rollup": "^4.9.6",
+    "serve": "^14.2.1"
+  },
+  "volta": {
+    "extends": "../../package.json"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

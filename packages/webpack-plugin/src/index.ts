@@ -14,6 +14,13 @@ import {
 
 import { webpackBundleAnalysisPlugin } from "./webpack-bundle-analysis/webpackBundleAnalysisPlugin";
 
+import {
+  findFilenameFormat,
+  processAssets,
+  processChunks,
+  processModules,
+} from "./webpack-bundle-analysis/utils";
+
 const codecovWebpackPluginFactory = createWebpackPlugin<Options, true>(
   (userOptions, unpluginMetaContext) => {
     if (checkNodeVersion(unpluginMetaContext)) {
@@ -66,7 +73,7 @@ const codecovWebpackPluginFactory = createWebpackPlugin<Options, true>(
  *     codecovWebpackPlugin({
  *       enableBundleAnalysis: true,
  *       bundleName: "example-webpack-bundle",
- *       uploadToken: process.env.CODECOV_TOKEN,
+ *       gitService: "github",
  *     }),
  *    ],
  * };
@@ -87,3 +94,39 @@ export const codecovWebpackPlugin: (options: Options) => WebpackPluginInstance =
  */
 export const _internal_webpackBundleAnalysisPlugin =
   webpackBundleAnalysisPlugin;
+
+/**
+ * Do not use this plugin directly. For internal use only.
+ *
+ * Used to find the filename format for a given compilation.
+ *
+ * @internal
+ */
+export const _internal_findFilenameFormat = findFilenameFormat;
+
+/**
+ * Do not use this plugin directly. For internal use only.
+ *
+ * Used to process webpack assets in other plugins.
+ *
+ * @internal
+ */
+export const _internal_processAssets = processAssets;
+
+/**
+ * Do not use this plugin directly. For internal use only.
+ *
+ * Used to process webpack chunks in other plugins.
+ *
+ * @internal
+ */
+export const _internal_processChunks = processChunks;
+
+/**
+ * Do not use this plugin directly. For internal use only.
+ *
+ * Used to process webpack modules in other plugins.
+ *
+ * @internal
+ */
+export const _internal_processModules = processModules;

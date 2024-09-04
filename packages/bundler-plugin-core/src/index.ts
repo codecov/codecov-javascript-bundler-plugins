@@ -1,6 +1,9 @@
 import {
   type Asset,
   type BundleAnalysisUploadPlugin,
+  type BundleAnalysisUploadPluginArgs,
+  type ExtendedBAUploadArgs,
+  type ExtendedBAUploadPlugin,
   type Chunk,
   type Module,
   type Options,
@@ -12,6 +15,7 @@ import {
   createRollupAsset,
   getCompressedSize,
   handleErrors,
+  type NormalizedOptions,
   normalizeOptions,
   normalizePath,
   Output,
@@ -21,9 +25,13 @@ import {
 export type {
   Asset,
   BundleAnalysisUploadPlugin,
+  BundleAnalysisUploadPluginArgs,
+  ExtendedBAUploadArgs,
+  ExtendedBAUploadPlugin,
   Chunk,
   Module,
   Options,
+  NormalizedOptions,
   ProviderUtilInputs,
   UploadOverrides,
 };

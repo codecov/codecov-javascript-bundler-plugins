@@ -1,5 +1,6 @@
 import { type UnpluginOptions } from "unplugin";
 import { type Output } from "./utils/Output";
+import { type ValidGitService } from "./utils/normalizeOptions";
 
 export interface Dependency {
   name: string;
@@ -51,25 +52,51 @@ export interface BundleAnalysisUploadPluginArgs {
   output: Output;
 }
 
-/** Configuration ptions for the Codcove bundler plugin. */
-export interface Options {
-  /**
-   * The upload token to use for uploading the bundle analysis information.
-   *
-   * This value can either be an global upload token or a repo token.
-   * - The global upload token can be found under the organization settings page.
-   * - The repo token can be found under the repo settings page under the general tab.
-   */
-  uploadToken?: string;
+export interface ExtendedBAUploadArgs<TArgs extends object>
+  extends BundleAnalysisUploadPluginArgs {
+  options: TArgs;
+}
 
+/** Configuration options for the Codecov bundler plugin. */
+export interface Options {
   /**
    * The api url used to fetch the upload url.
    *
    * Only required if self-hosting codecov.
    *
+   * Example: `apiUrl: 'https://api.codecov.io'`
+   *
    * Defaults to `https://api.codecov.io`.
    */
   apiUrl?: string;
+
+  /**
+   * Override value for git service used for tokenless uploads. Using tokenless uploads is only
+   * supported for public repositories.
+   *
+   * Note: If an `uploadToken` is provided you do not need to provide a `gitService`.
+   *
+   * The value must be one of the following:
+   * - `github`
+   * - `gitlab`
+   * - `bitbucket`
+   * - `github_enterprise`
+   * - `gitlab_enterprise`
+   * - `bitbucket_server`
+   *
+   * Example `gitService: 'github'`
+   */
+  gitService?: ValidGitService;
+
+  /**
+   * The upload token to use for uploading the bundle analysis information. This field is
+   * **required** for uploading bundle analysis information in private repositories.
+   *
+   * This value can either be a global upload token or a repo token.
+   * - The global upload token can be found under the organization settings page.
+   * - The repo token can be found under the repo settings page under the general tab.
+   */
+  uploadToken?: string;
 
   /**
    * The amount of times the upload function will retry to upload bundle analysis information.
@@ -79,25 +106,20 @@ export interface Options {
   retryCount?: number;
 
   /**
-   * When enabled information will not be uploaded to Codecov.
-   *
-   * Defaults to `false`
-   */
-  dryRun?: boolean;
-
-  /**
    * The name for the bundle being built.
    *
    * Required for uploading bundle analysis information.
    *
    * The name must match the pattern `/^[\w\d_:/@\.{}\[\]$-]+$/`.
    *
-   * Example: `@codecov/rollup-plugin`
+   * Example: `bundleName: '@codecov/rollup-plugin'`
    */
   bundleName?: string;
 
   /**
    * Whether you would like bundle analysis to be enabled. *
+   *
+   * Example: `enableBundleAnalysis: true`
    *
    * Defaults to `false`
    */
@@ -108,10 +130,26 @@ export interface Options {
 
   /** Option to enable debug logs for the plugin. */
   debug?: boolean;
+
+  /**
+   * When enabled information will not be uploaded to Codecov.
+   *
+   * Example: `dryRun: true`
+   *
+   * Defaults to `false`
+   */
+  dryRun?: boolean;
 }
 
 export type BundleAnalysisUploadPlugin = (
   args: BundleAnalysisUploadPluginArgs,
+) => UnpluginOptions & {
+  pluginVersion: string;
+  version: string;
+};
+
+export type ExtendedBAUploadPlugin<TArgs extends object> = (
+  args: ExtendedBAUploadArgs<TArgs>,
 ) => UnpluginOptions & {
   pluginVersion: string;
   version: string;

@@ -366,10 +366,10 @@ describe("Output", () => {
           "http://localhost/upload/bundle_analysis/v1",
           {
             method: "POST",
-            headers: {
+            headers: new Headers({
               Authorization: "token token",
               "Content-Type": "application/json",
-            },
+            }),
             body: JSON.stringify({
               branch: "main",
               build: null,

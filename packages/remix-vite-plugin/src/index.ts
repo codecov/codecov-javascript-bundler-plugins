@@ -64,7 +64,7 @@ const codecovRemixVitePluginFactory = createVitePlugin<Options, true>(
  *     codecovRemixVitePlugin({
  *       enableBundleAnalysis: true,
  *       bundleName: "example-remix-bundle",
- *       uploadToken: process.env.CODECOV_TOKEN,
+ *       gitService: "github",
  *     }),
  *   ],
  * });

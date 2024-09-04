@@ -280,7 +280,18 @@ jobs:
       fail-fast: false
       matrix:
         example:
-          ["next-js", "nuxt", "remix", "rollup", "sveltekit", "vite", "webpack", "solidstart"]
+          [
+            "next-js",
+            "next-js-15",
+            "nuxt",
+            "remix",
+            "rollup",
+            "sveltekit",
+            "vite",
+            "webpack",
+            "solidstart",
+            "tokenless",
+          ]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -338,10 +349,14 @@ jobs:
           ROLLUP_API_URL: ${{ secrets.CODECOV_API_URL }}
           SOLIDSTART_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           SOLIDSTART_API_URL: ${{ secrets.CODECOV_API_URL }}
+          STANDALONE_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          STANDALONE_API_URL: ${{ secrets.CODECOV_API_URL }}
           SVELTEKIT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           SVELTEKIT_API_URL: ${{ secrets.CODECOV_API_URL }}
           VITE_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           VITE_API_URL: ${{ secrets.CODECOV_API_URL }}
+          TOKENLESS_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          TOKENLESS_API_URL: ${{ secrets.CODECOV_API_URL }}
           WEBPACK_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           WEBPACK_API_URL: ${{ secrets.CODECOV_API_URL }}
         run: pnpm run build
@@ -354,7 +369,18 @@ jobs:
       fail-fast: false
       matrix:
         example:
-          ["next-js", "nuxt", "remix", "rollup", "sveltekit", "vite", "webpack", "solidstart"]
+          [
+            "next-js",
+            "next-js-15",
+            "nuxt",
+            "remix",
+            "rollup",
+            "sveltekit",
+            "vite",
+            "webpack",
+            "solidstart",
+            "tokenless",
+          ]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -416,6 +442,8 @@ jobs:
           SVELTEKIT_API_URL: ${{ secrets.CODECOV_API_URL }}
           VITE_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
           VITE_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
+          TOKENLESS_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          TOKENLESS_API_URL: ${{ secrets.CODECOV_API_URL }}
           WEBPACK_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
           WEBPACK_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
         run: pnpm run build
@@ -430,6 +458,7 @@ jobs:
         package:
           [
             "bundler-plugin-core",
+            "nextjs-webpack-plugin",
             "nuxt-plugin",
             "remix-vite-plugin",
             "rollup-plugin",
@@ -437,6 +466,7 @@ jobs:
             "vite-plugin",
             "webpack-plugin",
             "solidstart-plugin",
+            "standalone-analyzer"
           ]
     steps:
       - name: Checkout
@@ -497,6 +527,7 @@ jobs:
         package:
           [
             "bundler-plugin-core",
+            "nextjs-webpack-plugin",
             "nuxt-plugin",
             "remix-vite-plugin",
             "rollup-plugin",
@@ -504,6 +535,7 @@ jobs:
             "vite-plugin",
             "webpack-plugin",
             "solidstart-plugin",
+            "standalone-analyzer",
           ]
     steps:
       - name: Checkout

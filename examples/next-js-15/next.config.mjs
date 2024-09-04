@@ -1,14 +1,16 @@
-const { codecovWebpackPlugin } = require("@codecov/webpack-plugin");
+import { codecovNextJSWebpackPlugin } from "@codecov/nextjs-webpack-plugin";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   webpack: (config, options) => {
     config.plugins.push(
-      codecovWebpackPlugin({
+      codecovNextJSWebpackPlugin({
         enableBundleAnalysis: true,
-        bundleName: "@codecov/example-next-app",
+        bundleName: "@codecov/example-next-15-app",
         uploadToken: process.env.NEXT_UPLOAD_TOKEN,
         apiUrl: process.env.NEXT_API_URL,
+        webpack: options.webpack,
+        gitService: "github",
         debug: true,
       }),
     );
@@ -17,4 +19,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;

@@ -11,8 +11,9 @@ export default defineConfig({
         bundleName: "@codecov/example-solidstart-app",
         uploadToken: process.env.SOLIDSTART_UPLOAD_TOKEN,
         apiUrl: process.env.SOLIDSTART_API_URL,
+        gitService: "github",
         debug: true,
-      }) as any,
+      }),
     ],
   },
 });

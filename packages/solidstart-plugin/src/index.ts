@@ -63,13 +63,12 @@ const codecovSolidStartPluginFactory = createVitePlugin<Options, true>(
  *       codecovSolidStartPlugin({
  *         enableBundleAnalysis: true,
  *         bundleName: "example-solidstart-bundle",
- *         uploadToken: process.env.CODECOV_TOKEN,
+ *         gitService: "github",
  *       }),
  *     ],
  *   },
  * });
  * ```
- *
  *
  * @see {@link @codecov/bundler-plugin-core!Options | Options} for list of options.
  */
