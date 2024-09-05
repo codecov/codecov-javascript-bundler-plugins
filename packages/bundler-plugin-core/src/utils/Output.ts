@@ -21,7 +21,7 @@ class Output {
   uploadToken?: string;
   oidc?: {
     useGitHubOIDC: boolean;
-    OIDCEndpoint: string;
+    gitHubOIDCTokenAudience: string;
   };
   debug: boolean;
   gitService?: ValidGitService;

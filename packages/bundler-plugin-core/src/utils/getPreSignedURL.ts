@@ -65,14 +65,14 @@ export const getPreSignedURL = async ({
 
     let token = "";
     try {
-      token = await Core.getIDToken(output.oidc.OIDCEndpoint);
+      token = await Core.getIDToken(output.oidc.gitHubOIDCTokenAudience);
     } catch (err) {
       if (err instanceof Error) {
         red(
-          `Failed to get OIDC token with url:\`${output.oidc.OIDCEndpoint}\`. ${err.message}`,
+          `Failed to get OIDC token with url:\`${output.oidc.gitHubOIDCTokenAudience}\`. ${err.message}`,
         );
         throw new FailedOIDCFetch(
-          `Failed to get OIDC token with url: \`${output.oidc.OIDCEndpoint}\`. ${err.message}`,
+          `Failed to get OIDC token with url: \`${output.oidc.gitHubOIDCTokenAudience}\`. ${err.message}`,
         );
       }
     }

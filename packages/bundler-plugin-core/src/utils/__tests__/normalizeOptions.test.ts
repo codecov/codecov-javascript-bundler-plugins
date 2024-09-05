@@ -64,7 +64,7 @@ const tests: Test[] = [
         gitService: "bitbucket",
         oidc: {
           useGitHubOIDC: true,
-          OIDCEndpoint: "https://codecov.io",
+          gitHubOIDCTokenAudience: "https://codecov.io",
         },
       },
     },
@@ -89,7 +89,7 @@ const tests: Test[] = [
         gitService: "bitbucket",
         oidc: {
           useGitHubOIDC: true,
-          OIDCEndpoint: "https://codecov.io",
+          gitHubOIDCTokenAudience: "https://codecov.io",
         },
       },
     },
@@ -132,7 +132,7 @@ const tests: Test[] = [
           // @ts-expect-error - testing invalid input
           useGitHubOIDC: "true",
           // @ts-expect-error - testing invalid input
-          OIDCEndpoint: 123,
+          gitHubOIDCTokenAudience: 123,
         },
       },
     },
@@ -154,7 +154,7 @@ const tests: Test[] = [
         "`debug` must be a boolean.",
         "`gitService` must be a valid git service.",
         "`useGitHubOIDC` must be a boolean.",
-        "`OIDCEndpoint` must be a string.",
+        "`gitHubOIDCTokenAudience` must be a string.",
       ],
     },
   },
@@ -226,19 +226,19 @@ const tests: Test[] = [
     },
   },
   {
-    name: "OIDCEndpoint does not match URL format, returns format error message",
+    name: "gitHubOIDCTokenAudience does not match URL format, returns format error message",
     input: {
       options: {
         oidc: {
           useGitHubOIDC: true,
-          OIDCEndpoint: "invalid-url",
+          gitHubOIDCTokenAudience: "invalid-url",
         },
         bundleName: "test-bundle",
       },
     },
     expected: {
       success: false,
-      errors: ["OIDCEndpoint: `invalid-url` is not a valid URL."],
+      errors: ["gitHubOIDCTokenAudience: `invalid-url` is not a valid URL."],
     },
   },
 ];

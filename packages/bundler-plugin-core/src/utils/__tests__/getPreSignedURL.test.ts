@@ -233,7 +233,7 @@ describe("getPreSignedURL", () => {
               enableBundleAnalysis: true,
               dryRun: false,
               oidc: {
-                OIDCEndpoint: "http://localhost",
+                gitHubOIDCTokenAudience: "http://localhost",
                 useGitHubOIDC: true,
               },
             }),
@@ -541,7 +541,7 @@ describe("getPreSignedURL", () => {
               enableBundleAnalysis: true,
               dryRun: false,
               oidc: {
-                OIDCEndpoint: "http://localhost",
+                gitHubOIDCTokenAudience: "http://localhost",
                 useGitHubOIDC: true,
               },
             }),
@@ -577,7 +577,7 @@ describe("getPreSignedURL", () => {
               enableBundleAnalysis: true,
               dryRun: false,
               oidc: {
-                OIDCEndpoint: "http://localhost",
+                gitHubOIDCTokenAudience: "http://localhost",
                 useGitHubOIDC: true,
               },
             }),

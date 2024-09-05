@@ -69,12 +69,12 @@ const OIDCSchema = (options: Options) =>
        *
        * See: https://github.com/codecov/codecov-action/blob/main/src/buildExec.ts#L53-L58
        */
-      OIDCEndpoint: z
+      gitHubOIDCTokenAudience: z
         .string({
-          invalid_type_error: "`OIDCEndpoint` must be a string.",
+          invalid_type_error: "`gitHubOIDCTokenAudience` must be a string.",
         })
         .url({
-          message: `OIDCEndpoint: \`${options?.oidc?.OIDCEndpoint}\` is not a valid URL.`,
+          message: `gitHubOIDCTokenAudience: \`${options?.oidc?.gitHubOIDCTokenAudience}\` is not a valid URL.`,
         })
         .optional()
         .default("https://codecov.io"),
