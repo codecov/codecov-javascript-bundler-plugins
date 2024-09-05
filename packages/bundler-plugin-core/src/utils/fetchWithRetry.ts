@@ -1,18 +1,18 @@
 import { BadResponseError } from "../errors/BadResponseError";
-import { DEFAULT_RETRY_DELAY } from "./constants";
+import { DEFAULT_RETRY_DELAY, DEFAULT_RETRY_COUNT } from "./constants";
 import { delay } from "./delay";
 import { debug, red } from "./logging";
 
 interface FetchWithRetryArgs {
   url: string;
-  retryCount: number;
+  retryCount?: number;
   requestData: RequestInit;
   name?: string;
 }
 
 export const fetchWithRetry = async ({
   url,
-  retryCount,
+  retryCount = DEFAULT_RETRY_COUNT,
   requestData,
   name,
 }: FetchWithRetryArgs) => {

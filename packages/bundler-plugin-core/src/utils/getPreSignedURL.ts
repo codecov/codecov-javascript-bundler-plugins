@@ -3,7 +3,6 @@ import { z } from "zod";
 import { FailedFetchError } from "../errors/FailedFetchError.ts";
 import { UploadLimitReachedError } from "../errors/UploadLimitReachedError.ts";
 import { type ProviderServiceParams } from "../types.ts";
-import { DEFAULT_RETRY_COUNT } from "./constants.ts";
 import { fetchWithRetry } from "./fetchWithRetry.ts";
 import { green, red } from "./logging.ts";
 import { preProcessBody } from "./preProcessBody.ts";
@@ -37,7 +36,7 @@ export const getPreSignedURL = async ({
   apiUrl,
   uploadToken,
   serviceParams,
-  retryCount = DEFAULT_RETRY_COUNT,
+  retryCount,
   gitService,
   oidc,
 }: GetPreSignedURLArgs) => {
@@ -96,8 +95,8 @@ export const getPreSignedURL = async ({
   let response: Response;
   try {
     response = await fetchWithRetry({
+      retryCount,
       url: `${apiUrl}${API_ENDPOINT}`,
-      retryCount: retryCount ?? DEFAULT_RETRY_COUNT,
       name: "`get-pre-signed-url`",
       requestData: {
         method: "POST",
