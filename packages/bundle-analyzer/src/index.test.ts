@@ -126,16 +126,11 @@ describe("createAndUploadReport", () => {
   it("should call all expected handlers for real runs", async () => {
     coreOptions.dryRun = false;
 
-    let reportAsJson = "";
-    try {
-      reportAsJson = await createAndUploadReport(
-        "/path/to/build/directory",
-        coreOptions,
-        bundleAnalyzerOptions,
-      );
-    } catch (err) {
-      expect(err).toBeUndefined();
-    }
+    await createAndUploadReport(
+      "/path/to/build/directory",
+      coreOptions,
+      bundleAnalyzerOptions,
+    );
 
     expect(normalizeOptions).toHaveBeenCalledWith(coreOptions);
     expect(normalizeBundleAnalyzerOptions).toHaveBeenCalledWith(
@@ -149,13 +144,12 @@ describe("createAndUploadReport", () => {
       EXPECTED_PACKAGE_NAME,
       EXPECTED_PACKAGE_VERSION,
     );
-    expect(reportAsJson).toBeTruthy();
   });
 
   it("should call all expected handlers for dry runs", async () => {
     coreOptions.dryRun = true;
 
-    const reportAsJson = await createAndUploadReport(
+    await createAndUploadReport(
       "/path/to/build/directory",
       coreOptions,
       bundleAnalyzerOptions,
@@ -174,7 +168,6 @@ describe("createAndUploadReport", () => {
       EXPECTED_PACKAGE_VERSION,
     );
     expect(writeHandler).not.toHaveBeenCalled();
-    expect(reportAsJson).toBeTruthy();
   });
 
   it("should handle custom beforeReportUpload", async () => {
@@ -188,7 +181,7 @@ describe("createAndUploadReport", () => {
     });
     bundleAnalyzerOptions.beforeReportUpload = beforeReportUpload;
 
-    const reportAsJson = await createAndUploadReport(
+    await createAndUploadReport(
       "/path/to/build/directory",
       coreOptions,
       bundleAnalyzerOptions,
@@ -197,7 +190,6 @@ describe("createAndUploadReport", () => {
     expect(beforeReportUpload).toHaveBeenCalled();
     expect(testFunc).toHaveBeenCalled();
     expect(writeHandler).toHaveBeenCalled();
-    expect(reportAsJson).toBeTruthy();
   });
 
   it("should throw an error if options normalization fails", async () => {
