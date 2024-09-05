@@ -347,7 +347,6 @@ jobs:
           NEXT_API_URL: ${{ secrets.CODECOV_API_URL }}
           NUXT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           NUXT_API_URL: ${{ secrets.CODECOV_API_URL }}
-          OIDC_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           OIDC_API_URL: ${{ secrets.CODECOV_API_URL }}
           REMIX_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           REMIX_API_URL: ${{ secrets.CODECOV_API_URL }}
@@ -437,7 +436,6 @@ jobs:
           NEXT_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
           NUXT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           NUXT_API_URL: ${{ secrets.CODECOV_API_URL }}
-          OIDC_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           OIDC_API_URL: ${{ secrets.CODECOV_API_URL }}
           REMIX_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           REMIX_API_URL: ${{ secrets.CODECOV_API_URL }}
