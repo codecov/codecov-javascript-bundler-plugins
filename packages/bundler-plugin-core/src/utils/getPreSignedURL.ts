@@ -10,7 +10,7 @@ import { preProcessBody } from "./preProcessBody.ts";
 import { NoUploadTokenError } from "../errors/NoUploadTokenError.ts";
 import { findGitService } from "./findGitService.ts";
 import { UndefinedGitServiceError } from "../errors/UndefinedGitServiceError.ts";
-import { FailedOIDCFetch } from "../errors/FailedOIDCFetch.ts";
+import { FailedOIDCFetchError } from "../errors/FailedOIDCFetchError.ts";
 import { type Output } from "./Output.ts";
 import { BadOIDCServiceError } from "../errors/BadOIDCServiceError.ts";
 
@@ -71,7 +71,7 @@ export const getPreSignedURL = async ({
         red(
           `Failed to get OIDC token with url:\`${output.oidc.gitHubOIDCTokenAudience}\`. ${err.message}`,
         );
-        throw new FailedOIDCFetch(
+        throw new FailedOIDCFetchError(
           `Failed to get OIDC token with url: \`${output.oidc.gitHubOIDCTokenAudience}\`. ${err.message}`,
         );
       }

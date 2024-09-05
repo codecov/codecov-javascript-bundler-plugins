@@ -21,7 +21,7 @@ import { UploadLimitReachedError } from "../../errors/UploadLimitReachedError.ts
 import { UndefinedGitServiceError } from "../../errors/UndefinedGitServiceError.ts";
 import { Output } from "../Output.ts";
 import { BadOIDCServiceError } from "src/errors/BadOIDCServiceError.ts";
-import { FailedOIDCFetch } from "src/errors/FailedOIDCFetch.ts";
+import { FailedOIDCFetchError } from "src/errors/FailedOIDCFetchError.ts";
 
 const mocks = vi.hoisted(() => ({
   getIDToken: vi.fn().mockReturnValue(""),
@@ -591,7 +591,7 @@ describe("getPreSignedURL", () => {
         }
 
         expect(consoleSpy).toHaveBeenCalled();
-        expect(error).toBeInstanceOf(FailedOIDCFetch);
+        expect(error).toBeInstanceOf(FailedOIDCFetchError);
       });
     });
   });

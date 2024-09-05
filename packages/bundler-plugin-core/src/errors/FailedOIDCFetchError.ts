@@ -1,4 +1,4 @@
-export class FailedOIDCFetch extends Error {
+export class FailedOIDCFetchError extends Error {
   constructor(msg: string) {
     super(msg);
   }
