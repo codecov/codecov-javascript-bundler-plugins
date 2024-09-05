@@ -89,8 +89,11 @@ export interface Options {
   gitService?: ValidGitService;
 
   /**
-   * The upload token to use for uploading the bundle analysis information. This field is
-   * **required** for uploading bundle analysis information in private repositories.
+   * The upload token to use for uploading the bundle analysis information.
+   *
+   * This field is **required** for uploading bundle analysis information in private repositories.
+   * Alternatively if you're using GitHub Actions and have configured OIDC authentication you can
+   * omit this field, and enable the `oidc.useGitHubOIDC` option.
    *
    * This value can either be a global upload token or a repo token.
    * - The global upload token can be found under the organization settings page.
@@ -150,7 +153,7 @@ export interface Options {
     useGitHubOIDC: boolean;
 
     /**
-     * The OIDC endpoint to use for authentication.
+     * The OIDC audience to use for authentication.
      *
      * Defaults to `https://codecov.io`
      */
