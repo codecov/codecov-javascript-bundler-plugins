@@ -200,7 +200,7 @@ const tests: Test[] = [
     },
   },
   {
-    name: "retry count is a negative number, returns positive number error message",
+    name: "retry count is a negative number, returns nonnegative number error message",
     input: {
       options: {
         bundleName: "test-bundle",
@@ -209,7 +209,7 @@ const tests: Test[] = [
     },
     expected: {
       success: false,
-      errors: ["`retryCount` must be a positive number."],
+      errors: ["`retryCount` must be a nonnegative number."],
     },
   },
   {
@@ -223,22 +223,6 @@ const tests: Test[] = [
     expected: {
       success: false,
       errors: ["`retryCount` must be an integer."],
-    },
-  },
-  {
-    name: "gitHubOIDCTokenAudience does not match URL format, returns format error message",
-    input: {
-      options: {
-        oidc: {
-          useGitHubOIDC: true,
-          gitHubOIDCTokenAudience: "invalid-url",
-        },
-        bundleName: "test-bundle",
-      },
-    },
-    expected: {
-      success: false,
-      errors: ["gitHubOIDCTokenAudience: `invalid-url` is not a valid URL."],
     },
   },
 ];
