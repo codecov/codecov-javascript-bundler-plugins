@@ -10,4 +10,4 @@ packages:
   - "integration-tests/test-apps/remix"
   - "integration-tests/test-apps/sveltekit"
   - "integration-tests/test-apps/solidstart"
-  - "integration-tests/test-apps/standalone/dotenv-vercel"
+  - "integration-tests/test-apps/bundle-analyzer/dotenv-vercel"

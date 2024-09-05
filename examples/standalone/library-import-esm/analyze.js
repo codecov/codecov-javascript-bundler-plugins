@@ -1,6 +1,6 @@
-import { createAndUploadReport } from "@codecov/standalone-analyzer";
+import { createAndUploadReport } from "@codecov/bundle-analyzer";
 
-const buildDir = "../../../examples/standalone/cli/dist";
+const buildDir = "../../../examples/bundle-analyzer/cli/dist";
 
 const coreOpts = {
   dryRun: true,
@@ -12,11 +12,11 @@ const coreOpts = {
   debug: true,
 };
 
-const standaloneOpts = {
+const bundleAnalyzerOpts = {
   reportOverrider: async (original) => original,
 };
 
-createAndUploadReport(buildDir, coreOpts, standaloneOpts)
+createAndUploadReport(buildDir, coreOpts, bundleAnalyzerOpts)
   .then((reportAsJson) =>
     console.log(`Report successfully generated and uploaded: ${reportAsJson}`),
   )

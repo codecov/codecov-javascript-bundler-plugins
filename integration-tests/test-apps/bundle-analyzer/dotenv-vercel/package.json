@@ -1,5 +1,5 @@
 {
-  "name": "test-apps-standalone-dotenv-vercel",
+  "name": "test-apps-bundle-dotenv-vercel",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,7 +10,7 @@
     "analyze": "node analyze.js"
   },
   "devDependencies": {
-    "@codecov/standalone-analyzer": "workspace:^",
+    "@codecov/bundle-analyzer": "workspace:^",
     "dotenv": "^16.4.5",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"

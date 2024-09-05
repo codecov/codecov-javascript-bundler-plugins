@@ -1,7 +1,7 @@
-import { createAndUploadReport } from "@codecov/standalone-analyzer";
+import { createAndUploadReport } from "@codecov/bundle-analyzer";
 
 const buildDir =
-  "../../../integration-tests/test-apps/standalone/dotenv-vercel/dist";
+  "../../../integration-tests/test-apps/bundle-analyzer/dotenv-vercel/dist";
 
 const apiUrl = process.env.API_URL || "https://api.codecov.io";
 
@@ -10,16 +10,16 @@ const coreOpts = {
   uploadToken: "your-upload-token",
   retryCount: 3,
   apiUrl: apiUrl,
-  bundleName: "standalone",
+  bundleName: "bundle-analyzer",
   enableBundleAnalysis: true,
   debug: true,
 };
 
-const standaloneOpts = {
+const bundleAnalyzerOpts = {
   beforeReportUpload: async (original) => original,
 };
 
-createAndUploadReport(buildDir, coreOpts, standaloneOpts)
+createAndUploadReport(buildDir, coreOpts, bundleAnalyzerOpts)
   .then((reportAsJson) =>
     console.log(`Report successfully generated and uploaded: ${reportAsJson}`),
   )

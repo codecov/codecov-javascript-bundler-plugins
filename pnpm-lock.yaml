@@ -280,12 +280,12 @@ importers:
 
   examples/standalone/cli:
     devDependencies:
+      '@codecov/bundle-analyzer':
+        specifier: workspace:^
+        version: link:../../../packages/bundle-analyzer
       '@codecov/rollup-plugin':
         specifier: workspace:^
         version: link:../../../packages/rollup-plugin
-      '@codecov/standalone-analyzer':
-        specifier: workspace:^
-        version: link:../../../packages/standalone-analyzer
       '@rollup/plugin-commonjs':
         specifier: ^25.0.7
         version: 25.0.7(rollup@4.9.6)
@@ -302,11 +302,17 @@ importers:
         specifier: ^14.2.1
         version: 14.2.1
 
-  examples/standalone/library-import:
+  examples/standalone/library-import-cjs:
     devDependencies:
-      '@codecov/standalone-analyzer':
+      '@codecov/bundle-analyzer':
         specifier: workspace:^
-        version: link:../../../packages/standalone-analyzer
+        version: link:../../../packages/bundle-analyzer
+
+  examples/standalone/library-import-esm:
+    devDependencies:
+      '@codecov/bundle-analyzer':
+        specifier: workspace:^
+        version: link:../../../packages/bundle-analyzer
 
   examples/sveltekit:
     devDependencies:
@@ -464,6 +470,9 @@ importers:
         specifier: ^2.10.2
         version: 2.10.2(solid-js@1.8.19)(vite@5.2.10(@types/node@20.11.15)(sass@1.77.8)(terser@5.27.0))
     devDependencies:
+      '@codecov/bundle-analyzer':
+        specifier: workspace:^
+        version: link:../packages/bundle-analyzer
       '@codecov/bundler-plugin-core':
         specifier: workspace:^
         version: link:../packages/bundler-plugin-core
@@ -479,9 +488,6 @@ importers:
       '@codecov/solidstart-plugin':
         specifier: workspace:^
         version: link:../packages/solidstart-plugin
-      '@codecov/standalone-analyzer':
-        specifier: workspace:^
-        version: link:../packages/standalone-analyzer
       '@codecov/sveltekit-plugin':
         specifier: workspace:^
         version: link:../packages/sveltekit-plugin
@@ -564,6 +570,21 @@ importers:
       bun-types:
         specifier: ^1.1.26
         version: 1.1.26
+
+  integration-tests/test-apps/bundle-analyzer/dotenv-vercel:
+    devDependencies:
+      '@codecov/bundle-analyzer':
+        specifier: workspace:^
+        version: link:../../../../packages/bundle-analyzer
+      dotenv:
+        specifier: ^16.4.5
+        version: 16.4.5
+      typescript:
+        specifier: ^5.0.2
+        version: 5.4.5
+      vite:
+        specifier: ^4.4.5
+        version: 4.5.3(@types/node@20.12.12)(sass@1.77.8)(terser@5.27.0)
 
   integration-tests/test-apps/nextjs:
     dependencies:
@@ -706,21 +727,6 @@ importers:
         specifier: ^2.10.2
         version: 2.10.2(solid-js@1.8.19)(vite@5.2.10(@types/node@20.12.12)(sass@1.77.8)(terser@5.27.0))
 
-  integration-tests/test-apps/standalone/dotenv-vercel:
-    devDependencies:
-      '@codecov/standalone-analyzer':
-        specifier: workspace:^
-        version: link:../../../../packages/standalone-analyzer
-      dotenv:
-        specifier: ^16.4.5
-        version: 16.4.5
-      typescript:
-        specifier: ^5.0.2
-        version: 5.4.5
-      vite:
-        specifier: ^4.4.5
-        version: 4.5.3(@types/node@20.12.12)(sass@1.77.8)(terser@5.27.0)
-
   integration-tests/test-apps/sveltekit:
     devDependencies:
       '@codecov/sveltekit-plugin':
@@ -747,6 +753,55 @@ importers:
       vite:
         specifier: ^5.0.3
         version: 5.2.10(@types/node@20.12.12)(sass@1.77.8)(terser@5.27.0)
+
+  packages/bundle-analyzer:
+    dependencies:
+      '@codecov/bundler-plugin-core':
+        specifier: workspace:^
+        version: link:../bundler-plugin-core
+      yargs:
+        specifier: ^17.7.2
+        version: 17.7.2
+    devDependencies:
+      '@rollup/plugin-replace':
+        specifier: ^5.0.5
+        version: 5.0.5(rollup@3.29.4)
+      '@types/node':
+        specifier: ^20.11.15
+        version: 20.12.12
+      '@types/yargs':
+        specifier: ^17.0.33
+        version: 17.0.33
+      '@vitest/coverage-v8':
+        specifier: ^1.5.0
+        version: 1.5.0(vitest@1.5.0(@types/node@20.12.12)(sass@1.77.8)(terser@5.27.0))
+      codecovProdRollupPlugin:
+        specifier: npm:@codecov/rollup-plugin@0.0.1-beta.5
+        version: '@codecov/rollup-plugin@0.0.1-beta.5(rollup@3.29.4)'
+      msw:
+        specifier: ^2.1.5
+        version: 2.1.5(typescript@5.4.5)
+      ts-node:
+        specifier: ^10.9.2
+        version: 10.9.2(@types/node@20.12.12)(typescript@5.4.5)
+      typedoc:
+        specifier: ^0.25.12
+        version: 0.25.12(typescript@5.4.5)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.4.5
+      unbuild:
+        specifier: ^2.0.0
+        version: 2.0.0(sass@1.77.8)(typescript@5.4.5)
+      vite:
+        specifier: ^5.2.10
+        version: 5.2.10(@types/node@20.12.12)(sass@1.77.8)(terser@5.27.0)
+      vite-tsconfig-paths:
+        specifier: ^4.3.2
+        version: 4.3.2(typescript@5.4.5)(vite@5.2.10(@types/node@20.12.12)(sass@1.77.8)(terser@5.27.0))
+      vitest:
+        specifier: ^1.5.0
+        version: 1.5.0(@types/node@20.12.12)(sass@1.77.8)(terser@5.27.0)
 
   packages/bundler-plugin-core:
     dependencies:
@@ -1044,55 +1099,6 @@ importers:
       codecovProdRollupPlugin:
         specifier: npm:@codecov/rollup-plugin@0.0.1-beta.5
         version: '@codecov/rollup-plugin@0.0.1-beta.5(rollup@4.16.2)'
-      msw:
-        specifier: ^2.1.5
-        version: 2.1.5(typescript@5.4.5)
-      ts-node:
-        specifier: ^10.9.2
-        version: 10.9.2(@types/node@20.12.12)(typescript@5.4.5)
-      typedoc:
-        specifier: ^0.25.12
-        version: 0.25.12(typescript@5.4.5)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.4.5
-      unbuild:
-        specifier: ^2.0.0
-        version: 2.0.0(sass@1.77.8)(typescript@5.4.5)
-      vite:
-        specifier: ^5.2.10
-        version: 5.2.10(@types/node@20.12.12)(sass@1.77.8)(terser@5.27.0)
-      vite-tsconfig-paths:
-        specifier: ^4.3.2
-        version: 4.3.2(typescript@5.4.5)(vite@5.2.10(@types/node@20.12.12)(sass@1.77.8)(terser@5.27.0))
-      vitest:
-        specifier: ^1.5.0
-        version: 1.5.0(@types/node@20.12.12)(sass@1.77.8)(terser@5.27.0)
-
-  packages/standalone-analyzer:
-    dependencies:
-      '@codecov/bundler-plugin-core':
-        specifier: workspace:^
-        version: link:../bundler-plugin-core
-      yargs:
-        specifier: ^17.7.2
-        version: 17.7.2
-    devDependencies:
-      '@rollup/plugin-replace':
-        specifier: ^5.0.5
-        version: 5.0.5(rollup@3.29.4)
-      '@types/node':
-        specifier: ^20.11.15
-        version: 20.12.12
-      '@types/yargs':
-        specifier: ^17.0.33
-        version: 17.0.33
-      '@vitest/coverage-v8':
-        specifier: ^1.5.0
-        version: 1.5.0(vitest@1.5.0(@types/node@20.12.12)(sass@1.77.8)(terser@5.27.0))
-      codecovProdRollupPlugin:
-        specifier: npm:@codecov/rollup-plugin@0.0.1-beta.5
-        version: '@codecov/rollup-plugin@0.0.1-beta.5(rollup@3.29.4)'
       msw:
         specifier: ^2.1.5
         version: 2.1.5(typescript@5.4.5)
@@ -2033,8 +2039,8 @@ packages:
     resolution: {integrity: sha512-0CX6F+BI2s9dkUqr08KFrAIZgNFj75rdBU/DjCyYLIaV/quFjkk6T+EJ2LkZHyZTbEV4L5p97mNkUsHl2wLFAw==}
     engines: {node: '>=6.9.0'}
 
-  '@babel/standalone@7.24.4':
-    resolution: {integrity: sha512-V4uqWeedadiuiCx5P5OHYJZ1PehdMpcBccNCEptKFGPiZIY3FI5f2ClxUl4r5wZ5U+ohcQ+4KW6jX2K6xXzq4Q==}
+  '@babel/standalone@7.25.6':
+    resolution: {integrity: sha512-Kf2ZcZVqsKbtYhlA7sP0z5A3q5hmCVYMKMWRWNK/5OVwHIve3JY1djVRmIVAx8FMueLIfZGKQDIILK2w8zO4mg==}
     engines: {node: '>=6.9.0'}
 
   '@babel/template@7.24.0':
@@ -5038,7 +5044,6 @@ packages:
 
   bun@1.1.26:
     resolution: {integrity: sha512-dWSewAqE7sVbYmflJxgG47dW4vmsbar7VAnQ4ao45y3ulr3n7CwdsMLFnzd28jhPRtF+rsaVK2y4OLIkP3OD4A==}
-    cpu: [arm64, x64]
     os: [darwin, linux, win32]
     hasBin: true
 
@@ -11478,7 +11483,7 @@ snapshots:
     dependencies:
       regenerator-runtime: 0.14.1
 
-  '@babel/standalone@7.24.4': {}
+  '@babel/standalone@7.25.6': {}
 
   '@babel/template@7.24.0':
     dependencies:
@@ -22603,7 +22608,7 @@ snapshots:
   untyped@1.4.2:
     dependencies:
       '@babel/core': 7.24.4
-      '@babel/standalone': 7.24.4
+      '@babel/standalone': 7.25.6
       '@babel/types': 7.24.9
       defu: 6.1.4
       jiti: 1.21.0

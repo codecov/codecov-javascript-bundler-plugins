@@ -1,5 +1,5 @@
 {
-  "name": "@codecov/example-standalone-analyzer-cli",
+  "name": "@codecov/example-bundle-analyzer-cli",
   "version": "1.0.0",
   "private": true,
   "main": "src/main.js",
@@ -18,10 +18,10 @@
   },
   "scripts": {
     "build": "rollup -c",
-    "analyze": "pnpm standalone-analyzer ./dist --bundle-name=test-cli --upload-token=abcd --dry-run"
+    "analyze": "pnpm bundle-analyzer ./dist --bundle-name=test-cli --upload-token=abcd --dry-run"
   },
   "devDependencies": {
-    "@codecov/standalone-analyzer": "workspace:^",
+    "@codecov/bundle-analyzer": "workspace:^",
     "@codecov/rollup-plugin": "workspace:^",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",

@@ -1,15 +1,15 @@
 // Bun Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Standalone Analyzer Integration Tests should generate a report and match the snapshot 1`] = `
+exports[`Bundle Analyzer Integration Tests should generate a report and match the snapshot 1`] = `
 {
   "assets": ExpectArrayContaining {},
   "builtAt": Any<Number>,
-  "bundleName": StringContaining "standalone",
+  "bundleName": StringContaining "bundle-analyzer",
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
   "modules": ExpectArrayContaining {},
   "plugin": {
-    "name": StringMatching "@codecov/standalone-analyzer",
+    "name": StringMatching "@codecov/bundle-analyzer",
     "version": Any<String>,
   },
   "version": "2",

@@ -1,6 +1,6 @@
-const { createAndUploadReport } = require("@codecov/standalone-analyzer");
+const { createAndUploadReport } = require("@codecov/bundle-analyzer");
 
-const buildDir = "../../../examples/standalone/cli/dist";
+const buildDir = "../../../examples/bundle-analyzer/cli/dist";
 
 const coreOpts = {
   dryRun: true,
@@ -12,11 +12,11 @@ const coreOpts = {
   debug: true,
 };
 
-const standaloneOpts = {
+const bundleAnalyzerOpts = {
   beforeReportUpload: async (original) => original,
 };
 
-createAndUploadReport(buildDir, coreOpts, standaloneOpts)
+createAndUploadReport(buildDir, coreOpts, bundleAnalyzerOpts)
   .then((reportAsJson) =>
     console.log(`Report successfully generated and uploaded: ${reportAsJson}`),
   )

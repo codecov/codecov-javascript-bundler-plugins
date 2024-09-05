@@ -1,5 +1,5 @@
 ---
-"@codecov/standalone-analyzer": minor
+"@codecov/bundle-analyzer": minor
 ---
 
-Add support for no-bundler through new Standalone Analyzer library and CLI
+Add support for no-bundler through new Bundle Analyzer library and CLI

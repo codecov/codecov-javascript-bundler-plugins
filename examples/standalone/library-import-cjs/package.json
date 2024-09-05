@@ -1,5 +1,5 @@
 {
-  "name": "@codecov/example-standalone-analyzer-library",
+  "name": "@codecov/example-bundle-analyzer-library-cjs",
   "version": "1.0.0",
   "private": true,
   "main": "analyze.js",
@@ -7,7 +7,7 @@
     "start": "node analyze.js"
   },
   "devDependencies": {
-    "@codecov/standalone-analyzer": "workspace:^"
+    "@codecov/bundle-analyzer": "workspace:^"
   },
   "volta": {
     "extends": "../../package.json"
