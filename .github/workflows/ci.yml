@@ -438,6 +438,8 @@ jobs:
           ROLLUP_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
           SOLIDSTART_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           SOLIDSTART_API_URL: ${{ secrets.CODECOV_API_URL }}
+          STANDALONE_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          STANDALONE_API_URL: ${{ secrets.CODECOV_API_URL }}
           SVELTEKIT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           SVELTEKIT_API_URL: ${{ secrets.CODECOV_API_URL }}
           VITE_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}

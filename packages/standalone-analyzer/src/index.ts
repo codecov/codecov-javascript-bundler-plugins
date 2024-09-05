@@ -17,7 +17,7 @@ import { getAssets } from "./assets";
  * @param {Options} coreOptions - Configuration options for generating and uploading the report.
  * @param {StandaloneOptions} [standaloneOptions] - Optional configuration for standalone usage.
  *
- * @returns {Promise<void>} A promise that resolves when the report is generated and handled
+ * @returns {Promise<void>} A promise that resolves when the report is generated and uploaded
  *          (dry-runned or uploaded).
  *
  * @example
@@ -32,19 +32,18 @@ import { getAssets } from "./assets";
  *   debug: true,
  * };
  * const standaloneOpts = {
- *   dryRunner: async (report) => console.info('Dry run output: ', report.bundleStatsToJson()),
- *   reportOverrider: async (original) => original,
+ *   beforeReportUpload: async (original) => original,
  * };
  *
- * CreateAndHandleReport(buildDir, coreOpts, standaloneOpts)
- *   .then(() => console.log('Report successfully generated and handled.'))
+ * createAndUploadReport(buildDir, coreOpts, standaloneOpts)
+ *   .then(() => console.log('Report successfully generated and uploaded.'))
  *   .catch((error) => console.error('Failed to generate or upload report:', error));
  */
-export const CreateAndHandleReport = async (
+export const createAndUploadReport = async (
   buildDirectoryPath: string,
   coreOptions: Options,
   standaloneOptions?: StandaloneOptions,
-): Promise<void> => {
+): Promise<string> => {
   // normalize options
   const standaloneOpts = normalizeStandaloneOptions(standaloneOptions);
   const coreOpts = normalizeOptions(coreOptions);
@@ -59,14 +58,14 @@ export const CreateAndHandleReport = async (
   );
 
   // override report as needed (by default returns unchanged)
-  const finalReport = await standaloneOpts.reportOverrider(initialReport);
+  const finalReport = await standaloneOpts.beforeReportUpload(initialReport);
 
   // handle report
-  if (coreOptions.dryRun) {
-    await standaloneOpts.dryRunner(finalReport);
-  } else {
+  if (!coreOptions.dryRun) {
     await finalReport.write();
   }
+
+  return finalReport.bundleStatsToJson();
 };
 
 /* makeReport creates the output bundle stats report */

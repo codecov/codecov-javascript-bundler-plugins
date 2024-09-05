@@ -25,7 +25,7 @@ describe("Standalone Analyzer Integration Tests", () => {
       await $`cd ${standaloneAnalyzerApp} && API_URL=${API_URL} pnpm run analyze`;
 
     expect(stdout.toString()).toContain(
-      "Report successfully generated and handled.",
+      "Report successfully generated and uploaded",
     );
     expect(stderr.toString()).not.toContain("Failed to generate");
 

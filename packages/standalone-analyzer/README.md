@@ -35,9 +35,11 @@ pnpm add @codecov/standalone-analyzer --save-dev
 
 ## Example
 
+This example shows how the package can be imported as a library.
+
 ```js
 // analyze.js
-import { CreateAndHandleReport } from "@codecov/standalone-analyzer";
+import { createAndUploadReport } from "@codecov/standalone-analyzer";
 
 const buildDir = "path/to/build";
 
@@ -52,16 +54,22 @@ const coreOpts = {
 };
 
 const standaloneOpts = {
-  dryRunner: async (report) =>
-    console.info("Dry run output: ", report.bundleStatsToJson()),
-  reportOverrider: async (original) => original,
+  beforeReportUpload: async (original) => original,
 };
 
-CreateAndHandleReport(buildDir, coreOpts, standaloneOpts)
-  .then(() => console.log("Report successfully generated and handled."))
+createAndUploadReport(buildDir, coreOpts, standaloneOpts)
+  .then((reportAsJson) =>
+    console.log(`Report successfully generated and uploaded: ${reportAsJson}`),
+  )
   .catch((error) =>
     console.error("Failed to generate or upload report:", error),
   );
+```
+
+This example shows how the package can be used as a CLI.
+
+```
+npx @codecov/standalone-analyzer ./dist --bundle-name=test-cli --upload-token=abcd --dry-run
 ```
 
 ## More information

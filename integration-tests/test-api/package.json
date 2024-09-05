@@ -1,8 +1,6 @@
 {
   "scripts": {
-    "dev": "tsx watch src/index.ts",
-    "start": "tsx src/index.ts",
-    "run": "bun src/index.ts"
+    "start": "bun src/index.ts"
   },
   "dependencies": {
     "hono": "^4.3.11"

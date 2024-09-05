@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, type Mock } from "vitest";
-import { CreateAndHandleReport } from "./index";
+import { createAndUploadReport } from "./index";
 import {
   normalizeOptions,
   Output,
@@ -64,13 +64,12 @@ vi.mock("./options", () => ({
   normalizeStandaloneOptions: vi
     .fn()
     .mockImplementation((options: Options) => ({
-      dryRunner: vi.fn(),
-      reportOverrider: vi.fn((original: Output) => original),
+      beforeReportUpload: vi.fn((original: Output) => original),
       ...options,
     })),
 }));
 
-describe("CreateAndHandleReport", () => {
+describe("createAndUploadReport", () => {
   let coreOptions: Options;
   let standaloneOptions: StandaloneOptions;
   let startHandler: Mock;
@@ -78,8 +77,7 @@ describe("CreateAndHandleReport", () => {
   let setPluginHandler: Mock;
   let writeHandler: Mock;
   let bundleStatsToJsonHandler: Mock;
-  const dryRunner = vi.fn();
-  let reportOverrider: Mock;
+  let beforeReportUpload: Mock;
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -101,16 +99,12 @@ describe("CreateAndHandleReport", () => {
       enableBundleAnalysis: true,
       debug: true,
     };
-    reportOverrider = vi.fn().mockImplementation((original: Output) => ({
+    beforeReportUpload = vi.fn().mockImplementation((original: Output) => ({
       ...original,
       modified: true,
     }));
     standaloneOptions = {
-      // eslint-disable-next-line @typescript-eslint/require-await
-      dryRunner: async () => {
-        dryRunner();
-      },
-      reportOverrider,
+      beforeReportUpload: beforeReportUpload,
     };
 
     // update mock implementations for Output with the current handlers
@@ -129,7 +123,7 @@ describe("CreateAndHandleReport", () => {
   it("should call all expected handlers for real runs", async () => {
     coreOptions.dryRun = false;
 
-    await CreateAndHandleReport(
+    const reportAsJson = await createAndUploadReport(
       "/path/to/build/directory",
       coreOptions,
       standaloneOptions,
@@ -146,13 +140,13 @@ describe("CreateAndHandleReport", () => {
       EXPECTED_PACKAGE_VERSION,
     );
     expect(writeHandler).toHaveBeenCalled();
-    expect(dryRunner).not.toHaveBeenCalled();
+    expect(reportAsJson).toBeTruthy();
   });
 
   it("should call all expected handlers for dry runs", async () => {
     coreOptions.dryRun = true;
 
-    await CreateAndHandleReport(
+    const reportAsJson = await createAndUploadReport(
       "/path/to/build/directory",
       coreOptions,
       standaloneOptions,
@@ -169,29 +163,30 @@ describe("CreateAndHandleReport", () => {
       EXPECTED_PACKAGE_VERSION,
     );
     expect(writeHandler).not.toHaveBeenCalled();
-    expect(dryRunner).toHaveBeenCalled();
+    expect(reportAsJson).toBeTruthy();
   });
 
-  it("should handle custom reportOverrider", async () => {
+  it("should handle custom beforeReportUpload", async () => {
     const testFunc = vi.fn();
-    reportOverrider.mockImplementation((original: Output) => {
+    beforeReportUpload.mockImplementation((original: Output) => {
       testFunc();
       return {
         ...original,
         modified: true,
       };
     });
-    standaloneOptions.reportOverrider = reportOverrider;
+    standaloneOptions.beforeReportUpload = beforeReportUpload;
 
-    await CreateAndHandleReport(
+    const reportAsJson = await createAndUploadReport(
       "/path/to/build/directory",
       coreOptions,
       standaloneOptions,
     );
 
-    expect(reportOverrider).toHaveBeenCalled();
+    expect(beforeReportUpload).toHaveBeenCalled();
     expect(testFunc).toHaveBeenCalled();
     expect(writeHandler).toHaveBeenCalled();
+    expect(reportAsJson).toBeTruthy();
   });
 
   it("should throw an error if options normalization fails", async () => {
@@ -201,7 +196,7 @@ describe("CreateAndHandleReport", () => {
     });
 
     await expect(
-      CreateAndHandleReport("/path/to/build/directory", coreOptions),
+      createAndUploadReport("/path/to/build/directory", coreOptions),
     ).rejects.toThrow("Invalid options: Invalid option");
   });
 });

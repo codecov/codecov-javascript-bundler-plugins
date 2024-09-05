@@ -1,6 +1,6 @@
 ```
 pnpm install
-pnpm run run
+pnpm run start
 ```
 
 ```

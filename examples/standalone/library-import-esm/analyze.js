@@ -1,4 +1,4 @@
-import { CreateAndHandleReport } from "@codecov/standalone-analyzer";
+import { createAndUploadReport } from "@codecov/standalone-analyzer";
 
 const buildDir = "../../../examples/standalone/cli/dist";
 
@@ -13,13 +13,13 @@ const coreOpts = {
 };
 
 const standaloneOpts = {
-  dryRunner: async (report) =>
-    console.info("Dry run output: ", report.bundleStatsToJson()),
   reportOverrider: async (original) => original,
 };
 
-CreateAndHandleReport(buildDir, coreOpts, standaloneOpts)
-  .then(() => console.log("Report successfully generated and handled."))
+createAndUploadReport(buildDir, coreOpts, standaloneOpts)
+  .then((reportAsJson) =>
+    console.log(`Report successfully generated and uploaded: ${reportAsJson}`),
+  )
   .catch((error) =>
     console.error("Failed to generate or upload report:", error),
   );

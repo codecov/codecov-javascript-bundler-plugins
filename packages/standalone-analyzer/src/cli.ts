@@ -1,92 +1,106 @@
 #!/usr/bin/env node
 
 import path from "node:path";
-import { CreateAndHandleReport } from "./index.js";
-import { parseArgs } from "node:util";
-import { red } from "@codecov/bundler-plugin-core";
+import yargs from "yargs";
+import { hideBin } from "yargs/helpers";
+import { createAndUploadReport } from "./index.js";
+import { red, type Options } from "@codecov/bundler-plugin-core";
 
-/** Parses command-line arguments and options. */
-const { values: args, positionals: positionalArgs } = parseArgs({
-  options: {
+interface Argv {
+  buildDirectoryPath: string;
+  dryRun: boolean;
+  uploadToken?: string;
+  apiUrl: string;
+  bundleName?: string;
+  debug: boolean;
+}
+
+const argv = yargs(hideBin(process.argv))
+  .usage("Usage: $0 <build-directory-path> [options]")
+  .command(
+    "$0 <build-directory-path>",
+    "Analyze and upload bundle report",
+    (yargs) => {
+      return yargs.positional("buildDirectoryPath", {
+        describe: "The path to the build directory",
+        type: "string",
+        demandOption: true,
+      });
+    },
+  )
+  .options({
     "dry-run": {
+      alias: "d",
       type: "boolean",
-      short: "d",
+      description: "Perform a dry run without uploading",
+      default: false,
     },
     "upload-token": {
+      alias: "t",
       type: "string",
-      short: "t",
+      description: "Specify the upload token for authentication",
     },
     "api-url": {
+      alias: "a",
       type: "string",
-      short: "a",
+      description: "Set the API URL",
+      default: "https://api.codecov.io",
     },
     "bundle-name": {
+      alias: "n",
       type: "string",
-      short: "n",
+      description: "Set the bundle identifier in Codecov",
+      demandOption: true,
     },
     debug: {
+      alias: "v",
       type: "boolean",
-      short: "v",
+      description: "Enable debug mode for additional logging",
+      default: false,
     },
-  },
-  allowPositionals: true,
-});
+  })
+  .strict()
+  .help("h")
+  .alias("h", "help")
+  .parseSync() as unknown as Argv;
 
-/** Positional argument for the build directory path. */
-const [buildDirectoryPath] = positionalArgs;
-
-const {
-  "dry-run": dryRun = false,
-  "upload-token": uploadToken,
-  "api-url": apiUrl = "https://api.codecov.io",
-  "bundle-name": bundleName,
-  debug = false,
-} = args;
-
-/** Checks if the build directory path is provided. */
-if (!buildDirectoryPath) {
-  red("Error: The build directory path is required.");
-  process.exit(1);
-}
-
-/** Retrieves the upload token from CLI argument or environment variable. */
-const token = uploadToken ?? process.env.CODECOV_UPLOAD_TOKEN;
-
-/** Checks if the upload token is provided. */
-if (!token) {
-  red(
-    "Error: An upload token is required. Provide it using --upload-token or set the CODECOV_UPLOAD_TOKEN environment variable.",
-  );
-  process.exit(1);
-}
-
-/**
- * Core options configuration for the report.
- *
- * @typedef {Object} CoreOptions
- * @property {string} [apiUrl] - The API URL for Codecov.
- * @property {boolean} [dryRun] - Whether to perform a dry run without uploading.
- * @property {string} uploadToken - The token used for authentication.
- * @property {string} bundleName - Bundle identifier in Codecov.
- * @property {boolean} [debug] - Enable debug mode for additional logging.
- */
-const coreOptions = {
-  apiUrl,
-  dryRun,
-  uploadToken: token,
-  bundleName,
-  debug,
-};
-
-/** Resolves the build directory path to an absolute path. */
-const resolvedDirectoryPath = path.resolve(process.cwd(), buildDirectoryPath);
-
-/** Main function to create and handle the report. Executes asynchronously and logs any errors. */
-void (async () => {
-  try {
-    await CreateAndHandleReport(resolvedDirectoryPath, coreOptions);
-  } catch (error) {
-    red(`An error occurred: ${error}`);
-    process.exit(1);
+function prepareCoreOptions(): Options {
+  const uploadToken = argv.uploadToken ?? process.env.CODECOV_UPLOAD_TOKEN;
+  if (!uploadToken) {
+    throw new Error(
+      "An upload token is required. Use --upload-token or set the CODECOV_UPLOAD_TOKEN environment variable.",
+    );
   }
-})();
+
+  return {
+    apiUrl: argv.apiUrl,
+    dryRun: argv.dryRun,
+    uploadToken,
+    bundleName: argv.bundleName ?? "",
+    debug: argv.debug,
+  };
+}
+
+async function runCli(): Promise<void> {
+  const resolvedDirectoryPath = path.resolve(
+    process.cwd(),
+    argv.buildDirectoryPath,
+  );
+
+  const coreOptions = prepareCoreOptions();
+
+  const reportAsJson = await createAndUploadReport(
+    resolvedDirectoryPath,
+    coreOptions,
+  );
+
+  if (coreOptions.dryRun) {
+    // eslint-disable-next-line no-console
+    console.log(reportAsJson);
+  }
+}
+
+runCli().catch((error) => {
+  red(`An error occurred: ${error}`);
+  process.exit(1);
+});

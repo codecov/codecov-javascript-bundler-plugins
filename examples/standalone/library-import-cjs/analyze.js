@@ -1,16 +1,13 @@
-import { createAndUploadReport } from "@codecov/standalone-analyzer";
+const { createAndUploadReport } = require("@codecov/standalone-analyzer");
 
-const buildDir =
-  "../../../integration-tests/test-apps/standalone/dotenv-vercel/dist";
-
-const apiUrl = process.env.API_URL || "https://api.codecov.io";
+const buildDir = "../../../examples/standalone/cli/dist";
 
 const coreOpts = {
-  dryRun: false,
+  dryRun: true,
   uploadToken: "your-upload-token",
   retryCount: 3,
-  apiUrl: apiUrl,
-  bundleName: "standalone",
+  apiUrl: "https://api.codecov.io",
+  bundleName: "my-bundle", // bundle identifier in Codecov
   enableBundleAnalysis: true,
   debug: true,
 };
