@@ -107,7 +107,7 @@ const optionsSchemaFactory = (options: Options) =>
         invalid_type_error: "`retryCount` must be a number.",
       })
       .nonnegative({
-        message: "`retryCount` must be a nonnegative number.",
+        message: "`retryCount` must be a non-negative number.",
       })
       .int({
         message: "`retryCount` must be an integer.",
