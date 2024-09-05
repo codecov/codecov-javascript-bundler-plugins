@@ -11,12 +11,18 @@ import { NoUploadTokenError } from "../errors/NoUploadTokenError.ts";
 import { findGitService } from "./findGitService.ts";
 import { UndefinedGitServiceError } from "../errors/UndefinedGitServiceError.ts";
 import { FailedOIDCFetchError } from "../errors/FailedOIDCFetchError.ts";
-import { type Output } from "./Output.ts";
 import { BadOIDCServiceError } from "../errors/BadOIDCServiceError.ts";
 
 interface GetPreSignedURLArgs {
+  apiUrl: string;
+  uploadToken?: string;
   serviceParams: Partial<ProviderServiceParams>;
-  output: Output;
+  retryCount?: number;
+  gitService?: string;
+  oidc?: {
+    useGitHubOIDC: boolean;
+    gitHubOIDCTokenAudience: string;
+  };
 }
 
 type RequestBody = Record<string, string | null | undefined>;
@@ -28,8 +34,12 @@ const PreSignedURLSchema = z.object({
 const API_ENDPOINT = "/upload/bundle_analysis/v1";
 
 export const getPreSignedURL = async ({
+  apiUrl,
+  uploadToken,
   serviceParams,
-  output,
+  retryCount = DEFAULT_RETRY_COUNT,
+  gitService,
+  oidc,
 }: GetPreSignedURLArgs) => {
   const headers = new Headers({
     "Content-Type": "application/json",
@@ -41,9 +51,9 @@ export const getPreSignedURL = async ({
    * proper tokenless upload.
    * See: https://github.com/codecov/codecov-api/pull/741
    */
-  if (!output.uploadToken && serviceParams.branch?.includes(":")) {
-    if (output.gitService) {
-      requestBody.git_service = output.gitService;
+  if (!uploadToken && serviceParams.branch?.includes(":")) {
+    if (gitService) {
+      requestBody.git_service = gitService;
     } else {
       const foundGitService = findGitService();
       if (!foundGitService || foundGitService === "") {
@@ -53,7 +63,7 @@ export const getPreSignedURL = async ({
 
       requestBody.git_service = foundGitService;
     }
-  } else if (output.oidc?.useGitHubOIDC && Core) {
+  } else if (oidc?.useGitHubOIDC && Core) {
     if (serviceParams?.service !== "github-actions") {
       red("OIDC is only supported for GitHub Actions");
       throw new BadOIDCServiceError(
@@ -63,21 +73,21 @@ export const getPreSignedURL = async ({
 
     let token = "";
     try {
-      token = await Core.getIDToken(output.oidc.gitHubOIDCTokenAudience);
+      token = await Core.getIDToken(oidc.gitHubOIDCTokenAudience);
     } catch (err) {
       if (err instanceof Error) {
         red(
-          `Failed to get OIDC token with url:\`${output.oidc.gitHubOIDCTokenAudience}\`. ${err.message}`,
+          `Failed to get OIDC token with url:\`${oidc.gitHubOIDCTokenAudience}\`. ${err.message}`,
         );
         throw new FailedOIDCFetchError(
-          `Failed to get OIDC token with url: \`${output.oidc.gitHubOIDCTokenAudience}\`. ${err.message}`,
+          `Failed to get OIDC token with url: \`${oidc.gitHubOIDCTokenAudience}\`. ${err.message}`,
         );
       }
     }
 
     headers.set("Authorization", `token ${token}`);
-  } else if (output.uploadToken) {
-    headers.set("Authorization", `token ${output.uploadToken}`);
+  } else if (uploadToken) {
+    headers.set("Authorization", `token ${uploadToken}`);
   } else {
     red("No upload token provided");
     throw new NoUploadTokenError("No upload token provided");
@@ -86,8 +96,8 @@ export const getPreSignedURL = async ({
   let response: Response;
   try {
     response = await fetchWithRetry({
-      url: `${output.apiUrl}${API_ENDPOINT}`,
-      retryCount: output.retryCount ?? DEFAULT_RETRY_COUNT,
+      url: `${apiUrl}${API_ENDPOINT}`,
+      retryCount: retryCount ?? DEFAULT_RETRY_COUNT,
       name: "`get-pre-signed-url`",
       requestData: {
         method: "POST",

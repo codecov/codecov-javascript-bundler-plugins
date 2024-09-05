@@ -148,8 +148,12 @@ class Output {
     let url = "";
     try {
       url = await getPreSignedURL({
+        apiUrl: this.apiUrl,
+        uploadToken: this.uploadToken,
+        gitService: this.gitService,
+        oidc: this.oidc,
+        retryCount: this.retryCount,
         serviceParams: provider,
-        output: this,
       });
     } catch (error) {
       return;

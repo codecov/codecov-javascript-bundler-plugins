@@ -19,7 +19,6 @@ import { FailedFetchError } from "../../errors/FailedFetchError.ts";
 import { NoUploadTokenError } from "../../errors/NoUploadTokenError.ts";
 import { UploadLimitReachedError } from "../../errors/UploadLimitReachedError.ts";
 import { UndefinedGitServiceError } from "../../errors/UndefinedGitServiceError.ts";
-import { Output } from "../Output.ts";
 import { BadOIDCServiceError } from "src/errors/BadOIDCServiceError.ts";
 import { FailedOIDCFetchError } from "src/errors/FailedOIDCFetchError.ts";
 
@@ -118,15 +117,9 @@ describe("getPreSignedURL", () => {
           });
 
           const url = await getPreSignedURL({
-            output: new Output({
-              apiUrl: "http://localhost",
-              uploadToken: "cool-upload-token",
-              debug: false,
-              bundleName: "test-bundle",
-              retryCount: 0,
-              enableBundleAnalysis: true,
-              dryRun: false,
-            }),
+            apiUrl: "http://localhost",
+            uploadToken: "cool-upload-token",
+            retryCount: 0,
             serviceParams: {
               commit: "123",
             },
@@ -162,14 +155,8 @@ describe("getPreSignedURL", () => {
             });
 
             const url = await getPreSignedURL({
-              output: new Output({
-                apiUrl: "http://localhost",
-                debug: false,
-                bundleName: "test-bundle",
-                retryCount: 0,
-                enableBundleAnalysis: true,
-                dryRun: false,
-              }),
+              apiUrl: "http://localhost",
+              retryCount: 0,
               serviceParams: {
                 commit: "123",
                 branch: "owner:branch",
@@ -192,15 +179,9 @@ describe("getPreSignedURL", () => {
             });
 
             const url = await getPreSignedURL({
-              output: new Output({
-                apiUrl: "http://localhost",
-                debug: false,
-                bundleName: "test-bundle",
-                retryCount: 0,
-                enableBundleAnalysis: true,
-                dryRun: false,
-                gitService: "github_enterprise",
-              }),
+              apiUrl: "http://localhost",
+              retryCount: 0,
+              gitService: "github_enterprise",
               serviceParams: {
                 commit: "123",
                 branch: "owner:branch",
@@ -225,18 +206,12 @@ describe("getPreSignedURL", () => {
           });
 
           const url = await getPreSignedURL({
-            output: new Output({
-              apiUrl: "http://localhost",
-              debug: false,
-              bundleName: "test-bundle",
-              retryCount: 0,
-              enableBundleAnalysis: true,
-              dryRun: false,
-              oidc: {
-                gitHubOIDCTokenAudience: "http://localhost",
-                useGitHubOIDC: true,
-              },
-            }),
+            apiUrl: "http://localhost",
+            retryCount: 0,
+            oidc: {
+              gitHubOIDCTokenAudience: "http://localhost",
+              useGitHubOIDC: true,
+            },
             serviceParams: {
               commit: "123",
               service: "github-actions",
@@ -261,15 +236,9 @@ describe("getPreSignedURL", () => {
           let error;
           try {
             await getPreSignedURL({
-              output: new Output({
-                apiUrl: "http://localhost",
-                debug: false,
-                bundleName: "test-bundle",
-                retryCount: 0,
-                enableBundleAnalysis: true,
-                dryRun: false,
-                gitService: "github",
-              }),
+              apiUrl: "http://localhost",
+              retryCount: 0,
+              gitService: "github",
               serviceParams: {
                 commit: "123",
                 branch: "main",
@@ -316,14 +285,8 @@ describe("getPreSignedURL", () => {
           let error;
           try {
             await getPreSignedURL({
-              output: new Output({
-                apiUrl: "http://localhost",
-                debug: false,
-                bundleName: "test-bundle",
-                retryCount: 0,
-                enableBundleAnalysis: true,
-                dryRun: false,
-              }),
+              apiUrl: "http://localhost",
+              retryCount: 0,
               serviceParams: {
                 commit: "123",
                 branch: "owner:branch",
@@ -353,15 +316,9 @@ describe("getPreSignedURL", () => {
         let error;
         try {
           await getPreSignedURL({
-            output: new Output({
-              apiUrl: "http://localhost",
-              uploadToken: "cool-upload-token",
-              debug: false,
-              bundleName: "test-bundle",
-              retryCount: 0,
-              enableBundleAnalysis: true,
-              dryRun: false,
-            }),
+            apiUrl: "http://localhost",
+            uploadToken: "cool-upload-token",
+            retryCount: 0,
             serviceParams: {
               commit: "123",
             },
@@ -385,15 +342,9 @@ describe("getPreSignedURL", () => {
         let error;
         try {
           await getPreSignedURL({
-            output: new Output({
-              apiUrl: "http://localhost",
-              uploadToken: "cool-upload-token",
-              debug: false,
-              bundleName: "test-bundle",
-              retryCount: 0,
-              enableBundleAnalysis: true,
-              dryRun: false,
-            }),
+            apiUrl: "http://localhost",
+            uploadToken: "cool-upload-token",
+            retryCount: 0,
             serviceParams: {
               commit: "123",
             },
@@ -427,15 +378,9 @@ describe("getPreSignedURL", () => {
         let error;
         try {
           await getPreSignedURL({
-            output: new Output({
-              apiUrl: "http://localhost",
-              uploadToken: "cool-upload-token",
-              debug: false,
-              bundleName: "test-bundle",
-              retryCount: 0,
-              enableBundleAnalysis: true,
-              dryRun: false,
-            }),
+            apiUrl: "http://localhost",
+            uploadToken: "cool-upload-token",
+            retryCount: 0,
             serviceParams: {
               commit: "123",
             },
@@ -459,15 +404,9 @@ describe("getPreSignedURL", () => {
         let error;
         try {
           await getPreSignedURL({
-            output: new Output({
-              apiUrl: "http://localhost",
-              uploadToken: "cool-upload-token",
-              debug: false,
-              bundleName: "test-bundle",
-              retryCount: 0,
-              enableBundleAnalysis: true,
-              dryRun: false,
-            }),
+            apiUrl: "http://localhost",
+            uploadToken: "cool-upload-token",
+            retryCount: 0,
             serviceParams: {
               commit: "123",
             },
@@ -501,15 +440,9 @@ describe("getPreSignedURL", () => {
         let error;
         try {
           await getPreSignedURL({
-            output: new Output({
-              apiUrl: "http://localhost",
-              uploadToken: "cool-upload-token",
-              debug: false,
-              bundleName: "test-bundle",
-              retryCount: 0,
-              enableBundleAnalysis: true,
-              dryRun: false,
-            }),
+            apiUrl: "http://localhost",
+            uploadToken: "cool-upload-token",
+            retryCount: 0,
             serviceParams: {
               commit: "123",
             },
@@ -533,18 +466,12 @@ describe("getPreSignedURL", () => {
         let error;
         try {
           await getPreSignedURL({
-            output: new Output({
-              apiUrl: "http://localhost",
-              debug: false,
-              bundleName: "test-bundle",
-              retryCount: 0,
-              enableBundleAnalysis: true,
-              dryRun: false,
-              oidc: {
-                gitHubOIDCTokenAudience: "http://localhost",
-                useGitHubOIDC: true,
-              },
-            }),
+            apiUrl: "http://localhost",
+            retryCount: 0,
+            oidc: {
+              gitHubOIDCTokenAudience: "http://localhost",
+              useGitHubOIDC: true,
+            },
             serviceParams: {
               commit: "123",
               service: "local",
@@ -569,18 +496,12 @@ describe("getPreSignedURL", () => {
         let error;
         try {
           await getPreSignedURL({
-            output: new Output({
-              apiUrl: "http://localhost",
-              debug: false,
-              bundleName: "test-bundle",
-              retryCount: 0,
-              enableBundleAnalysis: true,
-              dryRun: false,
-              oidc: {
-                gitHubOIDCTokenAudience: "http://localhost",
-                useGitHubOIDC: true,
-              },
-            }),
+            apiUrl: "http://localhost",
+            retryCount: 0,
+            oidc: {
+              gitHubOIDCTokenAudience: "http://localhost",
+              useGitHubOIDC: true,
+            },
             serviceParams: {
               commit: "123",
               service: "github-actions",
