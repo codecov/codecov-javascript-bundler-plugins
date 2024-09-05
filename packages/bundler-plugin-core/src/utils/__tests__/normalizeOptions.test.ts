@@ -200,7 +200,7 @@ const tests: Test[] = [
     },
   },
   {
-    name: "retry count is a negative number, returns non-negative number error message",
+    name: "retry count is a negative number, returns positive number error message",
     input: {
       options: {
         bundleName: "test-bundle",
@@ -209,7 +209,7 @@ const tests: Test[] = [
     },
     expected: {
       success: false,
-      errors: ["`retryCount` must be a non-negative number."],
+      errors: ["`retryCount` must be a positive number."],
     },
   },
   {
