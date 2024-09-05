@@ -121,7 +121,7 @@ export default defineNuxtConfig({
 
 ## OIDC Configuration Example
 
-For users with [OpenID Connect(OIDC) enabled](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect), setting the `uploadToken` is not necessary. You can use OIDC with the `oidc` configuration as following.
+For users with [OpenID Connect (OIDC) enabled](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect), setting the `uploadToken` is not necessary. You can use OIDC with the `oidc` configuration as following.
 
 ```typescript
 // nuxt.config.ts
