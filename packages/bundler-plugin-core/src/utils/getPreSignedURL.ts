@@ -31,8 +31,6 @@ export const getPreSignedURL = async ({
   serviceParams,
   output,
 }: GetPreSignedURLArgs) => {
-  let url = output.apiUrl;
-
   const headers = new Headers({
     "Content-Type": "application/json",
   });
@@ -88,7 +86,7 @@ export const getPreSignedURL = async ({
   let response: Response;
   try {
     response = await fetchWithRetry({
-      url: `${url}${API_ENDPOINT}`,
+      url: `${output.apiUrl}${API_ENDPOINT}`,
       retryCount: output.retryCount ?? DEFAULT_RETRY_COUNT,
       name: "`get-pre-signed-url`",
       requestData: {
