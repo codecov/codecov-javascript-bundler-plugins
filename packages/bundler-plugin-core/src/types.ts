@@ -146,7 +146,12 @@ export interface Options {
   /** Options for OIDC authentication. */
   oidc?: {
     /**
-     * Whether to use GitHub OIDC for authentication.
+     * When using GitHub Actions this option can be enabled to use OIDC authentication, which
+     * removes the requirement for an upload token.
+     *
+     * [OpenID Connect
+     * (OIDC)](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect)
+     * is **required** to be configured in order to use GitHub OIDC.
      *
      * Defaults to `false`
      */
@@ -154,6 +159,9 @@ export interface Options {
 
     /**
      * The OIDC audience to use for authentication.
+     *
+     * If you're using a self hosted version of Codecov, you will need to provide the audience for
+     * the OIDC token.
      *
      * Defaults to `https://codecov.io`
      */
