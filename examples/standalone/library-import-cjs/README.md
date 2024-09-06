@@ -23,7 +23,7 @@ pnpm install
 pnpm run start
 ```
 
-This will call the imported function. Note a Codecov API server (e.g., that at `test-api`) needs to be running for any uploads (i.e., not dry-run) to succeed.
+This will call the imported function that creates and uploads (or dry-runs) the bundle stats report.
 
 For example:
 

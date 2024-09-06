@@ -41,7 +41,7 @@ const argv = yargs(hideBin(process.argv))
       description: "Specify the upload token for authentication",
     },
     "api-url": {
-      alias: "a",
+      alias: "u",
       type: "string",
       description: "Set the API URL",
       default: "https://api.codecov.io",
