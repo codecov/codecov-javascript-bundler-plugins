@@ -1,5 +1,87 @@
 # @codecov/rollup-plugin
 
+## 1.0.0
+
+### Major Changes
+
+- 4de6bf4: Release 1.0.0 of the plugins
+
+### Minor Changes
+
+- be89828: Update nuxt and related dependencies
+- f290775: Add in new package for nextjs webpack
+- 80dc4ee: Add the ability for users to use GH OIDC instead of explicit upload tokens
+- f290775: Add in new extendable types from the plugin core so that we can further customize them in the plugins
+
+### Patch Changes
+
+- 4c6e863: Refactor webpack plugin to export utility functions that will be used in the upcoming NextJS plugin
+- a2e576f: Fix SvelteKit plugin keywords
+- 5ad4bfa: Update plugins to remove sourcemaps from bundle stats data
+- da9b990: Preserve JSDoc comments during build process for the bundler plugins
+- 94a46aa: Grab branch name inside Vercel helper so that we for sure have a branch value
+- f0c0a79: Swap from using empty strings to null values for CI providers
+- 33b335e: Normalize options to set default values as well as validate bundle names ensuring they follow the correct pattern.
+- 834dd14: Update Vercel env helper function to create full git slug
+- f5cae1c: Move packages into beta
+- e6f3e66: Refactor bundler-plugin-core to be a set of utility/helper functions, and refactor subsequent plugins to use these functions. This will make the plugins composable and easier to maintain in the future.
+- 9038f06: feat: send metrics to sentry
+- f0fd4ce: Add codecov prefix to log messages
+- ec6b13a: Remove requirement for uploadToken being present adding support for tokenless uploads.
+- 297cd29: Add in support for bundle analysis for SvelteKit through new SvelteKit plugin
+- cb90ab7: Add in a new plugin specifically for Nuxt
+- 4e1516a: Modify output formats to be consistent across aliases and bundlers
+- 7bc7183: Add more detailed logging for upload stats
+- dfb26db: Adjust asset type to contain gzipSize, add new function to collect gzip values
+- 297cd29: Update license to 2024
+- 153f684: Add in debug option that will enable more in-depth logs
+- a34fb57: Add in better debug logging around choosing the commit sha
+- a2e576f: Add in new Remix Vite plugin
+- c6dc57c: Remove Sentry stats upload from the plugins, as the project has been put on hold
+- dfb26db: Set version from passed output arg, and collect gzip information in plugins
+- fe21d8a: Update normalizePath function to handle [hash][extname] case.
+- f290775: Fix jsdoc lint rule issue in solidstart plugin
+- d74a176: When a user submits a invalid bundle name, we will hard fail and exit the bundle process now.
+- 6c02b73: Fix normalizePath not handling all base64 characters and dashes
+- b1967b1: Swap over to using @actions/github to grab head and base commit sha's in GHA
+- dfb26db: Update meta-framework plugins to collect version generated in output arg
+- Updated dependencies [4c6e863]
+- Updated dependencies [a2e576f]
+- Updated dependencies [5ad4bfa]
+- Updated dependencies [da9b990]
+- Updated dependencies [94a46aa]
+- Updated dependencies [f0c0a79]
+- Updated dependencies [be89828]
+- Updated dependencies [33b335e]
+- Updated dependencies [834dd14]
+- Updated dependencies [f5cae1c]
+- Updated dependencies [e6f3e66]
+- Updated dependencies [9038f06]
+- Updated dependencies [f0fd4ce]
+- Updated dependencies [ec6b13a]
+- Updated dependencies [297cd29]
+- Updated dependencies [cb90ab7]
+- Updated dependencies [f290775]
+- Updated dependencies [80dc4ee]
+- Updated dependencies [4e1516a]
+- Updated dependencies [7bc7183]
+- Updated dependencies [f290775]
+- Updated dependencies [dfb26db]
+- Updated dependencies [297cd29]
+- Updated dependencies [153f684]
+- Updated dependencies [a34fb57]
+- Updated dependencies [4de6bf4]
+- Updated dependencies [a2e576f]
+- Updated dependencies [c6dc57c]
+- Updated dependencies [dfb26db]
+- Updated dependencies [fe21d8a]
+- Updated dependencies [f290775]
+- Updated dependencies [d74a176]
+- Updated dependencies [6c02b73]
+- Updated dependencies [b1967b1]
+- Updated dependencies [dfb26db]
+  - @codecov/bundler-plugin-core@1.0.0
+
 ## 0.0.1-beta.12
 
 ### Patch Changes

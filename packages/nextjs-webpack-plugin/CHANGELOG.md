@@ -1,4 +1,4 @@
-# @codecov/solidstart-plugin
+# @codecov/nextjs-webpack-plugin
 
 ## 1.0.0
 
@@ -9,18 +9,14 @@
 ### Minor Changes
 
 - be89828: Update nuxt and related dependencies
+- ec6b13a: Remove requirement for uploadToken being present adding support for tokenless uploads.
 - f290775: Add in new package for nextjs webpack
 - 80dc4ee: Add the ability for users to use GH OIDC instead of explicit upload tokens
 - f290775: Add in new extendable types from the plugin core so that we can further customize them in the plugins
 
 ### Patch Changes
 
-- 4c6e863: Refactor webpack plugin to export utility functions that will be used in the upcoming NextJS plugin
-- f0c0a79: Swap from using empty strings to null values for CI providers
-- 22c99a7: Add support for SolidStart through new plugin
-- ec6b13a: Remove requirement for uploadToken being present adding support for tokenless uploads.
 - f290775: Fix jsdoc lint rule issue in solidstart plugin
-- b1967b1: Swap over to using @actions/github to grab head and base commit sha's in GHA
 - Updated dependencies [4c6e863]
 - Updated dependencies [a2e576f]
 - Updated dependencies [5ad4bfa]
@@ -56,15 +52,5 @@
 - Updated dependencies [6c02b73]
 - Updated dependencies [b1967b1]
 - Updated dependencies [dfb26db]
+  - @codecov/webpack-plugin@1.0.0
   - @codecov/bundler-plugin-core@1.0.0
-  - @codecov/vite-plugin@1.0.0
-
-## 0.0.1-beta.12
-
-### Patch Changes
-
-- f0c0a79: Swap from using empty strings to null values for CI providers
-- 22c99a7: Add support for SolidStart through new plugin
-- Updated dependencies [f0c0a79]
-  - @codecov/bundler-plugin-core@0.0.1-beta.12
-  - @codecov/vite-plugin@0.0.1-beta.12
