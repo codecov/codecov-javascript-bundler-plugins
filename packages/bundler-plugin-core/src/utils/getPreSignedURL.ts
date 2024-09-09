@@ -73,13 +73,14 @@ export const getPreSignedURL = async ({
     let token = "";
     try {
       token = await Core.getIDToken(oidc.gitHubOIDCTokenAudience);
-    } catch (err) {
+    } catch (err: unknown) {
       if (err instanceof Error) {
         red(
           `Failed to get OIDC token with url:\`${oidc.gitHubOIDCTokenAudience}\`. ${err.message}`,
         );
         throw new FailedOIDCFetchError(
           `Failed to get OIDC token with url: \`${oidc.gitHubOIDCTokenAudience}\`. ${err.message}`,
+          { cause: err },
         );
       }
     }
@@ -106,7 +107,7 @@ export const getPreSignedURL = async ({
     });
   } catch (e) {
     red("Failed to fetch pre-signed URL");
-    throw new FailedFetchError("Failed to fetch pre-signed URL");
+    throw new FailedFetchError("Failed to fetch pre-signed URL", { cause: e });
   }
 
   if (response.status === 429) {
@@ -124,7 +125,9 @@ export const getPreSignedURL = async ({
     data = await response.json();
   } catch (e) {
     red("Failed to parse pre-signed URL body");
-    throw new FailedFetchError("Failed to parse pre-signed URL body");
+    throw new FailedFetchError("Failed to parse pre-signed URL body", {
+      cause: e,
+    });
   }
 
   const parsedData = PreSignedURLSchema.safeParse(data);
