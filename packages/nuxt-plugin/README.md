@@ -6,15 +6,12 @@
 
 # Codecov Nuxt Plugin
 
-> [!WARNING]
-> These plugins are currently in beta and are subject to change.
->
-> A Nuxt plugin that provides bundle analysis support for Codecov.
->
-> The plugin does not support code coverage, see our [docs](https://docs.codecov.com/docs/quick-start) to set up coverage today!
+A Nuxt plugin that provides bundle analysis support for Codecov.
 
 > [!NOTE]
 > This plugin only supports Nuxt 3.x when building with Vite.
+>
+> The plugin does not support code coverage, see our [docs](https://docs.codecov.com/docs/quick-start) to set up coverage today!
 
 ## Installation
 

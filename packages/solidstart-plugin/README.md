@@ -6,15 +6,12 @@
 
 # Codecov SolidStart Plugin
 
-> [!WARNING]
-> These plugins are currently in beta and are subject to change.
->
-> A SolidStart plugin that provides bundle analysis support for Codecov.
->
-> The plugin does not support code coverage, see our [docs](https://docs.codecov.com/docs/quick-start) to set up coverage today!
+A SolidStart plugin that provides bundle analysis support for Codecov.
 
 > [!NOTE]
 > This plugin only supports SolidStart 1.x when building with Vite.
+>
+> The plugin does not support code coverage, see our [docs](https://docs.codecov.com/docs/quick-start) to set up coverage today!
 
 ## Installation
 
