@@ -110,6 +110,31 @@ export default defineConfig({
 });
 ```
 
+## OIDC Configuration Example
+
+For users with [OpenID Connect (OIDC) enabled](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect), setting the `uploadToken` is not necessary. You can use OIDC with the `oidc` configuration as following.
+
+```ts
+// vite.config.ts
+import { sveltekit } from "@sveltejs/kit/vite";
+import { defineConfig } from "vite";
+import { codecovSvelteKitPlugin } from "@codecov/sveltekit-plugin";
+
+export default defineConfig({
+  plugins: [
+    sveltekit(),
+    // Put the Codecov SvelteKit plugin after all other plugins
+    codecovSvelteKitPlugin({
+      enableBundleAnalysis: true,
+      bundleName: "example-sveltekit-bundle",
+      oidc: {
+        useGitHubOIDC: true,
+      },
+    }),
+  ],
+});
+```
+
 ## More information
 
 - [Codecov Documentation](https://docs.codecov.com/docs)

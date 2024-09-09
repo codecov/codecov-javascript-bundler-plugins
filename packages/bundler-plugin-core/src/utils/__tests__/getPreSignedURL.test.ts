@@ -19,6 +19,21 @@ import { FailedFetchError } from "../../errors/FailedFetchError.ts";
 import { NoUploadTokenError } from "../../errors/NoUploadTokenError.ts";
 import { UploadLimitReachedError } from "../../errors/UploadLimitReachedError.ts";
 import { UndefinedGitServiceError } from "../../errors/UndefinedGitServiceError.ts";
+import { BadOIDCServiceError } from "src/errors/BadOIDCServiceError.ts";
+import { FailedOIDCFetchError } from "src/errors/FailedOIDCFetchError.ts";
+
+const mocks = vi.hoisted(() => ({
+  getIDToken: vi.fn().mockReturnValue(""),
+}));
+
+vi.mock("@actions/core", async (importOriginal) => {
+  // eslint-disable-next-line @typescript-eslint/consistent-type-imports
+  const original = await importOriginal<typeof import("@actions/core")>();
+  return {
+    ...original,
+    getIDToken: mocks.getIDToken,
+  };
+});
 
 const server = setupServer();
 
@@ -40,15 +55,29 @@ interface SetupArgs {
   data?: object;
   retryCount?: number;
   sendError?: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getIDTokenValue?: any;
 }
 
 describe("getPreSignedURL", () => {
   let consoleSpy: MockInstance;
   const requestBodyMock = vi.fn();
+  const requestTokenMock = vi.fn();
   const spawnSync = td.replace(childProcess, "spawnSync");
 
-  function setup({ status = 200, data = {}, sendError = false }: SetupArgs) {
+  function setup({
+    status = 200,
+    data = {},
+    sendError = false,
+    getIDTokenValue,
+  }: SetupArgs) {
     consoleSpy = vi.spyOn(console, "log").mockImplementation(() => null);
+
+    if (getIDTokenValue instanceof Error) {
+      mocks.getIDToken.mockRejectedValue(getIDTokenValue);
+    } else {
+      mocks.getIDToken.mockReturnValue(getIDTokenValue);
+    }
 
     server.use(
       http.post(
@@ -57,8 +86,14 @@ describe("getPreSignedURL", () => {
           if (sendError) {
             return HttpResponse.error();
           }
+
           const requestBody = await request.json();
           requestBodyMock(requestBody);
+
+          if (request.headers.get("Authorization")) {
+            requestTokenMock(request.headers.get("Authorization"));
+          }
+
           return HttpResponse.json(data, { status });
         },
       ),
@@ -82,12 +117,12 @@ describe("getPreSignedURL", () => {
           });
 
           const url = await getPreSignedURL({
-            apiURL: "http://localhost",
-            uploadToken: "super-cool-token",
+            apiUrl: "http://localhost",
+            uploadToken: "cool-upload-token",
+            retryCount: 0,
             serviceParams: {
               commit: "123",
             },
-            retryCount: 0,
           });
 
           expect(url).toEqual("http://example.com");
@@ -120,12 +155,12 @@ describe("getPreSignedURL", () => {
             });
 
             const url = await getPreSignedURL({
-              apiURL: "http://localhost",
+              apiUrl: "http://localhost",
+              retryCount: 0,
               serviceParams: {
                 commit: "123",
                 branch: "owner:branch",
               },
-              retryCount: 0,
             });
 
             expect(url).toEqual("http://example.com");
@@ -144,13 +179,13 @@ describe("getPreSignedURL", () => {
             });
 
             const url = await getPreSignedURL({
-              apiURL: "http://localhost",
+              apiUrl: "http://localhost",
+              retryCount: 0,
+              gitService: "github_enterprise",
               serviceParams: {
                 commit: "123",
                 branch: "owner:branch",
               },
-              retryCount: 0,
-              gitService: "github_enterprise",
             });
 
             expect(url).toEqual("http://example.com");
@@ -160,6 +195,31 @@ describe("getPreSignedURL", () => {
               }),
             );
           });
+        });
+      });
+
+      describe("using oidc and github actions", () => {
+        it("returns the pre-signed URL", async () => {
+          setup({
+            data: { url: "http://example.com" },
+            getIDTokenValue: "cool-token",
+          });
+
+          const url = await getPreSignedURL({
+            apiUrl: "http://localhost",
+            retryCount: 0,
+            oidc: {
+              gitHubOIDCTokenAudience: "http://localhost",
+              useGitHubOIDC: true,
+            },
+            serviceParams: {
+              commit: "123",
+              service: "github-actions",
+            },
+          });
+
+          expect(url).toEqual("http://example.com");
+          expect(requestTokenMock).toHaveBeenCalledWith("token cool-token");
         });
       });
     });
@@ -176,12 +236,13 @@ describe("getPreSignedURL", () => {
           let error;
           try {
             await getPreSignedURL({
-              apiURL: "http://localhost",
+              apiUrl: "http://localhost",
+              retryCount: 0,
+              gitService: "github",
               serviceParams: {
                 commit: "123",
                 branch: "main",
               },
-              retryCount: 0,
             });
           } catch (e) {
             error = e;
@@ -224,12 +285,12 @@ describe("getPreSignedURL", () => {
           let error;
           try {
             await getPreSignedURL({
-              apiURL: "http://localhost",
+              apiUrl: "http://localhost",
+              retryCount: 0,
               serviceParams: {
                 commit: "123",
                 branch: "owner:branch",
               },
-              retryCount: 0,
             });
           } catch (e) {
             error = e;
@@ -255,12 +316,12 @@ describe("getPreSignedURL", () => {
         let error;
         try {
           await getPreSignedURL({
-            apiURL: "http://localhost",
+            apiUrl: "http://localhost",
             uploadToken: "cool-upload-token",
+            retryCount: 0,
             serviceParams: {
               commit: "123",
             },
-            retryCount: 0,
           });
         } catch (e) {
           error = e;
@@ -281,12 +342,12 @@ describe("getPreSignedURL", () => {
         let error;
         try {
           await getPreSignedURL({
-            apiURL: "http://localhost",
-            uploadToken: "super-cool-token",
+            apiUrl: "http://localhost",
+            uploadToken: "cool-upload-token",
+            retryCount: 0,
             serviceParams: {
               commit: "123",
             },
-            retryCount: 0,
           });
         } catch (e) {
           error = e;
@@ -317,12 +378,12 @@ describe("getPreSignedURL", () => {
         let error;
         try {
           await getPreSignedURL({
-            apiURL: "http://localhost",
-            uploadToken: "super-cool-token",
+            apiUrl: "http://localhost",
+            uploadToken: "cool-upload-token",
+            retryCount: 0,
             serviceParams: {
               commit: "123",
             },
-            retryCount: 0,
           });
         } catch (e) {
           error = e;
@@ -343,12 +404,12 @@ describe("getPreSignedURL", () => {
         let error;
         try {
           await getPreSignedURL({
-            apiURL: "http://localhost",
-            uploadToken: "super-cool-token",
+            apiUrl: "http://localhost",
+            uploadToken: "cool-upload-token",
+            retryCount: 0,
             serviceParams: {
               commit: "123",
             },
-            retryCount: 0,
           });
         } catch (e) {
           error = e;
@@ -379,12 +440,12 @@ describe("getPreSignedURL", () => {
         let error;
         try {
           await getPreSignedURL({
-            apiURL: "http://localhost",
-            uploadToken: "super-cool-token",
+            apiUrl: "http://localhost",
+            uploadToken: "cool-upload-token",
+            retryCount: 0,
             serviceParams: {
               commit: "123",
             },
-            retryCount: 0,
           });
         } catch (e) {
           error = e;
@@ -392,6 +453,66 @@ describe("getPreSignedURL", () => {
 
         expect(consoleSpy).toHaveBeenCalled();
         expect(error).toBeInstanceOf(FailedFetchError);
+      });
+    });
+
+    describe("using oidc and not github actions", () => {
+      it("throws an error", async () => {
+        setup({
+          data: { url: "http://example.com" },
+          getIDTokenValue: "cool-token",
+        });
+
+        let error;
+        try {
+          await getPreSignedURL({
+            apiUrl: "http://localhost",
+            retryCount: 0,
+            oidc: {
+              gitHubOIDCTokenAudience: "http://localhost",
+              useGitHubOIDC: true,
+            },
+            serviceParams: {
+              commit: "123",
+              service: "local",
+            },
+          });
+        } catch (e) {
+          error = e;
+        }
+
+        expect(consoleSpy).toHaveBeenCalled();
+        expect(error).toBeInstanceOf(BadOIDCServiceError);
+      });
+    });
+
+    describe("using oidc and getIDToken fails", () => {
+      it("throws an error", async () => {
+        setup({
+          data: { url: "http://example.com" },
+          getIDTokenValue: new Error("Failed to get token"),
+        });
+
+        let error;
+        try {
+          await getPreSignedURL({
+            apiUrl: "http://localhost",
+            retryCount: 0,
+            oidc: {
+              gitHubOIDCTokenAudience: "http://localhost",
+              useGitHubOIDC: true,
+            },
+            serviceParams: {
+              commit: "123",
+              service: "github-actions",
+            },
+          });
+        } catch (e) {
+          error = e;
+        }
+
+        expect(consoleSpy).toHaveBeenCalled();
+        expect(error).toBeInstanceOf(FailedOIDCFetchError);
       });
     });
   });

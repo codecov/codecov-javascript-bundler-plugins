@@ -1,21 +1,27 @@
+import * as Core from "@actions/core";
 import { z } from "zod";
 import { FailedFetchError } from "../errors/FailedFetchError.ts";
 import { UploadLimitReachedError } from "../errors/UploadLimitReachedError.ts";
 import { type ProviderServiceParams } from "../types.ts";
-import { DEFAULT_RETRY_COUNT } from "./constants.ts";
 import { fetchWithRetry } from "./fetchWithRetry.ts";
 import { green, red } from "./logging.ts";
 import { preProcessBody } from "./preProcessBody.ts";
 import { NoUploadTokenError } from "../errors/NoUploadTokenError.ts";
 import { findGitService } from "./findGitService.ts";
 import { UndefinedGitServiceError } from "../errors/UndefinedGitServiceError.ts";
+import { FailedOIDCFetchError } from "../errors/FailedOIDCFetchError.ts";
+import { BadOIDCServiceError } from "../errors/BadOIDCServiceError.ts";
 
 interface GetPreSignedURLArgs {
-  apiURL: string;
+  apiUrl: string;
   uploadToken?: string;
   serviceParams: Partial<ProviderServiceParams>;
   retryCount?: number;
   gitService?: string;
+  oidc?: {
+    useGitHubOIDC: boolean;
+    gitHubOIDCTokenAudience: string;
+  };
 }
 
 type RequestBody = Record<string, string | null | undefined>;
@@ -24,15 +30,16 @@ const PreSignedURLSchema = z.object({
   url: z.string(),
 });
 
+const API_ENDPOINT = "/upload/bundle_analysis/v1";
+
 export const getPreSignedURL = async ({
-  apiURL,
+  apiUrl,
   uploadToken,
   serviceParams,
-  retryCount = DEFAULT_RETRY_COUNT,
+  retryCount,
   gitService,
+  oidc,
 }: GetPreSignedURLArgs) => {
-  const url = `${apiURL}/upload/bundle_analysis/v1`;
-
   const headers = new Headers({
     "Content-Type": "application/json",
   });
@@ -55,6 +62,30 @@ export const getPreSignedURL = async ({
 
       requestBody.git_service = foundGitService;
     }
+  } else if (oidc?.useGitHubOIDC && Core) {
+    if (serviceParams?.service !== "github-actions") {
+      red("OIDC is only supported for GitHub Actions");
+      throw new BadOIDCServiceError(
+        "OIDC is only supported for GitHub Actions",
+      );
+    }
+
+    let token = "";
+    try {
+      token = await Core.getIDToken(oidc.gitHubOIDCTokenAudience);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        red(
+          `Failed to get OIDC token with url:\`${oidc.gitHubOIDCTokenAudience}\`. ${err.message}`,
+        );
+        throw new FailedOIDCFetchError(
+          `Failed to get OIDC token with url: \`${oidc.gitHubOIDCTokenAudience}\`. ${err.message}`,
+          { cause: err },
+        );
+      }
+    }
+
+    headers.set("Authorization", `token ${token}`);
   } else if (uploadToken) {
     headers.set("Authorization", `token ${uploadToken}`);
   } else {
@@ -65,8 +96,8 @@ export const getPreSignedURL = async ({
   let response: Response;
   try {
     response = await fetchWithRetry({
-      url,
       retryCount,
+      url: `${apiUrl}${API_ENDPOINT}`,
       name: "`get-pre-signed-url`",
       requestData: {
         method: "POST",
@@ -76,7 +107,7 @@ export const getPreSignedURL = async ({
     });
   } catch (e) {
     red("Failed to fetch pre-signed URL");
-    throw new FailedFetchError("Failed to fetch pre-signed URL");
+    throw new FailedFetchError("Failed to fetch pre-signed URL", { cause: e });
   }
 
   if (response.status === 429) {
@@ -94,7 +125,9 @@ export const getPreSignedURL = async ({
     data = await response.json();
   } catch (e) {
     red("Failed to parse pre-signed URL body");
-    throw new FailedFetchError("Failed to parse pre-signed URL body");
+    throw new FailedFetchError("Failed to parse pre-signed URL body", {
+      cause: e,
+    });
   }
 
   const parsedData = PreSignedURLSchema.safeParse(data);

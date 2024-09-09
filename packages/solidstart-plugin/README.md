@@ -116,6 +116,33 @@ export default defineConfig({
 });
 ```
 
+## OIDC Configuration Example
+
+For users with [OpenID Connect (OIDC) enabled](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect), setting the `uploadToken` is not necessary. You can use OIDC with the `oidc` configuration as following.
+
+```ts
+// app.config.ts
+import { defineConfig } from "@solidjs/start/config";
+import solidPlugin from "vite-plugin-solid";
+import { codecovSolidStartPlugin } from "@codecov/solidstart-plugin";
+
+export default defineConfig({
+  vite: {
+    plugins: [
+      // Put the Codecov SolidStart plugin after all other plugins
+      solidPlugin(),
+      codecovSolidStartPlugin({
+        enableBundleAnalysis: true,
+        bundleName: "example-solidstart-bundle",
+        oidc: {
+          useGitHubOIDC: true,
+        },
+      }),
+    ],
+  },
+});
+```
+
 ## More information
 
 - [Codecov Documentation](https://docs.codecov.com/docs)

@@ -101,6 +101,29 @@ export default defineConfig({
 });
 ```
 
+## OIDC Configuration Example
+
+For users with [OpenID Connect (OIDC) enabled](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect), setting the `uploadToken` is not necessary. You can use OIDC with the `oidc` configuration as following.
+
+```js
+// rollup.config.js
+import { defineConfig } from "rollup";
+import { codecovRollupPlugin } from "@codecov/rollup-plugin";
+
+export default defineConfig({
+  plugins: [
+    // Put the Codecov rollup plugin after all other plugins
+    codecovRollupPlugin({
+      enableBundleAnalysis: true,
+      bundleName: "example-rollup-bundle",
+      oidc: {
+        useGitHubOIDC: true,
+      },
+    }),
+  ],
+});
+```
+
 ## More information
 
 - [Rollup Config Docs](https://codecov.github.io/codecov-javascript-bundler-plugins/modules/_codecov_rollup_plugin.html)

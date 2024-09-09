@@ -119,6 +119,34 @@ export default defineNuxtConfig({
 });
 ```
 
+## OIDC Configuration Example
+
+For users with [OpenID Connect (OIDC) enabled](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect), setting the `uploadToken` is not necessary. You can use OIDC with the `oidc` configuration as following.
+
+```typescript
+// nuxt.config.ts
+import { defineNuxtConfig } from "nuxt/config";
+
+export default defineNuxtConfig({
+  devtools: { enabled: true },
+  // Ensure that the builder is set to "vite"
+  builder: "vite",
+  // Ensure that the plugin is added to the modules array
+  modules: [
+    [
+      "@codecov/nuxt-plugin",
+      {
+        enableBundleAnalysis: true,
+        bundleName: "nuxt-bundle-analysis",
+        oidc: {
+          useGitHubOIDC: true,
+        },
+      },
+    ],
+  ],
+});
+```
+
 ## More information
 
 - [Codecov Documentation](https://docs.codecov.com/docs)
