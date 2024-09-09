@@ -153,6 +153,7 @@ function _getSHA(
   }
 
   const context = GitHub.context;
+  debug(`Event name: ${context.eventName}`, { enabled: output.debug });
 
   let commit = envs?.GITHUB_SHA;
   if (["pull_request", " pull_request_target"].includes(context.eventName)) {
