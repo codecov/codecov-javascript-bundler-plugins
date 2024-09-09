@@ -1,0 +1,18 @@
+{
+  "name": "test-apps-bundle-dotenv-vercel",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node -r dotenv/config ./node_modules/.bin/vite",
+    "build": "tsc && node -r dotenv/config ./node_modules/vite/bin/vite.js build",
+    "preview": "node -r dotenv/config ./node_modules/.bin/vite preview",
+    "analyze": "node analyze.js"
+  },
+  "devDependencies": {
+    "@codecov/bundle-analyzer": "workspace:^",
+    "dotenv": "^16.4.5",
+    "typescript": "^5.0.2",
+    "vite": "npm:vite@4.5.3"
+  }
+}
