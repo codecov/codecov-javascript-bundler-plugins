@@ -6,11 +6,9 @@
 
 # Codecov Webpack Plugin
 
-> [!WARNING]  
-> These plugins are currently in beta and are subject to change.
+A Webpack plugin that provides bundle analysis support for Codecov.
 
-> A Webpack plugin that provides bundle analysis support for Codecov.
->
+> [!NOTE]
 > The plugin does not support code coverage, see our [docs](https://docs.codecov.com/docs/quick-start) to set up coverage today!
 
 ## Installation
