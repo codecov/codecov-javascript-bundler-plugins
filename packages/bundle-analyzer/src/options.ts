@@ -27,7 +27,7 @@ export interface BundleAnalyzerOptions {
 
 /* defaultBundleAnalyzerOptions are default implementations for `BundleAnalyzerOptions` */
 const defaultBundleAnalyzerOptions: Required<BundleAnalyzerOptions> = {
-  // Default `beforeReportUpload` function returns the original output without modification
+  // eslint-disable-next-line @typescript-eslint/require-await
   beforeReportUpload: async (original: Output): Promise<Output> => original,
   ignorePatterns: [],
   normalizeAssetsPattern: "",

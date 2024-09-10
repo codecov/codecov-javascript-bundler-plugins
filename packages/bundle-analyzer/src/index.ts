@@ -1,7 +1,6 @@
 import {
   normalizeOptions,
   Output,
-  type Asset,
   type Options,
   type NormalizedOptions,
 } from "@codecov/bundler-plugin-core";
@@ -59,16 +58,7 @@ export const createAndUploadReport = async (
     throw new Error("Invalid options: " + coreOpts.errors.join(" "));
   }
 
-  const allAssets: Asset[] = await getAssets(
-    buildDirectoryPaths,
-    bundleAnalyzerOpts.ignorePatterns,
-    bundleAnalyzerOpts.normalizeAssetsPattern,
-  );
-
-  const initialReport: Output = new Output(coreOpts.options);
-  initialReport.start();
-  initialReport.setPlugin(PLUGIN_NAME, PLUGIN_VERSION);
-  initialReport.assets = allAssets;
+  const initialReport = await makeReport(buildDirectoryPaths, coreOpts.options);
 
   // Override report as needed (by default returns unchanged)
   let finalReport: Output;
@@ -83,4 +73,26 @@ export const createAndUploadReport = async (
   }
 
   return finalReport.bundleStatsToJson();
+};
+
+/* makeReport creates the output bundle stats report */
+const makeReport = async (
+  buildDirectoryPaths: string[],
+  normalizedCoreOptions: NormalizedOptions,
+): Promise<Output> => {
+  // initialize report
+  const output: Output = new Output(normalizedCoreOptions);
+  output.start();
+  output.setPlugin(PLUGIN_NAME, PLUGIN_VERSION);
+
+  // handle assets
+  output.assets = await getAssets(buildDirectoryPaths);
+
+  // handle chunks and modules (not supported at this time)
+  output.chunks = [];
+  output.modules = [];
+
+  // close and return report
+  output.end();
+  return output;
 };

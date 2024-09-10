@@ -1,6 +1,6 @@
 {
   "name": "@codecov/example-bundle-analyzer-library-cjs",
-  "version": "1.0.0",
+  "version": "0.0.1-beta.12",
   "private": true,
   "main": "analyze.js",
   "scripts": {

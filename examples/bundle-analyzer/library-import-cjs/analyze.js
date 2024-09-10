@@ -1,4 +1,4 @@
-import { createAndUploadReport } from "@codecov/bundle-analyzer";
+const { createAndUploadReport } = require("@codecov/bundle-analyzer");
 
 const buildDirs = ["../../../examples/bundle-analyzer/cli/dist"];
 

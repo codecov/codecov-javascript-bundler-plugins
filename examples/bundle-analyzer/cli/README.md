@@ -26,5 +26,5 @@ pnpm bundle-analyzer ./dist --bundle-name=test-cli --upload-token=abcd --dry-run
 Generates a bundle stats report and prints to console:
 
 ```
-{"version":"2","builtAt":1725365190149,"duration":7,"bundleName":"test-cli","plugin":{"name":"@codecov/bundle-analyzer","version":"1.0.0"},"assets":[{"name":"main.js","size":511,"gzipSize":301,"normalized":"main.js"},{"name":"main.js.map","size":732,"gzipSize":null,"normalized":"main.js.map"}],"chunks":[],"modules":[]}
+{"version":"2","builtAt":1725365190149,"duration":7,"bundleName":"test-cli","plugin":{"name":"@codecov/bundle-analyzer","version":""0.0.1-beta.12"},"assets":[{"name":"main.js","size":511,"gzipSize":301,"normalized":"main.js"},{"name":"main.js.map","size":732,"gzipSize":null,"normalized":"main.js.map"}],"chunks":[],"modules":[]}
 ```
