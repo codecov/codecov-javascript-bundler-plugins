@@ -7,6 +7,7 @@ import {
 import { PLUGIN_NAME, PLUGIN_VERSION } from "./version";
 import {
   normalizeBundleAnalyzerOptions,
+  type NormalizedBundleAnalyzerOptions,
   type BundleAnalyzerOptions,
 } from "./options";
 import { getAssets } from "./assets";
@@ -50,15 +51,19 @@ export const createAndUploadReport = async (
   coreOptions: Options,
   bundleAnalyzerOptions?: BundleAnalyzerOptions,
 ): Promise<string> => {
-  const bundleAnalyzerOpts = normalizeBundleAnalyzerOptions(
-    bundleAnalyzerOptions,
-  );
   const coreOpts = normalizeOptions(coreOptions);
   if (!coreOpts.success) {
     throw new Error("Invalid options: " + coreOpts.errors.join(" "));
   }
+  const bundleAnalyzerOpts = normalizeBundleAnalyzerOptions(
+    bundleAnalyzerOptions,
+  );
 
-  const initialReport = await makeReport(buildDirectoryPaths, coreOpts.options);
+  const initialReport = await makeReport(
+    buildDirectoryPaths,
+    coreOpts.options,
+    bundleAnalyzerOpts,
+  );
 
   // Override report as needed (by default returns unchanged)
   let finalReport: Output;
@@ -79,6 +84,7 @@ export const createAndUploadReport = async (
 const makeReport = async (
   buildDirectoryPaths: string[],
   normalizedCoreOptions: NormalizedOptions,
+  normalizedBundleAnalyzerOptions: NormalizedBundleAnalyzerOptions,
 ): Promise<Output> => {
   // initialize report
   const output: Output = new Output(normalizedCoreOptions);
@@ -86,7 +92,11 @@ const makeReport = async (
   output.setPlugin(PLUGIN_NAME, PLUGIN_VERSION);
 
   // handle assets
-  output.assets = await getAssets(buildDirectoryPaths);
+  output.assets = await getAssets(
+    buildDirectoryPaths,
+    normalizedBundleAnalyzerOptions.ignorePatterns,
+    normalizedBundleAnalyzerOptions.normalizeAssetsPattern,
+  );
 
   // handle chunks and modules (not supported at this time)
   output.chunks = [];

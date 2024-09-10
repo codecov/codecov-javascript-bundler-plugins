@@ -1,6 +1,6 @@
 {
   "name": "@codecov/bundle-analyzer",
-  "version": "1.0.0",
+  "version": "0.0.1-beta.12",
   "description": "Official Codecov Bundle Analyzer",
   "author": "Codecov",
   "license": "MIT",

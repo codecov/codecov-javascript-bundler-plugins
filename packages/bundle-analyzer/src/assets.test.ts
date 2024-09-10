@@ -197,8 +197,8 @@ describe("getAllAssets", () => {
     ];
 
     (fs.readdir as Mock).mockResolvedValueOnce(mockFiles1);
-    (fs.readdir as Mock).mockResolvedValueOnce(mockSubDirFiles1);
     (fs.readdir as Mock).mockResolvedValueOnce(mockFiles2);
+    (fs.readdir as Mock).mockResolvedValueOnce(mockSubDirFiles1);
     (fs.readdir as Mock).mockResolvedValueOnce(mockSubDirFiles2);
 
     const assets: Asset[] = await getAssets([

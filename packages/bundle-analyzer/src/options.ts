@@ -42,3 +42,5 @@ export function normalizeBundleAnalyzerOptions(
     ...options,
   };
 }
+
+export type NormalizedBundleAnalyzerOptions = Required<BundleAnalyzerOptions>;

@@ -58,7 +58,7 @@ describe("CLI script", () => {
 
     const output = runCLI([
       "./src",
-      "./custom-dir",
+      "../bundle-analyzer",
       "--bundle-name=someName",
       "--dry-run",
       "--ignore-patterns=*.map",
@@ -75,7 +75,7 @@ describe("CLI script", () => {
   it("should exit with success when valid inputs are provided", () => {
     const output = runCLI([
       "./src",
-      "./custom-dir",
+      "../bundle-analyzer",
       "--bundle-name=someName",
       "--upload-token=token123",
       "--dry-run",

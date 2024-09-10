@@ -34,6 +34,6 @@ pnpm run start
 Generates a bundle stats report and prints to console:
 
 ```
-Dry run output:  {"version":"2","builtAt":1725381817642,"duration":6,"bundleName":"my-bundle","plugin":{"name":"@codecov/bundle-analyzer","version":""0.0.1-beta.12"},"assets":[{"name":"main.js","size":511,"gzipSize":301,"normalized":"main.js"},{"name":"main.js.map","size":732,"gzipSize":null,"normalized":"main.js.map"}],"chunks":[],"modules":[]}
+Dry run output:  {"version":"2","builtAt":1725381817642,"duration":6,"bundleName":"my-bundle","plugin":{"name":"@codecov/bundle-analyzer","version":"0.0.1-beta.12"},"assets":[{"name":"main.js","size":511,"gzipSize":301,"normalized":"main.js"},{"name":"main.js.map","size":732,"gzipSize":null,"normalized":"main.js.map"}],"chunks":[],"modules":[]}
 Report successfully generated and uploaded.
 ```
