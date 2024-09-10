@@ -6,11 +6,9 @@
 
 # Codecov Webpack Plugin
 
-> [!WARNING]  
-> These plugins are currently in beta and are subject to change.
+A Webpack plugin that provides bundle analysis support for Codecov.
 
-> A Webpack plugin that provides bundle analysis support for Codecov.
->
+> [!NOTE]
 > The plugin does not support code coverage, see our [docs](https://docs.codecov.com/docs/quick-start) to set up coverage today!
 
 ## Installation
@@ -114,6 +112,35 @@ module.exports = {
       enableBundleAnalysis: true,
       bundleName: "example-webpack-bundle",
       uploadToken: process.env.CODECOV_TOKEN,
+    }),
+  ],
+};
+```
+
+## OIDC Configuration Example
+
+For users with [OpenID Connect (OIDC) enabled](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect), setting the `uploadToken` is not necessary. You can use OIDC with the `oidc` configuration as following.
+
+```js
+// webpack.config.js
+const path = require("path");
+const { codecovWebpackPlugin } = require("@codecov/webpack-plugin");
+
+module.exports = {
+  entry: "./src/index.js",
+  mode: "production",
+  output: {
+    filename: "main.js",
+    path: path.resolve(__dirname, "dist"),
+  },
+  plugins: [
+    // Put the Codecov vite plugin after all other plugins
+    codecovWebpackPlugin({
+      enableBundleAnalysis: true,
+      bundleName: "example-webpack-bundle",
+      oidc: {
+        useGitHubOIDC: true,
+      },
     }),
   ],
 };

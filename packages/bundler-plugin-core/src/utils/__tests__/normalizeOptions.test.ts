@@ -62,6 +62,10 @@ const tests: Test[] = [
         },
         debug: true,
         gitService: "bitbucket",
+        oidc: {
+          useGitHubOIDC: true,
+          gitHubOIDCTokenAudience: "https://codecov.io",
+        },
       },
     },
     expected: {
@@ -83,6 +87,10 @@ const tests: Test[] = [
         },
         debug: true,
         gitService: "bitbucket",
+        oidc: {
+          useGitHubOIDC: true,
+          gitHubOIDCTokenAudience: "https://codecov.io",
+        },
       },
     },
   },
@@ -120,6 +128,12 @@ const tests: Test[] = [
         debug: "true",
         // @ts-expect-error - testing invalid input
         gitService: 123,
+        oidc: {
+          // @ts-expect-error - testing invalid input
+          useGitHubOIDC: "true",
+          // @ts-expect-error - testing invalid input
+          gitHubOIDCTokenAudience: 123,
+        },
       },
     },
     expected: {
@@ -139,6 +153,8 @@ const tests: Test[] = [
         "`slug` must be a string.",
         "`debug` must be a boolean.",
         "`gitService` must be a valid git service.",
+        "`useGitHubOIDC` must be a boolean.",
+        "`gitHubOIDCTokenAudience` must be a string.",
       ],
     },
   },

@@ -189,6 +189,52 @@ importers:
         specifier: workspace:^
         version: link:../../packages/nuxt-plugin
 
+  examples/oidc:
+    dependencies:
+      react:
+        specifier: ^18.2.0
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.2.0
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@codecov/vite-plugin':
+        specifier: workspace:^
+        version: link:../../packages/vite-plugin
+      '@types/react':
+        specifier: ^18.2.51
+        version: 18.3.3
+      '@types/react-dom':
+        specifier: ^18.2.18
+        version: 18.3.0
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^6.20.0
+        version: 6.20.0(@typescript-eslint/parser@6.20.0(eslint@8.56.0)(typescript@5.4.5))(eslint@8.56.0)(typescript@5.4.5)
+      '@typescript-eslint/parser':
+        specifier: ^6.20.0
+        version: 6.20.0(eslint@8.56.0)(typescript@5.4.5)
+      '@vitejs/plugin-react':
+        specifier: ^4.2.1
+        version: 4.2.1(vite@5.2.10(@types/node@20.12.12)(terser@5.27.0))
+      eslint:
+        specifier: ^8.56.0
+        version: 8.56.0
+      eslint-plugin-react-hooks:
+        specifier: ^4.6.0
+        version: 4.6.0(eslint@8.56.0)
+      eslint-plugin-react-refresh:
+        specifier: ^0.4.5
+        version: 0.4.5(eslint@8.56.0)
+      rollup:
+        specifier: ^4.9.6
+        version: 4.9.6
+      typescript:
+        specifier: ^5.3.3
+        version: 5.4.5
+      vite:
+        specifier: ^5.2.10
+        version: 5.2.10(@types/node@20.12.12)(terser@5.27.0)
+
   examples/remix:
     dependencies:
       '@remix-run/node':
@@ -792,6 +838,9 @@ importers:
 
   packages/bundler-plugin-core:
     dependencies:
+      '@actions/core':
+        specifier: ^1.10.1
+        version: 1.10.1
       '@actions/github':
         specifier: ^6.0.0
         version: 6.0.0
@@ -1266,6 +1315,9 @@ packages:
   '@aashutoshrathi/word-wrap@1.2.6':
     resolution: {integrity: sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==}
     engines: {node: '>=0.10.0'}
+
+  '@actions/core@1.10.1':
+    resolution: {integrity: sha512-3lBR9EDAY+iYIpTnTIXmWcNbX3T2kCkAEQGIQx4NVQ0575nk2k3GRZDTPQG+vVtS2izSLmINlxXf0uLtnrTP+g==}
 
   '@actions/github@6.0.0':
     resolution: {integrity: sha512-alScpSVnYmjNEXboZjarjukQEzgCRmjMv6Xj47fsdnqGS73bjJNDpiiXmp8jr0UZLdUB6d9jW63IcmddUP+l0g==}
@@ -10949,6 +11001,10 @@ packages:
     resolution: {integrity: sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==}
     engines: {node: '>= 0.4.0'}
 
+  uuid@8.3.2:
+    resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
+    hasBin: true
+
   uvu@0.5.6:
     resolution: {integrity: sha512-+g8ENReyr8YsOc6fv/NVJs2vFdHBnBNdfE49rshrTzDWOlUx4Gq7KOS2GD8eqhy2j+Ejq29+SbKH8yjkAqXqoA==}
     engines: {node: '>=8'}
@@ -11610,6 +11666,11 @@ packages:
 snapshots:
 
   '@aashutoshrathi/word-wrap@1.2.6': {}
+
+  '@actions/core@1.10.1':
+    dependencies:
+      '@actions/http-client': 2.2.1
+      uuid: 8.3.2
 
   '@actions/github@6.0.0':
     dependencies:
@@ -25033,6 +25094,8 @@ snapshots:
       which-typed-array: 1.1.13
 
   utils-merge@1.0.1: {}
+
+  uuid@8.3.2: {}
 
   uvu@0.5.6:
     dependencies:

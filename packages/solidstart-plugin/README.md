@@ -6,15 +6,12 @@
 
 # Codecov SolidStart Plugin
 
-> [!WARNING]
-> These plugins are currently in beta and are subject to change.
->
-> A SolidStart plugin that provides bundle analysis support for Codecov.
->
-> The plugin does not support code coverage, see our [docs](https://docs.codecov.com/docs/quick-start) to set up coverage today!
+A SolidStart plugin that provides bundle analysis support for Codecov.
 
 > [!NOTE]
 > This plugin only supports SolidStart 1.x when building with Vite.
+>
+> The plugin does not support code coverage, see our [docs](https://docs.codecov.com/docs/quick-start) to set up coverage today!
 
 ## Installation
 
@@ -110,6 +107,33 @@ export default defineConfig({
         enableBundleAnalysis: true,
         bundleName: "example-solidstart-bundle",
         uploadToken: process.env.CODECOV_TOKEN,
+      }),
+    ],
+  },
+});
+```
+
+## OIDC Configuration Example
+
+For users with [OpenID Connect (OIDC) enabled](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect), setting the `uploadToken` is not necessary. You can use OIDC with the `oidc` configuration as following.
+
+```ts
+// app.config.ts
+import { defineConfig } from "@solidjs/start/config";
+import solidPlugin from "vite-plugin-solid";
+import { codecovSolidStartPlugin } from "@codecov/solidstart-plugin";
+
+export default defineConfig({
+  vite: {
+    plugins: [
+      // Put the Codecov SolidStart plugin after all other plugins
+      solidPlugin(),
+      codecovSolidStartPlugin({
+        enableBundleAnalysis: true,
+        bundleName: "example-solidstart-bundle",
+        oidc: {
+          useGitHubOIDC: true,
+        },
       }),
     ],
   },

@@ -1,5 +1,5 @@
 export class UploadLimitReachedError extends Error {
-  constructor(msg: string) {
-    super(msg);
+  constructor(msg: string, options?: ErrorOptions) {
+    super(msg, options);
   }
 }

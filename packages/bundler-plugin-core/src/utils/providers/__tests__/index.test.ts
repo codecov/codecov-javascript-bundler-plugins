@@ -9,9 +9,12 @@ import { Output } from "../../Output.ts";
 import { providerList } from "../index.ts";
 
 const server = setupServer(
-  http.get("https://api.github.com/repos/:org/:repo/actions/runs//jobs", () => {
-    return HttpResponse.json({}, { status: 200 });
-  }),
+  http.get(
+    "https://api.github.com/repos/:org/:repo/actions/runs/:id/jobs",
+    () => {
+      return HttpResponse.json({}, { status: 200 });
+    },
+  ),
 );
 
 beforeAll(() => {

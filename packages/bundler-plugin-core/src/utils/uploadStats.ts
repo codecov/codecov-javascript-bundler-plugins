@@ -3,7 +3,6 @@ import { ReadableStream, TextEncoderStream } from "node:stream/web";
 import { FailedUploadError } from "../errors/FailedUploadError";
 import { green, red } from "./logging";
 import { fetchWithRetry } from "./fetchWithRetry";
-import { DEFAULT_RETRY_COUNT } from "./constants";
 import { UploadLimitReachedError } from "../errors/UploadLimitReachedError";
 import { FailedFetchError } from "../errors/FailedFetchError";
 
@@ -18,7 +17,7 @@ export async function uploadStats({
   message,
   bundleName,
   preSignedUrl,
-  retryCount = DEFAULT_RETRY_COUNT,
+  retryCount,
 }: UploadStatsArgs) {
   const iterator = message[Symbol.iterator]();
   const stream = new ReadableStream({
