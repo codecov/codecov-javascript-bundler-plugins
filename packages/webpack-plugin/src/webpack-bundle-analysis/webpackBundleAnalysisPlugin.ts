@@ -1,5 +1,6 @@
 import { type BundleAnalysisUploadPlugin } from "@codecov/bundler-plugin-core";
-import * as webpack from "webpack";
+import { createRequire } from "node:module";
+import type * as TWebpack from "webpack";
 
 import { processAssets, processChunks, processModules } from "./utils";
 
@@ -25,6 +26,9 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
     await output.write();
   },
   webpack(compiler) {
+    const generatedRequire = createRequire(import.meta.url);
+    const webpack = generatedRequire("webpack") as typeof TWebpack;
+
     compiler.hooks.thisCompilation.tap(PLUGIN_NAME, (compilation) => {
       compilation.hooks.processAssets.tapPromise(
         {
