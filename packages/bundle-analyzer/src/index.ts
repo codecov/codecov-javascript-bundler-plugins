@@ -7,6 +7,7 @@ import {
 import { PLUGIN_NAME, PLUGIN_VERSION } from "./version";
 import {
   normalizeBundleAnalyzerOptions,
+  type NormalizedBundleAnalyzerOptions,
   type BundleAnalyzerOptions,
 } from "./options";
 import { getAssets } from "./assets";
@@ -15,17 +16,17 @@ import { getAssets } from "./assets";
  * Generates a Codecov bundle stats report and optionally uploads it to Codecov. This function can
  * be imported into your code or used via the bundle-analyzer CLI.
  *
- * @param {string} buildDirectoryPath - The path to the build directory containing the production
- *        assets for the report. Can be absolute or relative.
+ * @param {string[]} buildDirectoryPaths - The path(s) to the build directory or directories
+ *        containing the production assets for the report. Can be absolute or relative.
  * @param {Options} coreOptions - Configuration options for generating and uploading the report.
- * @param {BundleAnalyzerOptions} [bundle-analyzerOptions] - Optional configuration for
+ * @param {BundleAnalyzerOptions} [bundleAnalyzerOptions] - Optional configuration for
  *        bundle-analyzer usage.
  *
- * @returns {Promise<void>} A promise that resolves when the report is generated and uploaded
+ * @returns {Promise<string>} A promise that resolves when the report is generated and uploaded
  *          (dry-runned or uploaded).
  *
  * @example
- * const buildDir = '/path/to/build/directory'; // absolute or relative path
+ * const buildDirs = ['/path/to/build/directory', '/path/to/another/build']; // absolute or relative paths
  * const coreOpts = {
  *   dryRun: true,
  *   uploadToken: 'your-upload-token',
@@ -35,39 +36,43 @@ import { getAssets } from "./assets";
  *   enableBundleAnalysis: true,
  *   debug: true,
  * };
- * const bundle-analyzerOpts = {
+ * const bundleAnalyzerOpts = {
  *   beforeReportUpload: async (original) => original,
+ *   ignorePatterns: ["*.map"],
+ *   normalizeAssetsPattern: "[name]-[hash].js",
  * };
  *
- * createAndUploadReport(buildDir, coreOpts, bundle-analyzerOpts)
+ * createAndUploadReport(buildDirs, coreOpts, bundleAnalyzerOpts)
  *   .then(() => console.log('Report successfully generated and uploaded.'))
  *   .catch((error) => console.error('Failed to generate or upload report:', error));
  */
 export const createAndUploadReport = async (
-  buildDirectoryPath: string,
+  buildDirectoryPaths: string[],
   coreOptions: Options,
   bundleAnalyzerOptions?: BundleAnalyzerOptions,
 ): Promise<string> => {
-  // normalize options
-  const bundleAnalyzerOpts = normalizeBundleAnalyzerOptions(
-    bundleAnalyzerOptions,
-  );
   const coreOpts = normalizeOptions(coreOptions);
   if (!coreOpts.success) {
     throw new Error("Invalid options: " + coreOpts.errors.join(" "));
   }
-
-  // create report
-  const initialReport: Output = await makeReport(
-    buildDirectoryPath,
-    coreOpts.options,
+  const bundleAnalyzerOpts = normalizeBundleAnalyzerOptions(
+    bundleAnalyzerOptions,
   );
 
-  // override report as needed (by default returns unchanged)
-  const finalReport =
-    await bundleAnalyzerOpts.beforeReportUpload(initialReport);
+  const initialReport = await makeReport(
+    buildDirectoryPaths,
+    coreOpts.options,
+    bundleAnalyzerOpts,
+  );
 
-  // handle report
+  // Override report as needed (by default returns unchanged)
+  let finalReport: Output;
+  try {
+    finalReport = await bundleAnalyzerOpts.beforeReportUpload(initialReport);
+  } catch (error) {
+    throw new Error(`Error in beforeReportUpload: ${error}`);
+  }
+
   if (!coreOptions.dryRun) {
     await finalReport.write();
   }
@@ -77,8 +82,9 @@ export const createAndUploadReport = async (
 
 /* makeReport creates the output bundle stats report */
 const makeReport = async (
-  buildDirectoryPath: string,
+  buildDirectoryPaths: string[],
   normalizedCoreOptions: NormalizedOptions,
+  normalizedBundleAnalyzerOptions: NormalizedBundleAnalyzerOptions,
 ): Promise<Output> => {
   // initialize report
   const output: Output = new Output(normalizedCoreOptions);
@@ -86,7 +92,11 @@ const makeReport = async (
   output.setPlugin(PLUGIN_NAME, PLUGIN_VERSION);
 
   // handle assets
-  output.assets = await getAssets(buildDirectoryPath);
+  output.assets = await getAssets(
+    buildDirectoryPaths,
+    normalizedBundleAnalyzerOptions.ignorePatterns,
+    normalizedBundleAnalyzerOptions.normalizeAssetsPattern,
+  );
 
   // handle chunks and modules (not supported at this time)
   output.chunks = [];

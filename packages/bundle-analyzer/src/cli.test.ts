@@ -4,22 +4,21 @@ import path from "node:path";
 import * as url from "node:url";
 import fs from "node:fs";
 
-const runCLI = (args: string[]): string | undefined => {
+export const runCLI = (args: string[]): string | undefined => {
   const cliPath = path.resolve(
     path.dirname(url.fileURLToPath(import.meta.url)),
-    "../dist/cli.cjs",
+    "../src/cli.ts",
   );
 
   try {
-    const cmd = "node";
-    const allArgs = [cliPath, ...args];
+    const cmd = "npx";
+    const allArgs = ["tsx", cliPath, ...args];
+
     return execFileSync(cmd, allArgs, { encoding: "utf-8" });
   } catch (error) {
-    // console.error("Full error:", error); // uncomment for debugging
     if (error instanceof Error) {
       return JSON.stringify(error);
     }
-
     return "An unknown error occurred.";
   }
 };
@@ -46,28 +45,26 @@ describe("CLI script", () => {
     vi.clearAllMocks();
   });
 
-  it("should exit with an error if build directory path is missing", () => {
+  it("should exit with an error if build directory paths are missing", () => {
     const output = runCLI([]);
     expect(output).toContain(
       "Not enough non-option arguments: got 0, need at least 1",
     );
   });
 
-  it("should exit with an error if upload token is missing", () => {
-    const output = runCLI(["./build", "--bundle-name=someName"]);
-    expect(output).toContain(
-      "Error: An upload token is required. Use --upload-token or set the CODECOV_UPLOAD_TOKEN environment variable.",
-    );
-  });
-
   it("should exit with success if upload token is in an env var", () => {
-    // Set token via env var
     const originalToken = process.env.CODECOV_UPLOAD_TOKEN;
     process.env.CODECOV_UPLOAD_TOKEN = "token123";
 
-    const output = runCLI(["./src", "--bundle-name=someName", "--dry-run"]);
+    const output = runCLI([
+      "./src",
+      "../bundle-analyzer",
+      "--bundle-name=someName",
+      "--dry-run",
+      "--ignore-patterns=*.map",
+      "--normalize-assets-pattern=[name]-[hash].js",
+    ]);
 
-    // Restore the original environment variable
     process.env.CODECOV_UPLOAD_TOKEN = originalToken;
 
     expect(output).toContain(
@@ -78,9 +75,12 @@ describe("CLI script", () => {
   it("should exit with success when valid inputs are provided", () => {
     const output = runCLI([
       "./src",
+      "../bundle-analyzer",
       "--bundle-name=someName",
       "--upload-token=token123",
       "--dry-run",
+      "--ignore-patterns=*.map",
+      "--normalize-assets-pattern=[name]-[hash].js",
     ]);
 
     expect(output).toContain(
@@ -96,5 +96,24 @@ describe("CLI script", () => {
     ]);
 
     expect(output).toContain("An error occurred:");
+  });
+
+  it("should handle multiple ignore patterns correctly", () => {
+    const output = runCLI([
+      "./src",
+      "../bundle-analyzer",
+      "--bundle-name=someName",
+      "--upload-token=token123",
+      "--dry-run",
+      "--ignore-patterns=*.map",
+      "--ignore-patterns=*.test.js",
+      "--normalize-assets-pattern=[name]-[hash].js",
+    ]);
+
+    expect(output).toContain(
+      `"bundleName":"someName","plugin":{"name":"@codecov/bundle-analyzer"`,
+    );
+    expect(output).not.toContain(".map");
+    expect(output).not.toContain(".test.js");
   });
 });

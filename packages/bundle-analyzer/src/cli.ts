@@ -5,24 +5,27 @@ import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import { createAndUploadReport } from "./index.js";
 import { red, type Options } from "@codecov/bundler-plugin-core";
+import { type BundleAnalyzerOptions } from "./options";
 
 interface Argv {
-  buildDirectoryPath: string;
+  buildDirectories: string[];
   dryRun: boolean;
   uploadToken?: string;
   apiUrl: string;
   bundleName?: string;
   debug: boolean;
+  ignorePatterns?: string[];
+  normalizeAssetsPattern?: string;
 }
 
 const argv = yargs(hideBin(process.argv))
-  .usage("Usage: $0 <build-directory-path> [options]")
+  .usage("Usage: $0 <build-directories> [options]")
   .command(
-    "$0 <build-directory-path>",
+    "$0 <build-directories...>",
     "Analyze and upload bundle report",
     (yargs) => {
-      return yargs.positional("buildDirectoryPath", {
-        describe: "The path to the build directory",
+      return yargs.positional("buildDirectories", {
+        describe: "The paths to the build directories (can be multiple)",
         type: "string",
         demandOption: true,
       });
@@ -58,6 +61,16 @@ const argv = yargs(hideBin(process.argv))
       description: "Enable debug mode for additional logging",
       default: false,
     },
+    "ignore-patterns": {
+      alias: "i",
+      type: "array",
+      description: "Specify file patterns to ignore during the analysis",
+    },
+    "normalize-assets-pattern": {
+      alias: "p",
+      type: "string",
+      description: "Pattern to normalize asset names, e.g., '[name]-[hash].js'",
+    },
   })
   .strict()
   .help("h")
@@ -65,33 +78,34 @@ const argv = yargs(hideBin(process.argv))
   .parseSync() as unknown as Argv;
 
 function prepareCoreOptions(): Options {
-  const uploadToken = argv.uploadToken ?? process.env.CODECOV_UPLOAD_TOKEN;
-  if (!uploadToken) {
-    throw new Error(
-      "An upload token is required. Use --upload-token or set the CODECOV_UPLOAD_TOKEN environment variable.",
-    );
-  }
-
   return {
     apiUrl: argv.apiUrl,
     dryRun: argv.dryRun,
-    uploadToken,
+    uploadToken: argv.uploadToken ?? process.env.CODECOV_UPLOAD_TOKEN,
     bundleName: argv.bundleName ?? "",
     debug: argv.debug,
   };
 }
 
+function prepareBundleAnalyzerOptions(): BundleAnalyzerOptions {
+  return {
+    ignorePatterns: argv.ignorePatterns,
+    normalizeAssetsPattern: argv.normalizeAssetsPattern,
+  };
+}
+
 async function runCli(): Promise<void> {
-  const resolvedDirectoryPath = path.resolve(
-    process.cwd(),
-    argv.buildDirectoryPath,
+  const resolvedDirectoryPaths = argv.buildDirectories.map((dir) =>
+    path.resolve(process.cwd(), dir),
   );
 
   const coreOptions = prepareCoreOptions();
+  const bundleAnalyzerOptions = prepareBundleAnalyzerOptions();
 
   const reportAsJson = await createAndUploadReport(
-    resolvedDirectoryPath,
+    resolvedDirectoryPaths,
     coreOptions,
+    bundleAnalyzerOptions,
   );
 
   if (coreOptions.dryRun) {

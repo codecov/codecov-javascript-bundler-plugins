@@ -108,6 +108,8 @@ describe("createAndUploadReport", () => {
     }));
     bundleAnalyzerOptions = {
       beforeReportUpload: beforeReportUpload,
+      ignorePatterns: ["*.map"],
+      normalizeAssetsPattern: "[name]-[hash].js",
     };
 
     // update mock implementations for Output with the current handlers
@@ -127,7 +129,7 @@ describe("createAndUploadReport", () => {
     coreOptions.dryRun = false;
 
     await createAndUploadReport(
-      "/path/to/build/directory",
+      ["/path/to/build/directory"],
       coreOptions,
       bundleAnalyzerOptions,
     );
@@ -136,7 +138,11 @@ describe("createAndUploadReport", () => {
     expect(normalizeBundleAnalyzerOptions).toHaveBeenCalledWith(
       bundleAnalyzerOptions,
     );
-    expect(getAssets).toHaveBeenCalledWith("/path/to/build/directory");
+    expect(getAssets).toHaveBeenCalledWith(
+      ["/path/to/build/directory"],
+      bundleAnalyzerOptions.ignorePatterns,
+      bundleAnalyzerOptions.normalizeAssetsPattern,
+    );
     expect(Output).toHaveBeenCalledTimes(1);
     expect(startHandler).toHaveBeenCalled();
     expect(endHandler).toHaveBeenCalled();
@@ -144,13 +150,14 @@ describe("createAndUploadReport", () => {
       EXPECTED_PACKAGE_NAME,
       EXPECTED_PACKAGE_VERSION,
     );
+    expect(writeHandler).toHaveBeenCalled();
   });
 
   it("should call all expected handlers for dry runs", async () => {
     coreOptions.dryRun = true;
 
     await createAndUploadReport(
-      "/path/to/build/directory",
+      ["/path/to/build/directory"],
       coreOptions,
       bundleAnalyzerOptions,
     );
@@ -159,7 +166,11 @@ describe("createAndUploadReport", () => {
     expect(normalizeBundleAnalyzerOptions).toHaveBeenCalledWith(
       bundleAnalyzerOptions,
     );
-    expect(getAssets).toHaveBeenCalledWith("/path/to/build/directory");
+    expect(getAssets).toHaveBeenCalledWith(
+      ["/path/to/build/directory"],
+      bundleAnalyzerOptions.ignorePatterns,
+      bundleAnalyzerOptions.normalizeAssetsPattern,
+    );
     expect(Output).toHaveBeenCalledTimes(1);
     expect(startHandler).toHaveBeenCalled();
     expect(endHandler).toHaveBeenCalled();
@@ -167,7 +178,7 @@ describe("createAndUploadReport", () => {
       EXPECTED_PACKAGE_NAME,
       EXPECTED_PACKAGE_VERSION,
     );
-    expect(writeHandler).not.toHaveBeenCalled();
+    expect(writeHandler).not.toHaveBeenCalled(); // dry run shouldn't call write
   });
 
   it("should handle custom beforeReportUpload", async () => {
@@ -182,7 +193,7 @@ describe("createAndUploadReport", () => {
     bundleAnalyzerOptions.beforeReportUpload = beforeReportUpload;
 
     await createAndUploadReport(
-      "/path/to/build/directory",
+      ["/path/to/build/directory"],
       coreOptions,
       bundleAnalyzerOptions,
     );
@@ -199,7 +210,7 @@ describe("createAndUploadReport", () => {
     });
 
     await expect(
-      createAndUploadReport("/path/to/build/directory", coreOptions),
+      createAndUploadReport(["/path/to/build/directory"], coreOptions),
     ).rejects.toThrow("Invalid options: Invalid option");
   });
 });

@@ -6,46 +6,69 @@ import {
   type Asset,
 } from "@codecov/bundler-plugin-core";
 import { fileURLToPath } from "node:url";
+import micromatch from "micromatch";
 
-// Resolve __dirname and __filename for both CommonJS and ESModules
 let fileName: string;
 let __dirname: string;
-const isCommonJS =
+const isCommonJSEnvironment =
   typeof module !== "undefined" && module.exports !== undefined;
-if (isCommonJS) {
+if (isCommonJSEnvironment) {
   fileName = __filename;
   __dirname = path.dirname(fileName);
 } else {
-  // ESModules environment
   fileName = fileURLToPath(import.meta.url);
   __dirname = path.dirname(fileName);
 }
 
-/* getAssets gets all Assets to include in a bundle stats report */
+/* getAssets gets assets from the starting paths to include in a bundle stats report */
 export const getAssets = async (
-  buildDirectoryPath: string,
+  buildDirectoryPaths: string[],
+  ignorePatterns: string[] = [],
+  normalizeAssetsPattern = "",
 ): Promise<Asset[]> => {
-  const absoluteAssetsDir = path.resolve(__dirname, buildDirectoryPath);
-  const files = await listChildFilePaths(absoluteAssetsDir);
-  const assets: Asset[] = await Promise.all(
-    files.map((file) => getAsset(file, absoluteAssetsDir)),
+  const allAssets = await Promise.all(
+    buildDirectoryPaths.map(async (buildDirectoryPath) => {
+      const absoluteAssetsDir = path.resolve(__dirname, buildDirectoryPath);
+      const files = await listChildFilePaths(absoluteAssetsDir);
+
+      // apply filtering only if ignorePatterns contains patterns
+      const filteredFiles = ignorePatterns.length
+        ? files.filter(
+            (file) =>
+              !micromatch.isMatch(file, ignorePatterns, {
+                dot: true,
+                matchBase: true,
+              }),
+          )
+        : files;
+
+      const assets: Asset[] = await Promise.all(
+        filteredFiles.map((file: string) =>
+          getAsset(file, absoluteAssetsDir, normalizeAssetsPattern),
+        ),
+      );
+
+      return assets;
+    }),
   );
 
-  return assets;
+  return allAssets.flat();
 };
 
 /* getAsset gets an Asset that can be included in a bundle stats report */
 export const getAsset = async (
   filePath: string,
   parentPath: string,
+  normalizeAssetsPattern: string,
 ): Promise<Asset> => {
   const fileName = path.relative(parentPath, filePath);
   const fileContents = await fs.readFile(filePath);
   const size = fileContents.byteLength;
   const gzipSize = await getCompressedSize({ fileName, code: fileContents });
 
-  // This will replace anything "hashlike" with *. For example index-1dca144e.js --> index-*.js
-  const normalizedName = normalizePath(fileName, "");
+  // normalize the file name if a pattern is provided. By default (when pattern is ""), this
+  // will replace anything "hashlike" with *. For example index-1dca144e.js --> index-*.js
+  const normalizedName = normalizePath(fileName, normalizeAssetsPattern);
 
   return {
     name: fileName,
@@ -69,7 +92,7 @@ export const listChildFilePaths = async (
 
     if (file.isDirectory()) {
       const childPaths = await listChildFilePaths(fullPath);
-      childPaths.forEach((file) => results.push(file));
+      childPaths.forEach((childFile) => results.push(childFile));
     } else if (file.isFile()) {
       results.push(fullPath);
     }
