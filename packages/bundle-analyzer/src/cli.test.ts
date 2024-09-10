@@ -97,4 +97,23 @@ describe("CLI script", () => {
 
     expect(output).toContain("An error occurred:");
   });
+
+  it("should handle multiple ignore patterns correctly", () => {
+    const output = runCLI([
+      "./src",
+      "../bundle-analyzer",
+      "--bundle-name=someName",
+      "--upload-token=token123",
+      "--dry-run",
+      "--ignore-patterns=*.map",
+      "--ignore-patterns=*.test.js",
+      "--normalize-assets-pattern=[name]-[hash].js",
+    ]);
+
+    expect(output).toContain(
+      `"bundleName":"someName","plugin":{"name":"@codecov/bundle-analyzer"`,
+    );
+    expect(output).not.toContain(".map");
+    expect(output).not.toContain(".test.js");
+  });
 });
