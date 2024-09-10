@@ -9,13 +9,12 @@ import {
 } from "vitest";
 import path from "node:path";
 import fs from "node:fs/promises";
+import { getAssets, getAsset, listChildFilePaths } from "./assets";
 import {
-  getAssets,
-  getAsset,
-  listChildFilePaths,
-  getAllAssets,
-} from "./assets";
-import { getCompressedSize, normalizePath } from "@codecov/bundler-plugin-core";
+  type Asset,
+  getCompressedSize,
+  normalizePath,
+} from "@codecov/bundler-plugin-core";
 import { fileURLToPath } from "url";
 
 vi.mock("node:fs/promises");
@@ -45,7 +44,7 @@ describe("getAssets", () => {
 
     (fs.readdir as Mock).mockResolvedValueOnce(mockFiles);
 
-    const assets = await getAssets("path/to/build/directory", [], "");
+    const assets = await getAssets(["path/to/build/directory"], [], "");
 
     expect(fs.readdir).toHaveBeenCalledTimes(1);
     expect(getCompressedSize).toHaveBeenCalledTimes(mockFiles.length);
@@ -74,7 +73,7 @@ describe("getAssets", () => {
 
     (fs.readdir as Mock).mockResolvedValueOnce(mockFiles);
 
-    const assets = await getAssets("path/to/build/directory", ["*.css"], "");
+    const assets = await getAssets(["path/to/build/directory"], ["*.css"], "");
 
     expect(fs.readdir).toHaveBeenCalledTimes(1);
     expect(getCompressedSize).toHaveBeenCalledTimes(1); // Only file1.js should be processed
@@ -177,8 +176,7 @@ describe("getAllAssets", () => {
     (getCompressedSize as Mock).mockResolvedValue(500);
   });
 
-  it("should return assets from additional build directories", async () => {
-    // mock files at first starting path
+  it("should return assets from multiple build directories", async () => {
     const mockFiles1 = [
       { name: "file1.js", isDirectory: () => false, isFile: () => true },
       { name: "subdir", isDirectory: () => true, isFile: () => false },
@@ -188,7 +186,6 @@ describe("getAllAssets", () => {
       { name: "file3.js", isDirectory: () => false, isFile: () => true },
     ];
 
-    // mock files at second starting path
     const mockFiles2 = [
       { name: "fileA.js", isDirectory: () => false, isFile: () => true },
       { name: "subdir", isDirectory: () => true, isFile: () => false },
@@ -199,16 +196,16 @@ describe("getAllAssets", () => {
       { name: "fileD.js", isDirectory: () => false, isFile: () => true },
     ];
 
-    // return mocks in this order
     (fs.readdir as Mock).mockResolvedValueOnce(mockFiles1);
     (fs.readdir as Mock).mockResolvedValueOnce(mockSubDirFiles1);
     (fs.readdir as Mock).mockResolvedValueOnce(mockFiles2);
     (fs.readdir as Mock).mockResolvedValueOnce(mockSubDirFiles2);
 
-    // run test
-    const assets = await getAllAssets("path/to/build", [
+    const assets: Asset[] = await getAssets([
+      "path/to/build",
       "path/to/additional/dir",
     ]);
+
     expect(fs.readdir).toHaveBeenCalledTimes(4);
     expect(getCompressedSize).toHaveBeenCalledTimes(7);
     expect(normalizePath).toHaveBeenCalledTimes(7);
@@ -286,7 +283,6 @@ describe("Module System Compatibility", () => {
   it("should correctly set fileName and __dirname in CommonJS environment", () => {
     setCommonJSContext();
 
-    // Assert that fileName and __dirname are correctly set for CommonJS
     expect(fileName).toBe(__filename);
     expect(__dirname).toBe(path.dirname(__filename));
   });
@@ -294,7 +290,6 @@ describe("Module System Compatibility", () => {
   it("should correctly set fileName and __dirname in ESModules environment", () => {
     setESModulesContext();
 
-    // Assert that fileName and __dirname are correctly set for ESModules
     expect(fileName).toBe(fileURLToPath(import.meta.url));
     expect(__dirname).toBe(path.dirname(fileURLToPath(import.meta.url)));
   });

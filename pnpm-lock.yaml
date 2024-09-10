@@ -215,7 +215,7 @@ importers:
         version: 6.20.0(eslint@8.56.0)(typescript@5.4.5)
       '@vitejs/plugin-react':
         specifier: ^4.2.1
-        version: 4.2.1(vite@5.2.10(@types/node@20.12.12)(terser@5.27.0))
+        version: 4.2.1(vite@5.4.3(@types/node@20.12.12)(terser@5.27.0))
       eslint:
         specifier: ^8.56.0
         version: 8.56.0
@@ -233,7 +233,7 @@ importers:
         version: 5.4.5
       vite:
         specifier: ^5.2.10
-        version: 5.2.10(@types/node@20.12.12)(terser@5.27.0)
+        version: 5.4.3(@types/node@20.12.12)(terser@5.27.0)
 
   examples/remix:
     dependencies:
@@ -792,26 +792,19 @@ importers:
       '@codecov/bundler-plugin-core':
         specifier: workspace:^
         version: link:../bundler-plugin-core
-<<<<<<< HEAD
       micromatch:
         specifier: ^4.0.8
         version: 4.0.8
-=======
->>>>>>> origin/prerelease
       yargs:
         specifier: ^17.7.2
         version: 17.7.2
     devDependencies:
       '@rollup/plugin-replace':
         specifier: ^5.0.5
-<<<<<<< HEAD
         version: 5.0.7(rollup@3.29.4)
       '@types/micromatch':
         specifier: ^4.0.9
         version: 4.0.9
-=======
-        version: 5.0.7(rollup@4.21.2)
->>>>>>> origin/prerelease
       '@types/node':
         specifier: ^20.11.15
         version: 20.12.12
@@ -822,12 +815,8 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0(vitest@1.5.0(@types/node@20.12.12)(terser@5.27.0))
       codecovProdRollupPlugin:
-        specifier: npm:@codecov/rollup-plugin@0.0.1-beta.5
-<<<<<<< HEAD
-        version: '@codecov/rollup-plugin@0.0.1-beta.5(rollup@3.29.4)'
-=======
-        version: '@codecov/rollup-plugin@0.0.1-beta.5(rollup@4.21.2)'
->>>>>>> origin/prerelease
+        specifier: npm:@codecov/rollup-plugin@1.0.0
+        version: '@codecov/rollup-plugin@1.0.0(rollup@3.29.4)'
       msw:
         specifier: ^2.1.5
         version: 2.1.5(typescript@5.4.5)
@@ -837,12 +826,6 @@ importers:
       typedoc:
         specifier: ^0.25.12
         version: 0.25.12(typescript@5.4.5)
-<<<<<<< HEAD
-=======
-      typescript:
-        specifier: ^5.3.3
-        version: 5.4.5
->>>>>>> origin/prerelease
       unbuild:
         specifier: ^2.0.0
         version: 2.0.0(typescript@5.4.5)
@@ -2272,8 +2255,18 @@ packages:
     resolution: {integrity: sha512-dGk/s90fZm7D1O00gRtuE2gqM/CW9nglaPzcIT0v10VOV2tj+aHRrdB+yjas+RW8QP8Qf/sMqSmjkufP1iqggw==}
     engines: {node: '>=18.0.0'}
 
+  '@codecov/bundler-plugin-core@1.0.0':
+    resolution: {integrity: sha512-RIhOBa2cQ8rn2az3BaOVIIJHNbOkqOfIxW+NPgjFB3fuNQiYjLDC9X6nExlzo03ntu01Ph/5FF01NPrCvtd5lw==}
+    engines: {node: '>=18.0.0'}
+
   '@codecov/rollup-plugin@0.0.1-beta.5':
     resolution: {integrity: sha512-3x6vmt59Hgfpr8jroB7LYa2XX+kFds8HaWsUTBX08sJ2bCw+BzlW1Mnc+IdxBdMtjo1jkYEceRvfwQ0X2LK4ZQ==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      rollup: 3.x || 4.x
+
+  '@codecov/rollup-plugin@1.0.0':
+    resolution: {integrity: sha512-jnoNHgE7oNYUQFecABoygi6u1JxOK6e/478Q4fX6ut52rsZoKS8RX6xVQjbN21yMwqFw9oEWAxmKZu32augwrw==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       rollup: 3.x || 4.x
@@ -13114,10 +13107,14 @@ snapshots:
       unplugin: 1.12.3
       zod: 3.22.4
 
-  '@codecov/rollup-plugin@0.0.1-beta.5(rollup@3.29.4)':
+  '@codecov/bundler-plugin-core@1.0.0':
     dependencies:
-      '@codecov/bundler-plugin-core': 0.0.1-beta.6
-      rollup: 3.29.4
+      '@actions/core': 1.10.1
+      '@actions/github': 6.0.0
+      chalk: 4.1.2
+      semver: 7.6.3
+      unplugin: 1.12.3
+      zod: 3.22.4
 
   '@codecov/rollup-plugin@0.0.1-beta.5(rollup@4.21.2)':
     dependencies:
@@ -13128,6 +13125,12 @@ snapshots:
     dependencies:
       '@codecov/bundler-plugin-core': 0.0.1-beta.6
       rollup: 4.9.6
+
+  '@codecov/rollup-plugin@1.0.0(rollup@3.29.4)':
+    dependencies:
+      '@codecov/bundler-plugin-core': 1.0.0
+      rollup: 3.29.4
+      unplugin: 1.12.3
 
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
@@ -16644,6 +16647,17 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@vitejs/plugin-react@4.2.1(vite@5.4.3(@types/node@20.12.12)(terser@5.27.0))':
+    dependencies:
+      '@babel/core': 7.23.9
+      '@babel/plugin-transform-react-jsx-self': 7.23.3(@babel/core@7.23.9)
+      '@babel/plugin-transform-react-jsx-source': 7.23.3(@babel/core@7.23.9)
+      '@types/babel__core': 7.20.5
+      react-refresh: 0.14.0
+      vite: 5.4.3(@types/node@20.12.12)(terser@5.27.0)
+    transitivePeerDependencies:
+      - supports-color
+
   '@vitejs/plugin-vue-jsx@3.1.0(vite@5.4.3(@types/node@20.11.15)(terser@5.27.0))(vue@3.4.24(typescript@5.3.3))':
     dependencies:
       '@babel/core': 7.24.4
@@ -19022,8 +19036,8 @@ snapshots:
       '@typescript-eslint/parser': 6.20.0(eslint@8.56.0)(typescript@5.4.5)
       eslint: 8.56.0
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@6.20.0(eslint@8.56.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(@typescript-eslint/parser@6.20.0(eslint@8.56.0)(typescript@5.3.3))(eslint@8.56.0))(eslint@8.56.0)
-      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@6.20.0(eslint@8.56.0)(typescript@5.4.5))(eslint-import-resolver-typescript@3.6.1)(eslint@8.56.0)
+      eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@6.20.0(eslint@8.56.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1)(eslint@8.56.0)
+      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@6.20.0(eslint@8.56.0)(typescript@5.3.3))(eslint@8.56.0)
       eslint-plugin-jsx-a11y: 6.8.0(eslint@8.56.0)
       eslint-plugin-react: 7.33.2(eslint@8.56.0)
       eslint-plugin-react-hooks: 4.6.0(eslint@8.56.0)
@@ -19045,13 +19059,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.20.0(eslint@8.56.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(@typescript-eslint/parser@6.20.0(eslint@8.56.0)(typescript@5.3.3))(eslint@8.56.0))(eslint@8.56.0):
+  eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.20.0(eslint@8.56.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1)(eslint@8.56.0):
     dependencies:
       debug: 4.3.4
       enhanced-resolve: 5.16.0
       eslint: 8.56.0
-      eslint-module-utils: 2.8.0(@typescript-eslint/parser@6.20.0(eslint@8.56.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.20.0(eslint@8.56.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(@typescript-eslint/parser@6.20.0(eslint@8.56.0)(typescript@5.3.3))(eslint@8.56.0))(eslint@8.56.0))(eslint@8.56.0)
-      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@6.20.0(eslint@8.56.0)(typescript@5.4.5))(eslint-import-resolver-typescript@3.6.1)(eslint@8.56.0)
+      eslint-module-utils: 2.8.0(@typescript-eslint/parser@6.20.0(eslint@8.56.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.20.0(eslint@8.56.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1)(eslint@8.56.0))(eslint@8.56.0)
+      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@6.20.0(eslint@8.56.0)(typescript@5.3.3))(eslint@8.56.0)
       fast-glob: 3.3.2
       get-tsconfig: 4.7.2
       is-core-module: 2.13.1
@@ -19089,14 +19103,14 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-module-utils@2.8.0(@typescript-eslint/parser@6.20.0(eslint@8.56.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.20.0(eslint@8.56.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(@typescript-eslint/parser@6.20.0(eslint@8.56.0)(typescript@5.3.3))(eslint@8.56.0))(eslint@8.56.0))(eslint@8.56.0):
+  eslint-module-utils@2.8.0(@typescript-eslint/parser@6.20.0(eslint@8.56.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@6.20.0(eslint@8.56.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1)(eslint@8.56.0))(eslint@8.56.0):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
       '@typescript-eslint/parser': 6.20.0(eslint@8.56.0)(typescript@5.4.5)
       eslint: 8.56.0
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@6.20.0(eslint@8.56.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(@typescript-eslint/parser@6.20.0(eslint@8.56.0)(typescript@5.3.3))(eslint@8.56.0))(eslint@8.56.0)
+      eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@6.20.0(eslint@8.56.0)(typescript@5.4.5))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1)(eslint@8.56.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -25089,7 +25103,7 @@ snapshots:
       mlly: 1.6.1
       pathe: 1.1.2
       pkg-types: 1.1.0
-      unplugin: 1.10.1
+      unplugin: 1.12.3
 
   update-browserslist-db@1.0.13(browserslist@4.22.3):
     dependencies:
@@ -25210,7 +25224,7 @@ snapshots:
       unctx: 2.3.1
       unenv: 1.9.0
       unstorage: 1.10.2(ioredis@5.4.1)
-      vite: 5.2.10(@types/node@20.11.15)(terser@5.27.0)
+      vite: 5.4.3(@types/node@20.11.15)(terser@5.27.0)
       zod: 3.22.4
     transitivePeerDependencies:
       - '@azure/app-configuration'
@@ -25235,6 +25249,7 @@ snapshots:
       - less
       - lightningcss
       - sass
+      - sass-embedded
       - stylus
       - sugarss
       - supports-color
@@ -25276,7 +25291,7 @@ snapshots:
       unctx: 2.3.1
       unenv: 1.9.0
       unstorage: 1.10.2(ioredis@5.4.1)
-      vite: 5.2.10(@types/node@20.12.12)(terser@5.27.0)
+      vite: 5.4.3(@types/node@20.12.12)(terser@5.27.0)
       zod: 3.22.4
     transitivePeerDependencies:
       - '@azure/app-configuration'
@@ -25301,6 +25316,7 @@ snapshots:
       - less
       - lightningcss
       - sass
+      - sass-embedded
       - stylus
       - sugarss
       - supports-color

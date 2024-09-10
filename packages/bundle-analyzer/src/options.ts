@@ -23,20 +23,14 @@ export interface BundleAnalyzerOptions {
    * which will replace anything "hashlike" with "*".
    */
   normalizeAssetsPattern?: string;
-
-  /**
-   * Additional directories to include in the build analysis. By default, it returns an empty list.
-   */
-  additionalBuildDirectories?: string[];
 }
 
 /* defaultBundleAnalyzerOptions are default implementations for `BundleAnalyzerOptions` */
 const defaultBundleAnalyzerOptions: Required<BundleAnalyzerOptions> = {
-  // eslint-disable-next-line @typescript-eslint/require-await
+  // Default `beforeReportUpload` function returns the original output without modification
   beforeReportUpload: async (original: Output): Promise<Output> => original,
   ignorePatterns: [],
   normalizeAssetsPattern: "",
-  additionalBuildDirectories: [],
 };
 
 /* normalizeBundleAnalyzerOptions fills in missing bundle-analyzer options with default values */

@@ -45,7 +45,7 @@ describe("CLI script", () => {
     vi.clearAllMocks();
   });
 
-  it("should exit with an error if build directory path is missing", () => {
+  it("should exit with an error if build directory paths are missing", () => {
     const output = runCLI([]);
     expect(output).toContain(
       "Not enough non-option arguments: got 0, need at least 1",
@@ -58,11 +58,11 @@ describe("CLI script", () => {
 
     const output = runCLI([
       "./src",
+      "./custom-dir",
       "--bundle-name=someName",
       "--dry-run",
       "--ignore-patterns=*.map",
       "--normalize-assets-pattern=[name]-[hash].js",
-      "--additional-build-directories=./custom-dir",
     ]);
 
     process.env.CODECOV_UPLOAD_TOKEN = originalToken;
@@ -75,12 +75,12 @@ describe("CLI script", () => {
   it("should exit with success when valid inputs are provided", () => {
     const output = runCLI([
       "./src",
+      "./custom-dir",
       "--bundle-name=someName",
       "--upload-token=token123",
       "--dry-run",
       "--ignore-patterns=*.map",
       "--normalize-assets-pattern=[name]-[hash].js",
-      "--additional-build-directories=./custom-dir",
     ]);
 
     expect(output).toContain(

@@ -1,13 +1,13 @@
-const { createAndUploadReport } = require("@codecov/bundle-analyzer");
+import { createAndUploadReport } from "@codecov/bundle-analyzer";
 
-const buildDir = "../../../examples/bundle-analyzer/cli/dist";
+const buildDirs = ["../../../examples/bundle-analyzer/cli/dist"];
 
 const coreOpts = {
   dryRun: true,
   uploadToken: "your-upload-token",
   retryCount: 3,
   apiUrl: "https://api.codecov.io",
-  bundleName: "my-bundle", // bundle identifier in Codecov
+  bundleName: "@codecov/example-bundle-analyzer-cjs",
   enableBundleAnalysis: true,
   debug: true,
 };
@@ -16,7 +16,7 @@ const bundleAnalyzerOpts = {
   beforeReportUpload: async (original) => original,
 };
 
-createAndUploadReport(buildDir, coreOpts, bundleAnalyzerOpts)
+createAndUploadReport(buildDirs, coreOpts, bundleAnalyzerOpts)
   .then((reportAsJson) =>
     console.log(`Report successfully generated and uploaded: ${reportAsJson}`),
   )

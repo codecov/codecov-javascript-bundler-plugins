@@ -18,7 +18,6 @@ describe("BundleAnalyzerOptions", () => {
       expect(normalizedOptions.beforeReportUpload).toBeDefined();
       expect(normalizedOptions.ignorePatterns).toEqual([]);
       expect(normalizedOptions.normalizeAssetsPattern).toBe("");
-      expect(normalizedOptions.additionalBuildDirectories).toEqual([]);
     });
 
     // eslint-disable-next-line @typescript-eslint/require-await
@@ -29,13 +28,11 @@ describe("BundleAnalyzerOptions", () => {
       );
       const customIgnorePatterns = ["*.test.js"];
       const customNormalizeAssetsPattern = "[name]-[hash].js";
-      const customAdditionalBuildDirectories = ["custom-dir"];
 
       const normalizedOptions = normalizeBundleAnalyzerOptions({
         beforeReportUpload: customBeforeReportUpload,
         ignorePatterns: customIgnorePatterns,
         normalizeAssetsPattern: customNormalizeAssetsPattern,
-        additionalBuildDirectories: customAdditionalBuildDirectories,
       });
 
       expect(normalizedOptions.beforeReportUpload).toBe(
@@ -44,9 +41,6 @@ describe("BundleAnalyzerOptions", () => {
       expect(normalizedOptions.ignorePatterns).toEqual(customIgnorePatterns);
       expect(normalizedOptions.normalizeAssetsPattern).toBe(
         customNormalizeAssetsPattern,
-      );
-      expect(normalizedOptions.additionalBuildDirectories).toEqual(
-        customAdditionalBuildDirectories,
       );
     });
 
@@ -68,11 +62,6 @@ describe("BundleAnalyzerOptions", () => {
       const normalizedOptions = normalizeBundleAnalyzerOptions();
       expect(normalizedOptions.normalizeAssetsPattern).toBe("");
     });
-
-    it("should use default additionalBuildDirectories if not provided", () => {
-      const normalizedOptions = normalizeBundleAnalyzerOptions();
-      expect(normalizedOptions.additionalBuildDirectories).toEqual([]);
-    });
   });
 
   describe("defaultBundleAnalyzerOptions", () => {
@@ -93,11 +82,6 @@ describe("BundleAnalyzerOptions", () => {
     it("default normalizeAssetsPattern should be an empty string", () => {
       const defaultOptions = normalizeBundleAnalyzerOptions();
       expect(defaultOptions.normalizeAssetsPattern).toBe("");
-    });
-
-    it("default additionalBuildDirectories should be an empty array", () => {
-      const defaultOptions = normalizeBundleAnalyzerOptions();
-      expect(defaultOptions.additionalBuildDirectories).toEqual([]);
     });
   });
 });

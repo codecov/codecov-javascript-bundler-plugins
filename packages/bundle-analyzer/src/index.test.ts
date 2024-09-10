@@ -110,7 +110,6 @@ describe("createAndUploadReport", () => {
       beforeReportUpload: beforeReportUpload,
       ignorePatterns: ["*.map"],
       normalizeAssetsPattern: "[name]-[hash].js",
-      additionalBuildDirectories: ["custom-dir"],
     };
 
     // update mock implementations for Output with the current handlers
@@ -130,7 +129,7 @@ describe("createAndUploadReport", () => {
     coreOptions.dryRun = false;
 
     await createAndUploadReport(
-      "/path/to/build/directory",
+      ["/path/to/build/directory"],
       coreOptions,
       bundleAnalyzerOptions,
     );
@@ -140,7 +139,7 @@ describe("createAndUploadReport", () => {
       bundleAnalyzerOptions,
     );
     expect(getAssets).toHaveBeenCalledWith(
-      "/path/to/build/directory",
+      ["/path/to/build/directory"],
       bundleAnalyzerOptions.ignorePatterns,
       bundleAnalyzerOptions.normalizeAssetsPattern,
     );
@@ -158,7 +157,7 @@ describe("createAndUploadReport", () => {
     coreOptions.dryRun = true;
 
     await createAndUploadReport(
-      "/path/to/build/directory",
+      ["/path/to/build/directory"],
       coreOptions,
       bundleAnalyzerOptions,
     );
@@ -168,7 +167,7 @@ describe("createAndUploadReport", () => {
       bundleAnalyzerOptions,
     );
     expect(getAssets).toHaveBeenCalledWith(
-      "/path/to/build/directory",
+      ["/path/to/build/directory"],
       bundleAnalyzerOptions.ignorePatterns,
       bundleAnalyzerOptions.normalizeAssetsPattern,
     );
@@ -194,7 +193,7 @@ describe("createAndUploadReport", () => {
     bundleAnalyzerOptions.beforeReportUpload = beforeReportUpload;
 
     await createAndUploadReport(
-      "/path/to/build/directory",
+      ["/path/to/build/directory"],
       coreOptions,
       bundleAnalyzerOptions,
     );
@@ -211,7 +210,7 @@ describe("createAndUploadReport", () => {
     });
 
     await expect(
-      createAndUploadReport("/path/to/build/directory", coreOptions),
+      createAndUploadReport(["/path/to/build/directory"], coreOptions),
     ).rejects.toThrow("Invalid options: Invalid option");
   });
 });

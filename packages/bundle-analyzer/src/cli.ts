@@ -8,7 +8,7 @@ import { red, type Options } from "@codecov/bundler-plugin-core";
 import { type BundleAnalyzerOptions } from "./options";
 
 interface Argv {
-  buildDirectoryPath: string;
+  buildDirectories: string[];
   dryRun: boolean;
   uploadToken?: string;
   apiUrl: string;
@@ -16,17 +16,16 @@ interface Argv {
   debug: boolean;
   ignorePatterns?: string[];
   normalizeAssetsPattern?: string;
-  additionalBuildDirectories?: string[];
 }
 
 const argv = yargs(hideBin(process.argv))
-  .usage("Usage: $0 <build-directory-path> [options]")
+  .usage("Usage: $0 <build-directories> [options]")
   .command(
-    "$0 <build-directory-path>",
+    "$0 <build-directories...>",
     "Analyze and upload bundle report",
     (yargs) => {
-      return yargs.positional("buildDirectoryPath", {
-        describe: "The path to the build directory",
+      return yargs.positional("buildDirectories", {
+        describe: "The paths to the build directories (can be multiple)",
         type: "string",
         demandOption: true,
       });
@@ -72,11 +71,6 @@ const argv = yargs(hideBin(process.argv))
       type: "string",
       description: "Pattern to normalize asset names, e.g., '[name]-[hash].js'",
     },
-    "additional-build-directories": {
-      alias: "a",
-      type: "array",
-      description: "Additional directories to include in the report",
-    },
   })
   .strict()
   .help("h")
@@ -87,7 +81,6 @@ function prepareCoreOptions(): Options {
   return {
     apiUrl: argv.apiUrl,
     dryRun: argv.dryRun,
-    // Note that upload token may be empty in the case of "tokenless" or GitHub OIDC
     uploadToken: argv.uploadToken ?? process.env.CODECOV_UPLOAD_TOKEN,
     bundleName: argv.bundleName ?? "",
     debug: argv.debug,
@@ -98,21 +91,19 @@ function prepareBundleAnalyzerOptions(): BundleAnalyzerOptions {
   return {
     ignorePatterns: argv.ignorePatterns,
     normalizeAssetsPattern: argv.normalizeAssetsPattern,
-    additionalBuildDirectories: argv.additionalBuildDirectories,
   };
 }
 
 async function runCli(): Promise<void> {
-  const resolvedDirectoryPath = path.resolve(
-    process.cwd(),
-    argv.buildDirectoryPath,
+  const resolvedDirectoryPaths = argv.buildDirectories.map((dir) =>
+    path.resolve(process.cwd(), dir),
   );
 
   const coreOptions = prepareCoreOptions();
   const bundleAnalyzerOptions = prepareBundleAnalyzerOptions();
 
   const reportAsJson = await createAndUploadReport(
-    resolvedDirectoryPath,
+    resolvedDirectoryPaths,
     coreOptions,
     bundleAnalyzerOptions,
   );

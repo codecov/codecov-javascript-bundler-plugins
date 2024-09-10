@@ -8,12 +8,12 @@ import {
 import { fileURLToPath } from "node:url";
 import micromatch from "micromatch";
 
-// Resolve __dirname and __filename for both CommonJS and ESModules
 let fileName: string;
 let __dirname: string;
 const isCommonJS =
   typeof module !== "undefined" && module.exports !== undefined;
 if (isCommonJS) {
+  // CommonJS environment
   fileName = __filename;
   __dirname = path.dirname(fileName);
 } else {
@@ -22,33 +22,39 @@ if (isCommonJS) {
   __dirname = path.dirname(fileName);
 }
 
-/* getAssets gets a directory's assets to include in a bundle stats report */
+/* getAssets gets assets from the starting paths to include in a bundle stats report */
 export const getAssets = async (
-  buildDirectoryPath: string,
+  buildDirectoryPaths: string[],
   ignorePatterns: string[] = [],
   normalizeAssetsPattern = "",
 ): Promise<Asset[]> => {
-  const absoluteAssetsDir = path.resolve(__dirname, buildDirectoryPath);
-  const files = await listChildFilePaths(absoluteAssetsDir);
+  const allAssets = await Promise.all(
+    buildDirectoryPaths.map(async (buildDirectoryPath) => {
+      const absoluteAssetsDir = path.resolve(__dirname, buildDirectoryPath);
+      const files = await listChildFilePaths(absoluteAssetsDir);
 
-  // apply filtering only if ignorePatterns contains patterns
-  const filteredFiles = ignorePatterns.length
-    ? files.filter(
-        (file) =>
-          !micromatch.isMatch(file, ignorePatterns, {
-            dot: true,
-            matchBase: true,
-          }),
-      )
-    : files;
+      // apply filtering only if ignorePatterns contains patterns
+      const filteredFiles = ignorePatterns.length
+        ? files.filter(
+            (file) =>
+              !micromatch.isMatch(file, ignorePatterns, {
+                dot: true,
+                matchBase: true,
+              }),
+          )
+        : files;
 
-  const assets: Asset[] = await Promise.all(
-    filteredFiles.map((file: string) =>
-      getAsset(file, absoluteAssetsDir, normalizeAssetsPattern),
-    ),
+      const assets: Asset[] = await Promise.all(
+        filteredFiles.map((file: string) =>
+          getAsset(file, absoluteAssetsDir, normalizeAssetsPattern),
+        ),
+      );
+
+      return assets;
+    }),
   );
 
-  return assets;
+  return allAssets.flat();
 };
 
 /* getAsset gets an Asset that can be included in a bundle stats report */
@@ -95,31 +101,4 @@ export const listChildFilePaths = async (
   }
 
   return results;
-};
-
-/* getAllAssets consolidates assets from multiple directories (including additionalBuildDirectories) */
-export const getAllAssets = async (
-  buildDirectoryPath: string,
-  additionalBuildDirectories: string[] = [],
-  ignorePatterns: string[] = [],
-  normalizeAssetsPattern = "",
-): Promise<Asset[]> => {
-  // get assets from the main build directory
-  const allAssets = await getAssets(
-    buildDirectoryPath,
-    ignorePatterns,
-    normalizeAssetsPattern,
-  );
-
-  // get assets from any additional build directories
-  for (const additionalDir of additionalBuildDirectories) {
-    const additionalAssets = await getAssets(
-      additionalDir,
-      ignorePatterns,
-      normalizeAssetsPattern,
-    );
-    allAssets.push(...additionalAssets);
-  }
-
-  return allAssets;
 };
