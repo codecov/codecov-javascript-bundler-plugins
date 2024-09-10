@@ -26,9 +26,8 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
     await output.write();
   },
   webpack(compiler) {
-    const webpack = createRequire(import.meta.url)(
-      "webpack",
-    ) as typeof TWebpack;
+    const generatedRequire = createRequire(import.meta.url);
+    const webpack = generatedRequire("webpack") as typeof TWebpack;
 
     compiler.hooks.thisCompilation.tap(PLUGIN_NAME, (compilation) => {
       compilation.hooks.processAssets.tapPromise(
