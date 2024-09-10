@@ -3,7 +3,7 @@
 exports[`nuxtBundleAnalysisPlugin > when called > returns a plugin object 1`] = `
 {
   "name": "@codecov/nuxt-plugin",
-  "pluginVersion": "1.0.0",
+  "pluginVersion": "1.0.1",
   "version": "2",
   "vite": {
     "generateBundle": [Function],
