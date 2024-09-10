@@ -15,7 +15,7 @@ exports[`Generating remix stats 2 {"format":"amd","expected":"amd"} matches the 
   "outputPath": StringContaining "build",
   "plugin": {
     "name": StringMatching "@codecov/remix-vite-plugin",
-    "version": "1.0.0",
+    "version": "1.0.1",
   },
   "version": "2",
 }
@@ -36,7 +36,7 @@ exports[`Generating remix stats 2 {"format":"amd","expected":"amd"} matches the 
   "outputPath": StringContaining "build",
   "plugin": {
     "name": StringMatching "@codecov/remix-vite-plugin",
-    "version": "1.0.0",
+    "version": "1.0.1",
   },
   "version": "2",
 }
@@ -57,7 +57,7 @@ exports[`Generating remix stats 2 {"format":"cjs","expected":"cjs"} matches the 
   "outputPath": StringContaining "build",
   "plugin": {
     "name": StringMatching "@codecov/remix-vite-plugin",
-    "version": "1.0.0",
+    "version": "1.0.1",
   },
   "version": "2",
 }
@@ -78,7 +78,7 @@ exports[`Generating remix stats 2 {"format":"cjs","expected":"cjs"} matches the 
   "outputPath": StringContaining "build",
   "plugin": {
     "name": StringMatching "@codecov/remix-vite-plugin",
-    "version": "1.0.0",
+    "version": "1.0.1",
   },
   "version": "2",
 }
@@ -99,7 +99,7 @@ exports[`Generating remix stats 2 {"format":"es","expected":"esm"} matches the s
   "outputPath": StringContaining "build",
   "plugin": {
     "name": StringMatching "@codecov/remix-vite-plugin",
-    "version": "1.0.0",
+    "version": "1.0.1",
   },
   "version": "2",
 }
@@ -120,7 +120,7 @@ exports[`Generating remix stats 2 {"format":"es","expected":"esm"} matches the s
   "outputPath": StringContaining "build",
   "plugin": {
     "name": StringMatching "@codecov/remix-vite-plugin",
-    "version": "1.0.0",
+    "version": "1.0.1",
   },
   "version": "2",
 }
@@ -141,7 +141,7 @@ exports[`Generating remix stats 2 {"format":"esm","expected":"esm"} matches the 
   "outputPath": StringContaining "build",
   "plugin": {
     "name": StringMatching "@codecov/remix-vite-plugin",
-    "version": "1.0.0",
+    "version": "1.0.1",
   },
   "version": "2",
 }
@@ -162,7 +162,7 @@ exports[`Generating remix stats 2 {"format":"esm","expected":"esm"} matches the 
   "outputPath": StringContaining "build",
   "plugin": {
     "name": StringMatching "@codecov/remix-vite-plugin",
-    "version": "1.0.0",
+    "version": "1.0.1",
   },
   "version": "2",
 }
@@ -183,7 +183,7 @@ exports[`Generating remix stats 2 {"format":"module","expected":"esm"} matches t
   "outputPath": StringContaining "build",
   "plugin": {
     "name": StringMatching "@codecov/remix-vite-plugin",
-    "version": "1.0.0",
+    "version": "1.0.1",
   },
   "version": "2",
 }
@@ -204,7 +204,7 @@ exports[`Generating remix stats 2 {"format":"module","expected":"esm"} matches t
   "outputPath": StringContaining "build",
   "plugin": {
     "name": StringMatching "@codecov/remix-vite-plugin",
-    "version": "1.0.0",
+    "version": "1.0.1",
   },
   "version": "2",
 }
