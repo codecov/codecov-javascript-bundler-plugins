@@ -39,25 +39,25 @@ This example shows how the package can be imported as a library.
 
 ```js
 // analyze.js
-import { createAndUploadReport } from "@codecov/bundle-analyzer";
+const { createAndUploadReport } = require("@codecov/bundle-analyzer");
 
-const buildDir = "path/to/build";
+const buildDirs = ["../../../examples/bundle-analyzer/cli/dist"];
 
 const coreOpts = {
-  dryRun: false,
+  dryRun: true,
   uploadToken: "your-upload-token",
   retryCount: 3,
-  apiUrl: "https://localhost:3000",
-  bundleName: "my-bundle", // bundle identifier in Codecov
+  apiUrl: "https://api.codecov.io",
+  bundleName: "@codecov/example-bundle-analyzer-cjs",
   enableBundleAnalysis: true,
   debug: true,
 };
 
-const bundle-analyzerOpts = {
+const bundleAnalyzerOpts = {
   beforeReportUpload: async (original) => original,
 };
 
-createAndUploadReport(buildDir, coreOpts, bundle-analyzerOpts)
+createAndUploadReport(buildDirs, coreOpts, bundleAnalyzerOpts)
   .then((reportAsJson) =>
     console.log(`Report successfully generated and uploaded: ${reportAsJson}`),
   )

@@ -10,14 +10,12 @@ import micromatch from "micromatch";
 
 let fileName: string;
 let __dirname: string;
-const isCommonJS =
+const isCommonJSEnvironment =
   typeof module !== "undefined" && module.exports !== undefined;
-if (isCommonJS) {
-  // CommonJS environment
+if (isCommonJSEnvironment) {
   fileName = __filename;
   __dirname = path.dirname(fileName);
 } else {
-  // ESModules environment
   fileName = fileURLToPath(import.meta.url);
   __dirname = path.dirname(fileName);
 }
