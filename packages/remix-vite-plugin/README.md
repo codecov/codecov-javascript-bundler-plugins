@@ -6,15 +6,12 @@
 
 # Codecov Remix Plugin
 
-> [!WARNING]
-> These plugins are currently in beta and are subject to change.
->
-> A Remix plugin that provides bundle analysis support for Codecov.
->
-> The plugin does not support code coverage, see our [docs](https://docs.codecov.com/docs/quick-start) to set up coverage today!
+A Remix plugin that provides bundle analysis support for Codecov.
 
 > [!NOTE]
 > This plugin only supports Remix 2.x when building with Vite.
+>
+> The plugin does not support code coverage, see our [docs](https://docs.codecov.com/docs/quick-start) to set up coverage today!
 
 ## Installation
 
@@ -111,6 +108,33 @@ export default defineConfig({
       enableBundleAnalysis: true,
       bundleName: "example-remix-bundle",
       uploadToken: process.env.CODECOV_TOKEN,
+    }),
+  ],
+});
+```
+
+## OIDC Configuration Example
+
+For users with [OpenID Connect (OIDC) enabled](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect), setting the `uploadToken` is not necessary. You can use OIDC with the `oidc` configuration as following.
+
+```ts
+// vite.config.ts
+import { vitePlugin as remix } from "@remix-run/dev";
+import { defineConfig } from "vite";
+import tsconfigPaths from "vite-tsconfig-paths";
+import { codecovRemixPlugin } from "@codecov/remix-vite-plugin";
+
+export default defineConfig({
+  plugins: [
+    remix(),
+    tsconfigPaths()
+    // Put the Codecov Remix plugin after all other plugins
+    codecovRemixPlugin({
+      enableBundleAnalysis: true,
+      bundleName: "example-remix-bundle",
+      oidc: {
+        useGitHubOIDC: true,
+      },
     }),
   ],
 });

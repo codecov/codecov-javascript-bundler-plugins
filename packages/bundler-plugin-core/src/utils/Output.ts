@@ -19,6 +19,10 @@ class Output {
   retryCount: number;
   enableBundleAnalysis: boolean;
   uploadToken?: string;
+  oidc?: {
+    useGitHubOIDC: boolean;
+    gitHubOIDCTokenAudience: string;
+  };
   debug: boolean;
   gitService?: ValidGitService;
   originalBundleName: string;
@@ -61,6 +65,7 @@ class Output {
     this.debug = userOptions.debug;
     this.gitService = userOptions.gitService;
     this.originalBundleName = userOptions.bundleName;
+    this.oidc = userOptions.oidc;
 
     if (userOptions.uploadOverrides) {
       this.branch = userOptions.uploadOverrides.branch;
@@ -143,11 +148,12 @@ class Output {
     let url = "";
     try {
       url = await getPreSignedURL({
-        apiURL: this?.apiUrl ?? "https://api.codecov.io",
-        uploadToken: this?.uploadToken,
+        apiUrl: this.apiUrl,
+        uploadToken: this.uploadToken,
+        gitService: this.gitService,
+        oidc: this.oidc,
+        retryCount: this.retryCount,
         serviceParams: provider,
-        retryCount: this?.retryCount,
-        gitService: this?.gitService,
       });
     } catch (error) {
       return;

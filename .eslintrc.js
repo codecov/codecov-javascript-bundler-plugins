@@ -33,7 +33,7 @@ const config = {
       "./packages/remix-vite-plugin/tsconfig.json",
       "./packages/rollup-plugin/tsconfig.json",
       "./packages/solidstart-plugin/tsconfig.json",
-      "./packages/standalone-analyzer/tsconfig.json",
+      "./packages/bundle-analyzer/tsconfig.json",
       "./packages/sveltekit-plugin/tsconfig.json",
       "./packages/vite-plugin/tsconfig.json",
       "./packages/webpack-plugin/tsconfig.json",

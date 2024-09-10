@@ -89,8 +89,11 @@ export interface Options {
   gitService?: ValidGitService;
 
   /**
-   * The upload token to use for uploading the bundle analysis information. This field is
-   * **required** for uploading bundle analysis information in private repositories.
+   * The upload token to use for uploading the bundle analysis information.
+   *
+   * This field is **required** for uploading bundle analysis information in private repositories.
+   * Alternatively if you're using GitHub Actions and have configured OIDC authentication you can
+   * omit this field, and enable the `oidc.useGitHubOIDC` option.
    *
    * This value can either be a global upload token or a repo token.
    * - The global upload token can be found under the organization settings page.
@@ -139,6 +142,31 @@ export interface Options {
    * Defaults to `false`
    */
   dryRun?: boolean;
+
+  /** Options for OIDC authentication. */
+  oidc?: {
+    /**
+     * When using GitHub Actions this option can be enabled to use OIDC authentication, which
+     * removes the requirement for an upload token.
+     *
+     * [OpenID Connect
+     * (OIDC)](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect)
+     * is **required** to be configured in order to use GitHub OIDC.
+     *
+     * Defaults to `false`
+     */
+    useGitHubOIDC: boolean;
+
+    /**
+     * The OIDC audience to use for authentication.
+     *
+     * If you're using a self hosted version of Codecov, you will need to provide the audience for
+     * the OIDC token.
+     *
+     * Defaults to `https://codecov.io`
+     */
+    gitHubOIDCTokenAudience?: string;
+  };
 }
 
 export type BundleAnalysisUploadPlugin = (

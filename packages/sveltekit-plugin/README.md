@@ -6,15 +6,12 @@
 
 # Codecov SvelteKit Plugin
 
-> [!WARNING]
-> These plugins are currently in beta and are subject to change.
->
-> A SvelteKit plugin that provides bundle analysis support for Codecov.
->
-> The plugin does not support code coverage, see our [docs](https://docs.codecov.com/docs/quick-start) to set up coverage today!
+A SvelteKit plugin that provides bundle analysis support for Codecov.
 
 > [!NOTE]
 > This plugin only supports SvelteKit 2.x when building with Vite.
+>
+> The plugin does not support code coverage, see our [docs](https://docs.codecov.com/docs/quick-start) to set up coverage today!
 
 ## Installation
 
@@ -105,6 +102,31 @@ export default defineConfig({
       enableBundleAnalysis: true,
       bundleName: "example-sveltekit-bundle",
       uploadToken: process.env.CODECOV_TOKEN,
+    }),
+  ],
+});
+```
+
+## OIDC Configuration Example
+
+For users with [OpenID Connect (OIDC) enabled](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect), setting the `uploadToken` is not necessary. You can use OIDC with the `oidc` configuration as following.
+
+```ts
+// vite.config.ts
+import { sveltekit } from "@sveltejs/kit/vite";
+import { defineConfig } from "vite";
+import { codecovSvelteKitPlugin } from "@codecov/sveltekit-plugin";
+
+export default defineConfig({
+  plugins: [
+    sveltekit(),
+    // Put the Codecov SvelteKit plugin after all other plugins
+    codecovSvelteKitPlugin({
+      enableBundleAnalysis: true,
+      bundleName: "example-sveltekit-bundle",
+      oidc: {
+        useGitHubOIDC: true,
+      },
     }),
   ],
 });

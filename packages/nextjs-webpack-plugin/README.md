@@ -6,11 +6,9 @@
 
 # Codecov NextJS (Webpack) Plugin
 
-> [!WARNING]  
-> These plugins are currently in beta and are subject to change.
+A NextJS (Webpack) plugin that provides bundle analysis support for Codecov.
 
-> A NextJS (Webpack) plugin that provides bundle analysis support for Codecov.
->
+> [!NOTE]
 > The plugin does not support code coverage, see our [docs](https://docs.codecov.com/docs/quick-start) to set up coverage today!
 
 ## Installation
@@ -102,6 +100,32 @@ export default {
         bundleName: "example-nextjs-webpack-bundle",
         uploadToken: process.env.CODECOV_TOKEN,
         webpack: options.webpack,
+      }),
+    );
+
+    return config;
+  },
+};
+```
+
+## OIDC Configuration Example
+
+For users with [OpenID Connect (OIDC) enabled](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect), setting the `uploadToken` is not necessary. You can use OIDC with the `oidc` configuration as following.
+
+```typescript
+// next.config.mjs
+import { codecovNextJSWebpackPlugin } from "@codecov/nextjs-webpack-plugin";
+
+export default {
+  webpack: (config, options) => {
+    config.plugins.push(
+      codecovNextJSWebpackPlugin({
+        enableBundleAnalysis: true,
+        bundleName: "example-nextjs-webpack-bundle",
+        webpack: options.webpack,
+        oidc: {
+          useGitHubOIDC: true,
+        },
       }),
     );
 

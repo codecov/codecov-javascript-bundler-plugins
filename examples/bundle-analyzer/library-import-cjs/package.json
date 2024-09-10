@@ -1,0 +1,18 @@
+{
+  "name": "@codecov/example-bundle-analyzer-library-cjs",
+  "version": "1.0.0",
+  "private": true,
+  "main": "analyze.js",
+  "scripts": {
+    "start": "node analyze.js"
+  },
+  "devDependencies": {
+    "@codecov/bundle-analyzer": "workspace:^"
+  },
+  "volta": {
+    "extends": "../../package.json"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

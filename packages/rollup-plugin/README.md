@@ -6,11 +6,9 @@
 
 # Codecov Rollup Plugin
 
-> [!WARNING]  
-> These plugins are currently in beta and are subject to change.
+A Rollup plugin that provides bundle analysis support for Codecov.
 
-> A Rollup plugin that provides bundle analysis support for Codecov.
->
+> [!NOTE]
 > The plugin does not support code coverage, see our [docs](https://docs.codecov.com/docs/quick-start) to set up coverage today!
 
 ## Installation
@@ -96,6 +94,29 @@ export default defineConfig({
       enableBundleAnalysis: true,
       bundleName: "example-rollup-bundle",
       uploadToken: process.env.CODECOV_TOKEN,
+    }),
+  ],
+});
+```
+
+## OIDC Configuration Example
+
+For users with [OpenID Connect (OIDC) enabled](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect), setting the `uploadToken` is not necessary. You can use OIDC with the `oidc` configuration as following.
+
+```js
+// rollup.config.js
+import { defineConfig } from "rollup";
+import { codecovRollupPlugin } from "@codecov/rollup-plugin";
+
+export default defineConfig({
+  plugins: [
+    // Put the Codecov rollup plugin after all other plugins
+    codecovRollupPlugin({
+      enableBundleAnalysis: true,
+      bundleName: "example-rollup-bundle",
+      oidc: {
+        useGitHubOIDC: true,
+      },
     }),
   ],
 });
