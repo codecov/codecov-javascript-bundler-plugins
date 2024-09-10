@@ -1,5 +1,11 @@
 # @codecov/bundler-plugin-core
 
+## 1.0.1
+
+### Patch Changes
+
+- 3bf96e4: Switch webpack import from top level to dynamic in the webpack base plugin
+
 ## 1.0.0
 
 ### Major Changes
