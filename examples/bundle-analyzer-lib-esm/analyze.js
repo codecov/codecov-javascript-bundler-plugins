@@ -1,6 +1,6 @@
 import { createAndUploadReport } from "@codecov/bundle-analyzer";
 
-const buildDirs = ["../../../examples/bundle-analyzer/cli/dist"];
+const buildDirs = ["../../../examples/bundle-analyzer-cli/dist"];
 
 const coreOpts = {
   dryRun: true,

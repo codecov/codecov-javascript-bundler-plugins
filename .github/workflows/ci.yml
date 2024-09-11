@@ -284,7 +284,9 @@ jobs:
       matrix:
         example:
           [
-            "bundle-analyzer",
+            "bundle-analyzer-cli",
+            "bundle-analyzer-lib-cjs",
+            "bundle-analyzer-lib-esm",
             "next-js",
             "next-js-15",
             "nuxt",
@@ -376,7 +378,9 @@ jobs:
       matrix:
         example:
           [
-            "bundle-analyzer",
+            "bundle-analyzer-cli",
+            "bundle-analyzer-lib-cjs",
+            "bundle-analyzer-lib-esm",
             "next-js",
             "next-js-15",
             "nuxt",
