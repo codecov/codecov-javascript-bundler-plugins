@@ -18,7 +18,7 @@
   },
   "type": "module",
   "scripts": {
-    "build": "rollup -c && pnpm bundle-analyzer ./dist --bundle-name=@codecov/example-bundle-analyzer-cli"
+    "build": "rollup -c && pnpm bundle-analyzer ./dist --bundle-name=@codecov/example-bundle-analyzer-cli --upload-token=$BUNDLE_ANALYZER_UPLOAD_TOKEN"
   },
   "devDependencies": {
     "@codecov/bundle-analyzer": "workspace:^",

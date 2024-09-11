@@ -3,13 +3,13 @@ const { createAndUploadReport } = require("@codecov/bundle-analyzer");
 const buildDirs = ["../../../examples/bundle-analyzer-lib-cjs/example-dist"];
 
 const coreOpts = {
-  dryRun: true,
-  uploadToken: "your-upload-token",
+  dryRun: false,
   retryCount: 3,
   apiUrl: "https://api.codecov.io",
   bundleName: "@codecov/example-bundle-analyzer-cjs",
   enableBundleAnalysis: true,
   debug: true,
+  // pick up uploadToken from environment
 };
 
 const bundleAnalyzerOpts = {
