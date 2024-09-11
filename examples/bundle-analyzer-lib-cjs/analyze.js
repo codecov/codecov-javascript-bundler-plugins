@@ -1,6 +1,6 @@
 const { createAndUploadReport } = require("@codecov/bundle-analyzer");
 
-const buildDirs = ["../../../examples/bundle-analyzer-cli/dist"];
+const buildDirs = ["../../../examples/bundle-analyzer-lib-cjs/example-dist"];
 
 const coreOpts = {
   dryRun: true,

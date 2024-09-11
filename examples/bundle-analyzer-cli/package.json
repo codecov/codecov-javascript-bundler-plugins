@@ -16,8 +16,9 @@
     "./lib/c.js": "./src/c.js",
     "./package.json": "./package.json"
   },
+  "type": "module",
   "scripts": {
-    "build": "rollup -c && pnpm bundle-analyzer ./dist --bundle-name=test-cli --upload-token=abcd"
+    "build": "rollup -c && pnpm bundle-analyzer ./dist --bundle-name=@codecov/example-bundle-analyzer-cli"
   },
   "devDependencies": {
     "@codecov/bundle-analyzer": "workspace:^",
