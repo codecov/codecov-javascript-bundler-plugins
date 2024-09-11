@@ -4,12 +4,12 @@ const buildDirs = ["../../../examples/bundle-analyzer-lib-esm/example-dist"];
 
 const coreOpts = {
   dryRun: false,
+  uploadToken: process.env.BUNDLE_ANALYZER_UPLOAD_TOKEN,
   retryCount: 3,
   apiUrl: "https://api.codecov.io",
   bundleName: "@codecov/example-bundle-analyzer-esm",
   enableBundleAnalysis: true,
   debug: true,
-  // pick up uploadToken from environment
 };
 
 const bundleAnalyzerOpts = {
