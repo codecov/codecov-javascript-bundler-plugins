@@ -1,8 +1,22 @@
-import { describe, it, expect, vi, beforeAll, afterEach } from "vitest";
+import {
+  describe,
+  it,
+  expect,
+  vi,
+  beforeAll,
+  afterEach,
+  beforeEach,
+} from "vitest";
 import { execSync, execFileSync } from "node:child_process";
 import path from "node:path";
 import * as url from "node:url";
 import fs from "node:fs";
+import {
+  prepareBundleAnalyzerOptions,
+  prepareCoreOptions,
+  runCli,
+} from "./cli";
+import { createAndUploadReport } from "src";
 
 export const runCLI = (args: string[]): string | undefined => {
   const cliPath = path.resolve(
@@ -117,3 +131,121 @@ describe("CLI script", () => {
     expect(output).not.toContain(".test.js");
   });
 });
+
+// describe("CLI tests", () => {
+//   const originalArgv = process.argv;
+
+//   beforeEach(() => {
+//     vi.spyOn(process, "exit").mockImplementation((code) => {
+//       throw new Error(`process.exit called with code: ${code}`);
+//     });
+
+//     // Mock process.argv for every test
+//     process.argv = [...originalArgv];
+//   });
+
+//   afterEach(() => {
+//     // Restore the original argv and process.exit after each test
+//     process.argv = originalArgv;
+//     vi.restoreAllMocks();
+//   });
+
+//   it("should prepare core options correctly", () => {
+//     const argv = {
+//       apiUrl: "https://custom-api.io",
+//       dryRun: true,
+//       uploadToken: "fake-token",
+//       bundleName: "test-bundle",
+//       debug: true,
+//     };
+
+//     const expectedCoreOptions = {
+//       apiUrl: "https://custom-api.io",
+//       dryRun: true,
+//       uploadToken: "fake-token",
+//       bundleName: "test-bundle",
+//       debug: true,
+//     };
+
+//     expect(prepareCoreOptions(argv)).toEqual(expectedCoreOptions);
+//   });
+
+//   it("should prepare bundle analyzer options correctly", () => {
+//     const argv = {
+//       ignorePatterns: ["*.map", "*.test.js"],
+//       normalizeAssetsPattern: "[name]-[hash].js",
+//     };
+
+//     const expectedBundleAnalyzerOptions = {
+//       ignorePatterns: ["*.map", "*.test.js"],
+//       normalizeAssetsPattern: "[name]-[hash].js",
+//     };
+
+//     expect(prepareBundleAnalyzerOptions(argv)).toEqual(
+//       expectedBundleAnalyzerOptions,
+//     );
+//   });
+
+//   it("should run the CLI with valid arguments and call createAndUploadReport", async () => {
+//     // Simulate process.argv with valid build directories
+//     process.argv = [
+//       "node",
+//       "cli.js",
+//       "./build",
+//       "--bundle-name=my-bundle",
+//       "--dry-run",
+//       "--ignore-patterns=*.map",
+//     ];
+
+//     await runCli({
+//       buildDirectories: ["./build"],
+//       apiUrl: "https://api.codecov.io",
+//       dryRun: true,
+//       bundleName: "my-bundle",
+//       debug: false,
+//     });
+
+//     expect(createAndUploadReport).toHaveBeenCalledWith(
+//       [path.resolve(process.cwd(), "./build")],
+//       {
+//         apiUrl: "https://api.codecov.io",
+//         dryRun: true,
+//         uploadToken: undefined,
+//         bundleName: "my-bundle",
+//         debug: false,
+//       },
+//       {
+//         ignorePatterns: undefined,
+//         normalizeAssetsPattern: undefined,
+//       },
+//     );
+//   });
+
+//   it("should log an error and exit if there is a failure", async () => {
+//     // Simulate an error in the CLI
+//     vi.mocked(createAndUploadReport).mockRejectedValueOnce(
+//       new Error("Test error"),
+//     );
+
+//     // Simulate process.argv
+//     process.argv = [
+//       "node",
+//       "cli.js",
+//       "./non-existent-dir",
+//       "--bundle-name=my-bundle",
+//     ];
+
+//     await expect(
+//       runCli({
+//         buildDirectories: ["./non-existent-dir"],
+//         apiUrl: "https://api.codecov.io",
+//         dryRun: false,
+//         bundleName: "my-bundle",
+//         debug: false,
+//       }),
+//     ).rejects.toThrowError("process.exit called with code: 1");
+
+//     expect(red).toHaveBeenCalledWith("An error occurred: Error: Test error");
+//     expect(process.exit).toHaveBeenCalledWith(1);
+//   });
+// });

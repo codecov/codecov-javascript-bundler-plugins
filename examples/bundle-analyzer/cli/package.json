@@ -17,8 +17,7 @@
     "./package.json": "./package.json"
   },
   "scripts": {
-    "build": "rollup -c",
-    "analyze": "pnpm bundle-analyzer ./dist --bundle-name=test-cli --upload-token=abcd --dry-run"
+    "build": "pnpm bundle-analyzer ./dist --bundle-name=test-cli --upload-token=abcd --dry-run"
   },
   "devDependencies": {
     "@codecov/bundle-analyzer": "workspace:^",

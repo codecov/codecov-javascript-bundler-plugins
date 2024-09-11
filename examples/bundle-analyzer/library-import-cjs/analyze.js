@@ -14,6 +14,8 @@ const coreOpts = {
 
 const bundleAnalyzerOpts = {
   beforeReportUpload: async (original) => original,
+  ignorePatterns: ["*.map"],
+  normalizeAssetsPattern: "[name]-[hash].js",
 };
 
 createAndUploadReport(buildDirs, coreOpts, bundleAnalyzerOpts)

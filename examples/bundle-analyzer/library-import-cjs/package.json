@@ -4,7 +4,7 @@
   "private": true,
   "main": "analyze.js",
   "scripts": {
-    "start": "node analyze.js"
+    "build": "node analyze.js"
   },
   "devDependencies": {
     "@codecov/bundle-analyzer": "workspace:^"

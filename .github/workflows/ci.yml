@@ -284,6 +284,7 @@ jobs:
       matrix:
         example:
           [
+            "bundle-analyzer",
             "next-js",
             "next-js-15",
             "nuxt",
@@ -375,6 +376,7 @@ jobs:
       matrix:
         example:
           [
+            "bundle-analyzer",
             "next-js",
             "next-js-15",
             "nuxt",

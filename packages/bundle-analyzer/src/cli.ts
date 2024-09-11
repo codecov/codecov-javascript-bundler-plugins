@@ -9,11 +9,11 @@ import { type BundleAnalyzerOptions } from "./options";
 
 interface Argv {
   buildDirectories: string[];
-  dryRun: boolean;
+  dryRun?: boolean;
   uploadToken?: string;
-  apiUrl: string;
-  bundleName?: string;
-  debug: boolean;
+  apiUrl?: string;
+  bundleName: string;
+  debug?: boolean;
   ignorePatterns?: string[];
   normalizeAssetsPattern?: string;
 }
@@ -77,7 +77,7 @@ const argv = yargs(hideBin(process.argv))
   .alias("h", "help")
   .parseSync() as unknown as Argv;
 
-function prepareCoreOptions(): Options {
+export const prepareCoreOptions = (argv: Argv): Options => {
   return {
     apiUrl: argv.apiUrl,
     dryRun: argv.dryRun,
@@ -85,22 +85,24 @@ function prepareCoreOptions(): Options {
     bundleName: argv.bundleName ?? "",
     debug: argv.debug,
   };
-}
+};
 
-function prepareBundleAnalyzerOptions(): BundleAnalyzerOptions {
+export const prepareBundleAnalyzerOptions = (
+  argv: Argv,
+): BundleAnalyzerOptions => {
   return {
     ignorePatterns: argv.ignorePatterns,
     normalizeAssetsPattern: argv.normalizeAssetsPattern,
   };
-}
+};
 
-async function runCli(): Promise<void> {
+export const runCli = async (argv: Argv): Promise<void> => {
   const resolvedDirectoryPaths = argv.buildDirectories.map((dir) =>
     path.resolve(process.cwd(), dir),
   );
 
-  const coreOptions = prepareCoreOptions();
-  const bundleAnalyzerOptions = prepareBundleAnalyzerOptions();
+  const coreOptions = prepareCoreOptions(argv);
+  const bundleAnalyzerOptions = prepareBundleAnalyzerOptions(argv);
 
   const reportAsJson = await createAndUploadReport(
     resolvedDirectoryPaths,
@@ -112,9 +114,9 @@ async function runCli(): Promise<void> {
     // eslint-disable-next-line no-console
     console.log(reportAsJson);
   }
-}
+};
 
-runCli().catch((error) => {
+runCli(argv).catch((error) => {
   red(`An error occurred: ${error}`);
   process.exit(1);
 });
