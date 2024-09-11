@@ -126,18 +126,16 @@ describe("CLI script", () => {
   });
 });
 
-describe("CLI functions only", () => {
+describe("test CLI functions to count for code coverage", () => {
   let consoleSpy: ReturnType<typeof vi.spyOn>;
 
   beforeEach(() => {
-    // Mock console.log to capture output
     consoleSpy = vi.spyOn(console, "log").mockImplementation(() => {
       return;
-    });
+    }) as unknown as ReturnType<typeof vi.spyOn>;
   });
 
   afterEach(() => {
-    // Restore all mocks after each test
     vi.restoreAllMocks();
   });
 
