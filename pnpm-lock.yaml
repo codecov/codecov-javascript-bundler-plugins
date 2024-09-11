@@ -66,14 +66,14 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0(@types/node@20.11.15)(terser@5.27.0)
 
-  examples/bundle-analyzer/cli:
+  examples/bundle-analyzer-cli:
     devDependencies:
       '@codecov/bundle-analyzer':
         specifier: workspace:^
-        version: link:../../../packages/bundle-analyzer
+        version: link:../../packages/bundle-analyzer
       '@codecov/rollup-plugin':
         specifier: workspace:^
-        version: link:../../../packages/rollup-plugin
+        version: link:../../packages/rollup-plugin
       '@rollup/plugin-commonjs':
         specifier: ^25.0.7
         version: 25.0.8(rollup@4.9.6)
@@ -90,17 +90,17 @@ importers:
         specifier: ^14.2.1
         version: 14.2.1
 
-  examples/bundle-analyzer/library-import-cjs:
+  examples/bundle-analyzer-lib-cjs:
     devDependencies:
       '@codecov/bundle-analyzer':
         specifier: workspace:^
-        version: link:../../../packages/bundle-analyzer
+        version: link:../../packages/bundle-analyzer
 
-  examples/bundle-analyzer/library-import-esm:
+  examples/bundle-analyzer-lib-esm:
     devDependencies:
       '@codecov/bundle-analyzer':
         specifier: workspace:^
-        version: link:../../../packages/bundle-analyzer
+        version: link:../../packages/bundle-analyzer
 
   examples/next-js:
     dependencies:
@@ -17523,7 +17523,7 @@ snapshots:
 
   array-buffer-byte-length@1.0.0:
     dependencies:
-      call-bind: 1.0.2
+      call-bind: 1.0.5
       is-array-buffer: 3.0.2
 
   array-flatten@1.1.1: {}
@@ -17571,9 +17571,9 @@ snapshots:
   arraybuffer.prototype.slice@1.0.2:
     dependencies:
       array-buffer-byte-length: 1.0.0
-      call-bind: 1.0.2
+      call-bind: 1.0.5
       define-properties: 1.2.1
-      es-abstract: 1.22.2
+      es-abstract: 1.22.3
       get-intrinsic: 1.2.1
       is-array-buffer: 3.0.2
       is-shared-array-buffer: 1.0.2
@@ -19633,9 +19633,9 @@ snapshots:
 
   function.prototype.name@1.1.6:
     dependencies:
-      call-bind: 1.0.2
+      call-bind: 1.0.5
       define-properties: 1.2.1
-      es-abstract: 1.22.2
+      es-abstract: 1.22.3
       functions-have-names: 1.2.3
 
   functions-have-names@1.2.3: {}
@@ -19690,7 +19690,7 @@ snapshots:
 
   get-symbol-description@1.0.0:
     dependencies:
-      call-bind: 1.0.2
+      call-bind: 1.0.5
       get-intrinsic: 1.2.1
 
   get-tsconfig@4.7.2:
@@ -20122,7 +20122,7 @@ snapshots:
 
   is-array-buffer@3.0.2:
     dependencies:
-      call-bind: 1.0.2
+      call-bind: 1.0.5
       get-intrinsic: 1.2.1
       is-typed-array: 1.1.12
 
@@ -20145,7 +20145,7 @@ snapshots:
 
   is-boolean-object@1.1.2:
     dependencies:
-      call-bind: 1.0.2
+      call-bind: 1.0.5
       has-tostringtag: 1.0.0
 
   is-buffer@2.0.5: {}
@@ -20253,7 +20253,7 @@ snapshots:
 
   is-regex@1.1.4:
     dependencies:
-      call-bind: 1.0.2
+      call-bind: 1.0.5
       has-tostringtag: 1.0.0
 
   is-regexp@1.0.0: {}
@@ -20262,7 +20262,7 @@ snapshots:
 
   is-shared-array-buffer@1.0.2:
     dependencies:
-      call-bind: 1.0.2
+      call-bind: 1.0.5
 
   is-ssh@1.4.0:
     dependencies:
@@ -20294,7 +20294,7 @@ snapshots:
 
   is-weakref@1.0.2:
     dependencies:
-      call-bind: 1.0.2
+      call-bind: 1.0.5
 
   is-weakset@2.0.2:
     dependencies:
@@ -22219,7 +22219,7 @@ snapshots:
 
   object.assign@4.1.4:
     dependencies:
-      call-bind: 1.0.2
+      call-bind: 1.0.5
       define-properties: 1.2.1
       has-symbols: 1.0.3
       object-keys: 1.1.1
@@ -23503,7 +23503,7 @@ snapshots:
 
   safe-array-concat@1.0.1:
     dependencies:
-      call-bind: 1.0.2
+      call-bind: 1.0.5
       get-intrinsic: 1.2.1
       has-symbols: 1.0.3
       isarray: 2.0.5
@@ -23521,7 +23521,7 @@ snapshots:
 
   safe-regex-test@1.0.0:
     dependencies:
-      call-bind: 1.0.2
+      call-bind: 1.0.5
       get-intrinsic: 1.2.1
       is-regex: 1.1.4
 
@@ -23997,27 +23997,27 @@ snapshots:
 
   string.prototype.padend@3.1.5:
     dependencies:
-      call-bind: 1.0.2
+      call-bind: 1.0.5
       define-properties: 1.2.1
-      es-abstract: 1.22.2
+      es-abstract: 1.22.3
 
   string.prototype.trim@1.2.8:
     dependencies:
-      call-bind: 1.0.2
+      call-bind: 1.0.5
       define-properties: 1.2.1
-      es-abstract: 1.22.2
+      es-abstract: 1.22.3
 
   string.prototype.trimend@1.0.7:
     dependencies:
-      call-bind: 1.0.2
+      call-bind: 1.0.5
       define-properties: 1.2.1
-      es-abstract: 1.22.2
+      es-abstract: 1.22.3
 
   string.prototype.trimstart@1.0.7:
     dependencies:
-      call-bind: 1.0.2
+      call-bind: 1.0.5
       define-properties: 1.2.1
-      es-abstract: 1.22.2
+      es-abstract: 1.22.3
 
   string_decoder@1.1.1:
     dependencies:
@@ -24612,13 +24612,13 @@ snapshots:
 
   typed-array-buffer@1.0.0:
     dependencies:
-      call-bind: 1.0.2
+      call-bind: 1.0.5
       get-intrinsic: 1.2.1
       is-typed-array: 1.1.12
 
   typed-array-byte-length@1.0.0:
     dependencies:
-      call-bind: 1.0.2
+      call-bind: 1.0.5
       for-each: 0.3.3
       has-proto: 1.0.1
       is-typed-array: 1.1.12
@@ -24626,14 +24626,14 @@ snapshots:
   typed-array-byte-offset@1.0.0:
     dependencies:
       available-typed-arrays: 1.0.5
-      call-bind: 1.0.2
+      call-bind: 1.0.5
       for-each: 0.3.3
       has-proto: 1.0.1
       is-typed-array: 1.1.12
 
   typed-array-length@1.0.4:
     dependencies:
-      call-bind: 1.0.2
+      call-bind: 1.0.5
       for-each: 0.3.3
       is-typed-array: 1.1.12
 
@@ -24665,7 +24665,7 @@ snapshots:
 
   unbox-primitive@1.0.2:
     dependencies:
-      call-bind: 1.0.2
+      call-bind: 1.0.5
       has-bigints: 1.0.2
       has-symbols: 1.0.3
       which-boxed-primitive: 1.0.2
@@ -26323,7 +26323,7 @@ snapshots:
   which-typed-array@1.1.11:
     dependencies:
       available-typed-arrays: 1.0.5
-      call-bind: 1.0.2
+      call-bind: 1.0.5
       for-each: 0.3.3
       gopd: 1.0.1
       has-tostringtag: 1.0.0

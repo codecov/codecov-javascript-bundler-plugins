@@ -1,4 +1,12 @@
-import { describe, it, expect, vi, beforeAll, afterEach } from "vitest";
+import {
+  describe,
+  it,
+  expect,
+  vi,
+  beforeAll,
+  afterEach,
+  beforeEach,
+} from "vitest";
 import { execSync, execFileSync } from "node:child_process";
 import path from "node:path";
 import * as url from "node:url";
@@ -115,5 +123,69 @@ describe("CLI script", () => {
     );
     expect(output).not.toContain(".map");
     expect(output).not.toContain(".test.js");
+  });
+});
+
+describe("test CLI functions to count for code coverage", () => {
+  let consoleSpy: ReturnType<typeof vi.spyOn>;
+
+  beforeEach(() => {
+    consoleSpy = vi.spyOn(console, "log").mockImplementation(() => {
+      return;
+    }) as unknown as ReturnType<typeof vi.spyOn>;
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it("should run with dry run and log the report", async () => {
+    process.argv = [
+      "node",
+      "cli.ts",
+      ".",
+      "--bundle-name=my-bundle",
+      "--dry-run",
+    ];
+
+    // import the CLI module only after process.argv set
+    const cliModule = await import("./cli");
+
+    const argv = {
+      buildDirectories: ["."],
+      apiUrl: "https://custom-api.io",
+      dryRun: true,
+      uploadToken: "fake-token",
+      bundleName: "test-bundle",
+      debug: false,
+    };
+
+    await cliModule.runCli(argv);
+
+    expect(consoleSpy).toHaveBeenCalled();
+  });
+
+  it("should run and return error", async () => {
+    process.argv = [
+      "node",
+      "cli.ts",
+      "/directory/that/doesnt/exist",
+      "--bundle-name=my-bundle",
+      "--dry-run",
+    ];
+
+    // import the CLI module only after process.argv set
+    const cliModule = await import("./cli");
+
+    const argv = {
+      buildDirectories: ["/directory/that/doesnt/exist"],
+      apiUrl: "https://custom-api.io",
+      dryRun: true,
+      uploadToken: "fake-token",
+      bundleName: "test-bundle",
+      debug: false,
+    };
+
+    await expect(cliModule.runCli(argv)).rejects.toThrowError();
   });
 });

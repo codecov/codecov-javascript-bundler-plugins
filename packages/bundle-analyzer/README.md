@@ -7,7 +7,7 @@
 # Codecov Bundle Analyzer
 
 > [!WARNING]
-> These plugins are currently in beta and are subject to change.
+> This bundle-analyzer package is subject to change.
 >
 > An importable library + CLI for Codecov bundle analysis support.
 >
@@ -41,7 +41,7 @@ This example shows how the package can be imported as a library.
 // analyze.js
 const { createAndUploadReport } = require("@codecov/bundle-analyzer");
 
-const buildDirs = ["../../../examples/bundle-analyzer/cli/dist"];
+const buildDirs = ["/path/to/build"];
 
 const coreOpts = {
   dryRun: true,
@@ -55,6 +55,8 @@ const coreOpts = {
 
 const bundleAnalyzerOpts = {
   beforeReportUpload: async (original) => original,
+  ignorePatterns: ["*.map"],
+  normalizeAssetsPattern: "[name]-[hash].js",
 };
 
 createAndUploadReport(buildDirs, coreOpts, bundleAnalyzerOpts)
@@ -69,7 +71,7 @@ createAndUploadReport(buildDirs, coreOpts, bundleAnalyzerOpts)
 This example shows how the package can be used as a CLI.
 
 ```
-npx @codecov/bundle-analyzer ./dist --bundle-name=test-cli --upload-token=abcd --dry-run
+npx @codecov/bundle-analyzer ./dist --bundle-name=my-identifier --upload-token=abcd --dry-run
 ```
 
 ## Supported Platforms

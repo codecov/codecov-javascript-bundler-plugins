@@ -1,19 +1,21 @@
-const { createAndUploadReport } = require("@codecov/bundle-analyzer");
+import { createAndUploadReport } from "@codecov/bundle-analyzer";
 
-const buildDirs = ["../../../examples/bundle-analyzer/cli/dist"];
+const buildDirs = ["../../../examples/bundle-analyzer-lib-esm/example-dist"];
 
 const coreOpts = {
-  dryRun: true,
-  uploadToken: "your-upload-token",
+  dryRun: false,
+  uploadToken: process.env.BUNDLE_ANALYZER_UPLOAD_TOKEN,
   retryCount: 3,
   apiUrl: "https://api.codecov.io",
-  bundleName: "@codecov/example-bundle-analyzer-cjs",
+  bundleName: "@codecov/example-bundle-analyzer-esm",
   enableBundleAnalysis: true,
   debug: true,
 };
 
 const bundleAnalyzerOpts = {
   beforeReportUpload: async (original) => original,
+  ignorePatterns: ["*.map"],
+  normalizeAssetsPattern: "[name]-[hash].js",
 };
 
 createAndUploadReport(buildDirs, coreOpts, bundleAnalyzerOpts)

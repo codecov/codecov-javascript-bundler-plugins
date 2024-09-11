@@ -1,10 +1,11 @@
 {
-  "name": "@codecov/example-bundle-analyzer-library-cjs",
+  "name": "@codecov/example-bundle-analyzer-library-mjs",
   "version": "1.0.0",
   "private": true,
   "main": "analyze.js",
+  "type": "module",
   "scripts": {
-    "start": "node analyze.js"
+    "build": "node analyze.js"
   },
   "devDependencies": {
     "@codecov/bundle-analyzer": "workspace:^"

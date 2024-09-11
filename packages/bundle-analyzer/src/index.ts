@@ -59,7 +59,7 @@ export const createAndUploadReport = async (
     bundleAnalyzerOptions,
   );
 
-  const initialReport = await makeReport(
+  const initialReport = await createReport(
     buildDirectoryPaths,
     coreOpts.options,
     bundleAnalyzerOpts,
@@ -80,8 +80,8 @@ export const createAndUploadReport = async (
   return finalReport.bundleStatsToJson();
 };
 
-/* makeReport creates the output bundle stats report */
-const makeReport = async (
+/* createReport creates the output bundle stats report */
+const createReport = async (
   buildDirectoryPaths: string[],
   normalizedCoreOptions: NormalizedOptions,
   normalizedBundleAnalyzerOptions: NormalizedBundleAnalyzerOptions,
