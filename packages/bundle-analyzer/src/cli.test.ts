@@ -11,12 +11,6 @@ import { execSync, execFileSync } from "node:child_process";
 import path from "node:path";
 import * as url from "node:url";
 import fs from "node:fs";
-import {
-  prepareBundleAnalyzerOptions,
-  prepareCoreOptions,
-  runCli,
-} from "./cli";
-import { createAndUploadReport } from "src";
 
 export const runCLI = (args: string[]): string | undefined => {
   const cliPath = path.resolve(
@@ -132,120 +126,68 @@ describe("CLI script", () => {
   });
 });
 
-// describe("CLI tests", () => {
-//   const originalArgv = process.argv;
+describe("CLI functions only", () => {
+  let consoleSpy: ReturnType<typeof vi.spyOn>;
 
-//   beforeEach(() => {
-//     vi.spyOn(process, "exit").mockImplementation((code) => {
-//       throw new Error(`process.exit called with code: ${code}`);
-//     });
+  beforeEach(() => {
+    // Mock console.log to capture output
+    consoleSpy = vi.spyOn(console, "log").mockImplementation(() => {
+      return;
+    });
+  });
 
-//     // Mock process.argv for every test
-//     process.argv = [...originalArgv];
-//   });
+  afterEach(() => {
+    // Restore all mocks after each test
+    vi.restoreAllMocks();
+  });
 
-//   afterEach(() => {
-//     // Restore the original argv and process.exit after each test
-//     process.argv = originalArgv;
-//     vi.restoreAllMocks();
-//   });
+  it("should run with dry run and log the report", async () => {
+    process.argv = [
+      "node",
+      "cli.ts",
+      ".",
+      "--bundle-name=my-bundle",
+      "--dry-run",
+    ];
 
-//   it("should prepare core options correctly", () => {
-//     const argv = {
-//       apiUrl: "https://custom-api.io",
-//       dryRun: true,
-//       uploadToken: "fake-token",
-//       bundleName: "test-bundle",
-//       debug: true,
-//     };
+    // import the CLI module only after process.argv set
+    const cliModule = await import("./cli");
 
-//     const expectedCoreOptions = {
-//       apiUrl: "https://custom-api.io",
-//       dryRun: true,
-//       uploadToken: "fake-token",
-//       bundleName: "test-bundle",
-//       debug: true,
-//     };
+    const argv = {
+      buildDirectories: ["."],
+      apiUrl: "https://custom-api.io",
+      dryRun: true,
+      uploadToken: "fake-token",
+      bundleName: "test-bundle",
+      debug: false,
+    };
 
-//     expect(prepareCoreOptions(argv)).toEqual(expectedCoreOptions);
-//   });
+    await cliModule.runCli(argv);
 
-//   it("should prepare bundle analyzer options correctly", () => {
-//     const argv = {
-//       ignorePatterns: ["*.map", "*.test.js"],
-//       normalizeAssetsPattern: "[name]-[hash].js",
-//     };
+    expect(consoleSpy).toHaveBeenCalled();
+  });
 
-//     const expectedBundleAnalyzerOptions = {
-//       ignorePatterns: ["*.map", "*.test.js"],
-//       normalizeAssetsPattern: "[name]-[hash].js",
-//     };
+  it("should run and return error", async () => {
+    process.argv = [
+      "node",
+      "cli.ts",
+      "/directory/that/doesnt/exist",
+      "--bundle-name=my-bundle",
+      "--dry-run",
+    ];
 
-//     expect(prepareBundleAnalyzerOptions(argv)).toEqual(
-//       expectedBundleAnalyzerOptions,
-//     );
-//   });
+    // import the CLI module only after process.argv set
+    const cliModule = await import("./cli");
 
-//   it("should run the CLI with valid arguments and call createAndUploadReport", async () => {
-//     // Simulate process.argv with valid build directories
-//     process.argv = [
-//       "node",
-//       "cli.js",
-//       "./build",
-//       "--bundle-name=my-bundle",
-//       "--dry-run",
-//       "--ignore-patterns=*.map",
-//     ];
+    const argv = {
+      buildDirectories: ["/directory/that/doesnt/exist"],
+      apiUrl: "https://custom-api.io",
+      dryRun: true,
+      uploadToken: "fake-token",
+      bundleName: "test-bundle",
+      debug: false,
+    };
 
-//     await runCli({
-//       buildDirectories: ["./build"],
-//       apiUrl: "https://api.codecov.io",
-//       dryRun: true,
-//       bundleName: "my-bundle",
-//       debug: false,
-//     });
-
-//     expect(createAndUploadReport).toHaveBeenCalledWith(
-//       [path.resolve(process.cwd(), "./build")],
-//       {
-//         apiUrl: "https://api.codecov.io",
-//         dryRun: true,
-//         uploadToken: undefined,
-//         bundleName: "my-bundle",
-//         debug: false,
-//       },
-//       {
-//         ignorePatterns: undefined,
-//         normalizeAssetsPattern: undefined,
-//       },
-//     );
-//   });
-
-//   it("should log an error and exit if there is a failure", async () => {
-//     // Simulate an error in the CLI
-//     vi.mocked(createAndUploadReport).mockRejectedValueOnce(
-//       new Error("Test error"),
-//     );
-
-//     // Simulate process.argv
-//     process.argv = [
-//       "node",
-//       "cli.js",
-//       "./non-existent-dir",
-//       "--bundle-name=my-bundle",
-//     ];
-
-//     await expect(
-//       runCli({
-//         buildDirectories: ["./non-existent-dir"],
-//         apiUrl: "https://api.codecov.io",
-//         dryRun: false,
-//         bundleName: "my-bundle",
-//         debug: false,
-//       }),
-//     ).rejects.toThrowError("process.exit called with code: 1");
-
-//     expect(red).toHaveBeenCalledWith("An error occurred: Error: Test error");
-//     expect(process.exit).toHaveBeenCalledWith(1);
-//   });
-// });
+    await expect(cliModule.runCli(argv)).rejects.toThrowError();
+  });
+});

@@ -203,6 +203,28 @@ describe("createAndUploadReport", () => {
     expect(writeHandler).toHaveBeenCalled();
   });
 
+  it("should handle an error from custom beforeReportUpload", async () => {
+    const testFunc = vi.fn();
+    beforeReportUpload.mockImplementation(() => {
+      testFunc();
+      throw new Error("Test error from beforeReportUpload");
+    });
+    bundleAnalyzerOptions.beforeReportUpload = beforeReportUpload;
+
+    await expect(
+      createAndUploadReport(
+        ["/path/to/build/directory"],
+        coreOptions,
+        bundleAnalyzerOptions,
+      ),
+    ).rejects.toThrowError(
+      "Error in beforeReportUpload: Error: Test error from beforeReportUpload",
+    );
+
+    expect(beforeReportUpload).toHaveBeenCalled();
+    expect(testFunc).toHaveBeenCalled();
+  });
+
   it("should throw an error if options normalization fails", async () => {
     (normalizeOptions as Mock).mockReturnValue({
       success: false,

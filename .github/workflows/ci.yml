@@ -344,6 +344,8 @@ jobs:
         env:
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          BUNDLE_ANALYZER_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          BUNDLE_ANALYZER_API_URL: ${{ secrets.CODECOV_API_URL }}
           NEXT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           NEXT_API_URL: ${{ secrets.CODECOV_API_URL }}
           NUXT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
@@ -355,8 +357,6 @@ jobs:
           ROLLUP_API_URL: ${{ secrets.CODECOV_API_URL }}
           SOLIDSTART_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           SOLIDSTART_API_URL: ${{ secrets.CODECOV_API_URL }}
-          BUNDLE_ANALYZER_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
-          BUNDLE_ANALYZER_API_URL: ${{ secrets.CODECOV_API_URL }}
           SVELTEKIT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           SVELTEKIT_API_URL: ${{ secrets.CODECOV_API_URL }}
           VITE_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
@@ -436,6 +436,8 @@ jobs:
         env:
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          BUNDLE_ANALYZER_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          BUNDLE_ANALYZER_API_URL: ${{ secrets.CODECOV_API_URL }}
           NEXT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
           NEXT_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
           NUXT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
@@ -447,8 +449,6 @@ jobs:
           ROLLUP_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
           SOLIDSTART_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           SOLIDSTART_API_URL: ${{ secrets.CODECOV_API_URL }}
-          BUNDLE_ANALYZER_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
-          BUNDLE_ANALYZER_API_URL: ${{ secrets.CODECOV_API_URL }}
           SVELTEKIT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           SVELTEKIT_API_URL: ${{ secrets.CODECOV_API_URL }}
           VITE_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
@@ -468,6 +468,7 @@ jobs:
       matrix:
         package:
           [
+            "bundle-analyzer",
             "bundler-plugin-core",
             "nextjs-webpack-plugin",
             "nuxt-plugin",
@@ -477,7 +478,6 @@ jobs:
             "vite-plugin",
             "webpack-plugin",
             "solidstart-plugin",
-            "bundle-analyzer",
           ]
     steps:
       - name: Checkout
@@ -537,6 +537,7 @@ jobs:
       matrix:
         package:
           [
+            "bundle-analyzer",
             "bundler-plugin-core",
             "nextjs-webpack-plugin",
             "nuxt-plugin",
@@ -546,7 +547,6 @@ jobs:
             "vite-plugin",
             "webpack-plugin",
             "solidstart-plugin",
-            "bundle-analyzer",
           ]
     steps:
       - name: Checkout

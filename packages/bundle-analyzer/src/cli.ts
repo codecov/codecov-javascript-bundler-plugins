@@ -77,7 +77,7 @@ const argv = yargs(hideBin(process.argv))
   .alias("h", "help")
   .parseSync() as unknown as Argv;
 
-export const prepareCoreOptions = (argv: Argv): Options => {
+const prepareCoreOptions = (argv: Argv): Options => {
   return {
     apiUrl: argv.apiUrl,
     dryRun: argv.dryRun,
@@ -87,9 +87,7 @@ export const prepareCoreOptions = (argv: Argv): Options => {
   };
 };
 
-export const prepareBundleAnalyzerOptions = (
-  argv: Argv,
-): BundleAnalyzerOptions => {
+const prepareBundleAnalyzerOptions = (argv: Argv): BundleAnalyzerOptions => {
   return {
     ignorePatterns: argv.ignorePatterns,
     normalizeAssetsPattern: argv.normalizeAssetsPattern,
