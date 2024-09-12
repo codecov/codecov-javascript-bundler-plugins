@@ -12,6 +12,9 @@ import {
 } from "./options";
 import { getAssets } from "./assets";
 
+export { type Options } from "@codecov/bundler-plugin-core";
+export { type BundleAnalyzerOptions } from "./options";
+
 /**
  * Generates a Codecov bundle stats report and optionally uploads it to Codecov. This function can
  * be imported into your code or used via the bundle-analyzer CLI.
@@ -74,7 +77,7 @@ export const createAndUploadReport = async (
   }
 
   if (!coreOptions.dryRun) {
-    await finalReport.write();
+    await finalReport.write(true);
   }
 
   return finalReport.bundleStatsToJson();

@@ -6,11 +6,9 @@
 
 # Codecov Bundle Analyzer
 
-> [!WARNING]
-> This bundle-analyzer package is subject to change.
->
-> An importable library + CLI for Codecov bundle analysis support.
->
+An importable library + CLI for Codecov bundle analysis support.
+
+> [!NOTE]
 > The plugin does not support code coverage, see our [docs](https://docs.codecov.com/docs/quick-start) to set up coverage today!
 
 ## Installation
@@ -33,7 +31,7 @@ Using pnpm:
 pnpm add @codecov/bundle-analyzer --save-dev
 ```
 
-## Example
+## Example - Custom Script
 
 This example shows how the package can be imported as a library.
 
@@ -67,6 +65,8 @@ createAndUploadReport(buildDirs, coreOpts, bundleAnalyzerOpts)
     console.error("Failed to generate or upload report:", error),
   );
 ```
+
+## Example - CLI
 
 This example shows how the package can be used as a CLI.
 

@@ -1,21 +1,43 @@
 #!/usr/bin/env node
 
 import path from "node:path";
+import fs from "node:fs";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import { createAndUploadReport } from "./index.js";
 import { red, type Options } from "@codecov/bundler-plugin-core";
 import { type BundleAnalyzerOptions } from "./options";
 
-interface Argv {
+interface Argv extends BaseArgs, ConfigFileArgs {}
+
+// Base arguments that can be supplied in a flag or an optional config file. These are the more common configurations options
+interface BaseArgs {
   buildDirectories: string[];
-  dryRun?: boolean;
-  uploadToken?: string;
-  apiUrl?: string;
-  bundleName: string;
-  debug?: boolean;
+
+  // Bundle Analyzer Options
   ignorePatterns?: string[];
   normalizeAssetsPattern?: string;
+
+  // Core Options
+  apiUrl?: string;
+  uploadToken?: string;
+  bundleName: string;
+  debug?: boolean;
+  dryRun?: boolean;
+
+  configFile?: string;
+}
+
+// ConfigFileArgs arguments that can be supplied in an optional config file. These are less common configurations options
+interface ConfigFileArgs {
+  // Core Options
+  gitService?: string;
+  uploadOverridesBranch?: string;
+  uploadOverridesBuild?: string;
+  uploadOverridesPr?: string;
+  uploadOverridesSha?: string;
+  oidcUseGitHubOIDC?: boolean;
+  oidcGitHubOIDCTokenAudience?: string;
 }
 
 const argv = yargs(hideBin(process.argv))
@@ -71,11 +93,48 @@ const argv = yargs(hideBin(process.argv))
       type: "string",
       description: "Pattern to normalize asset names, e.g., '[name]-[hash].js'",
     },
+    "config-file": {
+      alias: "c",
+      type: "string",
+      description: "Path to a JSON configuration file",
+    },
   })
   .strict()
   .help("h")
   .alias("h", "help")
-  .parseSync() as unknown as Argv;
+  .parseSync() as unknown as BaseArgs;
+
+const getConfigFileArgs = (): Partial<ConfigFileArgs> => {
+  // Load and merge config file if provided
+  const loadConfigFile = (filePath: string): Partial<ConfigFileArgs> => {
+    try {
+      const configContent = fs.readFileSync(filePath, "utf-8");
+      return JSON.parse(configContent) as Partial<ConfigFileArgs>;
+    } catch (error) {
+      red(`Failed to load configuration file: ${error}`);
+      process.exit(1);
+    }
+  };
+
+  let configFromFile: Partial<ConfigFileArgs> = {};
+  if (argv.configFile) {
+    configFromFile = loadConfigFile(argv.configFile);
+  }
+
+  return configFromFile;
+};
+
+const resolveArgs = (): Argv => {
+  const configFromFile = getConfigFileArgs();
+
+  // Merge CLI flag arguments with config file values (CLI flag takes precedence)
+  const mergedArgs: Argv = {
+    ...configFromFile,
+    ...argv,
+  };
+
+  return mergedArgs;
+};
 
 const prepareCoreOptions = (argv: Argv): Options => {
   return {
@@ -94,7 +153,14 @@ const prepareBundleAnalyzerOptions = (argv: Argv): BundleAnalyzerOptions => {
   };
 };
 
-export const runCli = async (argv: Argv): Promise<void> => {
+export const runCli = async (): Promise<void> => {
+  const argv = resolveArgs();
+
+  if (argv.buildDirectories.length === 0) {
+    red("Error: No build directories provided.");
+    process.exit(1);
+  }
+
   const resolvedDirectoryPaths = argv.buildDirectories.map((dir) =>
     path.resolve(process.cwd(), dir),
   );
@@ -109,12 +175,11 @@ export const runCli = async (argv: Argv): Promise<void> => {
   );
 
   if (coreOptions.dryRun) {
-    // eslint-disable-next-line no-console
     console.log(reportAsJson);
   }
 };
 
-runCli(argv).catch((error) => {
+runCli().catch((error) => {
   red(`An error occurred: ${error}`);
   process.exit(1);
 });
