@@ -5,20 +5,7 @@ import {
   normalizePath,
   type Asset,
 } from "@codecov/bundler-plugin-core";
-import { fileURLToPath } from "node:url";
 import micromatch from "micromatch";
-
-let fileName: string;
-let __dirname: string;
-const isCommonJSEnvironment =
-  typeof module !== "undefined" && module.exports !== undefined;
-if (isCommonJSEnvironment) {
-  fileName = __filename;
-  __dirname = path.dirname(fileName);
-} else {
-  fileName = fileURLToPath(import.meta.url);
-  __dirname = path.dirname(fileName);
-}
 
 /* getAssets gets assets from the starting paths to include in a bundle stats report */
 export const getAssets = async (
@@ -28,7 +15,7 @@ export const getAssets = async (
 ): Promise<Asset[]> => {
   const allAssets = await Promise.all(
     buildDirectoryPaths.map(async (buildDirectoryPath) => {
-      const absoluteAssetsDir = path.resolve(__dirname, buildDirectoryPath);
+      const absoluteAssetsDir = path.resolve(buildDirectoryPath);
       const files = await listChildFilePaths(absoluteAssetsDir);
 
       // apply filtering only if ignorePatterns contains patterns

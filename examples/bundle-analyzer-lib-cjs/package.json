@@ -2,9 +2,9 @@
   "name": "@codecov/example-bundle-analyzer-library-cjs",
   "version": "1.0.0",
   "private": true,
-  "main": "analyze.ts",
+  "main": "analyze.js",
   "scripts": {
-    "build": "npx tsx analyze.ts"
+    "build": "node analyze.js"
   },
   "devDependencies": {
     "@codecov/bundle-analyzer": "workspace:^"

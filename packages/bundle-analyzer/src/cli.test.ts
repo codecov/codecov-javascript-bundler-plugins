@@ -165,7 +165,7 @@ describe("test CLI functions to count for code coverage", () => {
     expect(consoleSpy).toHaveBeenCalled();
   });
 
-  it("should run and return error", async () => {
+  it("should run and return error if directory does not exist", async () => {
     process.argv = [
       "node",
       "cli.ts",
@@ -188,4 +188,53 @@ describe("test CLI functions to count for code coverage", () => {
 
     await expect(cliModule.runCli(argv)).rejects.toThrowError();
   });
+
+  // vi.mock("node:fs");
+  // vi.mock("node:path");
+
+  // it("should load config file and merge with base args", async () => {
+  //   vi.mock("node:fs");
+
+  //   const baseArgs = {
+  //     buildDirectories: ["build-dir"],
+  //     bundleName: "test-bundle",
+  //     configFile: "config.json",
+  //   };
+
+  //   fs.readFileSync.mockReturnValue(
+  //     JSON.stringify({
+  //       uploadOverridesBranch: "main",
+  //     }),
+  //   );
+  //   path.resolve.mockImplementation((cwd, dir) => `${cwd}/${dir}`);
+
+  //   await runCli(baseArgs);
+
+  //   expect(fs.readFileSync).toHaveBeenCalledWith("config.json", "utf-8");
+  //   expect(createAndUploadReport).toHaveBeenCalledWith(
+  //     [expect.stringContaining("build-dir")],
+  //     expect.objectContaining({
+  //       uploadOverridesBranch: "main",
+  //     }),
+  //     expect.any(Object),
+  //   );
+  // });
+
+  // it("should exit with an error when failing to load config file", async () => {
+  //   const baseArgs = {
+  //     buildDirectories: ["build-dir"],
+  //     bundleName: "test-bundle",
+  //     configFile: "config.json",
+  //   };
+
+  //   fs.readFileSync.mockImplementation(() => {
+  //     throw new Error("File not found");
+  //   });
+
+  //   await runCli(baseArgs);
+
+  //   expect(red).toHaveBeenCalledWith(
+  //     "Failed to load configuration file: Error: File not found",
+  //   );
+  // });
 });
