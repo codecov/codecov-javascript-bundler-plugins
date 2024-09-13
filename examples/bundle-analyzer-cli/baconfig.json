@@ -1,0 +1,7 @@
+{
+  "gitService": "github",
+  "oidc": {
+    "useGitHubOIDC": false
+  },
+  "ignorePatterns": ["*.map"]
+}

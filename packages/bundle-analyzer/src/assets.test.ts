@@ -1,12 +1,4 @@
-import {
-  describe,
-  it,
-  expect,
-  vi,
-  beforeEach,
-  type Mock,
-  afterEach,
-} from "vitest";
+import { describe, it, expect, vi, beforeEach, type Mock } from "vitest";
 import path from "node:path";
 import fs from "node:fs/promises";
 import { getAssets, getAsset, listChildFilePaths } from "./assets";
@@ -15,7 +7,6 @@ import {
   getCompressedSize,
   normalizePath,
 } from "@codecov/bundler-plugin-core";
-import { fileURLToPath } from "url";
 
 vi.mock("node:fs/promises");
 vi.mock("@codecov/bundler-plugin-core", () => ({

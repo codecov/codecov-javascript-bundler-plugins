@@ -8,10 +8,10 @@ import { createAndUploadReport } from "./index.js";
 import { red, type Options } from "@codecov/bundler-plugin-core";
 import { type BundleAnalyzerOptions } from "./options";
 
-interface Argv extends BaseArgs, ConfigFileArgs {}
+interface Argv extends CLIArgs, Options, BundleAnalyzerOptions {}
 
-// Base arguments that can be supplied in a flag or an optional config file. These are the more common configurations options
-interface BaseArgs {
+// CLI arguments that can be supplied via CLI flag or an optional config file
+interface CLIArgs {
   buildDirectories: string[];
 
   // Bundle Analyzer Options
@@ -21,30 +21,14 @@ interface BaseArgs {
   // Core Options
   apiUrl?: string;
   uploadToken?: string;
-  bundleName: string;
+  bundleName?: string;
   debug?: boolean;
   dryRun?: boolean;
 
   configFile?: string;
 }
 
-// ConfigFileArgs arguments that can be supplied in an optional config file. These are less common configurations options
-interface ConfigFileArgs {
-  // Core Options
-  retryCount?: number;
-  enableBundleAnalysis?: boolean;
-  gitService?: string;
-  uploadOverridesBranch?: string;
-  uploadOverridesBuild?: string;
-  uploadOverridesPr?: string;
-  uploadOverridesCompareSha?: string;
-  uploadOverridesSha?: string;
-  uploadOverridesSlug?: string;
-  oidcUseGitHubOIDC?: boolean;
-  oidcGitHubOIDCTokenAudience?: string;
-}
-
-const baseArgs = yargs(hideBin(process.argv))
+const cliArgs = yargs(hideBin(process.argv))
   .usage("Usage: $0 <build-directories> [options]")
   .command(
     "$0 <build-directories...>",
@@ -79,7 +63,6 @@ const baseArgs = yargs(hideBin(process.argv))
       alias: "n",
       type: "string",
       description: "Set the bundle identifier in Codecov",
-      demandOption: true,
     },
     debug: {
       alias: "v",
@@ -106,67 +89,34 @@ const baseArgs = yargs(hideBin(process.argv))
   .strict()
   .help("h")
   .alias("h", "help")
-  .parseSync() as unknown as BaseArgs;
+  .parseSync() as unknown as CLIArgs;
 
-const getConfigFileArgs = (filePath: string): Partial<ConfigFileArgs> => {
+const getConfigFileArgs = (
+  filePath: string,
+): Partial<Options & BundleAnalyzerOptions> => {
   try {
     const configContent = fs.readFileSync(filePath, "utf-8");
-    return JSON.parse(configContent) as Partial<ConfigFileArgs>;
+    return JSON.parse(configContent) as Partial<
+      Options & BundleAnalyzerOptions
+    >;
   } catch (error) {
     red(`Failed to load configuration file: ${error}`);
     process.exit(1);
   }
 };
 
-const addConfigFileArgs = (baseArgs: BaseArgs): Argv => {
-  let configFromFile: ConfigFileArgs | undefined;
+const addConfigFileArgs = (baseArgs: CLIArgs): Argv => {
+  let configFromFile: Partial<Options & BundleAnalyzerOptions> = {};
+
   if (baseArgs.configFile) {
     configFromFile = getConfigFileArgs(baseArgs.configFile);
   }
 
   // Merge CLI flag arguments with config file values (CLI flag takes precedence)
-  const mergedArgs: Argv = {
-    ...configFromFile,
-    ...baseArgs,
-  };
-
-  return mergedArgs;
+  return { ...configFromFile, ...baseArgs };
 };
 
-const prepareCoreOptions = (argv: Argv): Options => {
-  return {
-    apiUrl: argv.apiUrl,
-    // @ts-expect-error - validate value at normalizeOptions
-    gitService: argv.gitService,
-    dryRun: argv.dryRun,
-    uploadToken: argv.uploadToken ?? process.env.CODECOV_UPLOAD_TOKEN,
-    retryCount: argv.retryCount,
-    bundleName: argv.bundleName ?? "",
-    enableBundleAnalysis: argv.enableBundleAnalysis,
-    debug: argv.debug,
-    uploadOverrides: {
-      branch: argv.uploadOverridesBranch,
-      build: argv.uploadOverridesBuild,
-      compareSha: argv.uploadOverridesCompareSha,
-      pr: argv.uploadOverridesPr,
-      sha: argv.uploadOverridesSha,
-      slug: argv.uploadOverridesSlug,
-    },
-    oidc: {
-      useGitHubOIDC: argv.oidcUseGitHubOIDC ?? false,
-      gitHubOIDCTokenAudience: argv.oidcGitHubOIDCTokenAudience,
-    },
-  };
-};
-
-const prepareBundleAnalyzerOptions = (argv: Argv): BundleAnalyzerOptions => {
-  return {
-    ignorePatterns: argv.ignorePatterns,
-    normalizeAssetsPattern: argv.normalizeAssetsPattern,
-  };
-};
-
-export const runCli = async (baseArgs: BaseArgs): Promise<void> => {
+export const runCli = async (baseArgs: CLIArgs): Promise<void> => {
   const argv = addConfigFileArgs(baseArgs);
 
   if (argv.buildDirectories.length === 0) {
@@ -178,8 +128,13 @@ export const runCli = async (baseArgs: BaseArgs): Promise<void> => {
     path.resolve(process.cwd(), dir),
   );
 
-  const coreOptions = prepareCoreOptions(argv);
-  const bundleAnalyzerOptions = prepareBundleAnalyzerOptions(argv);
+  const coreOptions: Options = {
+    ...argv,
+  };
+
+  const bundleAnalyzerOptions: BundleAnalyzerOptions = {
+    ...argv,
+  };
 
   const reportAsJson = await createAndUploadReport(
     resolvedDirectoryPaths,
@@ -193,7 +148,7 @@ export const runCli = async (baseArgs: BaseArgs): Promise<void> => {
   }
 };
 
-runCli(baseArgs).catch((error) => {
+runCli(cliArgs).catch((error) => {
   red(`An error occurred: ${error}`);
   process.exit(1);
 });

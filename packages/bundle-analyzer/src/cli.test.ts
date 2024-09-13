@@ -124,117 +124,95 @@ describe("CLI script", () => {
     expect(output).not.toContain(".map");
     expect(output).not.toContain(".test.js");
   });
-});
 
-describe("test CLI functions to count for code coverage", () => {
-  let consoleSpy: ReturnType<typeof vi.spyOn>;
+  it("should log an error for invalid CLI arguments", () => {
+    const output = runCLI([
+      "./src",
+      "../bundle-analyzer",
+      "--bundle-name=someName",
+      "--invalid-option",
+    ]);
 
-  beforeEach(() => {
-    consoleSpy = vi.spyOn(console, "log").mockImplementation(() => {
-      return;
-    }) as unknown as ReturnType<typeof vi.spyOn>;
+    expect(output).toContain("Unknown argument");
   });
 
-  afterEach(() => {
-    vi.restoreAllMocks();
+  describe("test CLI functions directly", () => {
+    let consoleSpy: ReturnType<typeof vi.spyOn>;
+    // eslint-disable-next-line @typescript-eslint/consistent-type-imports
+    let cliModule: typeof import("./cli");
+    beforeAll(async () => {
+      process.argv = ["node", "cli.ts", ".", "--dry-run", "--bundle-name=test"];
+      cliModule = await import("./cli");
+    });
+
+    beforeEach(() => {
+      vi.restoreAllMocks();
+      consoleSpy = vi.spyOn(console, "log").mockImplementation(() => {
+        return;
+      }) as unknown as ReturnType<typeof vi.spyOn>;
+    });
+
+    it("should run with dry run and log the report", async () => {
+      const argv = {
+        buildDirectories: ["."],
+        apiUrl: "https://custom-api.io",
+        dryRun: true,
+        uploadToken: "fake-token",
+        bundleName: "test-bundle",
+        debug: false,
+      };
+
+      await cliModule.runCli(argv);
+
+      expect(consoleSpy).toHaveBeenCalled();
+      expect(consoleSpy.mock.calls[1]?.[0]).toContain("test-bundle");
+    });
+
+    it("should run and return error if directory does not exist", async () => {
+      const argv = {
+        buildDirectories: ["/directory/that/doesnt/exist"],
+        apiUrl: "https://custom-api.io",
+        dryRun: true,
+        uploadToken: "fake-token",
+        bundleName: "test-bundle",
+        debug: false,
+      };
+
+      await expect(cliModule.runCli(argv)).rejects.toThrowError();
+    });
+
+    it("should load options from a configuration file", async () => {
+      const argv = {
+        buildDirectories: ["."],
+        apiUrl: "https://custom-api.io",
+        dryRun: true,
+        uploadToken: "fake-token",
+        bundleName: "this-is-the-name",
+        debug: false,
+      };
+
+      const configFilePath = path.resolve("test-config.json");
+
+      // Create a dummy config file for the test
+      fs.writeFileSync(
+        configFilePath,
+        JSON.stringify({
+          bundleName: "this-name-should-be-ignored",
+          oidc: {
+            useGitHubOIDC: false,
+          },
+        }),
+      );
+
+      await cliModule.runCli(argv);
+
+      fs.unlinkSync(configFilePath); // Clean up after test
+
+      expect(consoleSpy).toHaveBeenCalled();
+      // the CLI argument should override anythign supplied in the config file
+      expect(consoleSpy.mock.calls[0]?.[0]).toContain(
+        `bundleName":"this-is-the-name"`,
+      );
+    });
   });
-
-  it("should run with dry run and log the report", async () => {
-    process.argv = [
-      "node",
-      "cli.ts",
-      ".",
-      "--bundle-name=my-bundle",
-      "--dry-run",
-    ];
-
-    // import the CLI module only after process.argv set
-    const cliModule = await import("./cli");
-
-    const argv = {
-      buildDirectories: ["."],
-      apiUrl: "https://custom-api.io",
-      dryRun: true,
-      uploadToken: "fake-token",
-      bundleName: "test-bundle",
-      debug: false,
-    };
-
-    await cliModule.runCli(argv);
-
-    expect(consoleSpy).toHaveBeenCalled();
-  });
-
-  it("should run and return error if directory does not exist", async () => {
-    process.argv = [
-      "node",
-      "cli.ts",
-      "/directory/that/doesnt/exist",
-      "--bundle-name=my-bundle",
-      "--dry-run",
-    ];
-
-    // import the CLI module only after process.argv set
-    const cliModule = await import("./cli");
-
-    const argv = {
-      buildDirectories: ["/directory/that/doesnt/exist"],
-      apiUrl: "https://custom-api.io",
-      dryRun: true,
-      uploadToken: "fake-token",
-      bundleName: "test-bundle",
-      debug: false,
-    };
-
-    await expect(cliModule.runCli(argv)).rejects.toThrowError();
-  });
-
-  // vi.mock("node:fs");
-  // vi.mock("node:path");
-
-  // it("should load config file and merge with base args", async () => {
-  //   vi.mock("node:fs");
-
-  //   const baseArgs = {
-  //     buildDirectories: ["build-dir"],
-  //     bundleName: "test-bundle",
-  //     configFile: "config.json",
-  //   };
-
-  //   fs.readFileSync.mockReturnValue(
-  //     JSON.stringify({
-  //       uploadOverridesBranch: "main",
-  //     }),
-  //   );
-  //   path.resolve.mockImplementation((cwd, dir) => `${cwd}/${dir}`);
-
-  //   await runCli(baseArgs);
-
-  //   expect(fs.readFileSync).toHaveBeenCalledWith("config.json", "utf-8");
-  //   expect(createAndUploadReport).toHaveBeenCalledWith(
-  //     [expect.stringContaining("build-dir")],
-  //     expect.objectContaining({
-  //       uploadOverridesBranch: "main",
-  //     }),
-  //     expect.any(Object),
-  //   );
-  // });
-
-  // it("should exit with an error when failing to load config file", async () => {
-  //   const baseArgs = {
-  //     buildDirectories: ["build-dir"],
-  //     bundleName: "test-bundle",
-  //     configFile: "config.json",
-  //   };
-
-  //   fs.readFileSync.mockImplementation(() => {
-  //     throw new Error("File not found");
-  //   });
-
-  //   await runCli(baseArgs);
-
-  //   expect(red).toHaveBeenCalledWith(
-  //     "Failed to load configuration file: Error: File not found",
-  //   );
-  // });
 });
