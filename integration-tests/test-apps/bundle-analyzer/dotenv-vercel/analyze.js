@@ -1,8 +1,6 @@
 import { createAndUploadReport } from "@codecov/bundle-analyzer";
 
-const buildDirs = [
-  "../../../integration-tests/test-apps/bundle-analyzer/dotenv-vercel/dist",
-];
+const buildDirs = ["./dist"];
 
 const apiUrl = process.env.API_URL || "https://api.codecov.io";
 
