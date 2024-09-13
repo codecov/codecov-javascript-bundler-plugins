@@ -124,33 +124,36 @@ describe("CLI script", () => {
     expect(output).not.toContain(".map");
     expect(output).not.toContain(".test.js");
   });
+
+  it("should log an error for invalid CLI arguments", () => {
+    const output = runCLI([
+      "./src",
+      "../bundle-analyzer",
+      "--bundle-name=someName",
+      "--invalid-option",
+    ]);
+
+    expect(output).toContain("Unknown argument");
+  });
 });
 
-describe("test CLI functions to count for code coverage", () => {
+describe("test CLI functions directly", () => {
   let consoleSpy: ReturnType<typeof vi.spyOn>;
+  // eslint-disable-next-line @typescript-eslint/consistent-type-imports
+  let cliModule: typeof import("./cli");
+  beforeAll(async () => {
+    process.argv = ["node", "cli.ts", ".", "--dry-run", "--bundle-name=test"];
+    cliModule = await import("./cli");
+  });
 
   beforeEach(() => {
+    vi.restoreAllMocks();
     consoleSpy = vi.spyOn(console, "log").mockImplementation(() => {
       return;
     }) as unknown as ReturnType<typeof vi.spyOn>;
   });
 
-  afterEach(() => {
-    vi.restoreAllMocks();
-  });
-
   it("should run with dry run and log the report", async () => {
-    process.argv = [
-      "node",
-      "cli.ts",
-      ".",
-      "--bundle-name=my-bundle",
-      "--dry-run",
-    ];
-
-    // import the CLI module only after process.argv set
-    const cliModule = await import("./cli");
-
     const argv = {
       buildDirectories: ["."],
       apiUrl: "https://custom-api.io",
@@ -165,18 +168,7 @@ describe("test CLI functions to count for code coverage", () => {
     expect(consoleSpy).toHaveBeenCalled();
   });
 
-  it("should run and return error", async () => {
-    process.argv = [
-      "node",
-      "cli.ts",
-      "/directory/that/doesnt/exist",
-      "--bundle-name=my-bundle",
-      "--dry-run",
-    ];
-
-    // import the CLI module only after process.argv set
-    const cliModule = await import("./cli");
-
+  it("should run and return error if directory does not exist", async () => {
     const argv = {
       buildDirectories: ["/directory/that/doesnt/exist"],
       apiUrl: "https://custom-api.io",
@@ -184,6 +176,70 @@ describe("test CLI functions to count for code coverage", () => {
       uploadToken: "fake-token",
       bundleName: "test-bundle",
       debug: false,
+    };
+
+    await expect(cliModule.runCli(argv)).rejects.toThrowError();
+  });
+
+  it("should return error if directories not supplied", async () => {
+    const argv = {
+      buildDirectories: [],
+      apiUrl: "https://custom-api.io",
+      dryRun: true,
+      uploadToken: "fake-token",
+      bundleName: "test-bundle",
+      debug: false,
+    };
+
+    await expect(cliModule.runCli(argv)).rejects.toThrowError();
+  });
+
+  it("should load options from a configuration file successfully", async () => {
+    const configFilePath = path.resolve("test-config.json");
+
+    const argv = {
+      buildDirectories: ["."],
+      apiUrl: "https://custom-api.io",
+      dryRun: true,
+      uploadToken: "fake-token",
+      bundleName: "this-is-the-name",
+      debug: false,
+      configFile: configFilePath,
+    };
+
+    // Create a dummy config file for the test
+    fs.writeFileSync(
+      configFilePath,
+      JSON.stringify({
+        bundleName: "this-name-should-be-ignored",
+        oidc: {
+          useGitHubOIDC: false,
+        },
+      }),
+    );
+
+    await cliModule.runCli(argv);
+
+    fs.unlinkSync(configFilePath); // Clean up after test
+
+    expect(consoleSpy).toHaveBeenCalled();
+    // the CLI argument should override anything supplied in the config file
+    expect(consoleSpy.mock.calls[0]?.[0]).toContain(
+      `bundleName":"this-is-the-name"`,
+    );
+  });
+
+  it("should load options from a configuration file with error if file does not exist", async () => {
+    const configFilePath = path.resolve("not-exists.json");
+
+    const argv = {
+      buildDirectories: ["."],
+      apiUrl: "https://custom-api.io",
+      dryRun: true,
+      uploadToken: "fake-token",
+      bundleName: "this-is-the-name",
+      debug: false,
+      configFile: configFilePath,
     };
 
     await expect(cliModule.runCli(argv)).rejects.toThrowError();

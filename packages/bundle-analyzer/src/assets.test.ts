@@ -1,12 +1,4 @@
-import {
-  describe,
-  it,
-  expect,
-  vi,
-  beforeEach,
-  type Mock,
-  afterEach,
-} from "vitest";
+import { describe, it, expect, vi, beforeEach, type Mock } from "vitest";
 import path from "node:path";
 import fs from "node:fs/promises";
 import { getAssets, getAsset, listChildFilePaths } from "./assets";
@@ -15,7 +7,6 @@ import {
   getCompressedSize,
   normalizePath,
 } from "@codecov/bundler-plugin-core";
-import { fileURLToPath } from "url";
 
 vi.mock("node:fs/promises");
 vi.mock("@codecov/bundler-plugin-core", () => ({
@@ -253,44 +244,5 @@ describe("getAllAssets", () => {
         normalized: "file-*.js",
       },
     ]);
-  });
-});
-
-describe("Module System Compatibility", () => {
-  let fileName: string;
-  let __dirname: string;
-
-  const setCommonJSContext = () => {
-    // @ts-expect-error - ignore ts error for module cleanup
-    global.module = { exports: {} };
-    fileName = __filename;
-    __dirname = path.dirname(fileName);
-  };
-
-  const setESModulesContext = () => {
-    // @ts-expect-error - ignore ts error for module cleanup
-    delete global.module;
-    fileName = fileURLToPath(import.meta.url);
-    __dirname = path.dirname(fileName);
-  };
-
-  afterEach(() => {
-    // clean up the global context after each test
-    // @ts-expect-error - ignore ts error for module cleanup
-    delete global.module;
-  });
-
-  it("should correctly set fileName and __dirname in CommonJS environment", () => {
-    setCommonJSContext();
-
-    expect(fileName).toBe(__filename);
-    expect(__dirname).toBe(path.dirname(__filename));
-  });
-
-  it("should correctly set fileName and __dirname in ESModules environment", () => {
-    setESModulesContext();
-
-    expect(fileName).toBe(fileURLToPath(import.meta.url));
-    expect(__dirname).toBe(path.dirname(fileURLToPath(import.meta.url)));
   });
 });

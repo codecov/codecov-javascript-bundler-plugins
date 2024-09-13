@@ -1,8 +1,12 @@
-import { createAndUploadReport } from "@codecov/bundle-analyzer";
+import {
+  BundleAnalyzerOptions,
+  createAndUploadReport,
+  Options,
+} from "@codecov/bundle-analyzer";
 
-const buildDirs = ["../../../examples/bundle-analyzer-lib-esm/example-dist"];
+const buildDirs = ["../../examples/bundle-analyzer-lib-esm/example-dist"];
 
-const coreOpts = {
+const coreOpts: Options = {
   dryRun: false,
   uploadToken: process.env.BUNDLE_ANALYZER_UPLOAD_TOKEN,
   retryCount: 3,
@@ -12,7 +16,7 @@ const coreOpts = {
   debug: true,
 };
 
-const bundleAnalyzerOpts = {
+const bundleAnalyzerOpts: BundleAnalyzerOptions = {
   beforeReportUpload: async (original) => original,
   ignorePatterns: ["*.map"],
   normalizeAssetsPattern: "[name]-[hash].js",

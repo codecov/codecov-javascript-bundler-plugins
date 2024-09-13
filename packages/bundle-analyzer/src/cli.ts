@@ -1,24 +1,34 @@
 #!/usr/bin/env node
 
 import path from "node:path";
+import fs from "node:fs";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import { createAndUploadReport } from "./index.js";
 import { red, type Options } from "@codecov/bundler-plugin-core";
 import { type BundleAnalyzerOptions } from "./options";
 
-interface Argv {
+interface Argv extends CLIArgs, Options, BundleAnalyzerOptions {}
+
+// CLI arguments that can be supplied via CLI flag or an optional config file
+interface CLIArgs {
   buildDirectories: string[];
-  dryRun?: boolean;
-  uploadToken?: string;
-  apiUrl?: string;
-  bundleName: string;
-  debug?: boolean;
+
+  // Bundle Analyzer Options
   ignorePatterns?: string[];
   normalizeAssetsPattern?: string;
+
+  // Core Options
+  apiUrl?: string;
+  uploadToken?: string;
+  bundleName?: string;
+  debug?: boolean;
+  dryRun?: boolean;
+
+  configFile?: string;
 }
 
-const argv = yargs(hideBin(process.argv))
+const cliArgs = yargs(hideBin(process.argv))
   .usage("Usage: $0 <build-directories> [options]")
   .command(
     "$0 <build-directories...>",
@@ -53,7 +63,6 @@ const argv = yargs(hideBin(process.argv))
       alias: "n",
       type: "string",
       description: "Set the bundle identifier in Codecov",
-      demandOption: true,
     },
     debug: {
       alias: "v",
@@ -71,36 +80,61 @@ const argv = yargs(hideBin(process.argv))
       type: "string",
       description: "Pattern to normalize asset names, e.g., '[name]-[hash].js'",
     },
+    "config-file": {
+      alias: "c",
+      type: "string",
+      description: "Path to a JSON configuration file",
+    },
   })
   .strict()
   .help("h")
   .alias("h", "help")
-  .parseSync() as unknown as Argv;
+  .parseSync() as unknown as CLIArgs;
 
-const prepareCoreOptions = (argv: Argv): Options => {
-  return {
-    apiUrl: argv.apiUrl,
-    dryRun: argv.dryRun,
-    uploadToken: argv.uploadToken ?? process.env.CODECOV_UPLOAD_TOKEN,
-    bundleName: argv.bundleName ?? "",
-    debug: argv.debug,
-  };
+const getConfigFileArgs = (
+  filePath: string,
+): Partial<Options & BundleAnalyzerOptions> => {
+  try {
+    const configContent = fs.readFileSync(filePath, "utf-8");
+    return JSON.parse(configContent) as Partial<
+      Options & BundleAnalyzerOptions
+    >;
+  } catch (error) {
+    red(`Failed to load configuration file: ${error}`);
+    process.exit(1);
+  }
 };
 
-const prepareBundleAnalyzerOptions = (argv: Argv): BundleAnalyzerOptions => {
-  return {
-    ignorePatterns: argv.ignorePatterns,
-    normalizeAssetsPattern: argv.normalizeAssetsPattern,
-  };
+const addConfigFileArgs = (baseArgs: CLIArgs): Argv => {
+  let configFromFile: Partial<Options & BundleAnalyzerOptions> = {};
+
+  if (baseArgs.configFile) {
+    configFromFile = getConfigFileArgs(baseArgs.configFile);
+  }
+
+  // Merge CLI flag arguments with config file values (CLI flag takes precedence)
+  return { ...configFromFile, ...baseArgs };
 };
 
-export const runCli = async (argv: Argv): Promise<void> => {
+export const runCli = async (baseArgs: CLIArgs): Promise<void> => {
+  const argv = addConfigFileArgs(baseArgs);
+
+  if (argv.buildDirectories.length === 0) {
+    red("Error: No build directories provided.");
+    process.exit(1);
+  }
+
   const resolvedDirectoryPaths = argv.buildDirectories.map((dir) =>
     path.resolve(process.cwd(), dir),
   );
 
-  const coreOptions = prepareCoreOptions(argv);
-  const bundleAnalyzerOptions = prepareBundleAnalyzerOptions(argv);
+  const coreOptions: Options = {
+    ...argv,
+  };
+
+  const bundleAnalyzerOptions: BundleAnalyzerOptions = {
+    ...argv,
+  };
 
   const reportAsJson = await createAndUploadReport(
     resolvedDirectoryPaths,
@@ -114,7 +148,7 @@ export const runCli = async (argv: Argv): Promise<void> => {
   }
 };
 
-runCli(argv).catch((error) => {
+runCli(cliArgs).catch((error) => {
   red(`An error occurred: ${error}`);
   process.exit(1);
 });

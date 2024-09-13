@@ -6,11 +6,9 @@
 
 # Codecov Bundle Analyzer
 
-> [!WARNING]
-> This bundle-analyzer package is subject to change.
->
-> An importable library + CLI for Codecov bundle analysis support.
->
+The bundle analyzer is an importable library and CLI for Codecov bundle analysis. It is designed for users who operate without a standard bundler that is otherwise supported by Codecov's bundler plugins.
+
+> [!NOTE]
 > The plugin does not support code coverage, see our [docs](https://docs.codecov.com/docs/quick-start) to set up coverage today!
 
 ## Installation
@@ -33,7 +31,7 @@ Using pnpm:
 pnpm add @codecov/bundle-analyzer --save-dev
 ```
 
-## Example
+## Example - Custom Script
 
 This example shows how the package can be imported as a library.
 
@@ -68,10 +66,29 @@ createAndUploadReport(buildDirs, coreOpts, bundleAnalyzerOpts)
   );
 ```
 
+## Example - CLI
+
 This example shows how the package can be used as a CLI.
 
 ```
 npx @codecov/bundle-analyzer ./dist --bundle-name=my-identifier --upload-token=abcd --dry-run
+```
+
+[OPTIONAL] - A config file can be passed for any extended options matching those described [here](https://codecov.github.io/codecov-javascript-bundler-plugins/interfaces/_codecov_bundler_plugin_core.Options.html).
+
+```
+npx @codecov/bundle-analyzer ./dist --bundle-name=my-identifier --upload-token=abcd --dry-run --config-file=./config.json
+```
+
+```
+// config.json
+{
+  "gitService": "github",
+  "oidc": {
+    "useGitHubOIDC": false
+  }
+}
+
 ```
 
 ## Supported Platforms
