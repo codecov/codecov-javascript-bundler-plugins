@@ -1,8 +1,5 @@
 ```
-npm install
-npm run dev
+docker compose up
 ```
 
-```
-open http://localhost:3000
-```
+open https://localhost:8000

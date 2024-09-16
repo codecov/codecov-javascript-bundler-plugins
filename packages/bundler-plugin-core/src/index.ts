@@ -15,6 +15,7 @@ import {
   createRollupAsset,
   getCompressedSize,
   handleErrors,
+  type NormalizedOptions,
   normalizeOptions,
   normalizePath,
   Output,
@@ -30,6 +31,7 @@ export type {
   Chunk,
   Module,
   Options,
+  NormalizedOptions,
   ProviderUtilInputs,
   UploadOverrides,
 };

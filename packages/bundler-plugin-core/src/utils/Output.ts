@@ -129,7 +129,7 @@ class Output {
     this.#internalLocks.pluginDetails = false;
   }
 
-  async write() {
+  async write(emitError?: boolean) {
     if (this.dryRun) return;
 
     if (!this.bundleName || this.bundleName === "") return;
@@ -156,6 +156,9 @@ class Output {
         serviceParams: provider,
       });
     } catch (error) {
+      if (emitError) {
+        throw error;
+      }
       return;
     }
 
@@ -167,6 +170,9 @@ class Output {
         retryCount: this?.retryCount,
       });
     } catch (error) {
+      if (emitError) {
+        throw error;
+      }
       return;
     }
 

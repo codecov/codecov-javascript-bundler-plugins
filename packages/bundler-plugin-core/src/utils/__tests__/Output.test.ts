@@ -337,6 +337,27 @@ describe("Output", () => {
 
         await output.write();
       });
+
+      it("optionally emits error", async () => {
+        setup({ urlSendError: true });
+
+        const output = new Output({
+          apiUrl: "http://localhost",
+          bundleName: "output-test",
+          debug: false,
+          dryRun: false,
+          enableBundleAnalysis: true,
+          retryCount: 1,
+          uploadToken: "token",
+        });
+
+        output.start();
+        output.end();
+
+        await expect(output.write(true)).rejects.toThrow(
+          "Failed to fetch pre-signed URL",
+        );
+      });
     });
 
     describe("successful fetch of pre-signed URL", () => {
@@ -407,6 +428,31 @@ describe("Output", () => {
         output.end();
 
         await output.write();
+      });
+
+      it("optionally emits error", async () => {
+        setup({
+          urlData: { url: "http://localhost/upload/stats/" },
+          urlStatus: 200,
+          statsSendError: true,
+        });
+
+        const output = new Output({
+          apiUrl: "http://localhost",
+          bundleName: "output-test",
+          debug: false,
+          dryRun: false,
+          enableBundleAnalysis: true,
+          retryCount: 1,
+          uploadToken: "token",
+        });
+
+        output.start();
+        output.end();
+
+        await expect(output.write(true)).rejects.toThrow(
+          "Failed to upload stats",
+        );
       });
     });
 

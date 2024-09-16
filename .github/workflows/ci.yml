@@ -284,6 +284,9 @@ jobs:
       matrix:
         example:
           [
+            "bundle-analyzer-cli",
+            "bundle-analyzer-lib-cjs",
+            "bundle-analyzer-lib-esm",
             "next-js",
             "next-js-15",
             "nuxt",
@@ -343,6 +346,8 @@ jobs:
         env:
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          BUNDLE_ANALYZER_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          BUNDLE_ANALYZER_API_URL: ${{ secrets.CODECOV_API_URL }}
           NEXT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           NEXT_API_URL: ${{ secrets.CODECOV_API_URL }}
           NUXT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
@@ -373,6 +378,9 @@ jobs:
       matrix:
         example:
           [
+            "bundle-analyzer-cli",
+            "bundle-analyzer-lib-cjs",
+            "bundle-analyzer-lib-esm",
             "next-js",
             "next-js-15",
             "nuxt",
@@ -432,6 +440,8 @@ jobs:
         env:
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          BUNDLE_ANALYZER_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          BUNDLE_ANALYZER_API_URL: ${{ secrets.CODECOV_API_URL }}
           NEXT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
           NEXT_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
           NUXT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
@@ -462,6 +472,7 @@ jobs:
       matrix:
         package:
           [
+            "bundle-analyzer",
             "bundler-plugin-core",
             "nextjs-webpack-plugin",
             "nuxt-plugin",
@@ -530,6 +541,7 @@ jobs:
       matrix:
         package:
           [
+            "bundle-analyzer",
             "bundler-plugin-core",
             "nextjs-webpack-plugin",
             "nuxt-plugin",
