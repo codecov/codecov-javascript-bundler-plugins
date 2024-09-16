@@ -1,5 +1,11 @@
 # @codecov/bundler-plugin-core
 
+## 1.1.0
+
+### Minor Changes
+
+- 875be0b: Add support for setups without a standard bundler through new Bundle Analyzer library and CLI
+
 ## 1.0.1
 
 ### Patch Changes
