@@ -12,6 +12,7 @@ import {
 
 import { detectProvider } from "../provider";
 import { Output } from "../Output";
+import chalk from "chalk";
 
 vi.mock("../provider");
 
@@ -338,6 +339,31 @@ describe("Output", () => {
         await output.write();
       });
 
+      it("logs error when debug is enabled", async () => {
+        setup({ urlSendError: true });
+
+        const output = new Output({
+          apiUrl: "http://localhost",
+          bundleName: "output-test",
+          debug: true,
+          dryRun: false,
+          enableBundleAnalysis: true,
+          retryCount: 1,
+          uploadToken: "token",
+        });
+
+        output.start();
+        output.end();
+
+        await output.write();
+
+        expect(consoleSpy).toHaveBeenCalledWith(
+          `[codecov] ${chalk.italic.yellow(
+            'Error getting pre-signed URL: "Error: Failed to fetch pre-signed URL"',
+          )}`,
+        );
+      });
+
       it("optionally emits error", async () => {
         setup({ urlSendError: true });
 
@@ -428,6 +454,35 @@ describe("Output", () => {
         output.end();
 
         await output.write();
+      });
+
+      it("logs error when debug is enabled", async () => {
+        setup({
+          urlData: { url: "http://localhost/upload/stats/" },
+          urlStatus: 200,
+          statsSendError: true,
+        });
+
+        const output = new Output({
+          apiUrl: "http://localhost",
+          bundleName: "output-test",
+          debug: true,
+          dryRun: false,
+          enableBundleAnalysis: true,
+          retryCount: 1,
+          uploadToken: "token",
+        });
+
+        output.start();
+        output.end();
+
+        await output.write();
+
+        expect(consoleSpy).toHaveBeenCalledWith(
+          `[codecov] ${chalk.italic.yellow(
+            'Error uploading stats: "Error: Failed to upload stats"',
+          )}`,
+        );
       });
 
       it("optionally emits error", async () => {
