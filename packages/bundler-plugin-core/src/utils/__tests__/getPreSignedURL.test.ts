@@ -21,6 +21,7 @@ import { UploadLimitReachedError } from "../../errors/UploadLimitReachedError.ts
 import { UndefinedGitServiceError } from "../../errors/UndefinedGitServiceError.ts";
 import { BadOIDCServiceError } from "src/errors/BadOIDCServiceError.ts";
 import { FailedOIDCFetchError } from "src/errors/FailedOIDCFetchError.ts";
+import Chalk from "chalk";
 
 const mocks = vi.hoisted(() => ({
   getIDToken: vi.fn().mockReturnValue(""),
@@ -353,8 +354,10 @@ describe("getPreSignedURL", () => {
           error = e;
         }
 
-        expect(consoleSpy).toHaveBeenCalled();
         expect(error).toBeInstanceOf(FailedFetchError);
+        expect(consoleSpy).toHaveBeenCalledWith(
+          `[codecov] ${Chalk.red('Failed to get pre-signed URL, bad response: "400 - Bad Request"')}`,
+        );
       });
     });
 

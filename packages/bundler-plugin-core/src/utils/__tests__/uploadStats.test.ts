@@ -14,6 +14,7 @@ import { uploadStats } from "../uploadStats";
 import { FailedUploadError } from "../../errors/FailedUploadError";
 import { FailedFetchError } from "../../errors/FailedFetchError";
 import { UploadLimitReachedError } from "../../errors/UploadLimitReachedError";
+import Chalk from "chalk";
 
 const server = setupServer();
 
@@ -120,7 +121,7 @@ describe("uploadStats", () => {
 
     describe("response is not ok", () => {
       it("throws a FailedUploadError", async () => {
-        setup({ sendError: false, status: 400 });
+        const { consoleSpy } = setup({ sendError: false, status: 400 });
 
         let error;
         try {
@@ -135,6 +136,11 @@ describe("uploadStats", () => {
         }
 
         expect(error).toBeInstanceOf(FailedUploadError);
+        expect(consoleSpy).toHaveBeenCalledWith(
+          `[codecov] ${Chalk.red(
+            'Failed to upload stats, bad response: "400 - Bad Request"',
+          )}`,
+        );
       });
     });
   });
