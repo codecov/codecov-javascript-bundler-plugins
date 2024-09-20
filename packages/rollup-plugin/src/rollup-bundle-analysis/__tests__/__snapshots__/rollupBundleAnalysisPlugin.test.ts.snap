@@ -5,7 +5,7 @@ exports[`rollupBundleAnalysisPlugin > when called > returns a plugin object 1`] 
   "buildEnd": [Function],
   "buildStart": [Function],
   "name": "@codecov/rollup-plugin",
-  "pluginVersion": "1.1.0",
+  "pluginVersion": "1.2.0",
   "rollup": {
     "generateBundle": [Function],
   },
