@@ -116,7 +116,9 @@ export const getPreSignedURL = async ({
   }
 
   if (!response.ok) {
-    red("Failed to get pre-signed URL, bad response");
+    red(
+      `Failed to get pre-signed URL, bad response: "${response.status} - ${response.statusText}"`,
+    );
     throw new FailedFetchError("Failed to get pre-signed URL");
   }
 

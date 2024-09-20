@@ -61,7 +61,7 @@ export async function uploadStats({
 
   if (!response.ok) {
     red(
-      `Failed to upload stats, bad response. Response ${response.status} - ${response.statusText}`,
+      `Failed to upload stats, bad response: "${response.status} - ${response.statusText}"`,
     );
     throw new FailedUploadError("Failed to upload stats");
   }

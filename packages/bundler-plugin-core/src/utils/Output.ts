@@ -11,6 +11,7 @@ import { type NormalizedOptions } from "./normalizeOptions.ts";
 import { detectProvider } from "./provider.ts";
 import { uploadStats } from "./uploadStats.ts";
 import { type ValidGitService } from "./normalizeOptions";
+import { debug } from "./logging.ts";
 
 class Output {
   // base user options
@@ -159,6 +160,10 @@ class Output {
       if (emitError) {
         throw error;
       }
+
+      debug(`Error getting pre-signed URL: "${error}"`, {
+        enabled: this.debug,
+      });
       return;
     }
 
@@ -173,6 +178,7 @@ class Output {
       if (emitError) {
         throw error;
       }
+      debug(`Error uploading stats: "${error}"`, { enabled: this.debug });
       return;
     }
 
