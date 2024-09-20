@@ -1,5 +1,11 @@
 # @codecov/bundler-plugin-core
 
+## 1.2.0
+
+### Minor Changes
+
+- 6c4377d: Add in better debug logging when fetching pre-signed url or uploading stats fail. Update current logs to have more details present.
+
 ## 1.1.0
 
 ### Minor Changes
