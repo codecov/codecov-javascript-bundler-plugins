@@ -95,7 +95,8 @@ export const getPreSignedURL = async ({
 
   let response: Response;
   try {
-    debug(`Request body: ${JSON.stringify(preProcessBody(requestBody))}`);
+    const body = preProcessBody(requestBody);
+    debug(`Request body: ${JSON.stringify(body)}`);
     response = await fetchWithRetry({
       retryCount,
       url: `${apiUrl}${API_ENDPOINT}`,
@@ -103,7 +104,7 @@ export const getPreSignedURL = async ({
       requestData: {
         method: "POST",
         headers: headers,
-        body: JSON.stringify(preProcessBody(requestBody)),
+        body: JSON.stringify(body),
       },
     });
   } catch (e) {
