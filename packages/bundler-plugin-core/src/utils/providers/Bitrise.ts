@@ -11,41 +11,59 @@ export function detect(envs: ProviderEnvs): boolean {
   return Boolean(envs?.CI) && Boolean(envs?.BITRISE_IO);
 }
 
-function _getBuild(inputs: ProviderUtilInputs): ProviderServiceParams["build"] {
+function _getBuild(
+  inputs: ProviderUtilInputs,
+  output: Output,
+): ProviderServiceParams["build"] {
   const { args, envs } = inputs;
   if (args?.build && args.build !== "") {
     return args.build;
   }
-  return envs?.BITRISE_BUILD_NUMBER ?? null;
+  const build = envs?.BITRISE_BUILD_NUMBER ?? null;
+  debug(`Using build: ${build}`, { enabled: output.debug });
+  return build;
 }
 
 function _getBuildURL(
   inputs: ProviderUtilInputs,
+  output: Output,
 ): ProviderServiceParams["buildURL"] {
   const { envs } = inputs;
-  return envs?.BITRISE_BUILD_URL ?? null;
+  const buildURL = envs?.BITRISE_BUILD_URL ?? null;
+  debug(`Using buildURL: ${buildURL}`, { enabled: output.debug });
+  return buildURL;
 }
 
 function _getBranch(
   inputs: ProviderUtilInputs,
+  output: Output,
 ): ProviderServiceParams["branch"] {
   const { args, envs } = inputs;
   if (args?.branch && args.branch !== "") {
     return args.branch;
   }
-  return envs?.BITRISE_GIT_BRANCH ?? null;
+  const branch = envs?.BITRISE_GIT_BRANCH ?? null;
+  debug(`Using branch: ${branch}`, { enabled: output.debug });
+  return branch;
 }
 
-function _getJob(): ProviderServiceParams["job"] {
+function _getJob(output: Output): ProviderServiceParams["job"] {
+  debug(`Using job: ${null}`, { enabled: output.debug });
   return null;
 }
 
-function _getPR(inputs: ProviderUtilInputs): ProviderServiceParams["pr"] {
+function _getPR(
+  inputs: ProviderUtilInputs,
+  output: Output,
+): ProviderServiceParams["pr"] {
   const { args, envs } = inputs;
   if (args?.pr && args.pr !== "") {
+    debug(`Using pr: ${args.pr}`, { enabled: output.debug });
     return args.pr;
   }
-  return envs?.BITRISE_PULL_REQUEST ?? null;
+  const pr = envs?.BITRISE_PULL_REQUEST ?? null;
+  debug(`Using pr: ${pr}`, { enabled: output.debug });
+  return pr;
 }
 
 function _getService(): ProviderServiceParams["service"] {
@@ -73,12 +91,18 @@ function _getSHA(
   return envs?.GIT_CLONE_COMMIT_HASH ?? null;
 }
 
-function _getSlug(inputs: ProviderUtilInputs): ProviderServiceParams["slug"] {
+function _getSlug(
+  inputs: ProviderUtilInputs,
+  output: Output,
+): ProviderServiceParams["slug"] {
   const { args } = inputs;
   if (args?.slug && args.slug !== "") {
+    debug(`Using slug: ${args.slug}`, { enabled: output.debug });
     return args.slug;
   }
-  return parseSlugFromRemoteAddr("") ?? null;
+  const slug = parseSlugFromRemoteAddr("") ?? null;
+  debug(`Using slug: ${slug}`, { enabled: output.debug });
+  return slug;
 }
 
 // eslint-disable-next-line @typescript-eslint/require-await
@@ -87,14 +111,14 @@ export async function getServiceParams(
   output: Output,
 ): Promise<ProviderServiceParams> {
   return {
-    branch: _getBranch(inputs),
-    build: _getBuild(inputs),
-    buildURL: _getBuildURL(inputs),
+    branch: _getBranch(inputs, output),
+    build: _getBuild(inputs, output),
+    buildURL: _getBuildURL(inputs, output),
     commit: _getSHA(inputs, output),
-    job: _getJob(),
-    pr: _getPR(inputs),
+    job: _getJob(output),
+    pr: _getPR(inputs, output),
     service: _getService(),
-    slug: _getSlug(inputs),
+    slug: _getSlug(inputs, output),
   };
 }
 
