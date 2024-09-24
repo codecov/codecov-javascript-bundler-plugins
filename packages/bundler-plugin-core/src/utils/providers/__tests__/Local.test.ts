@@ -58,7 +58,7 @@ describe("Local Params", () => {
       commit: "testingsha",
       job: null,
       pr: "1",
-      service: "",
+      service: "local",
       slug: "owner/repo",
     };
 
@@ -96,7 +96,7 @@ describe("Local Params", () => {
       commit: "testingsha",
       job: null,
       pr: "1",
-      service: "",
+      service: "local",
       slug: "owner/repo",
     };
 

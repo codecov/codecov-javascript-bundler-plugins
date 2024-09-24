@@ -13,18 +13,28 @@ export function detect(envs: ProviderEnvs): boolean {
   return Boolean(envs?.GITHUB_ACTIONS);
 }
 
-function _getBuild(inputs: ProviderUtilInputs): ProviderServiceParams["build"] {
+function _getBuild(
+  inputs: ProviderUtilInputs,
+  output: Output,
+): ProviderServiceParams["build"] {
   const { args, envs } = inputs;
   if (args?.build && args.build !== "") {
+    debug(`Using build: ${args.build}`, { enabled: output.debug });
     return args.build;
   }
-  return envs?.GITHUB_RUN_ID ?? null;
+  const build = envs?.GITHUB_RUN_ID ?? null;
+  debug(`Using build: ${build}`, { enabled: output.debug });
+  return build;
 }
 
-async function _getJobURL(inputs: ProviderUtilInputs): Promise<string | null> {
+async function _getJobURL(
+  inputs: ProviderUtilInputs,
+  output: Output,
+): Promise<string | null> {
   const url = `https://api.github.com/repos/${_getSlug(
     inputs,
-  )}/actions/runs/${_getBuild(inputs)}/jobs`;
+    output,
+  )}/actions/runs/${_getBuild(inputs, output)}/jobs`;
   const res = await fetch(url, {
     headers: {
       "User-Agent": "Awesome-Octocat-App",
@@ -32,6 +42,7 @@ async function _getJobURL(inputs: ProviderUtilInputs): Promise<string | null> {
   });
 
   if (res.status !== 200) {
+    debug(`Failed to get job URL: ${res.status}`, { enabled: output.debug });
     return null;
   }
 
@@ -54,34 +65,42 @@ async function _getJobURL(inputs: ProviderUtilInputs): Promise<string | null> {
         "html_url" in job &&
         typeof job?.html_url === "string"
       ) {
+        debug(`Using job URL: ${job?.html_url}`, { enabled: output.debug });
         return job?.html_url;
       }
     }
   }
 
+  debug(`Using job URL: ${null}`, { enabled: output.debug });
   return null;
 }
 
 async function _getBuildURL(
   inputs: ProviderUtilInputs,
+  output: Output,
 ): Promise<ProviderServiceParams["buildURL"]> {
   const { envs } = inputs;
 
-  const url = await _getJobURL(inputs);
+  const url = await _getJobURL(inputs, output);
   if (url !== null) {
     return url;
   }
 
-  return `${envs?.GITHUB_SERVER_URL}/${_getSlug(
+  const buildUrl = `${envs?.GITHUB_SERVER_URL}/${_getSlug(
     inputs,
-  )}/actions/runs/${_getBuild(inputs)}`;
+    output,
+  )}/actions/runs/${_getBuild(inputs, output)}`;
+  debug(`Using build URL: ${buildUrl}`, { enabled: output.debug });
+  return buildUrl;
 }
 
 function _getBranch(
   inputs: ProviderUtilInputs,
+  output: Output,
 ): ProviderServiceParams["branch"] {
   const { args, envs } = inputs;
   if (args?.branch && args.branch !== "") {
+    debug(`Using branch: ${args.branch}`, { enabled: output.debug });
     return args.branch;
   }
 
@@ -110,16 +129,26 @@ function _getBranch(
     branch = isFork ? payload.pull_request.head.label : branch;
   }
 
+  debug(`Using branch: ${branch ?? null}`, { enabled: output.debug });
   return branch ?? null;
 }
 
-function _getJob(envs: ProviderEnvs): ProviderServiceParams["job"] {
-  return envs?.GITHUB_WORKFLOW ?? null;
+function _getJob(
+  envs: ProviderEnvs,
+  output: Output,
+): ProviderServiceParams["job"] {
+  const job = envs?.GITHUB_WORKFLOW ?? null;
+  debug(`Using job: ${job}`, { enabled: output.debug });
+  return job;
 }
 
-function _getPR(inputs: ProviderUtilInputs): ProviderServiceParams["pr"] {
+function _getPR(
+  inputs: ProviderUtilInputs,
+  output: Output,
+): ProviderServiceParams["pr"] {
   const { args, envs } = inputs;
   if (args?.pr && args.pr !== "") {
+    debug(`Using pr: ${args.pr}`, { enabled: output.debug });
     return args.pr;
   }
 
@@ -131,6 +160,7 @@ function _getPR(inputs: ProviderUtilInputs): ProviderServiceParams["pr"] {
       match = matches[1];
     }
   }
+  debug(`Using pr: ${match ?? null}`, { enabled: output.debug });
   return match ?? null;
 }
 
@@ -153,7 +183,6 @@ function _getSHA(
   }
 
   const context = GitHub.context;
-
   let commit = envs?.GITHUB_SHA;
   if (["pull_request", " pull_request_target"].includes(context.eventName)) {
     const payload = context.payload as PullRequestEvent;
@@ -161,7 +190,6 @@ function _getSHA(
   }
 
   debug(`Using commit: ${commit ?? null}`, { enabled: output.debug });
-
   return commit ?? null;
 }
 
@@ -182,17 +210,24 @@ function _getCompareSHA(
     compareSha = payload.pull_request.base.sha;
   }
 
-  debug(`Using compareSha: ${compareSha ?? null}`, { enabled: output.debug });
+  debug(`Using compareSha: ${compareSha}`, { enabled: output.debug });
 
-  return compareSha ?? null;
+  return compareSha;
 }
 
-function _getSlug(inputs: ProviderUtilInputs): ProviderServiceParams["slug"] {
+function _getSlug(
+  inputs: ProviderUtilInputs,
+  output: Output,
+): ProviderServiceParams["slug"] {
   const { args, envs } = inputs;
   if (args?.slug && args.slug !== "") {
+    debug(`Using slug: ${args.slug}`, { enabled: output.debug });
     return args.slug;
   }
-  return envs?.GITHUB_REPOSITORY ?? null;
+
+  const slug = envs?.GITHUB_REPOSITORY ?? null;
+  debug(`Using slug: ${slug ?? null}`, { enabled: output.debug });
+  return slug ?? null;
 }
 
 export async function getServiceParams(
@@ -200,15 +235,15 @@ export async function getServiceParams(
   output: Output,
 ): Promise<ProviderServiceParams> {
   return {
-    branch: _getBranch(inputs),
-    build: _getBuild(inputs),
-    buildURL: await _getBuildURL(inputs),
+    branch: _getBranch(inputs, output),
+    build: _getBuild(inputs, output),
+    buildURL: await _getBuildURL(inputs, output),
     commit: _getSHA(inputs, output),
     compareSha: _getCompareSHA(inputs, output),
-    job: _getJob(inputs.envs),
-    pr: _getPR(inputs),
+    job: _getJob(inputs.envs, output),
+    pr: _getPR(inputs, output),
     service: _getService(),
-    slug: _getSlug(inputs),
+    slug: _getSlug(inputs, output),
   };
 }
 

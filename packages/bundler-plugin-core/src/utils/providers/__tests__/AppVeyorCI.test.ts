@@ -72,7 +72,7 @@ describe("AppveyorCI Params", () => {
     };
     const expected: ProviderServiceParams = {
       branch: "main",
-      build: "1",
+      build: "2",
       buildURL: "https://appveyor.com/project/testOrg/testRepo/builds/2/job/1",
       commit: "testingsha",
       job: "testOrg/testRepo/3",
@@ -114,7 +114,7 @@ describe("AppveyorCI Params", () => {
     };
     const expected: ProviderServiceParams = {
       branch: "main",
-      build: "1",
+      build: "2",
       buildURL: "https://appveyor.com/project/testOrg/testRepo/builds/2/job/1",
       commit: "testingsha",
       job: "testOrg/testRepo/3",

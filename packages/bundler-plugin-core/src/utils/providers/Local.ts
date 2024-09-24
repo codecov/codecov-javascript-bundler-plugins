@@ -13,21 +13,32 @@ export function detect(): boolean {
   return isProgramInstalled("git");
 }
 
-function _getBuild(inputs: ProviderUtilInputs): ProviderServiceParams["build"] {
+function _getBuild(
+  inputs: ProviderUtilInputs,
+  output: Output,
+): ProviderServiceParams["build"] {
   const { args } = inputs;
-  return args?.build ?? null;
+  let build: string | null = null;
+  if (args?.build && args?.build !== "") {
+    build = args.build;
+  }
+  debug(`Using build: ${build}`, { enabled: output.debug });
+  return build;
 }
 
-function _getBuildURL(): ProviderServiceParams["buildURL"] {
+function _getBuildURL(output: Output): ProviderServiceParams["buildURL"] {
+  debug(`Using buildURL: ${null}`, { enabled: output.debug });
   return null;
 }
 
 function _getBranch(
   inputs: ProviderUtilInputs,
+  output: Output,
 ): ProviderServiceParams["branch"] {
   const { args, envs } = inputs;
   const branch = args?.branch ?? envs?.GIT_BRANCH ?? envs?.BRANCH_NAME ?? null;
   if (branch !== "") {
+    debug(`Using branch: ${branch}`, { enabled: output.debug });
     return branch;
   }
 
@@ -37,6 +48,7 @@ function _getBranch(
       "--abbrev-ref",
       "HEAD",
     ]);
+    debug(`Using branch: ${branchName}`, { enabled: output.debug });
     return branchName;
   } catch (error) {
     throw new Error(
@@ -45,18 +57,27 @@ function _getBranch(
   }
 }
 
-function _getJob(): ProviderServiceParams["job"] {
+function _getJob(output: Output): ProviderServiceParams["job"] {
+  debug(`Using job: ${null}`, { enabled: output.debug });
   return null;
 }
 
-function _getPR(inputs: ProviderUtilInputs): ProviderServiceParams["pr"] {
+function _getPR(
+  inputs: ProviderUtilInputs,
+  output: Output,
+): ProviderServiceParams["pr"] {
   const { args } = inputs;
-  return args?.pr ?? null;
+  let pr: string | null = null;
+  if (args?.pr && args?.pr !== "") {
+    pr = args.pr;
+  }
+  debug(`Using pr: ${pr}`, { enabled: output.debug });
+  return pr;
 }
 
 // This is the value that gets passed to the Codecov uploader
 function _getService(): ProviderServiceParams["service"] {
-  return "";
+  return "local";
 }
 
 // This is the name that gets printed
@@ -86,9 +107,13 @@ function _getSHA(
   }
 }
 
-function _getSlug(inputs: ProviderUtilInputs): ProviderServiceParams["slug"] {
+function _getSlug(
+  inputs: ProviderUtilInputs,
+  output: Output,
+): ProviderServiceParams["slug"] {
   const { args } = inputs;
   if (args?.slug && args?.slug !== "") {
+    debug(`Using slug: ${args.slug}`, { enabled: output.debug });
     return args.slug;
   }
 
@@ -99,7 +124,9 @@ function _getSlug(inputs: ProviderUtilInputs): ProviderServiceParams["slug"] {
       "remote.origin.url",
     ]);
 
-    return parseSlug(slug);
+    const parsedSlug = parseSlug(slug);
+    debug(`Using slug: ${parsedSlug}`, { enabled: output.debug });
+    return parsedSlug;
   } catch (error) {
     throw new Error(`There was an error getting the slug from git: ${error}`);
   }
@@ -111,14 +138,14 @@ export async function getServiceParams(
   output: Output,
 ): Promise<ProviderServiceParams> {
   return {
-    branch: _getBranch(inputs),
-    build: _getBuild(inputs),
-    buildURL: _getBuildURL(),
+    branch: _getBranch(inputs, output),
+    build: _getBuild(inputs, output),
+    buildURL: _getBuildURL(output),
     commit: _getSHA(inputs, output),
-    job: _getJob(),
-    pr: _getPR(inputs),
+    job: _getJob(output),
+    pr: _getPR(inputs, output),
     service: _getService(),
-    slug: _getSlug(inputs),
+    slug: _getSlug(inputs, output),
   };
 }
 
