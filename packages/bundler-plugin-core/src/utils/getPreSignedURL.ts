@@ -4,7 +4,7 @@ import { FailedFetchError } from "../errors/FailedFetchError.ts";
 import { UploadLimitReachedError } from "../errors/UploadLimitReachedError.ts";
 import { type ProviderServiceParams } from "../types.ts";
 import { fetchWithRetry } from "./fetchWithRetry.ts";
-import { debug, green, red } from "./logging.ts";
+import { green, red } from "./logging.ts";
 import { preProcessBody } from "./preProcessBody.ts";
 import { NoUploadTokenError } from "../errors/NoUploadTokenError.ts";
 import { findGitService } from "./findGitService.ts";
