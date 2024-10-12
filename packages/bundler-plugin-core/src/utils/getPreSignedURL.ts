@@ -50,7 +50,7 @@ export const getPreSignedURL = async ({
    * proper tokenless upload.
    * See: https://github.com/codecov/codecov-api/pull/741
    */
-  if (!uploadToken && serviceParams.branch?.includes(":")) {
+  if (!uploadToken) {
     if (gitService) {
       requestBody.git_service = gitService;
     } else {
