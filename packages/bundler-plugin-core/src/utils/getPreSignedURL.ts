@@ -45,24 +45,22 @@ export const getPreSignedURL = async ({
   });
 
   const requestBody: RequestBody = serviceParams;
-  /**
-   * We currently require the branch to be in the format `owner:branch` to identify that it is a
-   * proper tokenless upload.
-   * See: https://github.com/codecov/codecov-api/pull/741
-   */
-  if (!uploadToken) {
-    if (gitService) {
-      requestBody.git_service = gitService;
-    } else {
-      const foundGitService = findGitService();
-      if (!foundGitService || foundGitService === "") {
+
+  if (gitService) {
+    requestBody.git_service = gitService;
+  } else {
+    const foundGitService = findGitService();
+      if (!foundGitService || foundGitService === "" && !uploadToken) {
+        /**
+         * gitService is required for tokenless upload.
+         */
         red("Failed to find git service for tokenless upload");
         throw new UndefinedGitServiceError("No upload token provided");
       }
 
       requestBody.git_service = foundGitService;
-    }
-  } else if (oidc?.useGitHubOIDC && Core) {
+  }
+  if (oidc?.useGitHubOIDC && Core) {
     if (serviceParams?.service !== "github-actions") {
       red("OIDC is only supported for GitHub Actions");
       throw new BadOIDCServiceError(
