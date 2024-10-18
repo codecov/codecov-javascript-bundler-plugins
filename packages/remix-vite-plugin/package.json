@@ -1,6 +1,6 @@
 {
   "name": "@codecov/remix-vite-plugin",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Official Codecov Remix plugin",
   "author": "Codecov",
   "license": "MIT",

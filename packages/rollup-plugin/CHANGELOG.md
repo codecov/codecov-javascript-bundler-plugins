@@ -1,5 +1,13 @@
 # @codecov/rollup-plugin
 
+## 1.2.1
+
+### Patch Changes
+
+- 0ea4d42: Fix issue with normalizing paths with a custom hash length is set
+- Updated dependencies [0ea4d42]
+  - @codecov/bundler-plugin-core@1.2.1
+
 ## 1.2.0
 
 ### Minor Changes
