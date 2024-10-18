@@ -1007,7 +1007,7 @@ exports[`Generating vite stats v5 {"format":"cjs","expected":"cjs"} matches the 
     {
       "gzipSize": 26812,
       "name": "assets/index-_9bu_Rar.js",
-      "normalized": "assets/index-_9bu_Rar.js",
+      "normalized": "assets/index-*.js",
       "size": 72342,
     },
   ],

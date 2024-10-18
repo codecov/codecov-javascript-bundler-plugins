@@ -776,7 +776,7 @@ exports[`Generating rollup stats 4 {"format":"amd","expected":"amd"} matches the
     {
       "gzipSize": 98808,
       "name": "main-H2_1FSsQ.js",
-      "normalized": "main-H2_1FSsQ.js",
+      "normalized": "main-*.js",
       "size": 577073,
     },
   ],
