@@ -30,11 +30,11 @@ export const normalizePath = (path: string, format: string): string => {
 
     // grab the ending delimiter and create a regex group for it
     let endingDelimiter = "";
-    [...format.slice(match.hashIndex)].forEach((char, index) => {
-      if (char === "]") {
-        endingDelimiter = format.at(match.hashIndex + index + 1) ?? "";
-      }
-    });
+
+    endingDelimiter =
+      format.at(
+        match.hashIndex + format.slice(match.hashIndex).indexOf("]") + 1,
+      ) ?? "";
 
     // If the ending delimiter is `[extname]` there won't be a
     // `.<file-extension>` so we need to replace it with a `.` for the
