@@ -86,7 +86,7 @@ const tests: Test[] = [
   {
     name: "should replace '[hash:22]' with '*'",
     input: {
-      path: "test.123.chunk.js",
+      path: "test.CoScjXRp_rD9HKS--kYO73.chunk.js",
       format: "[name].[hash:22].chunk.js",
     },
     expected: "test.*.chunk.js",
@@ -94,7 +94,7 @@ const tests: Test[] = [
   {
     name: "should replace '[contenthash:22]' with '*'",
     input: {
-      path: "test.123.chunk.js",
+      path: "test.CoScjXRp_rD9HKS--kYO73.chunk.js",
       format: "[name].[contenthash:22].chunk.js",
     },
     expected: "test.*.chunk.js",
@@ -102,7 +102,7 @@ const tests: Test[] = [
   {
     name: "should replace '[fullhash:22]' with '*'",
     input: {
-      path: "test.123.chunk.js",
+      path: "test.CoScjXRp_rD9HKS--kYO73.chunk.js",
       format: "[name].[fullhash:22].chunk.js",
     },
     expected: "test.*.chunk.js",
@@ -110,7 +110,7 @@ const tests: Test[] = [
   {
     name: "should replace '[chunkhash:22]' with '*'",
     input: {
-      path: "test.123.chunk.js",
+      path: "test.CoScjXRp_rD9HKS--kYO73.chunk.js",
       format: "[name].[chunkhash:22].chunk.js",
     },
     expected: "test.*.chunk.js",
