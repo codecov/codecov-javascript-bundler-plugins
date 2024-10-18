@@ -150,7 +150,7 @@ exports[`Generating webpack stats 5 {"format":"commonjs","expected":"cjs"} match
 }
 `;
 
-exports[`Generating webpack stats 5 source maps are enabled does not include any source maps 1`] = `
+exports[`Generating webpack stats 5 {"format":"module","expected":"esm"} matches the snapshot 1`] = `
 {
   "assets": [
     {
@@ -161,7 +161,7 @@ exports[`Generating webpack stats 5 source maps are enabled does not include any
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": StringNotContaining ".map",
+  "bundleName": StringContaining "test-webpack-v5-esm",
   "bundler": {
     "name": "webpack",
     "version": "5.90.0",
@@ -225,7 +225,7 @@ exports[`Generating webpack stats 5 source maps are enabled does not include any
 }
 `;
 
-exports[`Generating webpack stats 5 {"format":"module","expected":"esm"} matches the snapshot 1`] = `
+exports[`Generating webpack stats 5 source maps are enabled does not include any source maps 1`] = `
 {
   "assets": [
     {
@@ -236,7 +236,7 @@ exports[`Generating webpack stats 5 {"format":"module","expected":"esm"} matches
     },
   ],
   "builtAt": Any<Number>,
-  "bundleName": StringContaining "test-webpack-v5-esm",
+  "bundleName": StringNotContaining ".map",
   "bundler": {
     "name": "webpack",
     "version": "5.90.0",
