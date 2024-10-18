@@ -1,10 +1,5 @@
 const HASH_REGEX = /[a-f0-9]{8,}/i;
-const POTENTIAL_HASHES = [
-  "[hash]",
-  "[contenthash]",
-  "[fullhash]",
-  "[chunkhash]",
-];
+const POTENTIAL_HASHES = ["[contenthash", "[fullhash", "[chunkhash", "[hash"];
 
 const escapeRegex = (string: string): string =>
   string.replace(/[|\\{}()[\]^$+*?.]/g, "\\$&").replace(/-/g, "\\x2d");
@@ -34,8 +29,12 @@ export const normalizePath = (path: string, format: string): string => {
     )})`;
 
     // grab the ending delimiter and create a regex group for it
-    let endingDelimiter =
-      format.at(match.hashIndex + match.hashString.length) ?? "";
+    let endingDelimiter = "";
+    [...format.slice(match.hashIndex)].forEach((char, index) => {
+      if (char === "]") {
+        endingDelimiter = format.at(match.hashIndex + index + 1) ?? "";
+      }
+    });
 
     // If the ending delimiter is `[extname]` there won't be a
     // `.<file-extension>` so we need to replace it with a `.` for the
