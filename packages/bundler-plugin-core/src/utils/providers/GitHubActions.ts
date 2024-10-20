@@ -214,7 +214,8 @@ export async function getServiceParams(
 
 export function getEnvVarNames() {
   return [
-    "GITHUB_ACTION",
+    "GITHUB_ACTIONS",
+    "GITHUB_JOB",
     "GITHUB_HEAD_REF",
     "GITHUB_REF",
     "GITHUB_REPOSITORY",
