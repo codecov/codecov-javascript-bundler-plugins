@@ -5,7 +5,7 @@ import { GenerateConfig } from "../../../scripts/gen-config";
 
 const nextjsApp = "test-apps/nextjs";
 
-const VERSIONS = [14];
+const VERSIONS = [15];
 
 describe("Generating nextjs stats", () => {
   describe.each(VERSIONS)("%d", (version) => {
@@ -15,8 +15,8 @@ describe("Generating nextjs stats", () => {
         configFileName: "next",
         format: "esm",
         detectFormat: "esm",
-        version: `v14`,
-        detectVersion: "v14",
+        version: `v15`,
+        detectVersion: "v15",
         file_format: "mjs",
         enableSourceMaps: false,
         overrideOutputPath: `${nextjsApp}/next.config.mjs`,
@@ -193,7 +193,7 @@ describe("Generating nextjs stats", () => {
       });
 
       await config.createConfig();
-      config.removeBundleName(`test-nextjs-v14`);
+      config.removeBundleName(`test-nextjs-v15`);
       await config.writeConfig();
     });
 

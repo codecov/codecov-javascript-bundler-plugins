@@ -21,11 +21,11 @@ exports[`Generating nextjs stats 14 matches the snapshot 1`] = `
 }
 `;
 
-exports[`Generating nextjs stats 14 matches the snapshot 2`] = `
+exports[`Generating nextjs stats 15 matches the snapshot 2`] = `
 {
   "assets": ExpectArrayContaining {},
   "builtAt": Any<Number>,
-  "bundleName": StringContaining "test-nextjs-v14-server-cjs",
+  "bundleName": StringContaining "test-nextjs-v15-server-cjs",
   "bundler": {
     "name": Any<String>,
     "version": Any<String>,
@@ -42,11 +42,32 @@ exports[`Generating nextjs stats 14 matches the snapshot 2`] = `
 }
 `;
 
-exports[`Generating nextjs stats 14 matches the snapshot 3`] = `
+exports[`Generating nextjs stats 15 matches the snapshot 3`] = `
 {
   "assets": ExpectArrayContaining {},
   "builtAt": Any<Number>,
-  "bundleName": StringContaining "test-nextjs-v14-edge-server-array-push",
+  "bundleName": StringContaining "test-nextjs-v15-edge-server-array-push",
+  "bundler": {
+    "name": Any<String>,
+    "version": Any<String>,
+  },
+  "chunks": ExpectArrayContaining {},
+  "duration": Any<Number>,
+  "modules": ExpectArrayContaining {},
+  "outputPath": Any<String>,
+  "plugin": {
+    "name": StringMatching "@codecov/nextjs-webpack-plugin",
+    "version": Any<String>,
+  },
+  "version": Any<String>,
+}
+`;
+
+exports[`Generating nextjs stats 15 matches the snapshot 1`] = `
+{
+  "assets": ExpectArrayContaining {},
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-nextjs-v15-client-array-push",
   "bundler": {
     "name": Any<String>,
     "version": Any<String>,

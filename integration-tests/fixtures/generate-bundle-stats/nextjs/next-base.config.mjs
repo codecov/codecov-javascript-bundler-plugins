@@ -6,7 +6,7 @@ export default {
     config.plugins.push(
       codecovNextJSWebpackPlugin({
         enableBundleAnalysis: true,
-        bundleName: "test-nextjs-v14",
+        bundleName: "test-nextjs-v15",
         uploadToken: "test-token",
         apiUrl: process.env.API_URL,
         webpack: options.webpack,
