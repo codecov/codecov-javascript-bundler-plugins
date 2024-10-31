@@ -39,7 +39,7 @@ describe("Generating nextjs stats", () => {
         const API_URL = `http://localhost:8000/test-url/${id}/200/false`;
 
         // prepare and build the app
-        await $`cd test-apps/nextjs && API_URL=${API_URL} pnpm run build`;
+        await $`cd test-apps/nextjs && npx --no-install next info && API_URL=${API_URL} pnpm run build`;
 
         const serverBundleName = `test-nextjs-v${version}-server-cjs`;
         const edgeBundleName = `test-nextjs-v${version}-edge-server-array-push`;
