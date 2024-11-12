@@ -10,46 +10,65 @@ export function detect(envs: ProviderEnvs): boolean {
   return Boolean(envs?.DRONE);
 }
 
-function _getBuild(inputs: ProviderUtilInputs): ProviderServiceParams["build"] {
+function _getBuild(
+  inputs: ProviderUtilInputs,
+  output: Output,
+): ProviderServiceParams["build"] {
   const { args, envs } = inputs;
   if (args?.build && args.build !== "") {
+    debug(`Using build: ${args.build}`, { enabled: output.debug });
     return args.build;
   }
-  return envs?.DRONE_BUILD_NUMBER ?? null;
+  const build = envs?.DRONE_BUILD_NUMBER ?? null;
+  debug(`Using build: ${build}`, { enabled: output.debug });
+  return build;
 }
 
 function _getBuildURL(
   inputs: ProviderUtilInputs,
+  output: Output,
 ): ProviderServiceParams["buildURL"] {
   const { envs } = inputs;
-  return (
+  const buildURL =
     envs?.DRONE_BUILD_LINK ??
     envs?.DRONE_BUILD_URL ??
     envs?.CI_BUILD_URL ??
-    null
-  );
+    null;
+  debug(`Using buildURL: ${buildURL}`, { enabled: output.debug });
+  return buildURL;
 }
 
 function _getBranch(
   inputs: ProviderUtilInputs,
+  output: Output,
 ): ProviderServiceParams["branch"] {
   const { args, envs } = inputs;
   if (args?.branch && args.branch !== "") {
-    return args?.branch;
+    debug(`Using branch: ${args.branch}`, { enabled: output.debug });
+    return args.branch;
   }
-  return envs?.DRONE_BRANCH ?? null;
+  const branch = envs?.DRONE_BRANCH ?? null;
+  debug(`Using branch: ${branch}`, { enabled: output.debug });
+  return branch;
 }
 
-function _getJob(): ProviderServiceParams["job"] {
+function _getJob(output: Output): ProviderServiceParams["job"] {
+  debug(`Using job: ${null}`, { enabled: output.debug });
   return null;
 }
 
-function _getPR(inputs: ProviderUtilInputs): ProviderServiceParams["pr"] {
+function _getPR(
+  inputs: ProviderUtilInputs,
+  output: Output,
+): ProviderServiceParams["pr"] {
   const { args, envs } = inputs;
   if (args?.pr && args.pr !== "") {
-    return args?.pr;
+    debug(`Using pr: ${args.pr}`, { enabled: output.debug });
+    return args.pr;
   }
-  return envs?.DRONE_PULL_REQUEST ?? null;
+  const pr = envs?.DRONE_PULL_REQUEST ?? null;
+  debug(`Using pr: ${pr}`, { enabled: output.debug });
+  return pr;
 }
 
 function _getService(): ProviderServiceParams["service"] {
@@ -75,12 +94,19 @@ function _getSHA(
   return sha;
 }
 
-function _getSlug(inputs: ProviderUtilInputs): ProviderServiceParams["slug"] {
+function _getSlug(
+  inputs: ProviderUtilInputs,
+  output: Output,
+): ProviderServiceParams["slug"] {
   const { args, envs } = inputs;
   if (args?.slug && args?.slug !== "") {
-    return args?.slug;
+    debug(`Using slug: ${args.slug}`, { enabled: output.debug });
+    return args.slug;
   }
-  return envs?.DRONE_REPO ?? null;
+
+  const slug = envs?.DRONE_REPO ?? null;
+  debug(`Using slug: ${slug}`, { enabled: output.debug });
+  return slug;
 }
 
 // eslint-disable-next-line @typescript-eslint/require-await
@@ -89,14 +115,14 @@ export async function getServiceParams(
   output: Output,
 ): Promise<ProviderServiceParams> {
   return {
-    branch: _getBranch(inputs),
-    build: _getBuild(inputs),
-    buildURL: _getBuildURL(inputs),
+    branch: _getBranch(inputs, output),
+    build: _getBuild(inputs, output),
+    buildURL: _getBuildURL(inputs, output),
     commit: _getSHA(inputs, output),
-    job: _getJob(),
-    pr: _getPR(inputs),
+    job: _getJob(output),
+    pr: _getPR(inputs, output),
     service: _getService(),
-    slug: _getSlug(inputs),
+    slug: _getSlug(inputs, output),
   };
 }
 

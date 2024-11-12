@@ -6,7 +6,7 @@ const coreOpts = {
   dryRun: false,
   uploadToken: process.env.BUNDLE_ANALYZER_UPLOAD_TOKEN,
   retryCount: 3,
-  apiUrl: "https://api.codecov.io",
+  apiUrl: process.env.BUNDLE_ANALYZER_API_URL,
   bundleName: "@codecov/example-bundle-analyzer-cjs",
   enableBundleAnalysis: true,
   debug: true,

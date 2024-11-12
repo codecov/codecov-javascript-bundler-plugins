@@ -11,19 +11,28 @@ export function detect(envs: ProviderEnvs): boolean {
   return Boolean(envs?.CI) && Boolean(envs?.CIRCLECI);
 }
 
-function _getBuild(inputs: ProviderUtilInputs): ProviderServiceParams["build"] {
+function _getBuild(
+  inputs: ProviderUtilInputs,
+  output: Output,
+): ProviderServiceParams["build"] {
   const { args, envs } = inputs;
   if (args?.build && args.build !== "") {
+    debug(`Using build: ${args.build}`, { enabled: output.debug });
     return args.build;
   }
 
-  return envs?.CIRCLE_BUILD_NUM ?? null;
+  const build = envs?.CIRCLE_BUILD_NUM ?? null;
+  debug(`Using build: ${build}`, { enabled: output.debug });
+  return build;
 }
 
 function _getBuildURL(
   inputs: ProviderUtilInputs,
+  output: Output,
 ): ProviderServiceParams["buildURL"] {
-  return inputs.envs?.CIRCLE_BUILD_URL ?? null;
+  const buildURL = inputs.envs?.CIRCLE_BUILD_URL ?? null;
+  debug(`Using buildURL: ${buildURL}`, { enabled: output.debug });
+  return buildURL;
 }
 
 // This is the value that gets passed to the Codecov uploader
@@ -38,13 +47,16 @@ export function getServiceName(): string {
 
 function _getBranch(
   inputs: ProviderUtilInputs,
+  output: Output,
 ): ProviderServiceParams["branch"] {
   const { args, envs } = inputs;
   if (args?.branch && args.branch !== "") {
+    debug(`Using branch: ${args.branch}`, { enabled: output.debug });
     return args.branch;
   }
-
-  return envs?.CIRCLE_BRANCH ?? null;
+  const branch = envs?.CIRCLE_BRANCH ?? null;
+  debug(`Using branch: ${branch}`, { enabled: output.debug });
+  return branch;
 }
 
 function _getSHA(
@@ -61,31 +73,46 @@ function _getSHA(
   return envs?.CIRCLE_SHA1 ?? null;
 }
 
-function _getSlug(inputs: ProviderUtilInputs): ProviderServiceParams["slug"] {
+function _getSlug(
+  inputs: ProviderUtilInputs,
+  output: Output,
+): ProviderServiceParams["slug"] {
   const { args, envs } = inputs;
-  const slug = setSlug(
+  let slug = setSlug(
     args?.slug,
     envs?.CIRCLE_PROJECT_USERNAME,
     envs?.CIRCLE_PROJECT_REPONAME,
   );
 
   if (envs?.CIRCLE_REPOSITORY_URL && envs?.CIRCLE_REPOSITORY_URL !== "") {
-    return `${envs?.CIRCLE_REPOSITORY_URL?.split(":")[1]?.split(".git")[0]}`;
+    slug = `${envs?.CIRCLE_REPOSITORY_URL?.split(":")[1]?.split(".git")[0]}`;
   }
+  debug(`Using slug: ${slug}`, { enabled: output.debug });
   return slug;
 }
 
-function _getPR(inputs: ProviderUtilInputs): ProviderServiceParams["pr"] {
+function _getPR(
+  inputs: ProviderUtilInputs,
+  output: Output,
+): ProviderServiceParams["pr"] {
   const { args, envs } = inputs;
   if (args?.pr && args.pr !== "") {
+    debug(`Using pr: ${args.pr}`, { enabled: output.debug });
     return args.pr;
   }
 
-  return envs?.CIRCLE_PR_NUMBER ?? null;
+  const pr = envs?.CIRCLE_PR_NUMBER ?? null;
+  debug(`Using pr: ${pr}`, { enabled: output.debug });
+  return pr;
 }
 
-function _getJob(envs: ProviderEnvs): ProviderServiceParams["job"] {
-  return envs?.CIRCLE_NODE_INDEX ?? null;
+function _getJob(
+  envs: ProviderEnvs,
+  output: Output,
+): ProviderServiceParams["job"] {
+  const job = envs?.CIRCLE_NODE_INDEX ?? null;
+  debug(`Using job: ${job}`, { enabled: output.debug });
+  return job;
 }
 
 // eslint-disable-next-line @typescript-eslint/require-await
@@ -94,14 +121,14 @@ export async function getServiceParams(
   output: Output,
 ): Promise<ProviderServiceParams> {
   return {
-    branch: _getBranch(inputs),
-    build: _getBuild(inputs),
-    buildURL: _getBuildURL(inputs),
+    branch: _getBranch(inputs, output),
+    build: _getBuild(inputs, output),
+    buildURL: _getBuildURL(inputs, output),
     commit: _getSHA(inputs, output),
-    job: _getJob(inputs.envs),
-    pr: _getPR(inputs),
+    job: _getJob(inputs.envs, output),
+    pr: _getPR(inputs, output),
     service: _getService(),
-    slug: _getSlug(inputs),
+    slug: _getSlug(inputs, output),
   };
 }
 
