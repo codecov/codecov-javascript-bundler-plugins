@@ -160,7 +160,7 @@ describe("getPreSignedURL", () => {
               retryCount: 0,
               serviceParams: {
                 commit: "123",
-                branch: "owner:branch",
+                branch: "any-branch-format",
               },
             });
 
@@ -185,7 +185,7 @@ describe("getPreSignedURL", () => {
               gitService: "github_enterprise",
               serviceParams: {
                 commit: "123",
-                branch: "owner:branch",
+                branch: "any-branch-format",
               },
             });
 
@@ -228,37 +228,6 @@ describe("getPreSignedURL", () => {
 
   describe("unsuccessful request", () => {
     describe("no upload token present", () => {
-      describe("branch is in incorrect format", () => {
-        it("throws an error", async () => {
-          const { consoleSpy } = setup({
-            data: { url: "http://example.com" },
-          });
-
-          let error;
-          try {
-            await getPreSignedURL({
-              apiUrl: "http://localhost",
-              retryCount: 0,
-              gitService: "github",
-              serviceParams: {
-                commit: "123",
-                branch: "main",
-              },
-            });
-          } catch (e) {
-            error = e;
-          }
-
-          expect(consoleSpy).toHaveBeenCalled();
-          // for some reason, this test fails even tho it's the same values
-          //   Expected: "No upload token found"
-          //   Received: "No upload token found"
-          //   Number of calls: 1
-          // expect(consoleSpy).toHaveBeenCalledWith("No upload token found");
-          expect(error).toBeInstanceOf(NoUploadTokenError);
-        });
-      });
-
       describe("git service is not found", () => {
         beforeEach(() => {
           td.when(

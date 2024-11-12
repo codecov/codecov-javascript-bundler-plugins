@@ -46,11 +46,10 @@ export const getPreSignedURL = async ({
 
   const requestBody: RequestBody = serviceParams;
   /**
-   * We currently require the branch to be in the format `owner:branch` to identify that it is a
-   * proper tokenless upload.
-   * See: https://github.com/codecov/codecov-api/pull/741
+   * We require the branch to be in the format `owner:branch` for tokenless v2 upload.
+   * True Tokenless is allowed with any branch format.
    */
-  if (!uploadToken && serviceParams.branch?.includes(":")) {
+  if (!uploadToken) {
     if (gitService) {
       requestBody.git_service = gitService;
     } else {
