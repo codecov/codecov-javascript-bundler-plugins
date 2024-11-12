@@ -1,9 +1,6 @@
 comment:
   layout: "condensed_header, condensed_files, components, condensed_footer"
 
-ai_pr_review:
-  enabled: true
-
 component_management:
   individual_components:
     - component_id: package_core

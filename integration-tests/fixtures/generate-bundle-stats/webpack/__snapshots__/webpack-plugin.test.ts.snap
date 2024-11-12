@@ -69,7 +69,7 @@ exports[`Generating webpack stats 5 {"format":"array-push","expected":"array-pus
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/webpack-plugin",
-    "version": "1.2.0",
+    "version": "1.2.1",
   },
   "version": "2",
 }
@@ -144,82 +144,7 @@ exports[`Generating webpack stats 5 {"format":"commonjs","expected":"cjs"} match
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/webpack-plugin",
-    "version": "1.2.0",
-  },
-  "version": "2",
-}
-`;
-
-exports[`Generating webpack stats 5 source maps are enabled does not include any source maps 1`] = `
-{
-  "assets": [
-    {
-      "gzipSize": 25254,
-      "name": "main-6c1d26e76f6ba1fc75c8.js",
-      "normalized": "main-*.js",
-      "size": 70961,
-    },
-  ],
-  "builtAt": Any<Number>,
-  "bundleName": StringNotContaining ".map",
-  "bundler": {
-    "name": "webpack",
-    "version": "5.90.0",
-  },
-  "chunks": [
-    {
-      "entry": true,
-      "files": [
-        "main-6c1d26e76f6ba1fc75c8.js",
-      ],
-      "id": "179",
-      "initial": true,
-      "names": [
-        "main",
-      ],
-      "uniqueId": "0-179",
-    },
-  ],
-  "duration": Any<Number>,
-  "modules": [
-    {
-      "chunkUniqueIds": [
-        "0-179",
-      ],
-      "name": "./test-apps/webpack/src/main.js + 1 modules",
-      "size": 395,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-179",
-      ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 544098,
-    },
-    {
-      "chunkUniqueIds": [],
-      "name": "./test-apps/webpack/src/getRandomNumber.js",
-      "size": 106,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-179",
-      ],
-      "name": "webpack/runtime/global",
-      "size": 221,
-    },
-    {
-      "chunkUniqueIds": [
-        "0-179",
-      ],
-      "name": "webpack/runtime/node module decorator",
-      "size": 123,
-    },
-  ],
-  "outputPath": StringContaining "/distV5",
-  "plugin": {
-    "name": StringMatching "@codecov/webpack-plugin",
-    "version": "1.2.0",
+    "version": "1.2.1",
   },
   "version": "2",
 }
@@ -294,7 +219,82 @@ exports[`Generating webpack stats 5 {"format":"module","expected":"esm"} matches
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/webpack-plugin",
-    "version": "1.2.0",
+    "version": "1.2.1",
+  },
+  "version": "2",
+}
+`;
+
+exports[`Generating webpack stats 5 source maps are enabled does not include any source maps 1`] = `
+{
+  "assets": [
+    {
+      "gzipSize": 25254,
+      "name": "main-6c1d26e76f6ba1fc75c8.js",
+      "normalized": "main-*.js",
+      "size": 70961,
+    },
+  ],
+  "builtAt": Any<Number>,
+  "bundleName": StringNotContaining ".map",
+  "bundler": {
+    "name": "webpack",
+    "version": "5.90.0",
+  },
+  "chunks": [
+    {
+      "entry": true,
+      "files": [
+        "main-6c1d26e76f6ba1fc75c8.js",
+      ],
+      "id": "179",
+      "initial": true,
+      "names": [
+        "main",
+      ],
+      "uniqueId": "0-179",
+    },
+  ],
+  "duration": Any<Number>,
+  "modules": [
+    {
+      "chunkUniqueIds": [
+        "0-179",
+      ],
+      "name": "./test-apps/webpack/src/main.js + 1 modules",
+      "size": 395,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-179",
+      ],
+      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
+      "size": 544098,
+    },
+    {
+      "chunkUniqueIds": [],
+      "name": "./test-apps/webpack/src/getRandomNumber.js",
+      "size": 106,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-179",
+      ],
+      "name": "webpack/runtime/global",
+      "size": 221,
+    },
+    {
+      "chunkUniqueIds": [
+        "0-179",
+      ],
+      "name": "webpack/runtime/node module decorator",
+      "size": 123,
+    },
+  ],
+  "outputPath": StringContaining "/distV5",
+  "plugin": {
+    "name": StringMatching "@codecov/webpack-plugin",
+    "version": "1.2.1",
   },
   "version": "2",
 }
