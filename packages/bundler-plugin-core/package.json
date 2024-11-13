@@ -1,6 +1,6 @@
 {
   "name": "@codecov/bundler-plugin-core",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "Official Codecov Bundler Plugin Core",
   "author": "Codecov",
   "license": "MIT",
