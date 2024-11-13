@@ -16,7 +16,6 @@ import childProcess from "child_process";
 import { SPAWN_PROCESS_BUFFER_SIZE } from "../constants.ts";
 import { getPreSignedURL } from "../getPreSignedURL.ts";
 import { FailedFetchError } from "../../errors/FailedFetchError.ts";
-import { NoUploadTokenError } from "../../errors/NoUploadTokenError.ts";
 import { UploadLimitReachedError } from "../../errors/UploadLimitReachedError.ts";
 import { UndefinedGitServiceError } from "../../errors/UndefinedGitServiceError.ts";
 import { BadOIDCServiceError } from "src/errors/BadOIDCServiceError.ts";
