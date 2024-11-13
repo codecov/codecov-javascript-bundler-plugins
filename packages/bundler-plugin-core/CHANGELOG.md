@@ -1,5 +1,12 @@
 # @codecov/bundler-plugin-core
 
+## 1.3.0
+
+### Minor Changes
+
+- 168610b: Add in debug logs for each param for each provider for better debugging.
+- 590f0f1: Add GITHUB_JOB env var to list of env var names in GitHubActions provider util
+
 ## 1.2.1
 
 ### Patch Changes

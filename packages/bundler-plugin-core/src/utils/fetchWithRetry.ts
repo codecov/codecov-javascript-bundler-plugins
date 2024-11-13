@@ -22,6 +22,7 @@ export const fetchWithRetry = async ({
     try {
       debug(`Attempting to fetch ${name}, attempt: ${i + 1}`);
       await delay(DEFAULT_RETRY_DELAY * i);
+
       response = await fetch(url, requestData);
 
       if (!response.ok) {
@@ -33,7 +34,7 @@ export const fetchWithRetry = async ({
       const isLastAttempt = i + 1 === retryCount;
 
       if (isLastAttempt) {
-        red(`${name} failed after ${i} attempts`);
+        red(`${name} failed after ${i + 1} attempts`);
 
         if (!(err instanceof BadResponseError)) {
           throw err;
