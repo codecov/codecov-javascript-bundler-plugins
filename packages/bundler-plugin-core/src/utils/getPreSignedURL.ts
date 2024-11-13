@@ -6,7 +6,6 @@ import { type ProviderServiceParams } from "../types.ts";
 import { fetchWithRetry } from "./fetchWithRetry.ts";
 import { green, red } from "./logging.ts";
 import { preProcessBody } from "./preProcessBody.ts";
-import { NoUploadTokenError } from "../errors/NoUploadTokenError.ts";
 import { findGitService } from "./findGitService.ts";
 import { UndefinedGitServiceError } from "../errors/UndefinedGitServiceError.ts";
 import { FailedOIDCFetchError } from "../errors/FailedOIDCFetchError.ts";
@@ -45,23 +44,7 @@ export const getPreSignedURL = async ({
   });
 
   const requestBody: RequestBody = serviceParams;
-  /**
-   * We require the branch to be in the format `owner:branch` for tokenless v2 upload.
-   * True Tokenless is allowed with any branch format.
-   */
-  if (!uploadToken) {
-    if (gitService) {
-      requestBody.git_service = gitService;
-    } else {
-      const foundGitService = findGitService();
-      if (!foundGitService || foundGitService === "") {
-        red("Failed to find git service for tokenless upload");
-        throw new UndefinedGitServiceError("No upload token provided");
-      }
-
-      requestBody.git_service = foundGitService;
-    }
-  } else if (oidc?.useGitHubOIDC && Core) {
+  if (oidc?.useGitHubOIDC && Core) {
     if (serviceParams?.service !== "github-actions") {
       red("OIDC is only supported for GitHub Actions");
       throw new BadOIDCServiceError(
@@ -88,8 +71,17 @@ export const getPreSignedURL = async ({
   } else if (uploadToken) {
     headers.set("Authorization", `token ${uploadToken}`);
   } else {
-    red("No upload token provided");
-    throw new NoUploadTokenError("No upload token provided");
+    if (gitService) {
+      requestBody.git_service = gitService;
+    } else {
+      const foundGitService = findGitService();
+      if (!foundGitService || foundGitService === "") {
+        red("Failed to find git service for tokenless upload");
+        throw new UndefinedGitServiceError("No upload token provided");
+      }
+
+      requestBody.git_service = foundGitService;
+    }
   }
 
   let response: Response;
