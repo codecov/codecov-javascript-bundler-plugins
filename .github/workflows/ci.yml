@@ -20,17 +20,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5.0.0-beta
         with:
           fetch-depth: 0
 
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5.0.0-beta
         with:
           node-version: 20
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v5.0.0-beta
         with:
           version: 9
           run_install: false
@@ -42,7 +42,7 @@ jobs:
 
       - name: Cache node_modules
         id: cache-node-modules
-        uses: actions/cache@v4
+        uses: actions/cache@v5.0.0-beta
         env:
           cache-name: cache-codecov-js-bundle-plugin-node-modules
         with:
@@ -60,17 +60,17 @@ jobs:
     needs: install
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5.0.0-beta
         with:
           fetch-depth: 0
 
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5.0.0-beta
         with:
           node-version: 20
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v5.0.0-beta
         with:
           version: 9
           run_install: false
@@ -82,7 +82,7 @@ jobs:
 
       - name: Cache node_modules
         id: cache-node-modules
-        uses: actions/cache@v4
+        uses: actions/cache@v5.0.0-beta
         env:
           cache-name: cache-codecov-js-bundle-plugin-node-modules
         with:
@@ -106,17 +106,17 @@ jobs:
     needs: install
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5.0.0-beta
         with:
           fetch-depth: 0
 
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5.0.0-beta
         with:
           node-version: 20
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v5.0.0-beta
         with:
           version: 9
           run_install: false
@@ -128,7 +128,7 @@ jobs:
 
       - name: Cache node_modules
         id: cache-node-modules
-        uses: actions/cache@v4
+        uses: actions/cache@v5.0.0-beta
         env:
           cache-name: cache-codecov-js-bundle-plugin-node-modules
         with:
@@ -152,17 +152,17 @@ jobs:
     needs: [install]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5.0.0-beta
         with:
           fetch-depth: 0
 
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5.0.0-beta
         with:
           node-version: 20
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v5.0.0-beta
         with:
           version: 9
           run_install: false
@@ -174,7 +174,7 @@ jobs:
 
       - name: Cache node_modules
         id: cache-node-modules
-        uses: actions/cache@v4
+        uses: actions/cache@v5.0.0-beta
         env:
           cache-name: cache-codecov-js-bundle-plugin-node-modules
         with:
@@ -194,14 +194,14 @@ jobs:
 
       - name: Upload coverage reports to codecov
         if: ${{ !github.event.pull_request.head.repo.fork && github.repository_owner == 'codecov' }}
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5.0.0-beta
         with:
           token: ${{ secrets.CODECOV_ORG_TOKEN }}
           url: ${{ secrets.CODECOV_URL }}
 
       - name: Upload coverage reports to codecov (Staging)
         if: ${{ !github.event.pull_request.head.repo.fork && github.repository_owner == 'codecov' }}
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5.0.0-beta
         with:
           token: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
           url: ${{ secrets.CODECOV_STAGING_URL }}
@@ -235,17 +235,17 @@ jobs:
         node-version: ["18.x", "20.x"]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5.0.0-beta
         with:
           fetch-depth: 0
 
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5.0.0-beta
         with:
           node-version: ${{ matrix.node-version }}
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v5.0.0-beta
         with:
           version: 9
           run_install: false
@@ -257,7 +257,7 @@ jobs:
 
       - name: Cache node_modules
         id: cache-node-modules
-        uses: actions/cache@v4
+        uses: actions/cache@v5.0.0-beta
         env:
           cache-name: cache-codecov-js-bundle-plugin-node-modules
         with:
@@ -301,17 +301,17 @@ jobs:
           ]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5.0.0-beta
         with:
           fetch-depth: 0
 
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5.0.0-beta
         with:
           node-version: 20
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v5.0.0-beta
         with:
           version: 9
           run_install: false
@@ -323,7 +323,7 @@ jobs:
 
       - name: Cache node_modules
         id: cache-node-modules
-        uses: actions/cache@v4
+        uses: actions/cache@v5.0.0-beta
         env:
           cache-name: cache-codecov-js-bundle-plugin-node-modules
         with:
@@ -395,17 +395,17 @@ jobs:
           ]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5.0.0-beta
         with:
           fetch-depth: 0
 
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5.0.0-beta
         with:
           node-version: 20
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v5.0.0-beta
         with:
           version: 9
           run_install: false
@@ -417,7 +417,7 @@ jobs:
 
       - name: Cache node_modules
         id: cache-node-modules
-        uses: actions/cache@v4
+        uses: actions/cache@v5.0.0-beta
         env:
           cache-name: cache-codecov-js-bundle-plugin-node-modules
         with:
@@ -485,17 +485,17 @@ jobs:
           ]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5.0.0-beta
         with:
           fetch-depth: 0
 
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5.0.0-beta
         with:
           node-version: 20
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v5.0.0-beta
         with:
           version: 9
           run_install: false
@@ -507,7 +507,7 @@ jobs:
 
       - name: Cache node_modules
         id: cache-node-modules
-        uses: actions/cache@v4
+        uses: actions/cache@v5.0.0-beta
         env:
           cache-name: cache-codecov-js-bundle-plugin-node-modules
         with:
@@ -554,17 +554,17 @@ jobs:
           ]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5.0.0-beta
         with:
           fetch-depth: 0
 
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5.0.0-beta
         with:
           node-version: 20
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v5.0.0-beta
         with:
           version: 9
           run_install: false
@@ -576,7 +576,7 @@ jobs:
 
       - name: Cache node_modules
         id: cache-node-modules
-        uses: actions/cache@v4
+        uses: actions/cache@v5.0.0-beta
         env:
           cache-name: cache-codecov-js-bundle-plugin-node-modules
         with:
