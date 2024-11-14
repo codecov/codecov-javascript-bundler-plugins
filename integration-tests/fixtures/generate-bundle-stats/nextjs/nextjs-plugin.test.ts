@@ -5,7 +5,7 @@ import { GenerateConfig } from "../../../scripts/gen-config";
 
 const nextjsApp = "test-apps/nextjs";
 
-const VERSIONS = [14];
+const VERSIONS = [15];
 
 describe("Generating nextjs stats", () => {
   describe.each(VERSIONS)("%d", (version) => {
@@ -15,8 +15,8 @@ describe("Generating nextjs stats", () => {
         configFileName: "next",
         format: "esm",
         detectFormat: "esm",
-        version: `v14`,
-        detectVersion: "v14",
+        version: `v15`,
+        detectVersion: "v15",
         file_format: "mjs",
         enableSourceMaps: false,
         overrideOutputPath: `${nextjsApp}/next.config.mjs`,
@@ -39,7 +39,7 @@ describe("Generating nextjs stats", () => {
         const API_URL = `http://localhost:8000/test-url/${id}/200/false`;
 
         // prepare and build the app
-        await $`cd test-apps/nextjs && API_URL=${API_URL} pnpm run build`;
+        await $`cd test-apps/nextjs && npx --no-install next info && API_URL=${API_URL} pnpm run build`;
 
         const serverBundleName = `test-nextjs-v${version}-server-cjs`;
         const edgeBundleName = `test-nextjs-v${version}-edge-server-array-push`;
@@ -185,15 +185,15 @@ describe("Generating nextjs stats", () => {
         configFileName: "next",
         format: "esm",
         detectFormat: "esm",
-        version: `v14`,
-        detectVersion: "v14",
+        version: `v15`,
+        detectVersion: "v15",
         file_format: "mjs",
         enableSourceMaps: false,
         overrideOutputPath: `${nextjsApp}/next.config.mjs`,
       });
 
       await config.createConfig();
-      config.removeBundleName(`test-nextjs-v14`);
+      config.removeBundleName(`test-nextjs-v15`);
       await config.writeConfig();
     });
 

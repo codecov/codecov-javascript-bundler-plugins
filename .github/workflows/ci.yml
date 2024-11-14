@@ -221,7 +221,7 @@ jobs:
           url: ${{ secrets.CODECOV_STAGING_URL }}
 
   integration-test:
-    name: Run integration tests (Node ${{ matrix.node-version }})
+    name: Run integration tests (Node ${{ matrix.node-version }}, Plugin ${{ matrix.plugin }})
     needs: install
     runs-on: ubuntu-latest
     services:
@@ -233,6 +233,18 @@ jobs:
       fail-fast: false
       matrix:
         node-version: ["18.x", "20.x"]
+        plugin:
+          [
+            "bundle-analyzer",
+            "nextjs",
+            "nuxt",
+            "remix",
+            "rollup",
+            "sveltekit",
+            "vite",
+            "webpack",
+            "solidstart",
+          ]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -273,7 +285,8 @@ jobs:
         run: pnpm run build
 
       - name: Run e2e tests
-        run: pnpm run test:e2e
+        working-directory: ./integration-tests
+        run: pnpm run test:e2e:${{ matrix.plugin }}
 
   upload-example-stats-production:
     name: "Production: upload ${{ matrix.example }} stats"
