@@ -66,7 +66,7 @@
     "webpack": "^5.90.0"
   },
   "peerDependencies": {
-    "next": "14.x || 15.x",
+    "next": ">=14.2.10 <16.0.0",
     "webpack": "5.x"
   },
   "volta": {
