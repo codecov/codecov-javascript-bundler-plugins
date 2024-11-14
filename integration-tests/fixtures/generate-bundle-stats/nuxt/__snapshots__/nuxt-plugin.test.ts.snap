@@ -7,7 +7,7 @@ exports[`Generating nuxt stats 3 {"format":"amd","expected":"amd"} matches the s
   "bundleName": StringContaining "test-nuxt-v3-client-amd",
   "bundler": {
     "name": "rollup",
-    "version": "4.26.0",
+    "version": "4.21.2",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -28,7 +28,7 @@ exports[`Generating nuxt stats 3 {"format":"amd","expected":"amd"} matches the s
   "bundleName": StringContaining "test-nuxt-v3-server-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.26.0",
+    "version": "4.21.2",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -49,7 +49,7 @@ exports[`Generating nuxt stats 3 {"format":"cjs","expected":"cjs"} matches the s
   "bundleName": StringContaining "test-nuxt-v3-client-cjs",
   "bundler": {
     "name": "rollup",
-    "version": "4.26.0",
+    "version": "4.21.2",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -70,7 +70,7 @@ exports[`Generating nuxt stats 3 {"format":"cjs","expected":"cjs"} matches the s
   "bundleName": StringContaining "test-nuxt-v3-server-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.26.0",
+    "version": "4.21.2",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -91,7 +91,7 @@ exports[`Generating nuxt stats 3 {"format":"es","expected":"esm"} matches the sn
   "bundleName": StringContaining "test-nuxt-v3-client-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.26.0",
+    "version": "4.21.2",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -112,7 +112,7 @@ exports[`Generating nuxt stats 3 {"format":"es","expected":"esm"} matches the sn
   "bundleName": StringContaining "test-nuxt-v3-server-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.26.0",
+    "version": "4.21.2",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -133,7 +133,7 @@ exports[`Generating nuxt stats 3 {"format":"esm","expected":"esm"} matches the s
   "bundleName": StringContaining "test-nuxt-v3-client-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.26.0",
+    "version": "4.21.2",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -154,7 +154,7 @@ exports[`Generating nuxt stats 3 {"format":"esm","expected":"esm"} matches the s
   "bundleName": StringContaining "test-nuxt-v3-server-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.26.0",
+    "version": "4.21.2",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -175,7 +175,7 @@ exports[`Generating nuxt stats 3 {"format":"module","expected":"esm"} matches th
   "bundleName": StringContaining "test-nuxt-v3-client-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.26.0",
+    "version": "4.21.2",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -196,7 +196,7 @@ exports[`Generating nuxt stats 3 {"format":"module","expected":"esm"} matches th
   "bundleName": StringContaining "test-nuxt-v3-server-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.26.0",
+    "version": "4.21.2",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -217,7 +217,7 @@ exports[`Generating nuxt stats 3 {"format":"iife","expected":"iife"} matches the
   "bundleName": StringContaining "test-nuxt-v3-client-iife",
   "bundler": {
     "name": "rollup",
-    "version": "4.26.0",
+    "version": "4.21.2",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -238,7 +238,7 @@ exports[`Generating nuxt stats 3 {"format":"iife","expected":"iife"} matches the
   "bundleName": StringContaining "test-nuxt-v3-server-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.26.0",
+    "version": "4.21.2",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -259,7 +259,7 @@ exports[`Generating nuxt stats 3 {"format":"umd","expected":"umd"} matches the s
   "bundleName": StringContaining "test-nuxt-v3-client-umd",
   "bundler": {
     "name": "rollup",
-    "version": "4.26.0",
+    "version": "4.21.2",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -280,7 +280,7 @@ exports[`Generating nuxt stats 3 {"format":"umd","expected":"umd"} matches the s
   "bundleName": StringContaining "test-nuxt-v3-server-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.26.0",
+    "version": "4.21.2",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -301,7 +301,7 @@ exports[`Generating nuxt stats 3 {"format":"system","expected":"system"} matches
   "bundleName": StringContaining "test-nuxt-v3-client-system",
   "bundler": {
     "name": "rollup",
-    "version": "4.26.0",
+    "version": "4.21.2",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -322,7 +322,7 @@ exports[`Generating nuxt stats 3 {"format":"system","expected":"system"} matches
   "bundleName": StringContaining "test-nuxt-v3-server-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.26.0",
+    "version": "4.21.2",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -343,7 +343,7 @@ exports[`Generating nuxt stats 3 {"format":"systemjs","expected":"system"} match
   "bundleName": StringContaining "test-nuxt-v3-client-system",
   "bundler": {
     "name": "rollup",
-    "version": "4.26.0",
+    "version": "4.21.2",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -364,7 +364,7 @@ exports[`Generating nuxt stats 3 {"format":"systemjs","expected":"system"} match
   "bundleName": StringContaining "test-nuxt-v3-server-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.26.0",
+    "version": "4.21.2",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
