@@ -57,7 +57,7 @@ importers:
         specifier: ^5.3.3
         version: 5.3.3
       vite:
-        specifier: ^5.3.6
+        specifier: ^5.2.14
         version: 5.4.3(@types/node@20.11.15)(terser@5.27.0)
       vite-tsconfig-paths:
         specifier: ^4.3.2
