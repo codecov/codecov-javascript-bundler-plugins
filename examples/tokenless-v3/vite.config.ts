@@ -17,7 +17,7 @@ export default defineConfig({
     codecovVitePlugin({
       enableBundleAnalysis: true,
       bundleName: "@codecov/example-tokenless-v3-app",
-      apiUrl: process.env.TOKENLESS_API_URL,
+      apiUrl: process.env.TOKENLESS_V3_API_URL,
       gitService: "github",
       debug: true,
     }),
