@@ -7,7 +7,6 @@ const packageJson = await import("./package.json");
 export default defineProject({
   ...config,
   plugins: [
-    // @ts-expect-error - using rollup plugin
     {
       ...replace({
         preventAssignment: true,

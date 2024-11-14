@@ -13,6 +13,6 @@
     "@codecov/bundle-analyzer": "workspace:^",
     "dotenv": "^16.4.5",
     "typescript": "^5.0.2",
-    "vite": "npm:vite@4.5.3"
+    "vite": "^5.2.14"
   }
 }

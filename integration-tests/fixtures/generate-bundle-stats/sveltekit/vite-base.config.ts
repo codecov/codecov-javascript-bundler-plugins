@@ -16,6 +16,7 @@ export default defineConfig({
   plugins: [
     //@ts-expect-error handle conflicting vite version types
     sveltekit(),
+    //@ts-expect-error handle conflicting vite version types
     codecovSvelteKitPlugin({
       enableBundleAnalysis: true,
       bundleName: "test-sveltekit-v2",
