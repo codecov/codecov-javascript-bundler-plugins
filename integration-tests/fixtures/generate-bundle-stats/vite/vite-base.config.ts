@@ -18,6 +18,7 @@ export default defineConfig({
     },
   },
   plugins: [
+    //@ts-expect-error handle conflicting vite version types
     codecovVitePlugin({
       enableBundleAnalysis: true,
       bundleName: "test-vite-v5",

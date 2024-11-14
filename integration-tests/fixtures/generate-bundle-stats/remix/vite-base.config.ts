@@ -20,7 +20,9 @@ export default defineConfig({
         v3_throwAbortReason: true,
       },
     }),
+    //@ts-expect-error handle conflicting vite version types
     tsconfigPaths(),
+    //@ts-expect-error handle conflicting vite version types
     codecovRemixVitePlugin({
       enableBundleAnalysis: true,
       bundleName: "test-remix-v2",

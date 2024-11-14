@@ -7,7 +7,7 @@ exports[`Generating remix stats 2 {"format":"amd","expected":"amd"} matches the 
   "bundleName": StringContaining "test-remix-v2-client-amd",
   "bundler": {
     "name": "rollup",
-    "version": "4.16.2",
+    "version": "4.21.2",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -15,7 +15,7 @@ exports[`Generating remix stats 2 {"format":"amd","expected":"amd"} matches the 
   "outputPath": StringContaining "build",
   "plugin": {
     "name": StringMatching "@codecov/remix-vite-plugin",
-    "version": "1.2.1",
+    "version": "1.3.0",
   },
   "version": "2",
 }
@@ -28,7 +28,7 @@ exports[`Generating remix stats 2 {"format":"amd","expected":"amd"} matches the 
   "bundleName": StringContaining "test-remix-v2-server-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.16.2",
+    "version": "4.21.2",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -36,7 +36,7 @@ exports[`Generating remix stats 2 {"format":"amd","expected":"amd"} matches the 
   "outputPath": StringContaining "build",
   "plugin": {
     "name": StringMatching "@codecov/remix-vite-plugin",
-    "version": "1.2.1",
+    "version": "1.3.0",
   },
   "version": "2",
 }
@@ -49,7 +49,7 @@ exports[`Generating remix stats 2 {"format":"cjs","expected":"cjs"} matches the 
   "bundleName": StringContaining "test-remix-v2-client-cjs",
   "bundler": {
     "name": "rollup",
-    "version": "4.16.2",
+    "version": "4.21.2",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -57,7 +57,7 @@ exports[`Generating remix stats 2 {"format":"cjs","expected":"cjs"} matches the 
   "outputPath": StringContaining "build",
   "plugin": {
     "name": StringMatching "@codecov/remix-vite-plugin",
-    "version": "1.2.1",
+    "version": "1.3.0",
   },
   "version": "2",
 }
@@ -70,7 +70,7 @@ exports[`Generating remix stats 2 {"format":"cjs","expected":"cjs"} matches the 
   "bundleName": StringContaining "test-remix-v2-server-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.16.2",
+    "version": "4.21.2",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -78,7 +78,7 @@ exports[`Generating remix stats 2 {"format":"cjs","expected":"cjs"} matches the 
   "outputPath": StringContaining "build",
   "plugin": {
     "name": StringMatching "@codecov/remix-vite-plugin",
-    "version": "1.2.1",
+    "version": "1.3.0",
   },
   "version": "2",
 }
@@ -91,7 +91,7 @@ exports[`Generating remix stats 2 {"format":"es","expected":"esm"} matches the s
   "bundleName": StringContaining "test-remix-v2-client-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.16.2",
+    "version": "4.21.2",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -99,7 +99,7 @@ exports[`Generating remix stats 2 {"format":"es","expected":"esm"} matches the s
   "outputPath": StringContaining "build",
   "plugin": {
     "name": StringMatching "@codecov/remix-vite-plugin",
-    "version": "1.2.1",
+    "version": "1.3.0",
   },
   "version": "2",
 }
@@ -112,7 +112,7 @@ exports[`Generating remix stats 2 {"format":"es","expected":"esm"} matches the s
   "bundleName": StringContaining "test-remix-v2-server-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.16.2",
+    "version": "4.21.2",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -120,7 +120,7 @@ exports[`Generating remix stats 2 {"format":"es","expected":"esm"} matches the s
   "outputPath": StringContaining "build",
   "plugin": {
     "name": StringMatching "@codecov/remix-vite-plugin",
-    "version": "1.2.1",
+    "version": "1.3.0",
   },
   "version": "2",
 }
@@ -133,7 +133,7 @@ exports[`Generating remix stats 2 {"format":"esm","expected":"esm"} matches the 
   "bundleName": StringContaining "test-remix-v2-client-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.16.2",
+    "version": "4.21.2",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -141,7 +141,7 @@ exports[`Generating remix stats 2 {"format":"esm","expected":"esm"} matches the 
   "outputPath": StringContaining "build",
   "plugin": {
     "name": StringMatching "@codecov/remix-vite-plugin",
-    "version": "1.2.1",
+    "version": "1.3.0",
   },
   "version": "2",
 }
@@ -154,7 +154,7 @@ exports[`Generating remix stats 2 {"format":"esm","expected":"esm"} matches the 
   "bundleName": StringContaining "test-remix-v2-server-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.16.2",
+    "version": "4.21.2",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -162,7 +162,7 @@ exports[`Generating remix stats 2 {"format":"esm","expected":"esm"} matches the 
   "outputPath": StringContaining "build",
   "plugin": {
     "name": StringMatching "@codecov/remix-vite-plugin",
-    "version": "1.2.1",
+    "version": "1.3.0",
   },
   "version": "2",
 }
@@ -175,7 +175,7 @@ exports[`Generating remix stats 2 {"format":"module","expected":"esm"} matches t
   "bundleName": StringContaining "test-remix-v2-client-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.16.2",
+    "version": "4.21.2",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -183,7 +183,7 @@ exports[`Generating remix stats 2 {"format":"module","expected":"esm"} matches t
   "outputPath": StringContaining "build",
   "plugin": {
     "name": StringMatching "@codecov/remix-vite-plugin",
-    "version": "1.2.1",
+    "version": "1.3.0",
   },
   "version": "2",
 }
@@ -196,7 +196,7 @@ exports[`Generating remix stats 2 {"format":"module","expected":"esm"} matches t
   "bundleName": StringContaining "test-remix-v2-server-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.16.2",
+    "version": "4.21.2",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -204,7 +204,7 @@ exports[`Generating remix stats 2 {"format":"module","expected":"esm"} matches t
   "outputPath": StringContaining "build",
   "plugin": {
     "name": StringMatching "@codecov/remix-vite-plugin",
-    "version": "1.2.1",
+    "version": "1.3.0",
   },
   "version": "2",
 }
