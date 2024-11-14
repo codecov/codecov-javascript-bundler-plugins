@@ -298,6 +298,7 @@ jobs:
             "webpack",
             "solidstart",
             "tokenless",
+            "tokenless-v3"
           ]
     steps:
       - name: Checkout
@@ -365,6 +366,7 @@ jobs:
           VITE_API_URL: ${{ secrets.CODECOV_API_URL }}
           TOKENLESS_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           TOKENLESS_API_URL: ${{ secrets.CODECOV_API_URL }}
+          TOKENLESS_V3_API_URL: ${{ secrets.CODECOV_API_URL }}
           WEBPACK_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           WEBPACK_API_URL: ${{ secrets.CODECOV_API_URL }}
         run: pnpm run build
@@ -392,6 +394,7 @@ jobs:
             "webpack",
             "solidstart",
             "tokenless",
+            "tokenless-v3"
           ]
     steps:
       - name: Checkout
@@ -459,6 +462,7 @@ jobs:
           VITE_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
           TOKENLESS_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           TOKENLESS_API_URL: ${{ secrets.CODECOV_API_URL }}
+          TOKENLESS_V3_API_URL: ${{ secrets.CODECOV_API_URL }}
           WEBPACK_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
           WEBPACK_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
         run: pnpm run build
