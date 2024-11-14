@@ -52,7 +52,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rollupV3": "npm:rollup@3.29.4",
-    "rollupV4": "npm:rollup@4.9.6",
+    "rollupV4": "npm:rollup@4.22.4",
     "ts-node": "^10.9.2",
     "viteV4": "npm:vite@4.5.3",
     "viteV5": "npm:vite@5.2.14",
