@@ -64,7 +64,7 @@
     "@types/node": "^20.11.15",
     "@types/yargs": "^17.0.33",
     "@vitest/coverage-v8": "^1.5.0",
-    "codecovProdRollupPlugin": "npm:@codecov/rollup-plugin@0.0.1-beta.5",
+    "codecovProdRollupPlugin": "npm:@codecov/rollup-plugin@1.4.0",
     "msw": "^2.1.5",
     "ts-node": "^10.9.2",
     "typedoc": "^0.25.12",
