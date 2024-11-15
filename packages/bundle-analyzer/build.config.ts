@@ -35,9 +35,11 @@ export default defineBuildConfig({
       if (process.env.PLUGIN_CODECOV_TOKEN && Array.isArray(opts.plugins)) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         opts.plugins = [
+          // @ts-expect-error - using rollup plugin
           ...opts.plugins,
           // We analyze this bundle-analyzer package's build
           // using the codecov rollup plugin
+          // @ts-expect-error - using rollup plugin
           codecovRollupPlugin({
             enableBundleAnalysis:
               typeof process.env.PLUGIN_CODECOV_TOKEN === "string",
