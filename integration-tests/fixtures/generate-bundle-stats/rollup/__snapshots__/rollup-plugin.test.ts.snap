@@ -1237,7 +1237,7 @@ exports[`Generating rollup stats 4 {"format":"umd","expected":"umd"} matches the
   "assets": [
     {
       "gzipSize": 98845,
-      "name": "main-ymXr0nql.js",
+      "name": "main-DXhL8JQx.js",
       "normalized": "main-*.js",
       "size": 577167,
     },
@@ -1252,7 +1252,7 @@ exports[`Generating rollup stats 4 {"format":"umd","expected":"umd"} matches the
     {
       "entry": true,
       "files": [
-        "main-ymXr0nql.js",
+        "main-DXhL8JQx.js",
       ],
       "id": "main",
       "initial": false,
