@@ -71,6 +71,7 @@ describe("Generating remix stats", () => {
             ),
             plugin: {
               name: expect.stringMatching("@codecov/remix-vite-plugin"),
+              version: expect.stringMatching(/^1\.\d+\.\d+$/), // Matches "1.x.x" where x is any number
             },
             assets: expect.arrayContaining([
               {
@@ -113,6 +114,7 @@ describe("Generating remix stats", () => {
             bundleName: expect.stringContaining(serverBundleName),
             plugin: {
               name: expect.stringMatching("@codecov/remix-vite-plugin"),
+              version: expect.stringMatching(/^1\.\d+\.\d+$/), // Matches "1.x.x" where x is any number
             },
             assets: expect.arrayContaining([
               {

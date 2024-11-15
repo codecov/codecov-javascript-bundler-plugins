@@ -72,6 +72,7 @@ describe("Generating rollup stats", () => {
           ),
           plugin: {
             name: expect.stringMatching("@codecov/rollup-plugin"),
+            version: expect.stringMatching(/^1\.\d+\.\d+$/), // Matches "1.x.x" where x is any number
           },
         });
       });
@@ -121,6 +122,7 @@ describe("Generating rollup stats", () => {
           bundleName: expect.not.stringContaining(".map"),
           plugin: {
             name: expect.stringMatching("@codecov/rollup-plugin"),
+            version: expect.stringMatching(/^1\.\d+\.\d+$/), // Matches "1.x.x" where x is any number
           },
         });
       });
