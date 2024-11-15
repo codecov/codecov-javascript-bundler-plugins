@@ -1,5 +1,17 @@
 # @codecov/nextjs-webpack-plugin
 
+## 1.4.0
+
+### Minor Changes
+
+- b17f870: Bump vite versions
+
+### Patch Changes
+
+- Updated dependencies [b17f870]
+  - @codecov/webpack-plugin@1.4.0
+  - @codecov/bundler-plugin-core@1.4.0
+
 ## 1.3.0
 
 ### Minor Changes
