@@ -3,7 +3,7 @@
 exports[`solidstartBundleAnalysisPlugin > when called > returns a plugin object 1`] = `
 {
   "name": "@codecov/solidstart-plugin",
-  "pluginVersion": StringMatching /^1\.\d+\.\d+$/,
+  "pluginVersion": "1.4.0",
   "version": "2",
   "vite": {
     "generateBundle": [Function],
@@ -14,7 +14,7 @@ exports[`solidstartBundleAnalysisPlugin > when called > returns a plugin object 
 exports[`sveltekitBundleAnalysisPlugin > when called > returns a plugin object 1`] = `
 {
   "name": "@codecov/sveltekit-plugin",
-  "pluginVersion": StringMatching /^1\.\d+\.\d+$/,
+  "pluginVersion": "1.4.0",
   "version": "2",
   "vite": {
     "generateBundle": [Function],

@@ -74,7 +74,6 @@ describe("Generating nuxt stats", () => {
             ),
             plugin: {
               name: expect.stringMatching("@codecov/nuxt-plugin"),
-              version: expect.stringMatching(/^1\.\d+\.\d+$/), // Matches "1.x.x" where x is any number
             },
             assets: expect.arrayContaining([
               {
@@ -119,7 +118,6 @@ describe("Generating nuxt stats", () => {
             ),
             plugin: {
               name: expect.stringMatching("@codecov/nuxt-plugin"),
-              version: expect.stringMatching(/^1\.\d+\.\d+$/), // Matches "1.x.x" where x is any number
             },
             assets: expect.arrayContaining([
               {

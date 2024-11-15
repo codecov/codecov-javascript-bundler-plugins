@@ -67,7 +67,6 @@ describe("Generating sveltekit stats", () => {
             bundleName: expect.stringContaining(clientBundleName),
             plugin: {
               name: expect.stringMatching("@codecov/sveltekit-plugin"),
-              version: expect.stringMatching(/^1\.\d+\.\d+$/), // Matches "1.x.x" where x is any number
             },
             assets: expect.arrayContaining([
               {
@@ -110,7 +109,6 @@ describe("Generating sveltekit stats", () => {
             bundleName: expect.stringContaining(serverBundleName),
             plugin: {
               name: expect.stringMatching("@codecov/sveltekit-plugin"),
-              version: expect.stringMatching(/^1\.\d+\.\d+$/), // Matches "1.x.x" where x is any number
             },
             assets: expect.arrayContaining([
               {

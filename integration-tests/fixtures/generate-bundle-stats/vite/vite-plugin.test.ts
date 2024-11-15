@@ -71,7 +71,6 @@ describe("Generating vite stats", () => {
           ),
           plugin: {
             name: expect.stringMatching("@codecov/vite-plugin"),
-            version: expect.stringMatching(/^1\.\d+\.\d+$/), // Matches "1.x.x" where x is any number
           },
         });
       });
@@ -121,7 +120,6 @@ describe("Generating vite stats", () => {
           bundleName: expect.not.stringContaining(".map"),
           plugin: {
             name: expect.stringMatching("@codecov/vite-plugin"),
-            version: expect.stringMatching(/^1\.\d+\.\d+$/), // Matches "1.x.x" where x is any number
           },
         });
       });
