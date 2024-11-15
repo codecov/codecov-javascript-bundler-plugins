@@ -71,6 +71,7 @@ describe("Generating remix stats", () => {
             ),
             plugin: {
               name: expect.stringMatching("@codecov/remix-vite-plugin"),
+              version: expect.any(String),
             },
             assets: expect.arrayContaining([
               {
@@ -113,6 +114,7 @@ describe("Generating remix stats", () => {
             bundleName: expect.stringContaining(serverBundleName),
             plugin: {
               name: expect.stringMatching("@codecov/remix-vite-plugin"),
+              version: expect.any(String),
             },
             assets: expect.arrayContaining([
               {

@@ -74,6 +74,7 @@ describe("Generating nuxt stats", () => {
             ),
             plugin: {
               name: expect.stringMatching("@codecov/nuxt-plugin"),
+              version: expect.any(String),
             },
             assets: expect.arrayContaining([
               {
@@ -118,6 +119,7 @@ describe("Generating nuxt stats", () => {
             ),
             plugin: {
               name: expect.stringMatching("@codecov/nuxt-plugin"),
+              version: expect.any(String),
             },
             assets: expect.arrayContaining([
               {

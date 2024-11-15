@@ -64,6 +64,7 @@ describe("Generating webpack stats", () => {
           ),
           plugin: {
             name: expect.stringMatching("@codecov/webpack-plugin"),
+            version: expect.any(String),
           },
         });
       });
@@ -112,6 +113,7 @@ describe("Generating webpack stats", () => {
           bundleName: expect.not.stringContaining(".map"),
           plugin: {
             name: expect.stringMatching("@codecov/webpack-plugin"),
+            version: expect.any(String),
           },
         });
       });

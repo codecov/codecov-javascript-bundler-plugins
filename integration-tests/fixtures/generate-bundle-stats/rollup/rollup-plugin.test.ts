@@ -72,6 +72,7 @@ describe("Generating rollup stats", () => {
           ),
           plugin: {
             name: expect.stringMatching("@codecov/rollup-plugin"),
+            version: expect.any(String),
           },
         });
       });
@@ -121,6 +122,7 @@ describe("Generating rollup stats", () => {
           bundleName: expect.not.stringContaining(".map"),
           plugin: {
             name: expect.stringMatching("@codecov/rollup-plugin"),
+            version: expect.any(String),
           },
         });
       });
