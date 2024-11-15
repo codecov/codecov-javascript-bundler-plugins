@@ -775,7 +775,7 @@ exports[`Generating rollup stats 4 {"format":"amd","expected":"amd"} matches the
   "assets": [
     {
       "gzipSize": 98808,
-      "name": "main-H2_1FSsQ.js",
+      "name": "main-Bz9ahex4.js",
       "normalized": "main-*.js",
       "size": 577073,
     },
@@ -790,7 +790,7 @@ exports[`Generating rollup stats 4 {"format":"amd","expected":"amd"} matches the
     {
       "entry": true,
       "files": [
-        "main-H2_1FSsQ.js",
+        "main-Bz9ahex4.js",
       ],
       "id": "main",
       "initial": false,
@@ -852,7 +852,7 @@ exports[`Generating rollup stats 4 {"format":"cjs","expected":"cjs"} matches the
   "assets": [
     {
       "gzipSize": 98252,
-      "name": "main-MVbZZknk.js",
+      "name": "main-xb59kfqA.js",
       "normalized": "main-*.js",
       "size": 560888,
     },
@@ -867,7 +867,7 @@ exports[`Generating rollup stats 4 {"format":"cjs","expected":"cjs"} matches the
     {
       "entry": true,
       "files": [
-        "main-MVbZZknk.js",
+        "main-xb59kfqA.js",
       ],
       "id": "main",
       "initial": false,
@@ -929,7 +929,7 @@ exports[`Generating rollup stats 4 {"format":"es","expected":"esm"} matches the 
   "assets": [
     {
       "gzipSize": 98243,
-      "name": "main-v-vWaFyT.js",
+      "name": "main-DTMU6eC0.js",
       "normalized": "main-*.js",
       "size": 560873,
     },
@@ -944,7 +944,7 @@ exports[`Generating rollup stats 4 {"format":"es","expected":"esm"} matches the 
     {
       "entry": true,
       "files": [
-        "main-v-vWaFyT.js",
+        "main-DTMU6eC0.js",
       ],
       "id": "main",
       "initial": false,
@@ -1006,7 +1006,7 @@ exports[`Generating rollup stats 4 {"format":"esm","expected":"esm"} matches the
   "assets": [
     {
       "gzipSize": 98243,
-      "name": "main-v-vWaFyT.js",
+      "name": "main-DTMU6eC0.js",
       "normalized": "main-*.js",
       "size": 560873,
     },
@@ -1021,7 +1021,7 @@ exports[`Generating rollup stats 4 {"format":"esm","expected":"esm"} matches the
     {
       "entry": true,
       "files": [
-        "main-v-vWaFyT.js",
+        "main-DTMU6eC0.js",
       ],
       "id": "main",
       "initial": false,
@@ -1083,7 +1083,7 @@ exports[`Generating rollup stats 4 {"format":"module","expected":"esm"} matches 
   "assets": [
     {
       "gzipSize": 98243,
-      "name": "main-v-vWaFyT.js",
+      "name": "main-DTMU6eC0.js",
       "normalized": "main-*.js",
       "size": 560873,
     },
@@ -1098,7 +1098,7 @@ exports[`Generating rollup stats 4 {"format":"module","expected":"esm"} matches 
     {
       "entry": true,
       "files": [
-        "main-v-vWaFyT.js",
+        "main-DTMU6eC0.js",
       ],
       "id": "main",
       "initial": false,
@@ -1160,7 +1160,7 @@ exports[`Generating rollup stats 4 {"format":"iife","expected":"iife"} matches t
   "assets": [
     {
       "gzipSize": 98804,
-      "name": "main-ChwnvxRF.js",
+      "name": "main-B7VbaLUG.js",
       "normalized": "main-*.js",
       "size": 577068,
     },
@@ -1175,7 +1175,7 @@ exports[`Generating rollup stats 4 {"format":"iife","expected":"iife"} matches t
     {
       "entry": true,
       "files": [
-        "main-ChwnvxRF.js",
+        "main-B7VbaLUG.js",
       ],
       "id": "main",
       "initial": false,
@@ -1314,7 +1314,7 @@ exports[`Generating rollup stats 4 {"format":"system","expected":"system"} match
   "assets": [
     {
       "gzipSize": 99908,
-      "name": "main-VyFuBFOR.js",
+      "name": "main-DwblAVj_.js",
       "normalized": "main-*.js",
       "size": 609446,
     },
@@ -1329,7 +1329,7 @@ exports[`Generating rollup stats 4 {"format":"system","expected":"system"} match
     {
       "entry": true,
       "files": [
-        "main-VyFuBFOR.js",
+        "main-DwblAVj_.js",
       ],
       "id": "main",
       "initial": false,
@@ -1391,7 +1391,7 @@ exports[`Generating rollup stats 4 {"format":"systemjs","expected":"system"} mat
   "assets": [
     {
       "gzipSize": 99908,
-      "name": "main-VyFuBFOR.js",
+      "name": "main-DwblAVj_.js",
       "normalized": "main-*.js",
       "size": 609446,
     },
@@ -1406,7 +1406,7 @@ exports[`Generating rollup stats 4 {"format":"systemjs","expected":"system"} mat
     {
       "entry": true,
       "files": [
-        "main-VyFuBFOR.js",
+        "main-DwblAVj_.js",
       ],
       "id": "main",
       "initial": false,
@@ -1468,7 +1468,7 @@ exports[`Generating rollup stats 4 source maps are enabled does not include any 
   "assets": [
     {
       "gzipSize": 98277,
-      "name": "main-v-vWaFyT.js",
+      "name": "main-DTMU6eC0.js",
       "normalized": "main-*.js",
       "size": 560915,
     },
@@ -1483,7 +1483,7 @@ exports[`Generating rollup stats 4 source maps are enabled does not include any 
     {
       "entry": true,
       "files": [
-        "main-v-vWaFyT.js",
+        "main-DTMU6eC0.js",
       ],
       "id": "main",
       "initial": false,
