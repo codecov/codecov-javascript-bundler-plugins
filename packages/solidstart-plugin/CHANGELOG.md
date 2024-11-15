@@ -1,5 +1,23 @@
 # @codecov/solidstart-plugin
 
+## 1.4.0
+
+### Minor Changes
+
+- 2db57cc: Remove the org branch requirement for tokenless uploads
+- b17f870: Bump vite versions
+
+### Patch Changes
+
+- ab1385e: Bump rollup versions
+- 6552110: Bump nextjs versions
+- Updated dependencies [2db57cc]
+- Updated dependencies [ab1385e]
+- Updated dependencies [b17f870]
+- Updated dependencies [6552110]
+  - @codecov/bundler-plugin-core@1.4.0
+  - @codecov/vite-plugin@1.4.0
+
 ## 1.3.0
 
 ### Minor Changes

@@ -1,5 +1,17 @@
 # @codecov/bundler-plugin-core
 
+## 1.4.0
+
+### Minor Changes
+
+- 2db57cc: Remove the org branch requirement for tokenless uploads
+- b17f870: Bump vite versions
+
+### Patch Changes
+
+- ab1385e: Bump rollup versions
+- 6552110: Bump nextjs versions
+
 ## 1.3.0
 
 ### Minor Changes
