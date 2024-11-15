@@ -7,7 +7,7 @@ exports[`Generating remix stats 2 {"format":"amd","expected":"amd"} matches the 
   "bundleName": StringContaining "test-remix-v2-client-amd",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -28,7 +28,7 @@ exports[`Generating remix stats 2 {"format":"amd","expected":"amd"} matches the 
   "bundleName": StringContaining "test-remix-v2-server-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -49,7 +49,7 @@ exports[`Generating remix stats 2 {"format":"cjs","expected":"cjs"} matches the 
   "bundleName": StringContaining "test-remix-v2-client-cjs",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -70,7 +70,7 @@ exports[`Generating remix stats 2 {"format":"cjs","expected":"cjs"} matches the 
   "bundleName": StringContaining "test-remix-v2-server-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -91,7 +91,7 @@ exports[`Generating remix stats 2 {"format":"es","expected":"esm"} matches the s
   "bundleName": StringContaining "test-remix-v2-client-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -112,7 +112,7 @@ exports[`Generating remix stats 2 {"format":"es","expected":"esm"} matches the s
   "bundleName": StringContaining "test-remix-v2-server-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -133,7 +133,7 @@ exports[`Generating remix stats 2 {"format":"esm","expected":"esm"} matches the 
   "bundleName": StringContaining "test-remix-v2-client-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -154,7 +154,7 @@ exports[`Generating remix stats 2 {"format":"esm","expected":"esm"} matches the 
   "bundleName": StringContaining "test-remix-v2-server-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -175,7 +175,7 @@ exports[`Generating remix stats 2 {"format":"module","expected":"esm"} matches t
   "bundleName": StringContaining "test-remix-v2-client-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -196,7 +196,7 @@ exports[`Generating remix stats 2 {"format":"module","expected":"esm"} matches t
   "bundleName": StringContaining "test-remix-v2-server-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,

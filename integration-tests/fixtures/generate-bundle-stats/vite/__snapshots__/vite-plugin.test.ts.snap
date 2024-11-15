@@ -924,7 +924,7 @@ exports[`Generating vite stats v5 {"format":"amd","expected":"amd"} matches the 
   "bundleName": StringContaining "test-vite-v5-amd",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": [
     {
@@ -1015,7 +1015,7 @@ exports[`Generating vite stats v5 {"format":"cjs","expected":"cjs"} matches the 
   "bundleName": StringContaining "test-vite-v5-cjs",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": [
     {
@@ -1106,7 +1106,7 @@ exports[`Generating vite stats v5 {"format":"es","expected":"esm"} matches the s
   "bundleName": StringContaining "test-vite-v5-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": [
     {
@@ -1197,7 +1197,7 @@ exports[`Generating vite stats v5 {"format":"esm","expected":"esm"} matches the 
   "bundleName": StringContaining "test-vite-v5-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": [
     {
@@ -1288,7 +1288,7 @@ exports[`Generating vite stats v5 {"format":"module","expected":"esm"} matches t
   "bundleName": StringContaining "test-vite-v5-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": [
     {
@@ -1379,7 +1379,7 @@ exports[`Generating vite stats v5 {"format":"iife","expected":"iife"} matches th
   "bundleName": StringContaining "test-vite-v5-iife",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": [
     {
@@ -1470,7 +1470,7 @@ exports[`Generating vite stats v5 {"format":"umd","expected":"umd"} matches the 
   "bundleName": StringContaining "test-vite-v5-umd",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": [
     {
@@ -1561,7 +1561,7 @@ exports[`Generating vite stats v5 {"format":"system","expected":"system"} matche
   "bundleName": StringContaining "test-vite-v5-system",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": [
     {
@@ -1652,7 +1652,7 @@ exports[`Generating vite stats v5 {"format":"systemjs","expected":"system"} matc
   "bundleName": StringContaining "test-vite-v5-system",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": [
     {
@@ -1743,7 +1743,7 @@ exports[`Generating vite stats v5 source maps are enabled does not include any s
   "bundleName": StringNotContaining ".map",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": [
     {

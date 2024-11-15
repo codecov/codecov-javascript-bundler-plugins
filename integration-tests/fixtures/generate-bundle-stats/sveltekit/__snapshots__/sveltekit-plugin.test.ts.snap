@@ -7,7 +7,7 @@ exports[`Generating sveltekit stats 2 {"format":"es","expected":"esm"} matches t
   "bundleName": StringContaining "test-sveltekit-v2-client-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -28,7 +28,7 @@ exports[`Generating sveltekit stats 2 {"format":"es","expected":"esm"} matches t
   "bundleName": StringContaining "test-sveltekit-v2-server-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -49,7 +49,7 @@ exports[`Generating sveltekit stats 2 {"format":"esm","expected":"esm"} matches 
   "bundleName": StringContaining "test-sveltekit-v2-client-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -70,7 +70,7 @@ exports[`Generating sveltekit stats 2 {"format":"esm","expected":"esm"} matches 
   "bundleName": StringContaining "test-sveltekit-v2-server-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -91,7 +91,7 @@ exports[`Generating sveltekit stats 2 {"format":"module","expected":"esm"} match
   "bundleName": StringContaining "test-sveltekit-v2-client-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -112,7 +112,7 @@ exports[`Generating sveltekit stats 2 {"format":"module","expected":"esm"} match
   "bundleName": StringContaining "test-sveltekit-v2-server-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
