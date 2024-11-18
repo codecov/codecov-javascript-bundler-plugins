@@ -253,47 +253,6 @@ describe("Output", () => {
     });
   });
 
-  describe("resetBundleName method", () => {
-    describe("bundle name is not locked", () => {
-      it("resets the bundle name", () => {
-        const output = new Output({
-          apiUrl: "http://localhost",
-          bundleName: "output-test",
-          debug: false,
-          dryRun: false,
-          enableBundleAnalysis: true,
-          retryCount: 1,
-          uploadToken: "token",
-        });
-
-        output.setBundleName("new-bundle");
-        output.resetBundleName();
-
-        expect(output.bundleName).toBe("output-test");
-      });
-    });
-
-    describe("bundle name is locked", () => {
-      it("does not reset the bundle name", () => {
-        const output = new Output({
-          apiUrl: "http://localhost",
-          bundleName: "output-test",
-          debug: false,
-          dryRun: false,
-          enableBundleAnalysis: true,
-          retryCount: 1,
-          uploadToken: "token",
-        });
-
-        output.setBundleName("new-bundle");
-        output.lockBundleName();
-        output.resetBundleName();
-
-        expect(output.bundleName).toBe("new-bundle");
-      });
-    });
-  });
-
   describe("write method", () => {
     describe("dryRun is enabled", () => {
       it("immediately returns", async () => {
