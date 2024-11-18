@@ -815,7 +815,7 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0(vitest@1.5.0(@types/node@20.12.12)(terser@5.27.0))
       codecovProdRollupPlugin:
-        specifier: npm:@codecov/rollup-plugin@1.4.0
+        specifier: npm:@codecov/rollup-plugin@0.0.1-beta.5
         version: '@codecov/rollup-plugin@1.4.0(rollup@3.29.5)'
       msw:
         specifier: ^2.1.5
@@ -873,7 +873,7 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0(vitest@1.5.0(@types/node@20.11.15)(terser@5.27.0))
       codecovProdRollupPlugin:
-        specifier: npm:@codecov/rollup-plugin@1.4.0
+        specifier: npm:@codecov/rollup-plugin@0.0.1-beta.5
         version: '@codecov/rollup-plugin@1.4.0(rollup@4.22.4)'
       msw:
         specifier: ^2.1.5
@@ -931,7 +931,7 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0(vitest@1.5.0(@types/node@20.12.12)(terser@5.27.0))
       codecovProdRollupPlugin:
-        specifier: npm:@codecov/rollup-plugin@1.4.0
+        specifier: npm:@codecov/rollup-plugin@0.0.1-beta.5
         version: '@codecov/rollup-plugin@1.4.0(rollup@4.22.4)'
       msw:
         specifier: ^2.1.5
@@ -986,7 +986,7 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0(vitest@1.5.0(@types/node@20.11.15)(terser@5.27.0))
       codecovProdRollupPlugin:
-        specifier: npm:@codecov/rollup-plugin@1.4.0
+        specifier: npm:@codecov/rollup-plugin@0.0.1-beta.5
         version: '@codecov/rollup-plugin@1.4.0(rollup@4.22.4)'
       msw:
         specifier: ^2.1.5
@@ -1038,7 +1038,7 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0(vitest@1.5.0(@types/node@20.12.12)(terser@5.27.0))
       codecovProdRollupPlugin:
-        specifier: npm:@codecov/rollup-plugin@1.4.0
+        specifier: npm:@codecov/rollup-plugin@0.0.1-beta.5
         version: '@codecov/rollup-plugin@1.4.0(rollup@4.22.4)'
       msw:
         specifier: ^2.1.5
@@ -1084,7 +1084,7 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0(vitest@1.5.0(@types/node@20.11.15)(terser@5.27.0))
       codecovProdRollupPlugin:
-        specifier: npm:@codecov/rollup-plugin@1.4.0
+        specifier: npm:@codecov/rollup-plugin@0.0.1-beta.5
         version: '@codecov/rollup-plugin@1.4.0(rollup@4.22.4)'
       msw:
         specifier: ^2.1.5
@@ -1136,7 +1136,7 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0(vitest@1.5.0(@types/node@20.12.12)(terser@5.27.0))
       codecovProdRollupPlugin:
-        specifier: npm:@codecov/rollup-plugin@1.4.0
+        specifier: npm:@codecov/rollup-plugin@0.0.1-beta.5
         version: '@codecov/rollup-plugin@1.4.0(rollup@4.22.4)'
       msw:
         specifier: ^2.1.5
@@ -1191,7 +1191,7 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0(vitest@1.5.0(@types/node@20.11.15)(terser@5.27.0))
       codecovProdRollupPlugin:
-        specifier: npm:@codecov/rollup-plugin@1.4.0
+        specifier: npm:@codecov/rollup-plugin@0.0.1-beta.5
         version: '@codecov/rollup-plugin@1.4.0(rollup@4.22.4)'
       msw:
         specifier: ^2.1.5
@@ -1237,7 +1237,7 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0(vitest@1.5.0(@types/node@20.11.15)(terser@5.27.0))
       codecovProdRollupPlugin:
-        specifier: npm:@codecov/rollup-plugin@1.4.0
+        specifier: npm:@codecov/rollup-plugin@0.0.1-beta.5
         version: '@codecov/rollup-plugin@1.4.0(rollup@4.22.4)'
       msw:
         specifier: ^2.1.5
@@ -1286,7 +1286,7 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0(vitest@1.5.0(@types/node@20.10.0)(terser@5.27.0))
       codecovProdRollupPlugin:
-        specifier: npm:@codecov/rollup-plugin@1.4.0
+        specifier: npm:@codecov/rollup-plugin@0.0.1-beta.5
         version: '@codecov/rollup-plugin@1.4.0(rollup@4.22.4)'
       msw:
         specifier: ^2.1.5
