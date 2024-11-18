@@ -1,6 +1,6 @@
 {
   "name": "@codecov/vite-plugin",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Official Codecov Vite plugin",
   "author": "Codecov",
   "license": "MIT",

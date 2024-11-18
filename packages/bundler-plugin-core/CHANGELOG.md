@@ -1,5 +1,11 @@
 # @codecov/bundler-plugin-core
 
+## 1.4.1
+
+### Patch Changes
+
+- 9968698: Fix issue with bundle names not being reset in nextjs, rollup, vite, and webpack plugins.
+
 ## 1.4.0
 
 ### Minor Changes
