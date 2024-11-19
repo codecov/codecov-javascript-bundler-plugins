@@ -74,6 +74,8 @@ const codecovNuxtPluginFactory = createVitePlugin<Options, true>(
  *
  * @see {@link @codecov/bundler-plugin-core!Options | Options} for list of options.
  */
+
+// @ts-expect-error - Handle incompatible types.
 const codecovNuxtPlugin: NuxtModule<Options> = defineNuxtModule<Options>({
   meta: {
     name: PLUGIN_NAME,
