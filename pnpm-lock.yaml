@@ -970,7 +970,7 @@ importers:
         specifier: ^3.11.2
         version: 3.11.2(rollup@4.22.4)
       nuxt:
-        specifier: ^3.12.4
+        specifier: 3.x
         version: 3.12.4(@parcel/watcher@2.4.1)(@types/node@20.11.15)(encoding@0.1.13)(eslint@8.56.0)(ioredis@5.4.1)(magicast@0.3.4)(optionator@0.9.3)(rollup@4.22.4)(terser@5.27.0)(typescript@5.3.3)(vite@5.4.11(@types/node@20.11.15)(terser@5.27.0))
       unplugin:
         specifier: ^1.10.1
