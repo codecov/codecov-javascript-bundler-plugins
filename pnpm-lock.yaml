@@ -967,7 +967,7 @@ importers:
         specifier: workspace:^
         version: link:../vite-plugin
       '@nuxt/kit':
-        specifier: ^3.14.159
+        specifier: 3.14.159
         version: 3.14.159(magicast@0.3.5)(rollup@4.27.3)
       unplugin:
         specifier: ^1.10.1
