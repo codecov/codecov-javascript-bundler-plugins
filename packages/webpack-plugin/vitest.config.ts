@@ -18,6 +18,7 @@ export default defineProject({
       }),
       enforce: "pre",
     },
+    //@ts-expect-error handle conflicting version types
     ...plugins,
   ],
 });

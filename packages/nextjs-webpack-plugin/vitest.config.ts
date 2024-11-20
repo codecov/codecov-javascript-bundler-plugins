@@ -7,6 +7,7 @@ const packageJson = await import("./package.json");
 export default defineProject({
   ...config,
   plugins: [
+    //@ts-expect-error handle conflicting version types
     {
       ...replace({
         preventAssignment: true,
@@ -17,6 +18,7 @@ export default defineProject({
       }),
       enforce: "pre",
     },
+    //@ts-expect-error handle conflicting version types
     ...plugins,
   ],
 });
