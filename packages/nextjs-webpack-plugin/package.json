@@ -63,7 +63,7 @@
     "unbuild": "^2.0.0",
     "vite-tsconfig-paths": "^4.3.2",
     "vitest": "^1.5.0",
-    "webpack": "^5.90.0"
+    "webpack": "^5.96.1"
   },
   "peerDependencies": {
     "next": "14.x || 15.x",

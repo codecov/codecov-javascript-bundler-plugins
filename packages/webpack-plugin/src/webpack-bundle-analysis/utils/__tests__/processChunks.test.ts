@@ -8,7 +8,7 @@ describe("processChunks", () => {
     it("should process chunks", () => {
       const chunks = [
         {
-          id: 1,
+          id: "1",
           entry: true,
           initial: true,
           files: ["file1.js"],
@@ -17,6 +17,10 @@ describe("processChunks", () => {
           recorded: true,
           size: 1000,
           hash: "hash1",
+          sizes: {},
+          idHints: [],
+          auxiliaryFiles: [],
+          childrenByOrder: {},
         },
         {
           id: 2,
@@ -28,6 +32,10 @@ describe("processChunks", () => {
           recorded: true,
           size: 2000,
           hash: "hash2",
+          sizes: {},
+          idHints: [],
+          auxiliaryFiles: [],
+          childrenByOrder: {},
         },
       ] satisfies StatsChunk[];
 
@@ -66,6 +74,10 @@ describe("processChunks", () => {
           recorded: true,
           size: 1000,
           hash: "hash1",
+          sizes: {},
+          idHints: [],
+          auxiliaryFiles: [],
+          childrenByOrder: {},
         },
         {
           entry: true,
@@ -76,6 +88,10 @@ describe("processChunks", () => {
           recorded: true,
           size: 2000,
           hash: "hash2",
+          sizes: {},
+          idHints: [],
+          auxiliaryFiles: [],
+          childrenByOrder: {},
         },
       ] satisfies StatsChunk[];
 
