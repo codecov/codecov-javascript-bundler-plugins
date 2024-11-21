@@ -4,44 +4,44 @@ exports[`Generating webpack stats 5 {"format":"array-push","expected":"array-pus
 {
   "assets": [
     {
-      "gzipSize": 25254,
-      "name": "main-6c1d26e76f6ba1fc75c8.js",
+      "gzipSize": 25250,
+      "name": "main-2c458a0c7e378af1ec1a.js",
       "normalized": "main-*.js",
-      "size": 70961,
+      "size": 70959,
     },
   ],
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-webpack-v5-array-push",
   "bundler": {
     "name": "webpack",
-    "version": "5.90.0",
+    "version": "5.96.1",
   },
   "chunks": [
     {
       "entry": true,
       "files": [
-        "main-6c1d26e76f6ba1fc75c8.js",
+        "main-2c458a0c7e378af1ec1a.js",
       ],
-      "id": "179",
+      "id": "792",
       "initial": true,
       "names": [
         "main",
       ],
-      "uniqueId": "0-179",
+      "uniqueId": "0-792",
     },
   ],
   "duration": Any<Number>,
   "modules": [
     {
       "chunkUniqueIds": [
-        "0-179",
+        "0-792",
       ],
       "name": "./test-apps/webpack/src/main.js + 1 modules",
       "size": 395,
     },
     {
       "chunkUniqueIds": [
-        "0-179",
+        "0-792",
       ],
       "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
       "size": 544098,
@@ -53,14 +53,14 @@ exports[`Generating webpack stats 5 {"format":"array-push","expected":"array-pus
     },
     {
       "chunkUniqueIds": [
-        "0-179",
+        "0-792",
       ],
       "name": "webpack/runtime/global",
       "size": 221,
     },
     {
       "chunkUniqueIds": [
-        "0-179",
+        "0-792",
       ],
       "name": "webpack/runtime/node module decorator",
       "size": 123,
@@ -79,44 +79,44 @@ exports[`Generating webpack stats 5 {"format":"commonjs","expected":"cjs"} match
 {
   "assets": [
     {
-      "gzipSize": 25254,
-      "name": "main-6c1d26e76f6ba1fc75c8.js",
+      "gzipSize": 25250,
+      "name": "main-2c458a0c7e378af1ec1a.js",
       "normalized": "main-*.js",
-      "size": 70961,
+      "size": 70959,
     },
   ],
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-webpack-v5-cjs",
   "bundler": {
     "name": "webpack",
-    "version": "5.90.0",
+    "version": "5.96.1",
   },
   "chunks": [
     {
       "entry": true,
       "files": [
-        "main-6c1d26e76f6ba1fc75c8.js",
+        "main-2c458a0c7e378af1ec1a.js",
       ],
-      "id": "179",
+      "id": "792",
       "initial": true,
       "names": [
         "main",
       ],
-      "uniqueId": "0-179",
+      "uniqueId": "0-792",
     },
   ],
   "duration": Any<Number>,
   "modules": [
     {
       "chunkUniqueIds": [
-        "0-179",
+        "0-792",
       ],
       "name": "./test-apps/webpack/src/main.js + 1 modules",
       "size": 395,
     },
     {
       "chunkUniqueIds": [
-        "0-179",
+        "0-792",
       ],
       "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
       "size": 544098,
@@ -128,14 +128,14 @@ exports[`Generating webpack stats 5 {"format":"commonjs","expected":"cjs"} match
     },
     {
       "chunkUniqueIds": [
-        "0-179",
+        "0-792",
       ],
       "name": "webpack/runtime/global",
       "size": 221,
     },
     {
       "chunkUniqueIds": [
-        "0-179",
+        "0-792",
       ],
       "name": "webpack/runtime/node module decorator",
       "size": 123,
@@ -154,44 +154,44 @@ exports[`Generating webpack stats 5 {"format":"module","expected":"esm"} matches
 {
   "assets": [
     {
-      "gzipSize": 25254,
-      "name": "main-6c1d26e76f6ba1fc75c8.js",
+      "gzipSize": 25250,
+      "name": "main-2c458a0c7e378af1ec1a.js",
       "normalized": "main-*.js",
-      "size": 70961,
+      "size": 70959,
     },
   ],
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-webpack-v5-esm",
   "bundler": {
     "name": "webpack",
-    "version": "5.90.0",
+    "version": "5.96.1",
   },
   "chunks": [
     {
       "entry": true,
       "files": [
-        "main-6c1d26e76f6ba1fc75c8.js",
+        "main-2c458a0c7e378af1ec1a.js",
       ],
-      "id": "179",
+      "id": "792",
       "initial": true,
       "names": [
         "main",
       ],
-      "uniqueId": "0-179",
+      "uniqueId": "0-792",
     },
   ],
   "duration": Any<Number>,
   "modules": [
     {
       "chunkUniqueIds": [
-        "0-179",
+        "0-792",
       ],
       "name": "./test-apps/webpack/src/main.js + 1 modules",
       "size": 395,
     },
     {
       "chunkUniqueIds": [
-        "0-179",
+        "0-792",
       ],
       "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
       "size": 544098,
@@ -203,14 +203,14 @@ exports[`Generating webpack stats 5 {"format":"module","expected":"esm"} matches
     },
     {
       "chunkUniqueIds": [
-        "0-179",
+        "0-792",
       ],
       "name": "webpack/runtime/global",
       "size": 221,
     },
     {
       "chunkUniqueIds": [
-        "0-179",
+        "0-792",
       ],
       "name": "webpack/runtime/node module decorator",
       "size": 123,
@@ -229,44 +229,44 @@ exports[`Generating webpack stats 5 source maps are enabled does not include any
 {
   "assets": [
     {
-      "gzipSize": 25254,
-      "name": "main-6c1d26e76f6ba1fc75c8.js",
+      "gzipSize": 25250,
+      "name": "main-2c458a0c7e378af1ec1a.js",
       "normalized": "main-*.js",
-      "size": 70961,
+      "size": 70959,
     },
   ],
   "builtAt": Any<Number>,
   "bundleName": StringNotContaining ".map",
   "bundler": {
     "name": "webpack",
-    "version": "5.90.0",
+    "version": "5.96.1",
   },
   "chunks": [
     {
       "entry": true,
       "files": [
-        "main-6c1d26e76f6ba1fc75c8.js",
+        "main-2c458a0c7e378af1ec1a.js",
       ],
-      "id": "179",
+      "id": "792",
       "initial": true,
       "names": [
         "main",
       ],
-      "uniqueId": "0-179",
+      "uniqueId": "0-792",
     },
   ],
   "duration": Any<Number>,
   "modules": [
     {
       "chunkUniqueIds": [
-        "0-179",
+        "0-792",
       ],
       "name": "./test-apps/webpack/src/main.js + 1 modules",
       "size": 395,
     },
     {
       "chunkUniqueIds": [
-        "0-179",
+        "0-792",
       ],
       "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
       "size": 544098,
@@ -278,14 +278,14 @@ exports[`Generating webpack stats 5 source maps are enabled does not include any
     },
     {
       "chunkUniqueIds": [
-        "0-179",
+        "0-792",
       ],
       "name": "webpack/runtime/global",
       "size": 221,
     },
     {
       "chunkUniqueIds": [
-        "0-179",
+        "0-792",
       ],
       "name": "webpack/runtime/node module decorator",
       "size": 123,
