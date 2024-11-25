@@ -38,7 +38,7 @@ export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
         return;
       }
 
-      output.setBundleName(output.bundleName);
+      output.setBundleName(output.originalBundleName);
       if (options.name && options.name !== "") {
         output.setBundleName(`${output.bundleName}-${options.name}`);
       }

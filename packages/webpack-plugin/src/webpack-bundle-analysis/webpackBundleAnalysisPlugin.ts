@@ -36,7 +36,7 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
           stage: webpack.Compilation.PROCESS_ASSETS_STAGE_REPORT,
         },
         async () => {
-          output.setBundleName(output.bundleName);
+          output.setBundleName(output.originalBundleName);
           // Webpack base chunk format options: https://webpack.js.org/configuration/output/#outputchunkformat
           if (typeof compilation.outputOptions.chunkFormat === "string") {
             if (compilation.name && compilation.name !== "") {
