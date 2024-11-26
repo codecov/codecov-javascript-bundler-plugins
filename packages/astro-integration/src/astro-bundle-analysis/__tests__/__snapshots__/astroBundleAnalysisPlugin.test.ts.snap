@@ -1,0 +1,12 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`astroBundleAnalysisPlugin > when called > returns a plugin object 1`] = `
+{
+  "name": "@codecov/astro-integration",
+  "pluginVersion": "1.4.0",
+  "version": "2",
+  "vite": {
+    "generateBundle": [Function],
+  },
+}
+`;
