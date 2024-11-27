@@ -3,8 +3,8 @@ import { getBundleName } from "../getBundleName";
 
 describe("getBundleName", () => {
   it("appends name if present", () => {
-    const name = getBundleName("test-bundle", "client", "iife", undefined);
-    expect(name).toBe("test-bundle-client-iife");
+    const name = getBundleName("test-bundle", "client", "iife", "test-name");
+    expect(name).toBe("test-bundle-test-name-client-iife");
   });
 
   it("returns bundle name with appended format", () => {
