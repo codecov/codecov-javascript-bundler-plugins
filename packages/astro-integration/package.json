@@ -13,9 +13,8 @@
     "Codecov",
     "Astro",
     "bundler",
-    "integration",
-    "optimization",
-    "utility"
+    "analytics",
+    "optimization"
   ],
   "type": "module",
   "exports": {
