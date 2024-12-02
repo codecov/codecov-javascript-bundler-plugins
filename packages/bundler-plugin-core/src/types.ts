@@ -21,6 +21,7 @@ export interface Chunk {
   initial: boolean;
   names: string[];
   files: string[];
+  dynamicImports: string[];
 }
 
 export interface Module {
