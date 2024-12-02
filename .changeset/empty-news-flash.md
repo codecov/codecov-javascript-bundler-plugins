@@ -11,4 +11,4 @@
 "@codecov/vite-plugin": patch
 ---
 
-Bump codecov plugin version for uploading stats from examples, tests
+Bump codecov plugin version for uploading stats
