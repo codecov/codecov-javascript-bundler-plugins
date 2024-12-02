@@ -4,7 +4,7 @@ exports[`solidstartBundleAnalysisPlugin > when called > returns a plugin object 
 {
   "name": "@codecov/solidstart-plugin",
   "pluginVersion": "1.5.1",
-  "version": "2",
+  "version": "3",
   "vite": {
     "generateBundle": [Function],
   },
@@ -15,7 +15,7 @@ exports[`sveltekitBundleAnalysisPlugin > when called > returns a plugin object 1
 {
   "name": "@codecov/sveltekit-plugin",
   "pluginVersion": "1.5.1",
-  "version": "2",
+  "version": "3",
   "vite": {
     "generateBundle": [Function],
   },
