@@ -98,6 +98,7 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
 
             const chunkId = item?.name ?? "";
             const uniqueId = `${counter}-${chunkId}`;
+
             chunks.push({
               id: chunkId,
               uniqueId: uniqueId,
@@ -105,6 +106,7 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
               initial: item?.isDynamicEntry,
               files: [fileName],
               names: [item?.name],
+              dynamicImports: item?.dynamicImports ?? [],
             });
 
             const moduleEntries = Object.entries(item?.modules ?? {});

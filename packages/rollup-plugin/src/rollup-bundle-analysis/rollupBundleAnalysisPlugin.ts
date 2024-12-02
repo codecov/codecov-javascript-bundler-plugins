@@ -105,6 +105,7 @@ export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
               initial: item?.isDynamicEntry,
               files: [fileName],
               names: [item?.name],
+              dynamicImports: item?.dynamicImports ?? [],
             });
 
             const moduleEntries = Object.entries(item?.modules ?? {});
