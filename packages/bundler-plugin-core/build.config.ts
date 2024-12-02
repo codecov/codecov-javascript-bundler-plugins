@@ -21,9 +21,11 @@ export default defineBuildConfig({
   hooks: {
     "rollup:options": (_ctx, opts) => {
       if (process.env.PLUGIN_CODECOV_TOKEN && Array.isArray(opts.plugins)) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-floating-promises
         opts.plugins = [
+          // @ts-expect-error - using rollup plugin
           ...opts.plugins,
+          // @ts-expect-error - using rollup plugin
           codecovRollupPlugin({
             enableBundleAnalysis:
               typeof process.env.PLUGIN_CODECOV_TOKEN === "string",
