@@ -801,7 +801,7 @@ importers:
     devDependencies:
       '@rollup/plugin-replace':
         specifier: ^5.0.5
-        version: 5.0.7(rollup@4.27.3)
+        version: 5.0.7(rollup@3.29.5)
       '@types/micromatch':
         specifier: ^4.0.9
         version: 4.0.9
@@ -815,8 +815,8 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0(vitest@1.5.0(@types/node@20.12.12)(terser@5.27.0))
       codecovProdRollupPlugin:
-        specifier: npm:@codecov/rollup-plugin@0.0.1-beta.5
-        version: '@codecov/rollup-plugin@1.4.0(rollup@4.27.3)'
+        specifier: npm:@codecov/rollup-plugin@1.5.0
+        version: '@codecov/rollup-plugin@1.5.0(rollup@3.29.5)'
       msw:
         specifier: ^2.1.5
         version: 2.1.5(typescript@5.4.5)
@@ -873,8 +873,8 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0(vitest@1.5.0(@types/node@20.11.15)(terser@5.27.0))
       codecovProdRollupPlugin:
-        specifier: npm:@codecov/rollup-plugin@0.0.1-beta.5
-        version: '@codecov/rollup-plugin@1.4.0(rollup@3.29.5)'
+        specifier: npm:@codecov/rollup-plugin@1.5.0
+        version: '@codecov/rollup-plugin@1.5.0(rollup@4.27.3)'
       msw:
         specifier: ^2.1.5
         version: 2.1.5(typescript@5.3.3)
@@ -931,8 +931,8 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0(vitest@1.5.0(@types/node@20.12.12)(terser@5.27.0))
       codecovProdRollupPlugin:
-        specifier: npm:@codecov/rollup-plugin@0.0.1-beta.5
-        version: '@codecov/rollup-plugin@1.4.0(rollup@4.27.3)'
+        specifier: npm:@codecov/rollup-plugin@1.5.0
+        version: '@codecov/rollup-plugin@1.5.0(rollup@4.27.3)'
       msw:
         specifier: ^2.1.5
         version: 2.1.5(typescript@5.4.5)
@@ -983,8 +983,8 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0(vitest@1.5.0(@types/node@20.11.15)(terser@5.27.0))
       codecovProdRollupPlugin:
-        specifier: npm:@codecov/rollup-plugin@0.0.1-beta.5
-        version: '@codecov/rollup-plugin@1.4.0(rollup@4.27.3)'
+        specifier: npm:@codecov/rollup-plugin@1.5.0
+        version: '@codecov/rollup-plugin@1.5.0(rollup@4.27.3)'
       msw:
         specifier: ^2.1.5
         version: 2.1.5(typescript@5.3.3)
@@ -1038,8 +1038,8 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0(vitest@1.5.0(@types/node@20.12.12)(terser@5.27.0))
       codecovProdRollupPlugin:
-        specifier: npm:@codecov/rollup-plugin@0.0.1-beta.5
-        version: '@codecov/rollup-plugin@1.4.0(rollup@4.27.3)'
+        specifier: npm:@codecov/rollup-plugin@1.5.0
+        version: '@codecov/rollup-plugin@1.5.0(rollup@4.27.3)'
       msw:
         specifier: ^2.1.5
         version: 2.1.5(typescript@5.4.5)
@@ -1084,8 +1084,8 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0(vitest@1.5.0(@types/node@20.11.15)(terser@5.27.0))
       codecovProdRollupPlugin:
-        specifier: npm:@codecov/rollup-plugin@0.0.1-beta.5
-        version: '@codecov/rollup-plugin@1.4.0(rollup@4.22.4)'
+        specifier: npm:@codecov/rollup-plugin@1.5.0
+        version: '@codecov/rollup-plugin@1.5.0(rollup@4.22.4)'
       msw:
         specifier: ^2.1.5
         version: 2.1.5(typescript@5.3.3)
@@ -1136,8 +1136,8 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0(vitest@1.5.0(@types/node@20.12.12)(terser@5.27.0))
       codecovProdRollupPlugin:
-        specifier: npm:@codecov/rollup-plugin@0.0.1-beta.5
-        version: '@codecov/rollup-plugin@1.4.0(rollup@4.27.3)'
+        specifier: npm:@codecov/rollup-plugin@1.5.0
+        version: '@codecov/rollup-plugin@1.5.0(rollup@4.27.3)'
       msw:
         specifier: ^2.1.5
         version: 2.1.5(typescript@5.4.5)
@@ -1191,8 +1191,8 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0(vitest@1.5.0(@types/node@20.11.15)(terser@5.27.0))
       codecovProdRollupPlugin:
-        specifier: npm:@codecov/rollup-plugin@0.0.1-beta.5
-        version: '@codecov/rollup-plugin@1.4.0(rollup@4.27.3)'
+        specifier: npm:@codecov/rollup-plugin@1.5.0
+        version: '@codecov/rollup-plugin@1.5.0(rollup@4.27.3)'
       msw:
         specifier: ^2.1.5
         version: 2.1.5(typescript@5.3.3)
@@ -1237,8 +1237,8 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0(vitest@1.5.0(@types/node@20.11.15)(terser@5.27.0))
       codecovProdRollupPlugin:
-        specifier: npm:@codecov/rollup-plugin@0.0.1-beta.5
-        version: '@codecov/rollup-plugin@1.4.0(rollup@4.27.3)'
+        specifier: npm:@codecov/rollup-plugin@1.5.0
+        version: '@codecov/rollup-plugin@1.5.0(rollup@4.27.3)'
       msw:
         specifier: ^2.1.5
         version: 2.1.5(typescript@5.3.3)
@@ -1286,8 +1286,8 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0(vitest@1.5.0(@types/node@20.10.0)(terser@5.27.0))
       codecovProdRollupPlugin:
-        specifier: npm:@codecov/rollup-plugin@0.0.1-beta.5
-        version: '@codecov/rollup-plugin@1.4.0(rollup@4.27.3)'
+        specifier: npm:@codecov/rollup-plugin@1.5.0
+        version: '@codecov/rollup-plugin@1.5.0(rollup@4.27.3)'
       msw:
         specifier: ^2.1.5
         version: 2.1.5(typescript@5.3.3)
@@ -2309,12 +2309,12 @@ packages:
     resolution: {integrity: sha512-YLPHc8yASwjNkmcDMQMY35yiWjoKAKnhUbPRszBRS0YgH+IXtsMp61j+yTcnCE3oO2DgP0U3iejLC8FTtKDC8Q==}
     engines: {node: '>=16.13'}
 
-  '@codecov/bundler-plugin-core@1.4.0':
-    resolution: {integrity: sha512-/Rglx52KLdyqoZBW3DH2E/31c9/zWWZ4efTf+qxV0FSLb7oJ9/JZT3IBKL7f6fbVujR8PDMLIoG4Q0pmVY7LzA==}
+  '@codecov/bundler-plugin-core@1.5.0':
+    resolution: {integrity: sha512-PyTKI5GXddzx6ABsMqaXkN8GEkhmXKJ9IcCznxdyV7y6Lti5EPOMxxOMiGz6IPXZ3Uo590brUD1cEiSzhY2Dgg==}
     engines: {node: '>=18.0.0'}
 
-  '@codecov/rollup-plugin@1.4.0':
-    resolution: {integrity: sha512-/YJASrdzQUISkTBIIeRpnjQR04ntjCat1lqBc4YIv0/fKCrwYTm9BjJ/5JHIrn/s4k7k/V3LfMcajpzUIZhD8A==}
+  '@codecov/rollup-plugin@1.5.0':
+    resolution: {integrity: sha512-8HFtyAlmrjDHWoYjMpXkA4U/IZFHXmO0+8LBpRIJUhogy56R677NRVT+wFJKyB/cC5adICsyBk7b1EaTdDv//g==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       rollup: 3.x || 4.x
@@ -13072,32 +13072,32 @@ snapshots:
     dependencies:
       mime: 3.0.0
 
-  '@codecov/bundler-plugin-core@1.4.0':
+  '@codecov/bundler-plugin-core@1.5.0':
     dependencies:
       '@actions/core': 1.10.1
       '@actions/github': 6.0.0
       chalk: 4.1.2
       semver: 7.6.3
-      unplugin: 1.12.3
+      unplugin: 1.16.0
       zod: 3.22.4
 
-  '@codecov/rollup-plugin@1.4.0(rollup@3.29.5)':
+  '@codecov/rollup-plugin@1.5.0(rollup@3.29.5)':
     dependencies:
-      '@codecov/bundler-plugin-core': 1.4.0
+      '@codecov/bundler-plugin-core': 1.5.0
       rollup: 3.29.5
-      unplugin: 1.12.3
+      unplugin: 1.16.0
 
-  '@codecov/rollup-plugin@1.4.0(rollup@4.22.4)':
+  '@codecov/rollup-plugin@1.5.0(rollup@4.22.4)':
     dependencies:
-      '@codecov/bundler-plugin-core': 1.4.0
+      '@codecov/bundler-plugin-core': 1.5.0
       rollup: 4.22.4
-      unplugin: 1.12.3
+      unplugin: 1.16.0
 
-  '@codecov/rollup-plugin@1.4.0(rollup@4.27.3)':
+  '@codecov/rollup-plugin@1.5.0(rollup@4.27.3)':
     dependencies:
-      '@codecov/bundler-plugin-core': 1.4.0
+      '@codecov/bundler-plugin-core': 1.5.0
       rollup: 4.27.3
-      unplugin: 1.12.3
+      unplugin: 1.16.0
 
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
@@ -16579,8 +16579,8 @@ snapshots:
     dependencies:
       '@mapbox/node-pre-gyp': 1.0.11(encoding@0.1.13)
       '@rollup/pluginutils': 4.2.1
-      acorn: 8.12.1
-      acorn-import-attributes: 1.9.5(acorn@8.12.1)
+      acorn: 8.14.0
+      acorn-import-attributes: 1.9.5(acorn@8.14.0)
       async-sema: 3.1.1
       bindings: 1.5.0
       estree-walker: 2.0.2
@@ -17442,13 +17442,13 @@ snapshots:
     dependencies:
       acorn: 8.11.3
 
-  acorn-jsx@5.3.2(acorn@8.12.1):
+  acorn-jsx@5.3.2(acorn@8.14.0):
     dependencies:
-      acorn: 8.12.1
+      acorn: 8.14.0
 
   acorn-loose@8.4.0:
     dependencies:
-      acorn: 8.12.1
+      acorn: 8.14.0
 
   acorn-typescript@1.4.13(acorn@8.11.3):
     dependencies:
@@ -21077,8 +21077,8 @@ snapshots:
 
   micromark-extension-mdxjs@1.0.1:
     dependencies:
-      acorn: 8.12.1
-      acorn-jsx: 5.3.2(acorn@8.12.1)
+      acorn: 8.14.0
+      acorn-jsx: 5.3.2(acorn@8.14.0)
       micromark-extension-mdx-expression: 1.0.8
       micromark-extension-mdx-jsx: 1.0.5
       micromark-extension-mdx-md: 1.0.1
@@ -25272,7 +25272,7 @@ snapshots:
       mlly: 1.7.1
       pathe: 1.1.2
       pkg-types: 1.2.0
-      unplugin: 1.12.3
+      unplugin: 1.16.0
 
   update-browserslist-db@1.0.13(browserslist@4.22.3):
     dependencies:
