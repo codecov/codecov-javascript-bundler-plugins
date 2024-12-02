@@ -1,5 +1,16 @@
 # @codecov/bundler-plugin-core
 
+## 1.5.0
+
+### Minor Changes
+
+- 0efd87f: Update nuxt and related dependencies
+
+### Patch Changes
+
+- 9968698: Fix issue with bundle names not being reset in nextjs, rollup, vite, and webpack plugins.
+- 8f89fd4: Remove unused regex character escape from normalizePath
+
 ## 1.4.0
 
 ### Minor Changes
