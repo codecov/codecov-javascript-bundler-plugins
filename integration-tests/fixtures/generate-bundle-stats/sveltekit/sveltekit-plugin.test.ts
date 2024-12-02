@@ -84,6 +84,7 @@ describe("Generating sveltekit stats", () => {
                 entry: expect.any(Boolean),
                 files: expect.arrayContaining([expect.any(String)]),
                 names: expect.arrayContaining([expect.any(String)]),
+                dynamicImports: expect.any(Array),
               },
             ]),
             modules: expect.arrayContaining([
@@ -126,6 +127,7 @@ describe("Generating sveltekit stats", () => {
                 entry: expect.any(Boolean),
                 files: expect.arrayContaining([expect.any(String)]),
                 names: expect.arrayContaining([expect.any(String)]),
+                dynamicImports: expect.any(Array),
               },
             ]),
             modules: expect.arrayContaining([
