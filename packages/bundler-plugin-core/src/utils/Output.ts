@@ -57,7 +57,7 @@ class Output {
   };
 
   constructor(userOptions: NormalizedOptions) {
-    this.version = "2";
+    this.version = "3";
     this.apiUrl = userOptions.apiUrl;
     this.dryRun = userOptions.dryRun;
     this.retryCount = userOptions.retryCount;
