@@ -177,7 +177,6 @@ describe("Generating astro stats", () => {
             await $`cd test-apps/astro && API_URL=${API_URL} pnpm run build`.nothrow();
 
           expect(exitCode).toBe(1);
-          // for some reason this isn't being outputted in the test env
           expect(stdout.toString()).toContain(
             "[codecov] bundleName: `` does not match format: `/^[wd_:/@.{}[]$-]+$/`.",
           );
