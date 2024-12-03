@@ -18,8 +18,6 @@ describe("Generating astro stats", () => {
     describe.each(FORMATS)("%o", ({ format, expected }) => {
       beforeEach(async () => {
         const config = new GenerateConfig({
-          // need to re-write config script so that it can point to astro dir but still output the astro config file
-          // astro uses vite under the hood
           plugin: "astro",
           configFileName: "astro",
           format,
