@@ -1,7 +1,7 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 
-import codecovAstroIntegration from "@codecov/astro-integration";
+import codecovAstroPlugin from "@codecov/astro-plugin";
 
 import node from "@astrojs/node";
 
@@ -15,7 +15,7 @@ export default defineConfig({
   }),
   integrations: [
     react(),
-    codecovAstroIntegration({
+    codecovAstroPlugin({
       enableBundleAnalysis: true,
       bundleName: "@codecov/example-astro-app",
       uploadToken: process.env.ASTRO_UPLOAD_TOKEN,

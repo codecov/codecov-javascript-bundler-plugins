@@ -31,7 +31,7 @@
     "vite-plugin-solid": "^2.10.2"
   },
   "devDependencies": {
-    "@codecov/astro-integration": "workspace:*",
+    "@codecov/astro-plugin": "workspace:*",
     "@codecov/bundler-plugin-core": "workspace:^",
     "@codecov/nuxt-plugin": "workspace:^",
     "@codecov/remix-vite-plugin": "workspace:^",

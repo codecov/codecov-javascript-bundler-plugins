@@ -4,7 +4,7 @@
   </a>
 </p>
 
-# Codecov Astro Integration
+# Codecov Astro Plugin
 
 An Astro integration that provides bundle analysis support for Codecov.
 
@@ -16,19 +16,19 @@ An Astro integration that provides bundle analysis support for Codecov.
 Using npm:
 
 ```bash
-npx astro add @codecov/astro-integration
+npx astro add @codecov/astro-plugin
 ```
 
 Using yarn:
 
 ```bash
-yarn astro add @codecov/astro-integration
+yarn astro add @codecov/astro-plugin
 ```
 
 Using pnpm:
 
 ```bash
-pnpm astro add @codecov/astro-integration
+pnpm astro add @codecov/astro-plugin
 ```
 
 ## Public Repo Example - GitHub Actions
@@ -38,14 +38,14 @@ This configuration will automatically upload the bundle analysis to Codecov for 
 ```js
 // astro.config.mjs
 import { defineConfig } from "astro/config";
-import { codecovAstroIntegration } from "@codecov/astro-integration";
+import { codecovAstroPlugin } from "@codecov/astro-plugin";
 
 // https://astro.build/config
 export default defineConfig({
   // other config settings
   integrations: [
     // place this after all other integrations
-    codecovAstroIntegration({
+    codecovAstroPlugin({
       enableBundleAnalysis: true,
       bundleName: "example-astro-bundle",
       uploadToken: process.env.CODECOV_TOKEN,
@@ -62,14 +62,14 @@ This setup is for public repositories that are not using GitHub Actions, this co
 ```js
 // astro.config.mjs
 import { defineConfig } from "astro/config";
-import { codecovAstroIntegration } from "@codecov/astro-integration";
+import { codecovAstroPlugin } from "@codecov/astro-plugin";
 
 // https://astro.build/config
 export default defineConfig({
   // other config settings
   integrations: [
     // place this after all other integrations
-    codecovAstroIntegration({
+    codecovAstroPlugin({
       enableBundleAnalysis: true,
       bundleName: "example-astro-bundle",
       uploadToken: process.env.CODECOV_TOKEN,
@@ -91,14 +91,14 @@ This configuration will automatically upload the bundle analysis to Codecov for 
 ```js
 // astro.config.mjs
 import { defineConfig } from "astro/config";
-import { codecovAstroIntegration } from "@codecov/astro-integration";
+import { codecovAstroPlugin } from "@codecov/astro-plugin";
 
 // https://astro.build/config
 export default defineConfig({
   // other config settings
   integrations: [
     // place this after all other integrations
-    codecovAstroIntegration({
+    codecovAstroPlugin({
       enableBundleAnalysis: true,
       bundleName: "example-astro-bundle",
       uploadToken: process.env.CODECOV_TOKEN,
@@ -114,14 +114,14 @@ For users with [OpenID Connect (OIDC) enabled](https://docs.github.com/en/action
 ```js
 // astro.config.mjs
 import { defineConfig } from "astro/config";
-import { codecovAstroIntegration } from "@codecov/astro-integration";
+import { codecovAstroPlugin } from "@codecov/astro-plugin";
 
 // https://astro.build/config
 export default defineConfig({
   // other config settings
   integrations: [
     // place this after all other integrations
-    codecovAstroIntegration({
+    codecovAstroPlugin({
       enableBundleAnalysis: true,
       bundleName: "example-astro-bundle",
       oidc: {
@@ -134,7 +134,7 @@ export default defineConfig({
 
 ## More information
 
-- [Astro Integration Docs](https://codecov.github.io/codecov-javascript-bundler-plugins/modules/_codecov_astro_integration.html)
+- [Astro Plugin Docs](https://codecov.github.io/codecov-javascript-bundler-plugins/modules/_codecov_astro_integration.html)
 - [Codecov Documentation](https://docs.codecov.com/docs)
 - [Codecov Feedback](https://github.com/codecov/feedback/discussions)
 - [Sentry Discord](https://discord.gg/Ww9hbqr)

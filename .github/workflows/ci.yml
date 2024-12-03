@@ -478,7 +478,7 @@ jobs:
       matrix:
         package:
           [
-            "astro-integration",
+            "astro-plugin",
             "bundle-analyzer",
             "bundler-plugin-core",
             "nextjs-webpack-plugin",
@@ -548,7 +548,7 @@ jobs:
       matrix:
         package:
           [
-            "astro-integration",
+            "astro-plugin",
             "bundle-analyzer",
             "bundler-plugin-core",
             "nextjs-webpack-plugin",

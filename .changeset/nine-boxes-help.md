@@ -1,6 +1,6 @@
 ---
 "@codecov/bundler-plugin-core": minor
-"@codecov/astro-integration": minor
+"@codecov/astro-plugin": minor
 "@codecov/bundle-analyzer": minor
 "@codecov/nextjs-webpack-plugin": minor
 "@codecov/nuxt-plugin": minor

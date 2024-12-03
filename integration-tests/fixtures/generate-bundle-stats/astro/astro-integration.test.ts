@@ -66,7 +66,7 @@ describe("Generating astro stats", () => {
               `test-astro-v${version}-client-${expected}`,
             ),
             plugin: {
-              name: expect.stringMatching("@codecov/astro-integration"),
+              name: expect.stringMatching("@codecov/astro-plugin"),
             },
             assets: expect.arrayContaining([
               {
@@ -108,7 +108,7 @@ describe("Generating astro stats", () => {
             outputPath: expect.stringContaining("dist"),
             bundleName: expect.stringContaining(serverBundleName),
             plugin: {
-              name: expect.stringMatching("@codecov/astro-integration"),
+              name: expect.stringMatching("@codecov/astro-plugin"),
             },
             assets: expect.arrayContaining([
               {

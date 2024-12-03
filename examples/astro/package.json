@@ -21,6 +21,6 @@
     "typescript": "^5.7.2"
   },
   "devDependencies": {
-    "@codecov/astro-integration": "workspace:*"
+    "@codecov/astro-plugin": "workspace:*"
   }
 }

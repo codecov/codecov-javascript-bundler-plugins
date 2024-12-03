@@ -1,10 +1,10 @@
 {
-  "name": "@codecov/astro-integration",
+  "name": "@codecov/astro-plugin",
   "version": "1.5.0",
-  "description": "Official Codecov Astro integration",
+  "description": "Official Codecov Astro Plugin",
   "author": "Codecov",
   "license": "MIT",
-  "homepage": "https://github.com/codecov/codecov-javascript-bundler-plugins/tree/main/packages/astro-integration",
+  "homepage": "https://github.com/codecov/codecov-javascript-bundler-plugins/tree/main/packages/astro-plugin",
   "repository": "git://github.com/codecov/codecov-javascript-bundler-plugins.git",
   "keywords": [
     "withastro",
