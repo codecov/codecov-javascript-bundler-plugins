@@ -1,5 +1,7 @@
+import Chalk from "chalk";
 import { describe, it, expect } from "vitest";
 import { type StatsChunk } from "webpack";
+import { vi } from "vitest";
 
 import { processChunks } from "../processChunks";
 
@@ -181,6 +183,55 @@ describe("processChunks", () => {
           dynamicImports: ["file1.js"],
         },
       ]);
+    });
+  });
+
+  describe("child chunk not found in chunkMap", () => {
+    const consoleSpy = vi.spyOn(console, "log").mockImplementation(() => null);
+
+    it("should log an error", () => {
+      const chunkIdMap = new Map();
+      const chunks = [
+        {
+          id: "1",
+          entry: true,
+          initial: true,
+          files: ["file1.js"],
+          names: ["chunk1"],
+          rendered: true,
+          recorded: true,
+          size: 1000,
+          hash: "hash1",
+          sizes: {},
+          idHints: [],
+          children: [],
+          auxiliaryFiles: [],
+          childrenByOrder: {},
+        },
+        {
+          id: 2,
+          entry: true,
+          initial: true,
+          files: ["file2.js"],
+          names: ["chunk2"],
+          rendered: true,
+          recorded: true,
+          size: 2000,
+          hash: "hash2",
+          sizes: {},
+          idHints: [],
+          children: [3],
+          auxiliaryFiles: [],
+          childrenByOrder: {},
+        },
+      ] satisfies StatsChunk[];
+
+      processChunks({ chunks, chunkIdMap });
+
+      expect(consoleSpy).toHaveBeenCalled();
+      expect(consoleSpy).toHaveBeenCalledWith(
+        `[codecov] ${Chalk.red("Child chunk 3 not found in chunkMap")}`,
+      );
     });
   });
 });
