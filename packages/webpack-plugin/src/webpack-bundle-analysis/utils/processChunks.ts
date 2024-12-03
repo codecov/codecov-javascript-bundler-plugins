@@ -7,13 +7,13 @@ export interface ProcessChunksArgs {
 }
 
 export const processChunks = ({ chunks, chunkIdMap }: ProcessChunksArgs) => {
-  const chunkMap = new Map<PropertyKey, StatsChunk>();
-
-  // need to collect all possible chunk ids beforehand so we can use them to
-  // collect the dynamic imports
+  // need a reference of all chunks by their id so we can use it to collect
+  // the dynamic imports from the children chunks without having to search
+  // through the entire list of chunks every time
+  const referenceChunkMapById = new Map<PropertyKey, StatsChunk>();
   chunks.forEach((chunk) => {
     if (chunk.id) {
-      chunkMap.set(chunk.id.toString(), chunk);
+      referenceChunkMapById.set(chunk.id.toString(), chunk);
     }
   });
 
@@ -25,7 +25,7 @@ export const processChunks = ({ chunks, chunkIdMap }: ProcessChunksArgs) => {
     const dynamicImports: string[] = [];
     chunk.children?.forEach((child) => {
       const childIdString = child.toString();
-      const childChunk = chunkMap.get(childIdString);
+      const childChunk = referenceChunkMapById.get(childIdString);
 
       if (!childChunk || !childChunk.files) {
         red(`Child chunk ${childIdString} not found in chunkMap`);
