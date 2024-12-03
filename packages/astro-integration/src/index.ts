@@ -52,7 +52,7 @@ const astroIntegrationFactory = createVitePlugin<
 });
 
 /**
- * Details for the Codecov Nuxt module.
+ * Details for the Codecov Astro integration.
  *
  * @example
  * ```typescript
