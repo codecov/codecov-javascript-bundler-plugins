@@ -17,7 +17,7 @@ exports[`Generating astro stats 4 {"format":"es","expected":"esm"} matches the s
     "name": StringMatching "@codecov/astro-plugin",
     "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -38,7 +38,7 @@ exports[`Generating astro stats 4 {"format":"es","expected":"esm"} matches the s
     "name": StringMatching "@codecov/astro-plugin",
     "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -59,7 +59,7 @@ exports[`Generating astro stats 4 {"format":"esm","expected":"esm"} matches the 
     "name": StringMatching "@codecov/astro-plugin",
     "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -80,7 +80,7 @@ exports[`Generating astro stats 4 {"format":"esm","expected":"esm"} matches the 
     "name": StringMatching "@codecov/astro-plugin",
     "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -101,7 +101,7 @@ exports[`Generating astro stats 4 {"format":"module","expected":"esm"} matches t
     "name": StringMatching "@codecov/astro-plugin",
     "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -122,6 +122,6 @@ exports[`Generating astro stats 4 {"format":"module","expected":"esm"} matches t
     "name": StringMatching "@codecov/astro-plugin",
     "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
