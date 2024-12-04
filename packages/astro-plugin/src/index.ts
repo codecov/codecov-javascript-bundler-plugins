@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { type UnpluginOptions, createVitePlugin } from "unplugin";
 import {
   type Options,
@@ -9,6 +8,7 @@ import {
 } from "@codecov/bundler-plugin-core";
 import { _internal_viteBundleAnalysisPlugin } from "@codecov/vite-plugin";
 import { type AstroIntegration } from "astro";
+import { type PluginOption } from "vite";
 
 import { astroBundleAnalysisPlugin } from "./astro-bundle-analysis/astroBundleAnalysisPlugin";
 
@@ -82,7 +82,11 @@ const codecovAstroPlugin = (options: Options): AstroIntegration => ({
     // own we can just utilize this value.
     "astro:build:setup": ({ vite, target }) => {
       if (vite?.plugins) {
-        vite.plugins.push(astroPluginFactory({ ...options, target }));
+        const astroPlugin = astroPluginFactory({
+          ...options,
+          target,
+        }) as PluginOption[];
+        vite.plugins.push(astroPlugin);
       }
     },
   },
