@@ -1,5 +1,13 @@
 # @codecov/vite-plugin
 
+## 1.5.1
+
+### Patch Changes
+
+- 072682c: Bump codecov plugin version for uploading stats
+- Updated dependencies [072682c]
+  - @codecov/bundler-plugin-core@1.5.1
+
 ## 1.5.0
 
 ### Minor Changes

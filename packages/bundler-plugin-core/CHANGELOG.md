@@ -1,5 +1,11 @@
 # @codecov/bundler-plugin-core
 
+## 1.5.1
+
+### Patch Changes
+
+- 072682c: Bump codecov plugin version for uploading stats
+
 ## 1.5.0
 
 ### Minor Changes
