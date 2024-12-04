@@ -15,7 +15,7 @@ exports[`Generating astro stats 4 {"format":"es","expected":"esm"} matches the s
   "outputPath": StringContaining "dist",
   "plugin": {
     "name": StringMatching "@codecov/astro-plugin",
-    "version": "1.5.0",
+    "version": "1.5.1",
   },
   "version": "2",
 }
@@ -36,7 +36,7 @@ exports[`Generating astro stats 4 {"format":"es","expected":"esm"} matches the s
   "outputPath": StringContaining "dist",
   "plugin": {
     "name": StringMatching "@codecov/astro-plugin",
-    "version": "1.5.0",
+    "version": "1.5.1",
   },
   "version": "2",
 }
@@ -57,7 +57,7 @@ exports[`Generating astro stats 4 {"format":"esm","expected":"esm"} matches the 
   "outputPath": StringContaining "dist",
   "plugin": {
     "name": StringMatching "@codecov/astro-plugin",
-    "version": "1.5.0",
+    "version": "1.5.1",
   },
   "version": "2",
 }
@@ -78,7 +78,7 @@ exports[`Generating astro stats 4 {"format":"esm","expected":"esm"} matches the 
   "outputPath": StringContaining "dist",
   "plugin": {
     "name": StringMatching "@codecov/astro-plugin",
-    "version": "1.5.0",
+    "version": "1.5.1",
   },
   "version": "2",
 }
@@ -99,7 +99,7 @@ exports[`Generating astro stats 4 {"format":"module","expected":"esm"} matches t
   "outputPath": StringContaining "dist",
   "plugin": {
     "name": StringMatching "@codecov/astro-plugin",
-    "version": "1.5.0",
+    "version": "1.5.1",
   },
   "version": "2",
 }
@@ -120,7 +120,7 @@ exports[`Generating astro stats 4 {"format":"module","expected":"esm"} matches t
   "outputPath": StringContaining "dist",
   "plugin": {
     "name": StringMatching "@codecov/astro-plugin",
-    "version": "1.5.0",
+    "version": "1.5.1",
   },
   "version": "2",
 }
