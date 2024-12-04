@@ -62,7 +62,6 @@
     "nuxt": "3.14.159",
     "unbuild": "^2.0.0",
     "vite": "^5.2.14",
-    "vite-tsconfig-paths": "^4.3.2",
     "vitest": "^1.5.0"
   },
   "peerDependencies": {
