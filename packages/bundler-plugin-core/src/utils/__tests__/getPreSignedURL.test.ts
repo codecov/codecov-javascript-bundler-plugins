@@ -18,8 +18,8 @@ import { getPreSignedURL } from "../getPreSignedURL.ts";
 import { FailedFetchError } from "../../errors/FailedFetchError.ts";
 import { UploadLimitReachedError } from "../../errors/UploadLimitReachedError.ts";
 import { UndefinedGitServiceError } from "../../errors/UndefinedGitServiceError.ts";
-import { BadOIDCServiceError } from "src/errors/BadOIDCServiceError.ts";
-import { FailedOIDCFetchError } from "src/errors/FailedOIDCFetchError.ts";
+import { BadOIDCServiceError } from "../../errors/BadOIDCServiceError.ts";
+import { FailedOIDCFetchError } from "../../errors/FailedOIDCFetchError.ts";
 import Chalk from "chalk";
 
 const mocks = vi.hoisted(() => ({

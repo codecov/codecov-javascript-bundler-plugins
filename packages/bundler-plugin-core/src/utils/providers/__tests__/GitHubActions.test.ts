@@ -1,7 +1,7 @@
 import * as GitHub from "@actions/github";
-import { createEmptyArgs } from "@test-utils/helpers.ts";
 import { HttpResponse, http } from "msw";
 import { setupServer } from "msw/node";
+import { createEmptyArgs } from "../../../../test-utils/helpers.ts";
 import {
   afterAll,
   afterEach,
