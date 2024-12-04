@@ -1,4 +1,7 @@
-import { defineConfig } from "@solidjs/start/config";
+import {
+  type SolidStartInlineConfig,
+  defineConfig,
+} from "@solidjs/start/config";
 import solidPlugin from "vite-plugin-solid";
 import { codecovSolidStartPlugin } from "@codecov/solidstart-plugin";
 
@@ -19,7 +22,8 @@ export default defineConfig({
         bundleName: "test-solidstart-v1",
         uploadToken: "test-token",
         apiUrl: process.env.API_URL,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       }) as any,
     ],
   },
-});
+}) as SolidStartInlineConfig;

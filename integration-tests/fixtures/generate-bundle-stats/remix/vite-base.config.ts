@@ -1,5 +1,6 @@
 import { vitePlugin as remix } from "@remix-run/dev";
 import { defineConfig } from "viteV5";
+// @ts-expect-error this will be installed when copied to the test app
 import tsconfigPaths from "vite-tsconfig-paths";
 import { codecovRemixVitePlugin } from "@codecov/remix-vite-plugin";
 
@@ -12,7 +13,6 @@ export default defineConfig({
     },
   },
   plugins: [
-    //@ts-expect-error handle conflicting vite version types
     remix({
       future: {
         v3_fetcherPersist: true,
@@ -20,9 +20,7 @@ export default defineConfig({
         v3_throwAbortReason: true,
       },
     }),
-    //@ts-expect-error handle conflicting vite version types
     tsconfigPaths(),
-    //@ts-expect-error handle conflicting vite version types
     codecovRemixVitePlugin({
       enableBundleAnalysis: true,
       bundleName: "test-remix-v2",

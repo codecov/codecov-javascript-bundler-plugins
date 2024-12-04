@@ -284,6 +284,7 @@ jobs:
       matrix:
         example:
           [
+            "astro",
             "bundle-analyzer-cli",
             "bundle-analyzer-lib-cjs",
             "bundle-analyzer-lib-esm",
@@ -346,6 +347,8 @@ jobs:
         env:
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          ASTRO_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          ASTRO_API_URL: ${{ secrets.CODECOV_API_URL }}
           BUNDLE_ANALYZER_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           BUNDLE_ANALYZER_API_URL: ${{ secrets.CODECOV_API_URL }}
           NEXT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
@@ -378,6 +381,7 @@ jobs:
       matrix:
         example:
           [
+            "astro",
             "bundle-analyzer-cli",
             "bundle-analyzer-lib-cjs",
             "bundle-analyzer-lib-esm",
@@ -440,6 +444,8 @@ jobs:
         env:
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          ASTRO_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          ASTRO_API_URL: ${{ secrets.CODECOV_API_URL }}
           BUNDLE_ANALYZER_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           BUNDLE_ANALYZER_API_URL: ${{ secrets.CODECOV_API_URL }}
           NEXT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
@@ -472,6 +478,7 @@ jobs:
       matrix:
         package:
           [
+            "astro-plugin",
             "bundle-analyzer",
             "bundler-plugin-core",
             "nextjs-webpack-plugin",
@@ -541,6 +548,7 @@ jobs:
       matrix:
         package:
           [
+            "astro-plugin",
             "bundle-analyzer",
             "bundler-plugin-core",
             "nextjs-webpack-plugin",

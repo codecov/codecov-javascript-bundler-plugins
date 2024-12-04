@@ -1,6 +1,6 @@
-import { defineProject } from "vitest/config";
 import replace from "@rollup/plugin-replace";
-import { config, plugins } from "../../vitest.shared";
+import { defineProject } from "vitest/config";
+import { config } from "../../vitest.shared";
 
 const packageJson = await import("./package.json");
 
@@ -18,6 +18,5 @@ export default defineProject({
       }),
       enforce: "pre",
     },
-    ...plugins,
   ],
 });

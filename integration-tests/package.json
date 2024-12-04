@@ -8,6 +8,8 @@
   "scripts": {
     "test:e2e": "bun test fixtures/*",
     "test:e2e:update": "bun test --update-snapshots",
+    "test:e2e:astro": "bun test fixtures/**/astro/*",
+    "test:e2e:bundle-analyzer": "bun test fixtures/**/bundle-analyzer/*",
     "test:e2e:nextjs": "bun test fixtures/**/nextjs/*",
     "test:e2e:nuxt": "bun test fixtures/**/nuxt/*",
     "test:e2e:remix": "bun test fixtures/**/remix/*",
@@ -16,7 +18,6 @@
     "test:e2e:vite": "bun test fixtures/**/vite/*",
     "test:e2e:webpack": "bun test fixtures/**/webpack/*",
     "test:e2e:solidstart": "bun test fixtures/**/solidstart/*",
-    "test:e2e:bundle-analyzer": "bun test fixtures/**/bundle-analyzer/*",
     "type-check": "tsc --noEmit",
     "clean": "rm -rf node_modules",
     "lint": "eslint . --ext .ts,.tsx",
@@ -30,6 +31,7 @@
     "vite-plugin-solid": "^2.10.2"
   },
   "devDependencies": {
+    "@codecov/astro-plugin": "workspace:*",
     "@codecov/bundler-plugin-core": "workspace:^",
     "@codecov/nuxt-plugin": "workspace:^",
     "@codecov/remix-vite-plugin": "workspace:^",
