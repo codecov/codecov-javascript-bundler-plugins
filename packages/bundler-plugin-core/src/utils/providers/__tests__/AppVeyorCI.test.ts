@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { createEmptyArgs } from "@test-utils/helpers.ts";
+import { createEmptyArgs } from "../../../../test-utils/helpers.ts";
 import {
   type ProviderServiceParams,
   type ProviderUtilInputs,

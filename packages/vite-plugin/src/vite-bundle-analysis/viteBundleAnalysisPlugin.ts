@@ -38,7 +38,7 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
         return;
       }
 
-      output.setBundleName(output.bundleName);
+      output.setBundleName(output.originalBundleName);
       // add in bundle name if present
       if (options.name && options.name !== "") {
         output.setBundleName(`${output.bundleName}-${options.name}`);
@@ -98,6 +98,7 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
 
             const chunkId = item?.name ?? "";
             const uniqueId = `${counter}-${chunkId}`;
+
             chunks.push({
               id: chunkId,
               uniqueId: uniqueId,
@@ -105,6 +106,7 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
               initial: item?.isDynamicEntry,
               files: [fileName],
               names: [item?.name],
+              dynamicImports: item?.dynamicImports ?? [],
             });
 
             const moduleEntries = Object.entries(item?.modules ?? {});

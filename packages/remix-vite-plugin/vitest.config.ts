@@ -1,12 +1,13 @@
 import replace from "@rollup/plugin-replace";
 import { defineProject } from "vitest/config";
-import { config, plugins } from "../../vitest.shared";
+import { config } from "../../vitest.shared";
 
 const packageJson = await import("./package.json");
 
 export default defineProject({
   ...config,
   plugins: [
+    //@ts-expect-error handle conflicting version types
     {
       ...replace({
         preventAssignment: true,
@@ -17,6 +18,5 @@ export default defineProject({
       }),
       enforce: "pre",
     },
-    ...plugins,
   ],
 });

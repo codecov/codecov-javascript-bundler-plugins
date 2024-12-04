@@ -1,5 +1,6 @@
 ---
 "@codecov/bundler-plugin-core": minor
+"@codecov/astro-plugin": minor
 "@codecov/bundle-analyzer": minor
 "@codecov/nextjs-webpack-plugin": minor
 "@codecov/nuxt-plugin": minor
@@ -11,4 +12,4 @@
 "@codecov/webpack-plugin": minor
 ---
 
-Remove the org branch requirement for tokenless uploads
+Add new Astro Plugin to support BA uploads for Astro applications

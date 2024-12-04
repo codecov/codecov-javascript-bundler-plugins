@@ -26,7 +26,7 @@ class Output {
   };
   debug: boolean;
   gitService?: ValidGitService;
-  originalBundleName: string;
+  #internalOriginalBundleName: string;
   // uploader overrides
   branch?: string;
   build?: string;
@@ -57,7 +57,7 @@ class Output {
   };
 
   constructor(userOptions: NormalizedOptions) {
-    this.version = "2";
+    this.version = "3";
     this.apiUrl = userOptions.apiUrl;
     this.dryRun = userOptions.dryRun;
     this.retryCount = userOptions.retryCount;
@@ -65,7 +65,7 @@ class Output {
     this.uploadToken = userOptions.uploadToken;
     this.debug = userOptions.debug;
     this.gitService = userOptions.gitService;
-    this.originalBundleName = userOptions.bundleName;
+    this.#internalOriginalBundleName = userOptions.bundleName;
     this.oidc = userOptions.oidc;
 
     if (userOptions.uploadOverrides) {
@@ -105,6 +105,10 @@ class Output {
 
   get bundleName() {
     return this.#internalBundleName;
+  }
+
+  get originalBundleName() {
+    return this.#internalOriginalBundleName;
   }
 
   setPlugin(pluginName: string, pluginVersion: string) {

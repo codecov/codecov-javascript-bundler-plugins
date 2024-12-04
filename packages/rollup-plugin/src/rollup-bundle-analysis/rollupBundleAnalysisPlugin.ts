@@ -38,7 +38,7 @@ export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
         return;
       }
 
-      output.setBundleName(output.bundleName);
+      output.setBundleName(output.originalBundleName);
       if (options.name && options.name !== "") {
         output.setBundleName(`${output.bundleName}-${options.name}`);
       }
@@ -105,6 +105,7 @@ export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
               initial: item?.isDynamicEntry,
               files: [fileName],
               names: [item?.name],
+              dynamicImports: item?.dynamicImports ?? [],
             });
 
             const moduleEntries = Object.entries(item?.modules ?? {});

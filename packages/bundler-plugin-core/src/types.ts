@@ -21,6 +21,7 @@ export interface Chunk {
   initial: boolean;
   names: string[];
   files: string[];
+  dynamicImports: string[];
 }
 
 export interface Module {
@@ -169,12 +170,14 @@ export interface Options {
   };
 }
 
-export type BundleAnalysisUploadPlugin = (
-  args: BundleAnalysisUploadPluginArgs,
-) => UnpluginOptions & {
+export type BundleAnalysisUploadPluginReturn = UnpluginOptions & {
   pluginVersion: string;
   version: string;
 };
+
+export type BundleAnalysisUploadPlugin = (
+  args: BundleAnalysisUploadPluginArgs,
+) => BundleAnalysisUploadPluginReturn;
 
 export type ExtendedBAUploadPlugin<TArgs extends object> = (
   args: ExtendedBAUploadArgs<TArgs>,

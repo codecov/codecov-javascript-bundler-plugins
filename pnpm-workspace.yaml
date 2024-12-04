@@ -4,6 +4,7 @@ packages:
   - "examples/*/*/*"
   - "packages/*"
   - "integration-tests"
+  - "integration-tests/test-apps/astro"
   - "integration-tests/test-apps/nextjs"
   - "integration-tests/test-apps/nuxt"
   - "integration-tests/test-apps/remix"

@@ -3,7 +3,7 @@ import { setupServer } from "msw/node";
 import * as td from "testdouble";
 import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 
-import { createEmptyArgs } from "@test-utils/helpers.ts";
+import { createEmptyArgs } from "../../../../test-utils/helpers.ts";
 import { type ProviderUtilInputs } from "../../../types.ts";
 import { Output } from "../../Output.ts";
 import { providerList } from "../index.ts";

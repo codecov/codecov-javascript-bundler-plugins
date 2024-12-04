@@ -18,6 +18,7 @@ exports[`Generating vite stats v4 {"format":"amd","expected":"amd"} matches the 
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
         "assets/index-b7a309be.js",
@@ -85,9 +86,9 @@ exports[`Generating vite stats v4 {"format":"amd","expected":"amd"} matches the 
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -109,6 +110,7 @@ exports[`Generating vite stats v4 {"format":"cjs","expected":"cjs"} matches the 
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
         "assets/index-7de22500.js",
@@ -176,9 +178,9 @@ exports[`Generating vite stats v4 {"format":"cjs","expected":"cjs"} matches the 
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -200,6 +202,7 @@ exports[`Generating vite stats v4 {"format":"es","expected":"esm"} matches the s
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
         "assets/index-320c8eaf.js",
@@ -267,9 +270,9 @@ exports[`Generating vite stats v4 {"format":"es","expected":"esm"} matches the s
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -291,6 +294,7 @@ exports[`Generating vite stats v4 {"format":"esm","expected":"esm"} matches the 
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
         "assets/index-320c8eaf.js",
@@ -358,9 +362,9 @@ exports[`Generating vite stats v4 {"format":"esm","expected":"esm"} matches the 
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -382,6 +386,7 @@ exports[`Generating vite stats v4 {"format":"module","expected":"esm"} matches t
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
         "assets/index-320c8eaf.js",
@@ -449,9 +454,9 @@ exports[`Generating vite stats v4 {"format":"module","expected":"esm"} matches t
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -473,6 +478,7 @@ exports[`Generating vite stats v4 {"format":"iife","expected":"iife"} matches th
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
         "assets/index-646c8a11.js",
@@ -540,9 +546,9 @@ exports[`Generating vite stats v4 {"format":"iife","expected":"iife"} matches th
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -564,6 +570,7 @@ exports[`Generating vite stats v4 {"format":"umd","expected":"umd"} matches the 
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
         "assets/index-5458a54a.js",
@@ -631,9 +638,9 @@ exports[`Generating vite stats v4 {"format":"umd","expected":"umd"} matches the 
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -655,6 +662,7 @@ exports[`Generating vite stats v4 {"format":"system","expected":"system"} matche
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
         "assets/index-2fd1a797.js",
@@ -722,9 +730,9 @@ exports[`Generating vite stats v4 {"format":"system","expected":"system"} matche
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -746,6 +754,7 @@ exports[`Generating vite stats v4 {"format":"systemjs","expected":"system"} matc
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
         "assets/index-2fd1a797.js",
@@ -813,9 +822,9 @@ exports[`Generating vite stats v4 {"format":"systemjs","expected":"system"} matc
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -837,6 +846,7 @@ exports[`Generating vite stats v4 source maps are enabled does not include any s
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
         "assets/index-320c8eaf.js",
@@ -904,9 +914,9 @@ exports[`Generating vite stats v4 source maps are enabled does not include any s
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -924,10 +934,11 @@ exports[`Generating vite stats v5 {"format":"amd","expected":"amd"} matches the 
   "bundleName": StringContaining "test-vite-v5-amd",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
         "assets/index-D0r0olUW.js",
@@ -995,9 +1006,9 @@ exports[`Generating vite stats v5 {"format":"amd","expected":"amd"} matches the 
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -1015,10 +1026,11 @@ exports[`Generating vite stats v5 {"format":"cjs","expected":"cjs"} matches the 
   "bundleName": StringContaining "test-vite-v5-cjs",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
         "assets/index-_9bu_Rar.js",
@@ -1086,9 +1098,9 @@ exports[`Generating vite stats v5 {"format":"cjs","expected":"cjs"} matches the 
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -1106,10 +1118,11 @@ exports[`Generating vite stats v5 {"format":"es","expected":"esm"} matches the s
   "bundleName": StringContaining "test-vite-v5-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
         "assets/index-Cq3U4pkx.js",
@@ -1177,9 +1190,9 @@ exports[`Generating vite stats v5 {"format":"es","expected":"esm"} matches the s
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -1197,10 +1210,11 @@ exports[`Generating vite stats v5 {"format":"esm","expected":"esm"} matches the 
   "bundleName": StringContaining "test-vite-v5-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
         "assets/index-Cq3U4pkx.js",
@@ -1268,9 +1282,9 @@ exports[`Generating vite stats v5 {"format":"esm","expected":"esm"} matches the 
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -1288,10 +1302,11 @@ exports[`Generating vite stats v5 {"format":"module","expected":"esm"} matches t
   "bundleName": StringContaining "test-vite-v5-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
         "assets/index-Cq3U4pkx.js",
@@ -1359,9 +1374,9 @@ exports[`Generating vite stats v5 {"format":"module","expected":"esm"} matches t
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -1379,10 +1394,11 @@ exports[`Generating vite stats v5 {"format":"iife","expected":"iife"} matches th
   "bundleName": StringContaining "test-vite-v5-iife",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
         "assets/index-B31DUBuo.js",
@@ -1450,9 +1466,9 @@ exports[`Generating vite stats v5 {"format":"iife","expected":"iife"} matches th
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -1470,10 +1486,11 @@ exports[`Generating vite stats v5 {"format":"umd","expected":"umd"} matches the 
   "bundleName": StringContaining "test-vite-v5-umd",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
         "assets/index-BFgpG9Ne.js",
@@ -1541,9 +1558,9 @@ exports[`Generating vite stats v5 {"format":"umd","expected":"umd"} matches the 
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -1561,10 +1578,11 @@ exports[`Generating vite stats v5 {"format":"system","expected":"system"} matche
   "bundleName": StringContaining "test-vite-v5-system",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
         "assets/index-Cn9uVtOh.js",
@@ -1632,9 +1650,9 @@ exports[`Generating vite stats v5 {"format":"system","expected":"system"} matche
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -1652,10 +1670,11 @@ exports[`Generating vite stats v5 {"format":"systemjs","expected":"system"} matc
   "bundleName": StringContaining "test-vite-v5-system",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
         "assets/index-Cn9uVtOh.js",
@@ -1723,9 +1742,9 @@ exports[`Generating vite stats v5 {"format":"systemjs","expected":"system"} matc
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -1743,10 +1762,11 @@ exports[`Generating vite stats v5 source maps are enabled does not include any s
   "bundleName": StringNotContaining ".map",
   "bundler": {
     "name": "rollup",
-    "version": "4.21.2",
+    "version": "4.22.4",
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
         "assets/index-Cq3U4pkx.js",
@@ -1814,8 +1834,8 @@ exports[`Generating vite stats v5 source maps are enabled does not include any s
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;

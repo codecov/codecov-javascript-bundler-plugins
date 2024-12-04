@@ -10,7 +10,8 @@ type Plugins =
   | "sveltekit"
   | "remix"
   | "solidstart"
-  | "nextjs";
+  | "nextjs"
+  | "astro";
 
 interface CreateConfigOpts {
   plugin: Plugins;

@@ -8,6 +8,8 @@
   "scripts": {
     "test:e2e": "bun test fixtures/*",
     "test:e2e:update": "bun test --update-snapshots",
+    "test:e2e:astro": "bun test fixtures/**/astro/*",
+    "test:e2e:bundle-analyzer": "bun test fixtures/**/bundle-analyzer/*",
     "test:e2e:nextjs": "bun test fixtures/**/nextjs/*",
     "test:e2e:nuxt": "bun test fixtures/**/nuxt/*",
     "test:e2e:remix": "bun test fixtures/**/remix/*",
@@ -16,7 +18,6 @@
     "test:e2e:vite": "bun test fixtures/**/vite/*",
     "test:e2e:webpack": "bun test fixtures/**/webpack/*",
     "test:e2e:solidstart": "bun test fixtures/**/solidstart/*",
-    "test:e2e:bundle-analyzer": "bun test fixtures/**/bundle-analyzer/*",
     "type-check": "tsc --noEmit",
     "clean": "rm -rf node_modules",
     "lint": "eslint . --ext .ts,.tsx",
@@ -30,6 +31,7 @@
     "vite-plugin-solid": "^2.10.2"
   },
   "devDependencies": {
+    "@codecov/astro-plugin": "workspace:*",
     "@codecov/bundler-plugin-core": "workspace:^",
     "@codecov/nuxt-plugin": "workspace:^",
     "@codecov/remix-vite-plugin": "workspace:^",
@@ -51,10 +53,10 @@
     "nuxt": "3.12.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "rollupV3": "npm:rollup@3.29.4",
-    "rollupV4": "npm:rollup@4.9.6",
+    "rollupV3": "npm:rollup@3.29.5",
+    "rollupV4": "npm:rollup@4.22.4",
     "ts-node": "^10.9.2",
-    "viteV4": "npm:vite@4.5.3",
+    "viteV4": "npm:vite@4.5.5",
     "viteV5": "npm:vite@5.2.14",
     "vue-routerV4": "npm:vue-router@4.3.0",
     "vueV3": "npm:vue@3.4.21",

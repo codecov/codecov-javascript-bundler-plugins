@@ -1,5 +1,34 @@
 # @codecov/bundler-plugin-core
 
+## 1.5.1
+
+### Patch Changes
+
+- 072682c: Bump codecov plugin version for uploading stats
+
+## 1.5.0
+
+### Minor Changes
+
+- 0efd87f: Update nuxt and related dependencies
+
+### Patch Changes
+
+- 9968698: Fix issue with bundle names not being reset in nextjs, rollup, vite, and webpack plugins.
+- 8f89fd4: Remove unused regex character escape from normalizePath
+
+## 1.4.0
+
+### Minor Changes
+
+- 2db57cc: Remove the org branch requirement for tokenless uploads
+- b17f870: Bump vite versions
+
+### Patch Changes
+
+- ab1385e: Bump rollup versions
+- 6552110: Bump nextjs versions
+
 ## 1.3.0
 
 ### Minor Changes

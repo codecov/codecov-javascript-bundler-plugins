@@ -18,6 +18,7 @@ exports[`Generating rollup stats 3 {"format":"amd","expected":"amd"} matches the
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
         "main-1cbfd464.js",
@@ -71,9 +72,9 @@ exports[`Generating rollup stats 3 {"format":"amd","expected":"amd"} matches the
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -95,6 +96,7 @@ exports[`Generating rollup stats 3 {"format":"cjs","expected":"cjs"} matches the
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
         "main-420d8aeb.js",
@@ -148,9 +150,9 @@ exports[`Generating rollup stats 3 {"format":"cjs","expected":"cjs"} matches the
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -172,6 +174,7 @@ exports[`Generating rollup stats 3 {"format":"es","expected":"esm"} matches the 
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
         "main-6ff1e9ca.js",
@@ -225,9 +228,9 @@ exports[`Generating rollup stats 3 {"format":"es","expected":"esm"} matches the 
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -249,6 +252,7 @@ exports[`Generating rollup stats 3 {"format":"esm","expected":"esm"} matches the
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
         "main-6ff1e9ca.js",
@@ -302,9 +306,9 @@ exports[`Generating rollup stats 3 {"format":"esm","expected":"esm"} matches the
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -326,6 +330,7 @@ exports[`Generating rollup stats 3 {"format":"module","expected":"esm"} matches 
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
         "main-6ff1e9ca.js",
@@ -379,9 +384,9 @@ exports[`Generating rollup stats 3 {"format":"module","expected":"esm"} matches 
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -403,6 +408,7 @@ exports[`Generating rollup stats 3 {"format":"iife","expected":"iife"} matches t
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
         "main-cc182ba1.js",
@@ -456,9 +462,9 @@ exports[`Generating rollup stats 3 {"format":"iife","expected":"iife"} matches t
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -480,6 +486,7 @@ exports[`Generating rollup stats 3 {"format":"umd","expected":"umd"} matches the
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
         "main-cdb2522f.js",
@@ -533,9 +540,9 @@ exports[`Generating rollup stats 3 {"format":"umd","expected":"umd"} matches the
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -557,6 +564,7 @@ exports[`Generating rollup stats 3 {"format":"system","expected":"system"} match
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
         "main-b7135d24.js",
@@ -610,9 +618,9 @@ exports[`Generating rollup stats 3 {"format":"system","expected":"system"} match
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -634,6 +642,7 @@ exports[`Generating rollup stats 3 {"format":"systemjs","expected":"system"} mat
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
         "main-b7135d24.js",
@@ -687,9 +696,9 @@ exports[`Generating rollup stats 3 {"format":"systemjs","expected":"system"} mat
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -711,6 +720,7 @@ exports[`Generating rollup stats 3 source maps are enabled does not include any 
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
         "main-6ff1e9ca.js",
@@ -764,9 +774,9 @@ exports[`Generating rollup stats 3 source maps are enabled does not include any 
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -775,7 +785,7 @@ exports[`Generating rollup stats 4 {"format":"amd","expected":"amd"} matches the
   "assets": [
     {
       "gzipSize": 98808,
-      "name": "main-H2_1FSsQ.js",
+      "name": "main-Bz9ahex4.js",
       "normalized": "main-*.js",
       "size": 577073,
     },
@@ -784,13 +794,14 @@ exports[`Generating rollup stats 4 {"format":"amd","expected":"amd"} matches the
   "bundleName": StringContaining "test-rollup-v4-amd",
   "bundler": {
     "name": "rollup",
-    "version": "4.9.6",
+    "version": "4.22.4",
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
-        "main-H2_1FSsQ.js",
+        "main-Bz9ahex4.js",
       ],
       "id": "main",
       "initial": false,
@@ -841,9 +852,9 @@ exports[`Generating rollup stats 4 {"format":"amd","expected":"amd"} matches the
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -852,7 +863,7 @@ exports[`Generating rollup stats 4 {"format":"cjs","expected":"cjs"} matches the
   "assets": [
     {
       "gzipSize": 98252,
-      "name": "main-MVbZZknk.js",
+      "name": "main-xb59kfqA.js",
       "normalized": "main-*.js",
       "size": 560888,
     },
@@ -861,13 +872,14 @@ exports[`Generating rollup stats 4 {"format":"cjs","expected":"cjs"} matches the
   "bundleName": StringContaining "test-rollup-v4-cjs",
   "bundler": {
     "name": "rollup",
-    "version": "4.9.6",
+    "version": "4.22.4",
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
-        "main-MVbZZknk.js",
+        "main-xb59kfqA.js",
       ],
       "id": "main",
       "initial": false,
@@ -918,9 +930,9 @@ exports[`Generating rollup stats 4 {"format":"cjs","expected":"cjs"} matches the
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -929,7 +941,7 @@ exports[`Generating rollup stats 4 {"format":"es","expected":"esm"} matches the 
   "assets": [
     {
       "gzipSize": 98243,
-      "name": "main-v-vWaFyT.js",
+      "name": "main-DTMU6eC0.js",
       "normalized": "main-*.js",
       "size": 560873,
     },
@@ -938,13 +950,14 @@ exports[`Generating rollup stats 4 {"format":"es","expected":"esm"} matches the 
   "bundleName": StringContaining "test-rollup-v4-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.9.6",
+    "version": "4.22.4",
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
-        "main-v-vWaFyT.js",
+        "main-DTMU6eC0.js",
       ],
       "id": "main",
       "initial": false,
@@ -995,9 +1008,9 @@ exports[`Generating rollup stats 4 {"format":"es","expected":"esm"} matches the 
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -1006,7 +1019,7 @@ exports[`Generating rollup stats 4 {"format":"esm","expected":"esm"} matches the
   "assets": [
     {
       "gzipSize": 98243,
-      "name": "main-v-vWaFyT.js",
+      "name": "main-DTMU6eC0.js",
       "normalized": "main-*.js",
       "size": 560873,
     },
@@ -1015,13 +1028,14 @@ exports[`Generating rollup stats 4 {"format":"esm","expected":"esm"} matches the
   "bundleName": StringContaining "test-rollup-v4-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.9.6",
+    "version": "4.22.4",
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
-        "main-v-vWaFyT.js",
+        "main-DTMU6eC0.js",
       ],
       "id": "main",
       "initial": false,
@@ -1072,9 +1086,9 @@ exports[`Generating rollup stats 4 {"format":"esm","expected":"esm"} matches the
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -1083,7 +1097,7 @@ exports[`Generating rollup stats 4 {"format":"module","expected":"esm"} matches 
   "assets": [
     {
       "gzipSize": 98243,
-      "name": "main-v-vWaFyT.js",
+      "name": "main-DTMU6eC0.js",
       "normalized": "main-*.js",
       "size": 560873,
     },
@@ -1092,13 +1106,14 @@ exports[`Generating rollup stats 4 {"format":"module","expected":"esm"} matches 
   "bundleName": StringContaining "test-rollup-v4-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.9.6",
+    "version": "4.22.4",
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
-        "main-v-vWaFyT.js",
+        "main-DTMU6eC0.js",
       ],
       "id": "main",
       "initial": false,
@@ -1149,9 +1164,9 @@ exports[`Generating rollup stats 4 {"format":"module","expected":"esm"} matches 
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -1160,7 +1175,7 @@ exports[`Generating rollup stats 4 {"format":"iife","expected":"iife"} matches t
   "assets": [
     {
       "gzipSize": 98804,
-      "name": "main-ChwnvxRF.js",
+      "name": "main-B7VbaLUG.js",
       "normalized": "main-*.js",
       "size": 577068,
     },
@@ -1169,13 +1184,14 @@ exports[`Generating rollup stats 4 {"format":"iife","expected":"iife"} matches t
   "bundleName": StringContaining "test-rollup-v4-iife",
   "bundler": {
     "name": "rollup",
-    "version": "4.9.6",
+    "version": "4.22.4",
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
-        "main-ChwnvxRF.js",
+        "main-B7VbaLUG.js",
       ],
       "id": "main",
       "initial": false,
@@ -1226,9 +1242,9 @@ exports[`Generating rollup stats 4 {"format":"iife","expected":"iife"} matches t
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -1237,7 +1253,7 @@ exports[`Generating rollup stats 4 {"format":"umd","expected":"umd"} matches the
   "assets": [
     {
       "gzipSize": 98845,
-      "name": "main-ymXr0nql.js",
+      "name": "main-DXhL8JQx.js",
       "normalized": "main-*.js",
       "size": 577167,
     },
@@ -1246,13 +1262,14 @@ exports[`Generating rollup stats 4 {"format":"umd","expected":"umd"} matches the
   "bundleName": StringContaining "test-rollup-v4-umd",
   "bundler": {
     "name": "rollup",
-    "version": "4.9.6",
+    "version": "4.22.4",
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
-        "main-ymXr0nql.js",
+        "main-DXhL8JQx.js",
       ],
       "id": "main",
       "initial": false,
@@ -1303,9 +1320,9 @@ exports[`Generating rollup stats 4 {"format":"umd","expected":"umd"} matches the
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -1314,7 +1331,7 @@ exports[`Generating rollup stats 4 {"format":"system","expected":"system"} match
   "assets": [
     {
       "gzipSize": 99908,
-      "name": "main-VyFuBFOR.js",
+      "name": "main-DwblAVj_.js",
       "normalized": "main-*.js",
       "size": 609446,
     },
@@ -1323,13 +1340,14 @@ exports[`Generating rollup stats 4 {"format":"system","expected":"system"} match
   "bundleName": StringContaining "test-rollup-v4-system",
   "bundler": {
     "name": "rollup",
-    "version": "4.9.6",
+    "version": "4.22.4",
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
-        "main-VyFuBFOR.js",
+        "main-DwblAVj_.js",
       ],
       "id": "main",
       "initial": false,
@@ -1380,9 +1398,9 @@ exports[`Generating rollup stats 4 {"format":"system","expected":"system"} match
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -1391,7 +1409,7 @@ exports[`Generating rollup stats 4 {"format":"systemjs","expected":"system"} mat
   "assets": [
     {
       "gzipSize": 99908,
-      "name": "main-VyFuBFOR.js",
+      "name": "main-DwblAVj_.js",
       "normalized": "main-*.js",
       "size": 609446,
     },
@@ -1400,13 +1418,14 @@ exports[`Generating rollup stats 4 {"format":"systemjs","expected":"system"} mat
   "bundleName": StringContaining "test-rollup-v4-system",
   "bundler": {
     "name": "rollup",
-    "version": "4.9.6",
+    "version": "4.22.4",
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
-        "main-VyFuBFOR.js",
+        "main-DwblAVj_.js",
       ],
       "id": "main",
       "initial": false,
@@ -1457,9 +1476,9 @@ exports[`Generating rollup stats 4 {"format":"systemjs","expected":"system"} mat
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -1468,7 +1487,7 @@ exports[`Generating rollup stats 4 source maps are enabled does not include any 
   "assets": [
     {
       "gzipSize": 98277,
-      "name": "main-v-vWaFyT.js",
+      "name": "main-DTMU6eC0.js",
       "normalized": "main-*.js",
       "size": 560915,
     },
@@ -1477,13 +1496,14 @@ exports[`Generating rollup stats 4 source maps are enabled does not include any 
   "bundleName": StringNotContaining ".map",
   "bundler": {
     "name": "rollup",
-    "version": "4.9.6",
+    "version": "4.22.4",
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
-        "main-v-vWaFyT.js",
+        "main-DTMU6eC0.js",
       ],
       "id": "main",
       "initial": false,
@@ -1534,8 +1554,8 @@ exports[`Generating rollup stats 4 source maps are enabled does not include any 
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "1.3.0",
+    "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;

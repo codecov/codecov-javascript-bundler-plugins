@@ -8,7 +8,7 @@ import {
   type MockInstance,
   type Mock,
 } from "vitest";
-import { type ProviderUtilInputs } from "src/types.ts";
+import { type ProviderUtilInputs } from "../../types.ts";
 import { detectProvider, setSlug } from "../provider.ts";
 import { isProgramInstalled } from "../isProgramInstalled";
 import { Output } from "../Output.ts";

@@ -1,6 +1,6 @@
 {
   "name": "@codecov/nextjs-webpack-plugin",
-  "version": "1.3.0",
+  "version": "1.5.1",
   "description": "Official Codecov NextJS (Webpack) plugin",
   "author": "Codecov",
   "license": "MIT",
@@ -55,15 +55,14 @@
     "@types/node": "^20.10.0",
     "@types/webpack": "^5.28.5",
     "@vitest/coverage-v8": "^1.5.0",
-    "codecovProdRollupPlugin": "npm:@codecov/rollup-plugin@0.0.1-beta.5",
+    "codecovProdRollupPlugin": "npm:@codecov/rollup-plugin@1.5.0",
     "msw": "^2.1.5",
     "ts-node": "^10.9.2",
     "typedoc": "^0.25.12",
     "typescript": "^5.3.3",
     "unbuild": "^2.0.0",
-    "vite-tsconfig-paths": "^4.3.2",
     "vitest": "^1.5.0",
-    "webpack": "^5.90.0"
+    "webpack": "^5.96.1"
   },
   "peerDependencies": {
     "next": "14.x || 15.x",

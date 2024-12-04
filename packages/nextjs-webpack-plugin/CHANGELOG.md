@@ -1,5 +1,48 @@
 # @codecov/nextjs-webpack-plugin
 
+## 1.5.1
+
+### Patch Changes
+
+- 072682c: Bump codecov plugin version for uploading stats
+- Updated dependencies [072682c]
+  - @codecov/bundler-plugin-core@1.5.1
+  - @codecov/webpack-plugin@1.5.1
+
+## 1.5.0
+
+### Minor Changes
+
+- 0efd87f: Update nuxt and related dependencies
+
+### Patch Changes
+
+- 9968698: Fix issue with bundle names not being reset in nextjs, rollup, vite, and webpack plugins.
+- 8f89fd4: Remove unused regex character escape from normalizePath
+- Updated dependencies [9968698]
+- Updated dependencies [8f89fd4]
+- Updated dependencies [0efd87f]
+  - @codecov/bundler-plugin-core@1.5.0
+  - @codecov/webpack-plugin@1.5.0
+
+## 1.4.0
+
+### Minor Changes
+
+- 2db57cc: Remove the org branch requirement for tokenless uploads
+- b17f870: Bump vite versions
+
+### Patch Changes
+
+- ab1385e: Bump rollup versions
+- 6552110: Bump nextjs versions
+- Updated dependencies [2db57cc]
+- Updated dependencies [ab1385e]
+- Updated dependencies [b17f870]
+- Updated dependencies [6552110]
+  - @codecov/bundler-plugin-core@1.4.0
+  - @codecov/webpack-plugin@1.4.0
+
 ## 1.3.0
 
 ### Minor Changes
