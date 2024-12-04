@@ -1,3 +1,4 @@
+import { red } from "@codecov/bundler-plugin-core";
 import { type StatsChunk } from "webpack";
 
 export interface ProcessChunksArgs {
@@ -6,12 +7,32 @@ export interface ProcessChunksArgs {
 }
 
 export const processChunks = ({ chunks, chunkIdMap }: ProcessChunksArgs) => {
-  let idCounter = 0;
-  return chunks.map((chunk) => {
+  // need a reference of all chunks by their id so we can use it to collect
+  // the dynamic imports from the children chunks without having to search
+  // through the entire list of chunks every time
+  const referenceChunkMapById = new Map<PropertyKey, StatsChunk>();
+  chunks.forEach((chunk) => {
+    if (chunk.id) {
+      referenceChunkMapById.set(chunk.id.toString(), chunk);
+    }
+  });
+
+  return chunks.map((chunk, index) => {
     const chunkId = chunk.id ?? "";
-    const uniqueId = `${idCounter}-${chunkId}`;
+    const uniqueId = `${index}-${chunkId}`;
     chunkIdMap.set(chunkId, uniqueId);
-    idCounter += 1;
+
+    const dynamicImports: string[] = [];
+    chunk.children?.forEach((child) => {
+      const childIdString = child.toString();
+      const childChunk = referenceChunkMapById.get(childIdString);
+
+      if (!childChunk || !childChunk.files) {
+        red(`Child chunk ${childIdString} not found in chunkMap`);
+      } else {
+        dynamicImports.push(...childChunk.files);
+      }
+    });
 
     return {
       id: chunk.id?.toString() ?? "",
@@ -20,6 +41,7 @@ export const processChunks = ({ chunks, chunkIdMap }: ProcessChunksArgs) => {
       initial: chunk.initial,
       files: chunk.files ?? [],
       names: chunk.names ?? [],
+      dynamicImports: dynamicImports,
     };
   });
 };

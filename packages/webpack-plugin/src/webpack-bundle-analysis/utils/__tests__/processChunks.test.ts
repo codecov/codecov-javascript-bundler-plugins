@@ -1,5 +1,7 @@
+import Chalk from "chalk";
 import { describe, it, expect } from "vitest";
 import { type StatsChunk } from "webpack";
+import { vi } from "vitest";
 
 import { processChunks } from "../processChunks";
 
@@ -49,6 +51,7 @@ describe("processChunks", () => {
           initial: true,
           files: ["file1.js"],
           names: ["chunk1"],
+          dynamicImports: [],
         },
         {
           id: "2",
@@ -57,6 +60,7 @@ describe("processChunks", () => {
           initial: true,
           files: ["file2.js"],
           names: ["chunk2"],
+          dynamicImports: [],
         },
       ]);
     });
@@ -105,6 +109,7 @@ describe("processChunks", () => {
           initial: true,
           files: ["file1.js"],
           names: ["chunk1"],
+          dynamicImports: [],
         },
         {
           id: "",
@@ -113,8 +118,120 @@ describe("processChunks", () => {
           initial: true,
           files: ["file2.js"],
           names: ["chunk2"],
+          dynamicImports: [],
         },
       ]);
+    });
+  });
+
+  describe("there are children in the chunks", () => {
+    it("includes the children as dynamic imports", () => {
+      const chunks = [
+        {
+          id: "1",
+          entry: true,
+          initial: true,
+          files: ["file1.js"],
+          names: ["chunk1"],
+          rendered: true,
+          recorded: true,
+          size: 1000,
+          hash: "hash1",
+          sizes: {},
+          idHints: [],
+          children: [],
+          auxiliaryFiles: [],
+          childrenByOrder: {},
+        },
+        {
+          id: 2,
+          entry: true,
+          initial: true,
+          files: ["file2.js"],
+          names: ["chunk2"],
+          rendered: true,
+          recorded: true,
+          size: 2000,
+          hash: "hash2",
+          sizes: {},
+          idHints: [],
+          children: [1],
+          auxiliaryFiles: [],
+          childrenByOrder: {},
+        },
+      ] satisfies StatsChunk[];
+
+      const chunkIdMap = new Map();
+
+      expect(processChunks({ chunks, chunkIdMap })).toEqual([
+        {
+          id: "1",
+          uniqueId: "0-1",
+          entry: true,
+          initial: true,
+          files: ["file1.js"],
+          names: ["chunk1"],
+          dynamicImports: [],
+        },
+        {
+          id: "2",
+          uniqueId: "1-2",
+          entry: true,
+          initial: true,
+          files: ["file2.js"],
+          names: ["chunk2"],
+          dynamicImports: ["file1.js"],
+        },
+      ]);
+    });
+  });
+
+  describe("child chunk not found in chunkMap", () => {
+    const consoleSpy = vi.spyOn(console, "log").mockImplementation(() => null);
+
+    it("should log an error", () => {
+      const chunkIdMap = new Map();
+      const chunks = [
+        {
+          id: "1",
+          entry: true,
+          initial: true,
+          files: ["file1.js"],
+          names: ["chunk1"],
+          rendered: true,
+          recorded: true,
+          size: 1000,
+          hash: "hash1",
+          sizes: {},
+          idHints: [],
+          children: [],
+          auxiliaryFiles: [],
+          childrenByOrder: {},
+        },
+        {
+          id: 2,
+          entry: true,
+          initial: true,
+          files: ["file2.js"],
+          names: ["chunk2"],
+          rendered: true,
+          recorded: true,
+          size: 2000,
+          hash: "hash2",
+          sizes: {},
+          idHints: [],
+          children: [3],
+          auxiliaryFiles: [],
+          childrenByOrder: {},
+        },
+      ] satisfies StatsChunk[];
+
+      processChunks({ chunks, chunkIdMap });
+
+      expect(consoleSpy).toHaveBeenCalled();
+      expect(consoleSpy).toHaveBeenCalledWith(
+        `[codecov] ${Chalk.red("Child chunk 3 not found in chunkMap")}`,
+      );
     });
   });
 });

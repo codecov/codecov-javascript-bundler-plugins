@@ -18,6 +18,7 @@ exports[`Generating webpack stats 5 {"format":"array-push","expected":"array-pus
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
         "main-2c458a0c7e378af1ec1a.js",
@@ -71,7 +72,7 @@ exports[`Generating webpack stats 5 {"format":"array-push","expected":"array-pus
     "name": StringMatching "@codecov/webpack-plugin",
     "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -93,6 +94,7 @@ exports[`Generating webpack stats 5 {"format":"commonjs","expected":"cjs"} match
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
         "main-2c458a0c7e378af1ec1a.js",
@@ -146,7 +148,7 @@ exports[`Generating webpack stats 5 {"format":"commonjs","expected":"cjs"} match
     "name": StringMatching "@codecov/webpack-plugin",
     "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -168,6 +170,7 @@ exports[`Generating webpack stats 5 {"format":"module","expected":"esm"} matches
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
         "main-2c458a0c7e378af1ec1a.js",
@@ -221,7 +224,7 @@ exports[`Generating webpack stats 5 {"format":"module","expected":"esm"} matches
     "name": StringMatching "@codecov/webpack-plugin",
     "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -243,6 +246,7 @@ exports[`Generating webpack stats 5 source maps are enabled does not include any
   },
   "chunks": [
     {
+      "dynamicImports": [],
       "entry": true,
       "files": [
         "main-2c458a0c7e378af1ec1a.js",
@@ -296,6 +300,6 @@ exports[`Generating webpack stats 5 source maps are enabled does not include any
     "name": StringMatching "@codecov/webpack-plugin",
     "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;

@@ -1285,6 +1285,9 @@ importers:
       '@vitest/coverage-v8':
         specifier: ^1.5.0
         version: 1.5.0(vitest@1.5.0(@types/node@20.10.0)(terser@5.27.0))
+      chalk:
+        specifier: 4.1.2
+        version: 4.1.2
       codecovProdRollupPlugin:
         specifier: npm:@codecov/rollup-plugin@1.5.0
         version: '@codecov/rollup-plugin@1.5.0(rollup@4.27.3)'

@@ -12,6 +12,6 @@ exports[`Bundle Analyzer Integration Tests should generate a report and match th
     "name": StringMatching "@codecov/bundle-analyzer",
     "version": Any<String>,
   },
-  "version": "2",
+  "version": "3",
 }
 `;

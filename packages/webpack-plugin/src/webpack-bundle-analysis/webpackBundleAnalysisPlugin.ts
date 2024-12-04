@@ -78,6 +78,8 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
             output.assets = collectedAssets;
           }
 
+          // need to collect all possible chunk ids beforehand
+          // this collection is done in the processChunks function
           const chunkIdMap = new Map<number | string, string>();
           if (chunks) {
             output.chunks = processChunks({ chunks, chunkIdMap });

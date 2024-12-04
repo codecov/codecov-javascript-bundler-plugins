@@ -6,7 +6,7 @@ exports[`webpackBundleAnalysisPlugin > when called > returns a plugin object 1`]
   "buildStart": [Function],
   "name": "@codecov/webpack-plugin",
   "pluginVersion": "1.5.1",
-  "version": "2",
+  "version": "3",
   "webpack": [Function],
   "writeBundle": [Function],
 }

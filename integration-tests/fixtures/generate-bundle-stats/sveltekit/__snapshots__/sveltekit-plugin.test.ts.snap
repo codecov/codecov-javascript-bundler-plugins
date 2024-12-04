@@ -17,7 +17,7 @@ exports[`Generating sveltekit stats 2 {"format":"es","expected":"esm"} matches t
     "name": StringMatching "@codecov/sveltekit-plugin",
     "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -38,7 +38,7 @@ exports[`Generating sveltekit stats 2 {"format":"es","expected":"esm"} matches t
     "name": StringMatching "@codecov/sveltekit-plugin",
     "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -59,7 +59,7 @@ exports[`Generating sveltekit stats 2 {"format":"esm","expected":"esm"} matches 
     "name": StringMatching "@codecov/sveltekit-plugin",
     "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -80,7 +80,7 @@ exports[`Generating sveltekit stats 2 {"format":"esm","expected":"esm"} matches 
     "name": StringMatching "@codecov/sveltekit-plugin",
     "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -101,7 +101,7 @@ exports[`Generating sveltekit stats 2 {"format":"module","expected":"esm"} match
     "name": StringMatching "@codecov/sveltekit-plugin",
     "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
 
@@ -122,6 +122,6 @@ exports[`Generating sveltekit stats 2 {"format":"module","expected":"esm"} match
     "name": StringMatching "@codecov/sveltekit-plugin",
     "version": "1.5.1",
   },
-  "version": "2",
+  "version": "3",
 }
 `;
