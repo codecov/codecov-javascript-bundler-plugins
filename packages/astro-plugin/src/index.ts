@@ -12,8 +12,10 @@ import { type PluginOption } from "vite";
 
 import { astroBundleAnalysisPlugin } from "./astro-bundle-analysis/astroBundleAnalysisPlugin";
 
-// @ts-expect-error - This is a placeholder for the package name.
+// @ts-expect-error this value is being replaced by rollup
 const PLUGIN_NAME = __PACKAGE_NAME__ as string;
+// @ts-expect-error this value is being replaced by rollup
+const PLUGIN_VERSION = __PACKAGE_VERSION__ as string;
 
 interface AstroPluginFactoryOptions extends Options {
   // type can be found from the AstroIntegration type
@@ -41,8 +43,17 @@ const astroPluginFactory = createVitePlugin<AstroPluginFactoryOptions, true>(
     const options = normalizedOptions.options;
     if (options.enableBundleAnalysis) {
       plugins.push(
-        astroBundleAnalysisPlugin({ output, target }),
-        _internal_viteBundleAnalysisPlugin({ output }),
+        astroBundleAnalysisPlugin({
+          output,
+          target,
+          pluginName: PLUGIN_NAME,
+          pluginVersion: PLUGIN_VERSION,
+        }),
+        _internal_viteBundleAnalysisPlugin({
+          output,
+          pluginName: PLUGIN_NAME,
+          pluginVersion: PLUGIN_VERSION,
+        }),
       );
     }
 

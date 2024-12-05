@@ -15,6 +15,11 @@ import { _internal_viteBundleAnalysisPlugin } from "@codecov/vite-plugin";
 
 import { remixBundleAnalysisPlugin } from "./remix-bundle-analysis/remixBundleAnalysisPlugin";
 
+// @ts-expect-error this value is being replaced by rollup
+const PLUGIN_NAME = __PACKAGE_NAME__ as string;
+// @ts-expect-error this value is being replaced by rollup
+const PLUGIN_VERSION = __PACKAGE_VERSION__ as string;
+
 const codecovRemixVitePluginFactory = createVitePlugin<Options, true>(
   (userOptions, unpluginMetaContext) => {
     if (checkNodeVersion(unpluginMetaContext)) {
@@ -36,8 +41,16 @@ const codecovRemixVitePluginFactory = createVitePlugin<Options, true>(
     const options = normalizedOptions.options;
     if (options.enableBundleAnalysis) {
       plugins.push(
-        remixBundleAnalysisPlugin({ output }),
-        _internal_viteBundleAnalysisPlugin({ output }),
+        remixBundleAnalysisPlugin({
+          output,
+          pluginName: PLUGIN_NAME,
+          pluginVersion: PLUGIN_VERSION,
+        }),
+        _internal_viteBundleAnalysisPlugin({
+          output,
+          pluginName: PLUGIN_NAME,
+          pluginVersion: PLUGIN_VERSION,
+        }),
       );
     }
 

@@ -13,8 +13,10 @@ import { addVitePlugin, defineNuxtModule } from "@nuxt/kit";
 import { nuxtBundleAnalysisPlugin } from "./nuxt-bundle-analysis/nuxtBundleAnalysisPlugin";
 import { type NuxtModule } from "nuxt/schema";
 
-// @ts-expect-error - This is a placeholder for the package name.
+// @ts-expect-error this value is being replaced by rollup
 const PLUGIN_NAME = __PACKAGE_NAME__ as string;
+// @ts-expect-error this value is being replaced by rollup
+const PLUGIN_VERSION = __PACKAGE_VERSION__ as string;
 
 const codecovNuxtPluginFactory = createVitePlugin<Options, true>(
   (userOptions, unpluginMetaContext) => {
@@ -37,8 +39,16 @@ const codecovNuxtPluginFactory = createVitePlugin<Options, true>(
     const options = normalizedOptions.options;
     if (options.enableBundleAnalysis) {
       plugins.push(
-        nuxtBundleAnalysisPlugin({ output }),
-        _internal_viteBundleAnalysisPlugin({ output }),
+        nuxtBundleAnalysisPlugin({
+          output,
+          pluginName: PLUGIN_NAME,
+          pluginVersion: PLUGIN_VERSION,
+        }),
+        _internal_viteBundleAnalysisPlugin({
+          output,
+          pluginName: PLUGIN_NAME,
+          pluginVersion: PLUGIN_VERSION,
+        }),
       );
     }
 

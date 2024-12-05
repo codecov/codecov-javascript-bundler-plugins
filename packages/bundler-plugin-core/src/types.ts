@@ -51,6 +51,8 @@ export interface OutputPayload {
 
 export interface BundleAnalysisUploadPluginArgs {
   output: Output;
+  pluginName: string;
+  pluginVersion: string;
 }
 
 export interface ExtendedBAUploadArgs<TArgs extends object>
