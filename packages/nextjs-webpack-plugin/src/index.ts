@@ -15,6 +15,11 @@ import {
 
 import { nextJSWebpackBundleAnalysisPlugin } from "./nextjs-webpack-bundle-analysis/nextJSWebpackBundleAnalysisPlugin.ts";
 
+// @ts-expect-error this value is being replaced by rollup
+const PLUGIN_NAME = __PACKAGE_NAME__ as string;
+// @ts-expect-error this value is being replaced by rollup
+const PLUGIN_VERSION = __PACKAGE_VERSION__ as string;
+
 interface NextPluginOptions extends Options {
   webpack: typeof webpack | null;
 }
@@ -47,6 +52,8 @@ const codecovNextJSWebpackPluginFactory = createWebpackPlugin<
         options: {
           webpack: userOptions.webpack,
         },
+        pluginName: PLUGIN_NAME,
+        pluginVersion: PLUGIN_VERSION,
       }),
     );
   }

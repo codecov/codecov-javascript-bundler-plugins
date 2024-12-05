@@ -4,20 +4,17 @@ import type * as TWebpack from "webpack";
 
 import { processAssets, processChunks, processModules } from "./utils";
 
-// @ts-expect-error this value is being replaced by rollup
-const PLUGIN_NAME = __PACKAGE_NAME__ as string;
-// @ts-expect-error this value is being replaced by rollup
-const PLUGIN_VERSION = __PACKAGE_VERSION__ as string;
-
 export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
   output,
+  pluginName,
+  pluginVersion,
 }) => ({
   version: output.version,
-  name: PLUGIN_NAME,
-  pluginVersion: PLUGIN_VERSION,
+  name: pluginName,
+  pluginVersion,
   buildStart: () => {
     output.start();
-    output.setPlugin(PLUGIN_NAME, PLUGIN_VERSION);
+    output.setPlugin(pluginName, pluginVersion);
   },
   buildEnd: () => {
     output.end();
@@ -29,10 +26,10 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
     const generatedRequire = createRequire(import.meta.url);
     const webpack = generatedRequire("webpack") as typeof TWebpack;
 
-    compiler.hooks.thisCompilation.tap(PLUGIN_NAME, (compilation) => {
+    compiler.hooks.thisCompilation.tap(pluginName, (compilation) => {
       compilation.hooks.processAssets.tapPromise(
         {
-          name: PLUGIN_NAME,
+          name: pluginName,
           stage: webpack.Compilation.PROCESS_ASSETS_STAGE_REPORT,
         },
         async () => {

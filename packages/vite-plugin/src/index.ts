@@ -14,6 +14,11 @@ import {
 
 import { viteBundleAnalysisPlugin } from "./vite-bundle-analysis/viteBundleAnalysisPlugin";
 
+// @ts-expect-error this value is being replaced by rollup
+const PLUGIN_NAME = __PACKAGE_NAME__ as string;
+// @ts-expect-error this value is being replaced by rollup
+const PLUGIN_VERSION = __PACKAGE_VERSION__ as string;
+
 const codecovVitePluginFactory = createVitePlugin<Options, true>(
   (userOptions, unpluginMetaContext) => {
     if (checkNodeVersion(unpluginMetaContext)) {
@@ -32,9 +37,17 @@ const codecovVitePluginFactory = createVitePlugin<Options, true>(
 
     const plugins: UnpluginOptions[] = [];
     const options = normalizedOptions.options;
+
     if (options.enableBundleAnalysis) {
       const output = new Output(normalizedOptions.options);
-      plugins.push(viteBundleAnalysisPlugin({ output }));
+
+      plugins.push(
+        viteBundleAnalysisPlugin({
+          output,
+          pluginName: PLUGIN_NAME,
+          pluginVersion: PLUGIN_VERSION,
+        }),
+      );
     }
 
     return plugins;

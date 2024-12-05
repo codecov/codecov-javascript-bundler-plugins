@@ -15,6 +15,11 @@ import { _internal_viteBundleAnalysisPlugin } from "@codecov/vite-plugin";
 
 import { solidstartBundleAnalysisPlugin } from "./solidstart-bundle-analysis/solidstartBundleAnalysisPlugin";
 
+// @ts-expect-error this value is being replaced by rollup
+const PLUGIN_NAME = __PACKAGE_NAME__ as string;
+// @ts-expect-error this value is being replaced by rollup
+const PLUGIN_VERSION = __PACKAGE_VERSION__ as string;
+
 const codecovSolidStartPluginFactory = createVitePlugin<Options, true>(
   (userOptions, unpluginMetaContext) => {
     if (checkNodeVersion(unpluginMetaContext)) {
@@ -36,8 +41,16 @@ const codecovSolidStartPluginFactory = createVitePlugin<Options, true>(
     const options = normalizedOptions.options;
     if (options.enableBundleAnalysis) {
       plugins.push(
-        solidstartBundleAnalysisPlugin({ output }),
-        _internal_viteBundleAnalysisPlugin({ output }),
+        solidstartBundleAnalysisPlugin({
+          output,
+          pluginName: PLUGIN_NAME,
+          pluginVersion: PLUGIN_VERSION,
+        }),
+        _internal_viteBundleAnalysisPlugin({
+          output,
+          pluginName: PLUGIN_NAME,
+          pluginVersion: PLUGIN_VERSION,
+        }),
       );
     }
 

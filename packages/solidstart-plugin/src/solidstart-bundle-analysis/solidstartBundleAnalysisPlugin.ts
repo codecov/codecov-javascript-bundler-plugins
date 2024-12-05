@@ -4,17 +4,14 @@ import {
 } from "@codecov/bundler-plugin-core";
 import { getBundleName } from "./getBundleName";
 
-// @ts-expect-error this value is being replaced by rollup
-const PLUGIN_NAME = __PACKAGE_NAME__ as string;
-// @ts-expect-error this value is being replaced by rollup
-const PLUGIN_VERSION = __PACKAGE_VERSION__ as string;
-
 export const solidstartBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
   output,
+  pluginName,
+  pluginVersion,
 }) => ({
   version: output.version,
-  name: PLUGIN_NAME,
-  pluginVersion: PLUGIN_VERSION,
+  name: pluginName,
+  pluginVersion,
   vite: {
     generateBundle(this, options) {
       // TODO - remove this once we hard fail on not having a bundle name
@@ -36,7 +33,7 @@ export const solidstartBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
       output.lockBundleName();
 
       // manually set this to avoid resetting in the vite plugin
-      output.setPlugin(PLUGIN_NAME, PLUGIN_VERSION);
+      output.setPlugin(pluginName, pluginVersion);
     },
   },
 });
