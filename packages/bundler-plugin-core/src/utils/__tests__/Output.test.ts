@@ -431,6 +431,59 @@ describe("Output", () => {
       });
     });
 
+    describe("successful detection of provider", () => {
+      it("sets the owner and repo tags", async () => {
+        setup({});
+        const sentryClient = {
+          captureMessage: vi.fn(),
+        } as unknown as Client;
+
+        const sentryScope = {
+          getClient: vi.fn(),
+          setTag: vi.fn(),
+          addBreadcrumb: vi.fn(),
+        } as unknown as Scope;
+
+        const output = new Output(
+          {
+            apiUrl: "http://localhost",
+            bundleName: "output-test",
+            debug: false,
+            dryRun: false,
+            enableBundleAnalysis: true,
+            retryCount: 1,
+            uploadToken: "token",
+            telemetry: false,
+          },
+          { sentryClient, sentryScope },
+        );
+
+        output.start();
+        output.end();
+
+        await output.write();
+
+        // eslint-disable-next-line @typescript-eslint/unbound-method
+        expect(sentryScope.setTag).toHaveBeenNthCalledWith(
+          1,
+          "service",
+          "github",
+        );
+        // eslint-disable-next-line @typescript-eslint/unbound-method
+        expect(sentryScope.setTag).toHaveBeenNthCalledWith(
+          2,
+          "owner",
+          "codecov",
+        );
+        // eslint-disable-next-line @typescript-eslint/unbound-method
+        expect(sentryScope.setTag).toHaveBeenNthCalledWith(
+          3,
+          "repo",
+          "codecov-javascript-bundler-plugins",
+        );
+      });
+    });
+
     describe("fails to fetch pre-signed URL", () => {
       it("immediately returns", async () => {
         setup({ urlSendError: true });
