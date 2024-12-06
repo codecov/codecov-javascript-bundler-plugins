@@ -26,6 +26,7 @@ export default defineConfig({
       bundleName: "test-astro-v4",
       uploadToken: "test-token",
       apiUrl: process.env.API_URL,
+      telemetry: false,
     }),
   ],
 });
