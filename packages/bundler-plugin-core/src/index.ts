@@ -1,3 +1,4 @@
+import { type Client, type Scope } from "@sentry/core";
 import {
   type Asset,
   type BundleAnalysisUploadPlugin,
@@ -22,6 +23,12 @@ import {
   Output,
   red,
 } from "./utils";
+import {
+  createSentryInstance,
+  telemetryPlugin,
+  safeFlushTelemetry,
+  setTelemetryDataOnScope,
+} from "./sentry/telemetry.ts";
 
 export type {
   Asset,
@@ -36,6 +43,8 @@ export type {
   NormalizedOptions,
   ProviderUtilInputs,
   UploadOverrides,
+  Client as SentryClient,
+  Scope as SentryScope,
 };
 
 export {
@@ -47,4 +56,8 @@ export {
   normalizePath,
   Output,
   red,
+  createSentryInstance,
+  telemetryPlugin,
+  safeFlushTelemetry,
+  setTelemetryDataOnScope,
 };

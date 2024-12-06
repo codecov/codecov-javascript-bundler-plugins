@@ -66,6 +66,7 @@ describe("Netlify Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await Netlify.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -106,6 +107,7 @@ describe("Netlify Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await Netlify.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -135,6 +137,7 @@ describe("Netlify Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await Netlify.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);

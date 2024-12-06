@@ -8,20 +8,17 @@ import {
   createRollupAsset,
 } from "@codecov/bundler-plugin-core";
 
-// @ts-expect-error this value is being replaced by rollup
-const PLUGIN_NAME = __PACKAGE_NAME__ as string;
-// @ts-expect-error this value is being replaced by rollup
-const PLUGIN_VERSION = __PACKAGE_VERSION__ as string;
-
 export const rollupBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
   output,
+  pluginName,
+  pluginVersion,
 }) => ({
   version: output.version,
-  name: PLUGIN_NAME,
-  pluginVersion: PLUGIN_VERSION,
+  name: pluginName,
+  pluginVersion,
   buildStart: () => {
     output.start();
-    output.setPlugin(PLUGIN_NAME, PLUGIN_VERSION);
+    output.setPlugin(pluginName, pluginVersion);
   },
   buildEnd: () => {
     output.end();

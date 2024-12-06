@@ -65,6 +65,7 @@ describe("Azure Pipelines CI Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await AzurePipelines.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -107,6 +108,7 @@ describe("Azure Pipelines CI Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await AzurePipelines.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -149,6 +151,7 @@ describe("Azure Pipelines CI Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await AzurePipelines.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -194,6 +197,7 @@ describe("Azure Pipelines CI Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await AzurePipelines.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -240,6 +244,7 @@ describe("Azure Pipelines CI Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await AzurePipelines.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -280,6 +285,7 @@ describe("Azure Pipelines CI Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await AzurePipelines.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
