@@ -152,7 +152,11 @@ export function telemetryPlugin({
           "Sending telemetry data on issues and performance to Codecov. To disable telemetry, set `options.telemetry` to `false`.",
         );
         startSpan(
-          { name: "Codecov Bundler Plugin execution", scope: sentryScope },
+          {
+            name: "Codecov Bundler Plugin execution",
+            op: "bundler-plugin-startup",
+            scope: sentryScope,
+          },
           () => {
             //
           },

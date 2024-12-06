@@ -163,7 +163,11 @@ class Output {
     const inputs: ProviderUtilInputs = { envs, args };
 
     const provider = await startSpan(
-      { name: "output.write.detectProvider", scope: this.sentryScope },
+      {
+        name: "Detect Provider",
+        op: "output.write.detectProvider",
+        scope: this.sentryScope,
+      },
       async () => {
         let detectedProvider;
         try {
@@ -206,7 +210,8 @@ class Output {
 
       const slug = provider.slug ?? "";
       const repoIndex = slug.lastIndexOf("/") + 1;
-      const owner = slug.substring(0, repoIndex).trimEnd();
+      // -1 to trim the trailing slash
+      const owner = slug.substring(0, repoIndex - 1).trimEnd();
       if (owner.length > 0) {
         this.sentryScope.setTag("owner", owner);
       }
@@ -219,7 +224,11 @@ class Output {
 
     let url = "";
     await startSpan(
-      { name: "output.write.getPreSignedURL", scope: this.sentryScope },
+      {
+        name: "Get Pre-Signed URL",
+        op: "output.write.getPreSignedURL",
+        scope: this.sentryScope,
+      },
       async () => {
         try {
           url = await getPreSignedURL({
@@ -260,7 +269,11 @@ class Output {
     );
 
     await startSpan(
-      { name: "output.write.uploadStats", scope: this.sentryScope },
+      {
+        name: "Upload Stats",
+        op: "output.write.uploadStats",
+        scope: this.sentryScope,
+      },
       async () => {
         try {
           await uploadStats({
