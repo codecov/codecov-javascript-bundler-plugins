@@ -22,6 +22,7 @@ export default defineConfig({
         bundleName: "test-solidstart-v1",
         uploadToken: "test-token",
         apiUrl: process.env.API_URL,
+        telemetry: false,
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       }) as any,
     ],
