@@ -1,3 +1,4 @@
+import { type Client, type Scope, startSpan } from "@sentry/core";
 import {
   type Asset,
   type Chunk,
@@ -12,6 +13,12 @@ import { detectProvider } from "./provider.ts";
 import { uploadStats } from "./uploadStats.ts";
 import { type ValidGitService } from "./normalizeOptions";
 import { debug } from "./logging.ts";
+import { safeFlushTelemetry } from "../sentry/telemetry.ts";
+
+interface SentryConfig {
+  sentryClient?: Client;
+  sentryScope?: Scope;
+}
 
 class Output {
   // base user options
@@ -27,6 +34,7 @@ class Output {
   debug: boolean;
   gitService?: ValidGitService;
   #internalOriginalBundleName: string;
+  telemetry: boolean;
   // uploader overrides
   branch?: string;
   build?: string;
@@ -55,8 +63,10 @@ class Output {
     bundleName: false,
     pluginDetails: false,
   };
+  sentryClient?: Client;
+  sentryScope?: Scope;
 
-  constructor(userOptions: NormalizedOptions) {
+  constructor(userOptions: NormalizedOptions, sentryConfig?: SentryConfig) {
     this.version = "3";
     this.apiUrl = userOptions.apiUrl;
     this.dryRun = userOptions.dryRun;
@@ -67,6 +77,9 @@ class Output {
     this.gitService = userOptions.gitService;
     this.#internalOriginalBundleName = userOptions.bundleName;
     this.oidc = userOptions.oidc;
+    this.telemetry = userOptions.telemetry;
+    this.sentryClient = sentryConfig?.sentryClient;
+    this.sentryScope = sentryConfig?.sentryScope;
 
     if (userOptions.uploadOverrides) {
       this.branch = userOptions.uploadOverrides.branch;
@@ -148,42 +161,131 @@ class Output {
     };
     const envs = process.env;
     const inputs: ProviderUtilInputs = { envs, args };
-    const provider = await detectProvider(inputs, this);
 
-    let url = "";
-    try {
-      url = await getPreSignedURL({
-        apiUrl: this.apiUrl,
-        uploadToken: this.uploadToken,
-        gitService: this.gitService,
-        oidc: this.oidc,
-        retryCount: this.retryCount,
-        serviceParams: provider,
-      });
-    } catch (error) {
-      if (emitError) {
-        throw error;
-      }
+    const provider = await startSpan(
+      { name: "detectProvider", scope: this.sentryScope },
+      async () => {
+        let detectedProvider;
+        try {
+          detectedProvider = await detectProvider(inputs, this);
+        } catch (error) {
+          if (this.sentryClient && this.sentryScope) {
+            this.sentryScope.addBreadcrumb({
+              category: "output.write.detectProvider",
+              level: "error",
+              data: { error },
+            });
+            // this is being set as info because this could be caused by user error
+            this.sentryClient.captureMessage(
+              "Error in detectProvider",
+              "info",
+              undefined,
+              this.sentryScope,
+            );
+            await safeFlushTelemetry(this.sentryClient);
+          }
 
-      debug(`Error getting pre-signed URL: "${error}"`, {
-        enabled: this.debug,
-      });
-      return;
+          if (emitError) {
+            throw error;
+          }
+
+          debug(`Error getting provider: "${error}"`, {
+            enabled: this.debug,
+          });
+          return;
+        }
+
+        return detectedProvider;
+      },
+    );
+
+    if (!provider) return;
+
+    if (this.sentryScope) {
+      this.sentryScope.setTag("provider.service", provider.service);
     }
 
-    try {
-      await uploadStats({
-        preSignedUrl: url,
-        bundleName: this.bundleName,
-        message: this.bundleStatsToJson(),
-        retryCount: this?.retryCount,
-      });
-    } catch (error) {
-      if (emitError) {
-        throw error;
-      }
-      debug(`Error uploading stats: "${error}"`, { enabled: this.debug });
-      return;
+    let url = "";
+    await startSpan(
+      { name: "getPreSignedURL", scope: this.sentryScope },
+      async () => {
+        try {
+          url = await getPreSignedURL({
+            apiUrl: this.apiUrl,
+            uploadToken: this.uploadToken,
+            gitService: this.gitService,
+            oidc: this.oidc,
+            retryCount: this.retryCount,
+            serviceParams: provider,
+          });
+        } catch (error) {
+          if (this.sentryClient && this.sentryScope) {
+            this.sentryScope.addBreadcrumb({
+              category: "output.write.getPreSignedURL",
+              level: "error",
+              data: { error },
+            });
+            // only setting this as info because this could be caused by user error
+            this.sentryClient.captureMessage(
+              "Error in getPreSignedURL",
+              "info",
+              undefined,
+              this.sentryScope,
+            );
+            await safeFlushTelemetry(this.sentryClient);
+          }
+
+          if (emitError) {
+            throw error;
+          }
+
+          debug(`Error getting pre-signed URL: "${error}"`, {
+            enabled: this.debug,
+          });
+          return;
+        }
+      },
+    );
+
+    await startSpan(
+      { name: "uploadStats", scope: this.sentryScope },
+      async () => {
+        try {
+          await uploadStats({
+            preSignedUrl: url,
+            bundleName: this.bundleName,
+            message: this.bundleStatsToJson(),
+            retryCount: this?.retryCount,
+          });
+        } catch (error) {
+          // this is being set as an error because this could not be caused by a user error
+          if (this.sentryClient && this.sentryScope) {
+            this.sentryScope.addBreadcrumb({
+              category: "output.write.uploadStats",
+              level: "error",
+              data: { error },
+            });
+            this.sentryClient.captureMessage(
+              "Error in uploadStats",
+              "error",
+              undefined,
+              this.sentryScope,
+            );
+            await safeFlushTelemetry(this.sentryClient);
+          }
+
+          if (emitError) {
+            throw error;
+          }
+
+          debug(`Error uploading stats: "${error}"`, { enabled: this.debug });
+          return;
+        }
+      },
+    );
+
+    if (this.sentryClient) {
+      await safeFlushTelemetry(this.sentryClient);
     }
 
     return;

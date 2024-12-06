@@ -146,6 +146,15 @@ export interface Options {
    */
   dryRun?: boolean;
 
+  /**
+   * When enabled telemetry data will be sent to Codecov.
+   *
+   * Example: `telemetry: false`
+   *
+   * Defaults to `true`
+   */
+  telemetry?: boolean;
+
   /** Options for OIDC authentication. */
   oidc?: {
     /**
