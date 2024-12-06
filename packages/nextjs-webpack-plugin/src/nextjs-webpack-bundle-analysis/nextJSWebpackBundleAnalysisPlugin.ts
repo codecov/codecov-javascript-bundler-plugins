@@ -1,5 +1,5 @@
 import { red, type ExtendedBAUploadPlugin } from "@codecov/bundler-plugin-core";
-import type * as webpack from "webpack";
+import type * as TWebpack from "webpack";
 
 import {
   _internal_processAssets as processAssets,
@@ -8,8 +8,8 @@ import {
 } from "@codecov/webpack-plugin";
 
 export const nextJSWebpackBundleAnalysisPlugin: ExtendedBAUploadPlugin<{
-  webpack: typeof webpack | null;
-}> = ({ output, pluginName, pluginVersion }) => ({
+  webpack: typeof TWebpack | null;
+}> = ({ output, pluginName, pluginVersion, options }) => ({
   version: output.version,
   name: pluginName,
   pluginVersion,
@@ -25,7 +25,7 @@ export const nextJSWebpackBundleAnalysisPlugin: ExtendedBAUploadPlugin<{
   },
   webpack(compiler) {
     compiler.hooks.thisCompilation.tap(pluginName, (compilation) => {
-      if (!webpack) {
+      if (!options.webpack) {
         red(
           "Unable to run bundle analysis, Webpack wasn't passed successfully.",
         );
@@ -35,9 +35,16 @@ export const nextJSWebpackBundleAnalysisPlugin: ExtendedBAUploadPlugin<{
       compilation.hooks.processAssets.tapPromise(
         {
           name: pluginName,
-          stage: webpack.Compilation.PROCESS_ASSETS_STAGE_REPORT,
+          stage: options.webpack.Compilation.PROCESS_ASSETS_STAGE_REPORT,
         },
         async () => {
+          if (!options.webpack) {
+            red(
+              "Unable to run bundle analysis, Webpack wasn't passed successfully.",
+            );
+            return;
+          }
+
           output.setBundleName(output.originalBundleName);
           // Webpack base chunk format options: https://webpack.js.org/configuration/output/#outputchunkformat
           if (typeof compilation.outputOptions.chunkFormat === "string") {
@@ -65,7 +72,7 @@ export const nextJSWebpackBundleAnalysisPlugin: ExtendedBAUploadPlugin<{
 
           output.bundler = {
             name: "webpack",
-            version: webpack.version,
+            version: options.webpack.version,
           };
 
           const outputOptions = compilation.outputOptions;
@@ -96,7 +103,7 @@ export const nextJSWebpackBundleAnalysisPlugin: ExtendedBAUploadPlugin<{
 
           // only output file if running dry run
           if (output.dryRun) {
-            const { RawSource } = webpack.sources;
+            const { RawSource } = options.webpack.sources;
             compilation.emitAsset(
               `${output.bundleName}-stats.json`,
               new RawSource(output.bundleStatsToJson()),
