@@ -194,14 +194,14 @@ jobs:
 
       - name: Upload coverage reports to codecov
         if: ${{ !github.event.pull_request.head.repo.fork && github.repository_owner == 'codecov' }}
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_ORG_TOKEN }}
           url: ${{ secrets.CODECOV_URL }}
 
       - name: Upload coverage reports to codecov (Staging)
         if: ${{ !github.event.pull_request.head.repo.fork && github.repository_owner == 'codecov' }}
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
           url: ${{ secrets.CODECOV_STAGING_URL }}
