@@ -45,6 +45,8 @@ const codecovNuxtPluginFactory = createVitePlugin<Options, true>(
       pluginName: PLUGIN_NAME,
       pluginVersion: PLUGIN_VERSION,
       options,
+      bundler: unpluginMetaContext.framework,
+      metaFramework: "nuxt",
     });
 
     if (options.enableBundleAnalysis) {

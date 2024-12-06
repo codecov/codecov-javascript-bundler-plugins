@@ -28,6 +28,7 @@ describe("telemetry", () => {
         isDryRun: false,
         pluginName: "test-plugin",
         pluginVersion: "1.0.0",
+        bundler: "test-bundler",
       });
 
       expect(sentryClient).toBeDefined();
@@ -40,6 +41,7 @@ describe("telemetry", () => {
         isDryRun: false,
         pluginName: "test-plugin",
         pluginVersion: "1.0.0",
+        bundler: "test-bundler",
       });
 
       expect(sentryClient).toBeDefined();
@@ -64,7 +66,13 @@ describe("telemetry", () => {
         version: "1.0.0",
       };
 
-      setTelemetryDataOnScope(options, pluginInfo, scope);
+      setTelemetryDataOnScope(
+        options,
+        pluginInfo,
+        scope,
+        "test-bundler",
+        "none",
+      );
 
       // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(scope.setTag).toHaveBeenCalledWith("auth_mode", "token");
@@ -74,6 +82,10 @@ describe("telemetry", () => {
       expect(scope.setTag).toHaveBeenCalledWith("plugin.name", "test-plugin");
       // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(scope.setTag).toHaveBeenCalledWith("plugin.version", "1.0.0");
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      expect(scope.setTag).toHaveBeenCalledWith("bundler", "test-bundler");
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      expect(scope.setTag).toHaveBeenCalledWith("meta_framework", "none");
     });
 
     it("sets correct tags for github OIDC auth", () => {
@@ -91,7 +103,13 @@ describe("telemetry", () => {
         version: "1.0.0",
       };
 
-      setTelemetryDataOnScope(options, pluginInfo, scope);
+      setTelemetryDataOnScope(
+        options,
+        pluginInfo,
+        scope,
+        "test-bundler",
+        "none",
+      );
 
       // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(scope.setTag).toHaveBeenCalledWith("auth_mode", "github-oidc");
