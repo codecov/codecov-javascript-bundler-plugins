@@ -153,6 +153,7 @@ describe("GitHub Actions Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await GitHubActions.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -181,6 +182,7 @@ describe("GitHub Actions Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await GitHubActions.getServiceParams(inputs, output);
 
@@ -244,6 +246,7 @@ describe("GitHub Actions Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await GitHubActions.getServiceParams(inputs, output);
 
@@ -300,6 +303,7 @@ describe("GitHub Actions Params", () => {
         dryRun: true,
         enableBundleAnalysis: true,
         retryCount: 0,
+        telemetry: false,
       });
       const params = await GitHubActions.getServiceParams(inputs, output);
 
@@ -355,6 +359,7 @@ describe("GitHub Actions Params", () => {
         dryRun: true,
         enableBundleAnalysis: true,
         retryCount: 0,
+        telemetry: false,
       });
       const params = await GitHubActions.getServiceParams(inputs, output);
 
@@ -419,6 +424,7 @@ describe("GitHub Actions Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await GitHubActions.getServiceParams(inputs, output);
 
@@ -459,6 +465,7 @@ describe("GitHub Actions Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await GitHubActions.getServiceParams(inputs, output);
 
@@ -503,6 +510,7 @@ describe("GitHub Actions Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await GitHubActions.getServiceParams(inputs, output);
 

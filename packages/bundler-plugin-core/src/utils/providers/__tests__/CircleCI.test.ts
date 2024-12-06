@@ -71,6 +71,7 @@ describe("CircleCI Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await CircleCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -109,6 +110,7 @@ describe("CircleCI Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await CircleCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -154,6 +156,7 @@ describe("CircleCI Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await CircleCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);

@@ -68,6 +68,7 @@ describe("Wercker CI Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await Wercker.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -114,6 +115,7 @@ describe("Wercker CI Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await Wercker.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -142,6 +144,7 @@ describe("Wercker CI Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await Wercker.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);

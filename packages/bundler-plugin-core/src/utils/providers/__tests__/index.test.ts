@@ -72,6 +72,7 @@ describe("CI Providers", () => {
           dryRun: true,
           enableBundleAnalysis: true,
           retryCount: 0,
+          telemetry: false,
         });
 
         const serviceParams = await provider.getServiceParams(inputs, output);
@@ -100,6 +101,7 @@ describe("CI Providers", () => {
           dryRun: true,
           enableBundleAnalysis: true,
           retryCount: 0,
+          telemetry: false,
         });
 
         const serviceParams = await provider.getServiceParams(inputs, output);

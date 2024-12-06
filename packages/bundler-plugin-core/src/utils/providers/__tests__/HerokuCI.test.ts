@@ -67,6 +67,7 @@ describe("HerokuCI Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await HerokuCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -108,6 +109,7 @@ describe("HerokuCI Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await HerokuCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -145,6 +147,7 @@ describe("HerokuCI Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await HerokuCI.getServiceParams(inputs, output);
     expect(expected).toBeTruthy();

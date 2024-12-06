@@ -67,6 +67,7 @@ describe("Vercel Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await Vercel.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -108,6 +109,7 @@ describe("Vercel Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await Vercel.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -137,6 +139,7 @@ describe("Vercel Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await Vercel.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
