@@ -49,6 +49,8 @@ const astroPluginFactory = createVitePlugin<AstroPluginFactoryOptions, true>(
       pluginName: PLUGIN_NAME,
       pluginVersion: PLUGIN_VERSION,
       options,
+      bundler: unpluginMetaContext.framework,
+      metaFramework: "astro",
     });
 
     if (options.enableBundleAnalysis) {

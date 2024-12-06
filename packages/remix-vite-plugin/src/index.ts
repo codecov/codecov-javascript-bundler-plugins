@@ -47,6 +47,8 @@ const codecovRemixVitePluginFactory = createVitePlugin<Options, true>(
       pluginName: PLUGIN_NAME,
       pluginVersion: PLUGIN_VERSION,
       options,
+      bundler: unpluginMetaContext.framework,
+      metaFramework: "remix",
     });
 
     if (options.enableBundleAnalysis) {

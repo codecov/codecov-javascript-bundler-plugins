@@ -47,6 +47,8 @@ const codecovSvelteKitPluginFactory = createVitePlugin<Options, true>(
       pluginName: PLUGIN_NAME,
       pluginVersion: PLUGIN_VERSION,
       options,
+      bundler: unpluginMetaContext.framework,
+      metaFramework: "sveltekit",
     });
 
     if (options.enableBundleAnalysis) {

@@ -53,6 +53,7 @@ const codecovWebpackPluginFactory = createWebpackPlugin<Options, true>(
       pluginName: PLUGIN_NAME,
       pluginVersion: PLUGIN_VERSION,
       options,
+      bundler: unpluginMetaContext.framework,
     });
 
     if (options.enableBundleAnalysis) {

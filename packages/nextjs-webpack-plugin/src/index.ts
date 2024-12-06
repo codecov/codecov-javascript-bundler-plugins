@@ -53,6 +53,8 @@ const codecovNextJSWebpackPluginFactory = createWebpackPlugin<
     pluginName: PLUGIN_NAME,
     pluginVersion: PLUGIN_VERSION,
     options,
+    bundler: unpluginMetaContext.framework,
+    metaFramework: "nextjs",
   });
 
   if (options.enableBundleAnalysis) {

@@ -47,6 +47,8 @@ const codecovSolidStartPluginFactory = createVitePlugin<Options, true>(
       pluginName: PLUGIN_NAME,
       pluginVersion: PLUGIN_VERSION,
       options,
+      bundler: unpluginMetaContext.framework,
+      metaFramework: "solidstart",
     });
 
     if (options.enableBundleAnalysis) {

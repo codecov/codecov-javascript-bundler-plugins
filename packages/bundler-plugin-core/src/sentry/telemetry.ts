@@ -24,6 +24,8 @@ interface CreateSentryInstanceOptions {
   pluginName: string;
   pluginVersion: string;
   options?: NormalizedOptions;
+  bundler: string;
+  metaFramework?: string;
 }
 
 export function createSentryInstance({
@@ -32,6 +34,8 @@ export function createSentryInstance({
   pluginName,
   pluginVersion,
   options,
+  bundler,
+  metaFramework,
 }: CreateSentryInstanceOptions): {
   sentryScope: Scope;
   sentryClient: Client;
@@ -86,6 +90,8 @@ export function createSentryInstance({
       options,
       { name: pluginName, version: pluginVersion },
       scope,
+      bundler,
+      metaFramework,
     );
   }
 
@@ -101,6 +107,8 @@ export function setTelemetryDataOnScope(
   options: NormalizedOptions,
   pluginInfo: PluginInfo,
   scope: Scope,
+  bundler: string,
+  metaFramework?: string,
 ) {
   scope.setTag("node", process.version);
   scope.setTag("platform", process.platform);
@@ -121,6 +129,9 @@ export function setTelemetryDataOnScope(
   }
 
   scope.setTag("ci", !!process.env.CI);
+
+  scope.setTag("meta_framework", metaFramework ?? "none");
+  scope.setTag("bundler", bundler);
 }
 
 /** Flushing the SDK client can fail. We never want to crash the plugin because of telemetry. */
