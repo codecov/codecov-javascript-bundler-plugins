@@ -444,26 +444,26 @@ jobs:
         env:
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          ASTRO_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          ASTRO_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
           ASTRO_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
-          BUNDLE_ANALYZER_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          BUNDLE_ANALYZER_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
           BUNDLE_ANALYZER_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
           NEXT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
           NEXT_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
-          NUXT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          NUXT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
           NUXT_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
           OIDC_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
-          REMIX_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          REMIX_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
           REMIX_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
           ROLLUP_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
           ROLLUP_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
-          SOLIDSTART_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          SOLIDSTART_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
           SOLIDSTART_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
-          SVELTEKIT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          SVELTEKIT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
           SVELTEKIT_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
           VITE_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
           VITE_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
-          TOKENLESS_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          TOKENLESS_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
           TOKENLESS_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
           WEBPACK_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
           WEBPACK_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
