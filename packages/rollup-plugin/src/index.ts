@@ -10,6 +10,8 @@ import {
   checkNodeVersion,
   Output,
   handleErrors,
+  createSentryInstance,
+  telemetryPlugin,
 } from "@codecov/bundler-plugin-core";
 
 import { rollupBundleAnalysisPlugin } from "./rollup-bundle-analysis/rollupBundleAnalysisPlugin";
@@ -36,10 +38,23 @@ const codecovRollupPluginFactory = createRollupPlugin<Options, true>(
     }
 
     const plugins: UnpluginOptions[] = [];
-    const output = new Output(normalizedOptions.options);
     const options = normalizedOptions.options;
+    const output = new Output(options);
+    const sentryConfig = createSentryInstance({
+      enableTelemetry: options.telemetry,
+      isDryRun: options.dryRun,
+      pluginName: PLUGIN_NAME,
+      pluginVersion: PLUGIN_VERSION,
+      options,
+    });
+
     if (options.enableBundleAnalysis) {
       plugins.push(
+        telemetryPlugin({
+          sentryClient: sentryConfig.sentryClient,
+          sentryScope: sentryConfig.sentryScope,
+          shouldSendTelemetry: options.telemetry,
+        }),
         rollupBundleAnalysisPlugin({
           output,
           pluginName: PLUGIN_NAME,

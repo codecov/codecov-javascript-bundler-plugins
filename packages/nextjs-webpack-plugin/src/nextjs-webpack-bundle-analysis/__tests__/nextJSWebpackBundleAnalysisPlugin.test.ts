@@ -20,6 +20,7 @@ describe("webpackBundleAnalysisPlugin", () => {
           enableBundleAnalysis: true,
           retryCount: 1,
           uploadToken: "test-token",
+          telemetry: false,
         }),
         options: {
           webpack: webpack,
