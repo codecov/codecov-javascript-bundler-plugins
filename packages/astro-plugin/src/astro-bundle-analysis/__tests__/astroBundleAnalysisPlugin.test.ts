@@ -20,6 +20,7 @@ describe("astroBundleAnalysisPlugin", () => {
           enableBundleAnalysis: true,
           retryCount: 1,
           uploadToken: "test-token",
+          telemetry: false,
         }),
         pluginName: PLUGIN_NAME,
         pluginVersion: PLUGIN_VERSION,

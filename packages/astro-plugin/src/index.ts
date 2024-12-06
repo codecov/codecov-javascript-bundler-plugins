@@ -5,6 +5,8 @@ import {
   checkNodeVersion,
   Output,
   handleErrors,
+  createSentryInstance,
+  telemetryPlugin,
 } from "@codecov/bundler-plugin-core";
 import { _internal_viteBundleAnalysisPlugin } from "@codecov/vite-plugin";
 import { type AstroIntegration } from "astro";
@@ -39,10 +41,23 @@ const astroPluginFactory = createVitePlugin<AstroPluginFactoryOptions, true>(
     }
 
     const plugins: UnpluginOptions[] = [];
-    const output = new Output(normalizedOptions.options);
     const options = normalizedOptions.options;
+    const output = new Output(options);
+    const sentryConfig = createSentryInstance({
+      enableTelemetry: options.telemetry,
+      isDryRun: options.dryRun,
+      pluginName: PLUGIN_NAME,
+      pluginVersion: PLUGIN_VERSION,
+      options,
+    });
+
     if (options.enableBundleAnalysis) {
       plugins.push(
+        telemetryPlugin({
+          sentryClient: sentryConfig.sentryClient,
+          sentryScope: sentryConfig.sentryScope,
+          shouldSendTelemetry: options.telemetry,
+        }),
         astroBundleAnalysisPlugin({
           output,
           target,

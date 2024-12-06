@@ -10,6 +10,8 @@ import {
   checkNodeVersion,
   Output,
   handleErrors,
+  createSentryInstance,
+  telemetryPlugin,
 } from "@codecov/bundler-plugin-core";
 
 import { viteBundleAnalysisPlugin } from "./vite-bundle-analysis/viteBundleAnalysisPlugin";
@@ -37,11 +39,22 @@ const codecovVitePluginFactory = createVitePlugin<Options, true>(
 
     const plugins: UnpluginOptions[] = [];
     const options = normalizedOptions.options;
+    const output = new Output(options);
+    const sentryConfig = createSentryInstance({
+      enableTelemetry: options.telemetry,
+      isDryRun: options.dryRun,
+      pluginName: PLUGIN_NAME,
+      pluginVersion: PLUGIN_VERSION,
+      options,
+    });
 
     if (options.enableBundleAnalysis) {
-      const output = new Output(normalizedOptions.options);
-
       plugins.push(
+        telemetryPlugin({
+          sentryClient: sentryConfig.sentryClient,
+          sentryScope: sentryConfig.sentryScope,
+          shouldSendTelemetry: options.telemetry,
+        }),
         viteBundleAnalysisPlugin({
           output,
           pluginName: PLUGIN_NAME,
