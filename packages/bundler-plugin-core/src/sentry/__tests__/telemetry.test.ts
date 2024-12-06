@@ -23,42 +23,24 @@ afterEach(() => {
 describe("telemetry", () => {
   describe("createSentryInstance", () => {
     it("creates instance with telemetry enabled", () => {
-      const options = {
-        telemetry: true,
-        dryRun: false,
-      } as NormalizedOptions;
-      const pluginInfo = {
-        name: "test-plugin",
-        version: "1.0.0",
-      };
-
-      const { sentryClient, sentryScope } = createSentryInstance(
-        true,
-        false,
-        pluginInfo,
-        options,
-      );
+      const { sentryClient, sentryScope } = createSentryInstance({
+        enableTelemetry: true,
+        isDryRun: false,
+        pluginName: "test-plugin",
+        pluginVersion: "1.0.0",
+      });
 
       expect(sentryClient).toBeDefined();
       expect(sentryScope).toBeDefined();
     });
 
     it("creates instance with telemetry disabled", () => {
-      const options = {
-        telemetry: false,
-        dryRun: false,
-      } as NormalizedOptions;
-      const pluginInfo = {
-        name: "test-plugin",
-        version: "1.0.0",
-      };
-
-      const { sentryClient, sentryScope } = createSentryInstance(
-        false,
-        false,
-        pluginInfo,
-        options,
-      );
+      const { sentryClient, sentryScope } = createSentryInstance({
+        enableTelemetry: false,
+        isDryRun: false,
+        pluginName: "test-plugin",
+        pluginVersion: "1.0.0",
+      });
 
       expect(sentryClient).toBeDefined();
       expect(sentryScope).toBeDefined();

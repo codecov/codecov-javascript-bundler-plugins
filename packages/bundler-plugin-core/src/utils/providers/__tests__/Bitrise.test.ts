@@ -84,6 +84,7 @@ describe("Bitrise Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await Bitrise.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -128,6 +129,7 @@ describe("Bitrise Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await Bitrise.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -172,6 +174,7 @@ describe("Bitrise Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await Bitrise.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -226,6 +229,7 @@ describe("Bitrise Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await Bitrise.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);

@@ -77,6 +77,7 @@ describe("Jenkins CI Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await JenkinsCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -110,6 +111,7 @@ describe("Jenkins CI Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await JenkinsCI.getServiceParams(inputs, output);
     expect(params.slug).toBe("testOrg/testRepo");
@@ -149,6 +151,7 @@ describe("Jenkins CI Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await JenkinsCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -187,6 +190,7 @@ describe("Jenkins CI Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await JenkinsCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);

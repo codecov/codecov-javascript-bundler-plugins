@@ -69,6 +69,7 @@ describe("Bitbucket Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await Bitbucket.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -104,6 +105,7 @@ describe("Bitbucket Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await Bitbucket.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -138,6 +140,7 @@ describe("Bitbucket Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await Bitbucket.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -180,6 +183,7 @@ describe("Bitbucket Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await Bitbucket.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -224,6 +228,7 @@ describe("Bitbucket Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await Bitbucket.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
