@@ -37,7 +37,7 @@ function _getBranch(
 ): ProviderServiceParams["branch"] {
   const { args, envs } = inputs;
   const branch = args?.branch ?? envs?.GIT_BRANCH ?? envs?.BRANCH_NAME ?? null;
-  if (branch !== "") {
+  if (branch !== "" && branch !== null) {
     debug(`Using branch: ${branch}`, { enabled: output.debug });
     return branch;
   }
@@ -91,7 +91,7 @@ function _getSHA(
 ): ProviderServiceParams["commit"] {
   const { args, envs } = inputs;
   const sha = args?.sha ?? envs?.GIT_COMMIT ?? null;
-  if (sha !== "") {
+  if (sha !== "" && sha !== null) {
     debug(`Using commit: ${sha}`, { enabled: output.debug });
     return sha;
   }
