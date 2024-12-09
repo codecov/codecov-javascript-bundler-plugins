@@ -40,9 +40,13 @@ export function createSentryInstance({
   sentryScope: Scope;
   sentryClient: Client;
 } {
+  // setting to undefined will ensure that no data is sent
   let sampleRate = undefined;
   let tracesSampleRate = undefined;
   // just being really explicit here as to what we're checking for
+  // currently we're not tracking dry runs as they're more for debugging, and
+  // are not interacting with our systems - up for debate whether we want to
+  // keep this
   if (enableTelemetry === true && isDryRun === false) {
     sampleRate = 1;
     tracesSampleRate = 1;
@@ -65,6 +69,7 @@ export function createSentryInstance({
 
     beforeSend: (event) => {
       event.exception?.values?.forEach((exception) => {
+        // Stack track may have some PII
         delete exception.stacktrace;
       });
 
@@ -110,12 +115,15 @@ export function setTelemetryDataOnScope(
   bundler: string,
   metaFramework?: string,
 ) {
+  // some general information about where the plugins are being ram
   scope.setTag("node", process.version);
   scope.setTag("platform", process.platform);
 
+  // determine which plugin and it's version that's being used
   scope.setTag("plugin.name", pluginInfo.name);
   scope.setTag("plugin.version", pluginInfo.version);
 
+  // determine the method of authorization
   let authMode = options.dryRun ? "dry-run" : "tokenless";
   if (options.uploadToken && options.uploadToken !== "") {
     authMode = "token";
@@ -124,12 +132,15 @@ export function setTelemetryDataOnScope(
   }
   scope.setTag("auth_mode", authMode);
 
+  // determine what git services are being used to auth with tokenless
   if (options.gitService) {
     scope.setTag("git_service", options.gitService);
   }
 
+  // want to see if we're mainly running in ci envs compared to local builds
   scope.setTag("ci", !!process.env.CI);
 
+  // track which bundlers and meta-frameworks are being used
   scope.setTag("meta_framework", metaFramework ?? "none");
   scope.setTag("bundler", bundler);
 }
@@ -164,8 +175,8 @@ export function telemetryPlugin({
         );
         startSpan(
           {
-            name: "Codecov Bundler Plugin execution",
-            op: "bundler-plugin-startup",
+            name: "Codecov Bundler Plugin Execution",
+            op: "bundler-plugin-execution",
             scope: sentryScope,
           },
           () => {
