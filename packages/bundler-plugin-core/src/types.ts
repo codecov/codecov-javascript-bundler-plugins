@@ -51,6 +51,8 @@ export interface OutputPayload {
 
 export interface BundleAnalysisUploadPluginArgs {
   output: Output;
+  pluginName: string;
+  pluginVersion: string;
 }
 
 export interface ExtendedBAUploadArgs<TArgs extends object>
@@ -143,6 +145,15 @@ export interface Options {
    * Defaults to `false`
    */
   dryRun?: boolean;
+
+  /**
+   * When enabled telemetry data will be sent to Codecov.
+   *
+   * Example: `telemetry: false`
+   *
+   * Defaults to `true`
+   */
+  telemetry?: boolean;
 
   /** Options for OIDC authentication. */
   oidc?: {

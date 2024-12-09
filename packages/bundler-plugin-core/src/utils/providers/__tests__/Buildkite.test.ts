@@ -68,6 +68,7 @@ describe("Buildkite Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await Buildkite.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -108,6 +109,7 @@ describe("Buildkite Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await Buildkite.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
