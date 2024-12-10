@@ -3,14 +3,38 @@ comment:
 
 component_management:
   individual_components:
+    - component_id: package_analyzer
+      name: Bundle Analyzer
+      paths:
+        - packages/bundler-analyzer/**
     - component_id: package_core
       name: Plugin core
       paths:
         - packages/bundler-plugin-core/**
+    - component_id: package_nextjs_webpack
+      name: Next.js Webpack plugin
+      paths:
+        - packages/nextjs-webpack-plugin/**
+    - component_id: package_nuxt
+      name: Nuxt plugin
+      paths:
+        - packages/nuxt-plugin/**
+    - component_id: package_remix_vite
+      name: Remix Vite plugin
+      paths:
+        - packages/remix-vite-plugin/**
     - component_id: package_rollup
       name: Rollup plugin
       paths:
         - packages/rollup-plugin/**
+    - component_id: package_solidstart
+      name: SolidStart plugin
+      paths:
+        - packages/solidstart-plugin/**
+    - component_id: package_sveltekit
+      name: SvelteKit plugin
+      paths:
+        - packages/sveltekit-plugin/**
     - component_id: package_vite
       name: Vite plugin
       paths:
