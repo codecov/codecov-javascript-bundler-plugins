@@ -24,6 +24,7 @@ export default defineConfig({
       bundleName: "test-vite-v5",
       uploadToken: "test-token",
       apiUrl: process.env.API_URL,
+      telemetry: false,
     }),
   ],
 });

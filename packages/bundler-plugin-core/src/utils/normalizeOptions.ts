@@ -146,6 +146,11 @@ const optionsSchemaFactory = (options: Options) =>
       )
       .optional(),
     oidc: OIDCSchema.optional(),
+    telemetry: z
+      .boolean({
+        invalid_type_error: "`telemetry` must be a boolean.",
+      })
+      .default(true),
   });
 
 interface NormalizedOptionsFailure {
