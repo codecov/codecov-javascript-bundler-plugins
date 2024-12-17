@@ -9,7 +9,7 @@ const viteConfig = (version: number, format: string) =>
   `fixtures/generate-bundle-stats/vite/vite-v${version}-${format}.config.*`;
 const viteApp = "test-apps/vite";
 
-const VERSIONS = [4, 5];
+const VERSIONS = [4, 5, 6];
 // Default Rollup formats: https://rollupjs.org/configuration-options/#output-format
 const FORMATS = [
   { format: "amd", expected: "amd" },
