@@ -85,7 +85,7 @@ const codecovAstroPlugin = (options: Options): AstroIntegration => ({
         const astroPlugin = astroPluginFactory({
           ...options,
           target,
-        }) as PluginOption[];
+        }) as PluginOption;
         vite.plugins.push(astroPlugin);
       }
     },

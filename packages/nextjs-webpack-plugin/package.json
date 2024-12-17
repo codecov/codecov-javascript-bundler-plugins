@@ -54,14 +54,14 @@
     "@rollup/plugin-replace": "^5.0.5",
     "@types/node": "^20.10.0",
     "@types/webpack": "^5.28.5",
-    "@vitest/coverage-v8": "^1.5.0",
+    "@vitest/coverage-v8": "^2.1.8",
     "codecovProdRollupPlugin": "npm:@codecov/rollup-plugin@1.5.0",
-    "msw": "^2.1.5",
+    "msw": "^2.7.0",
     "ts-node": "^10.9.2",
-    "typedoc": "^0.25.12",
+    "typedoc": "^0.27.5",
     "typescript": "^5.3.3",
     "unbuild": "^2.0.0",
-    "vitest": "^1.5.0",
+    "vitest": "^2.1.8",
     "webpack": "^5.96.1"
   },
   "peerDependencies": {
