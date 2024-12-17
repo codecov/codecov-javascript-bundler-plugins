@@ -74,7 +74,7 @@ const codecovNuxtPluginFactory = createVitePlugin<Options, true>(
  *
  * @see {@link @codecov/bundler-plugin-core!Options | Options} for list of options.
  */
-const codecovNuxtPlugin: NuxtModule<Options> = defineNuxtModule<Options>({
+const codecovNuxtPlugin = defineNuxtModule<Options>({
   meta: {
     name: PLUGIN_NAME,
     configKey: "codecovNuxtPlugin",
@@ -82,6 +82,6 @@ const codecovNuxtPlugin: NuxtModule<Options> = defineNuxtModule<Options>({
   setup(options) {
     addVitePlugin(() => codecovNuxtPluginFactory(options));
   },
-});
+}) as NuxtModule<Options>;
 
 export default codecovNuxtPlugin;

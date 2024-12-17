@@ -285,6 +285,7 @@ jobs:
         example:
           [
             "astro",
+            "astro-5",
             "bundle-analyzer-cli",
             "bundle-analyzer-lib-cjs",
             "bundle-analyzer-lib-esm",
@@ -349,6 +350,8 @@ jobs:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           ASTRO_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           ASTRO_API_URL: ${{ secrets.CODECOV_API_URL }}
+          ASTRO_5_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
+          ASTRO_5_API_URL: ${{ secrets.CODECOV_API_URL }}
           BUNDLE_ANALYZER_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
           BUNDLE_ANALYZER_API_URL: ${{ secrets.CODECOV_API_URL }}
           NEXT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN }}
@@ -382,6 +385,7 @@ jobs:
         example:
           [
             "astro",
+            "astro-5",
             "bundle-analyzer-cli",
             "bundle-analyzer-lib-cjs",
             "bundle-analyzer-lib-esm",
@@ -446,6 +450,8 @@ jobs:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           ASTRO_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
           ASTRO_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
+          ASTRO_5_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
+          ASTRO_5_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
           BUNDLE_ANALYZER_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
           BUNDLE_ANALYZER_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
           NEXT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}

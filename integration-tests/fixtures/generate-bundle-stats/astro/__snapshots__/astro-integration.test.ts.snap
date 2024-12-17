@@ -125,3 +125,129 @@ exports[`Generating astro stats 4 {"format":"module","expected":"esm"} matches t
   "version": "3",
 }
 `;
+
+exports[`Generating astro stats 5 {"format":"es","expected":"esm"} matches the snapshot 1`] = `
+{
+  "assets": ExpectArrayContaining {},
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-astro-v5-client-esm",
+  "bundler": {
+    "name": "rollup",
+    "version": "4.22.4",
+  },
+  "chunks": ExpectArrayContaining {},
+  "duration": Any<Number>,
+  "modules": ExpectArrayContaining {},
+  "outputPath": StringContaining "dist",
+  "plugin": {
+    "name": StringMatching "@codecov/astro-plugin",
+    "version": "1.6.0",
+  },
+  "version": "3",
+}
+`;
+
+exports[`Generating astro stats 5 {"format":"es","expected":"esm"} matches the snapshot 2`] = `
+{
+  "assets": ExpectArrayContaining {},
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-astro-v5-server-esm",
+  "bundler": {
+    "name": "rollup",
+    "version": "4.22.4",
+  },
+  "chunks": ExpectArrayContaining {},
+  "duration": Any<Number>,
+  "modules": ExpectArrayContaining {},
+  "outputPath": StringContaining "dist",
+  "plugin": {
+    "name": StringMatching "@codecov/astro-plugin",
+    "version": "1.6.0",
+  },
+  "version": "3",
+}
+`;
+
+exports[`Generating astro stats 5 {"format":"esm","expected":"esm"} matches the snapshot 1`] = `
+{
+  "assets": ExpectArrayContaining {},
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-astro-v5-client-esm",
+  "bundler": {
+    "name": "rollup",
+    "version": "4.22.4",
+  },
+  "chunks": ExpectArrayContaining {},
+  "duration": Any<Number>,
+  "modules": ExpectArrayContaining {},
+  "outputPath": StringContaining "dist",
+  "plugin": {
+    "name": StringMatching "@codecov/astro-plugin",
+    "version": "1.6.0",
+  },
+  "version": "3",
+}
+`;
+
+exports[`Generating astro stats 5 {"format":"esm","expected":"esm"} matches the snapshot 2`] = `
+{
+  "assets": ExpectArrayContaining {},
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-astro-v5-server-esm",
+  "bundler": {
+    "name": "rollup",
+    "version": "4.22.4",
+  },
+  "chunks": ExpectArrayContaining {},
+  "duration": Any<Number>,
+  "modules": ExpectArrayContaining {},
+  "outputPath": StringContaining "dist",
+  "plugin": {
+    "name": StringMatching "@codecov/astro-plugin",
+    "version": "1.6.0",
+  },
+  "version": "3",
+}
+`;
+
+exports[`Generating astro stats 5 {"format":"module","expected":"esm"} matches the snapshot 1`] = `
+{
+  "assets": ExpectArrayContaining {},
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-astro-v5-client-esm",
+  "bundler": {
+    "name": "rollup",
+    "version": "4.22.4",
+  },
+  "chunks": ExpectArrayContaining {},
+  "duration": Any<Number>,
+  "modules": ExpectArrayContaining {},
+  "outputPath": StringContaining "dist",
+  "plugin": {
+    "name": StringMatching "@codecov/astro-plugin",
+    "version": "1.6.0",
+  },
+  "version": "3",
+}
+`;
+
+exports[`Generating astro stats 5 {"format":"module","expected":"esm"} matches the snapshot 2`] = `
+{
+  "assets": ExpectArrayContaining {},
+  "builtAt": Any<Number>,
+  "bundleName": StringContaining "test-astro-v5-server-esm",
+  "bundler": {
+    "name": "rollup",
+    "version": "4.22.4",
+  },
+  "chunks": ExpectArrayContaining {},
+  "duration": Any<Number>,
+  "modules": ExpectArrayContaining {},
+  "outputPath": StringContaining "dist",
+  "plugin": {
+    "name": StringMatching "@codecov/astro-plugin",
+    "version": "1.6.0",
+  },
+  "version": "3",
+}
+`;

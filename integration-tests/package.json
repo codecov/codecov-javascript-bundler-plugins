@@ -28,7 +28,7 @@
   "dependencies": {
     "lodash": "^4.17.21",
     "solid-start": "^0.3.11",
-    "vite-plugin-solid": "^2.10.2"
+    "vite-plugin-solid": "^2.11.0"
   },
   "devDependencies": {
     "@codecov/astro-plugin": "workspace:*",
@@ -44,13 +44,13 @@
     "@remix-run/dev": "^2.9.2",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
-    "@solidjs/start": "^1.0.6",
-    "@sveltejs/kit": "^2.5.25",
+    "@solidjs/start": "^1.0.10",
+    "@sveltejs/kit": "^2.12.1",
     "@types/bun": "^1.0.6",
     "@types/node": "^20.11.15",
     "bun": "^1.1.4",
     "isbot": "^4.1.0",
-    "nuxt": "3.12.4",
+    "nuxt": "3.14.1592",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rollupV3": "npm:rollup@3.29.5",
@@ -58,6 +58,7 @@
     "ts-node": "^10.9.2",
     "viteV4": "npm:vite@4.5.5",
     "viteV5": "npm:vite@5.2.14",
+    "viteV6": "npm:vite@6.0.3",
     "vue-routerV4": "npm:vue-router@4.3.0",
     "vueV3": "npm:vue@3.4.21",
     "webpackV5": "npm:webpack@5.90.0"
