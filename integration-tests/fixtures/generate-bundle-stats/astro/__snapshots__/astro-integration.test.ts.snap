@@ -133,7 +133,7 @@ exports[`Generating astro stats 5 {"format":"es","expected":"esm"} matches the s
   "bundleName": StringContaining "test-astro-v5-client-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.22.4",
+    "version": "4.27.3",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -154,7 +154,7 @@ exports[`Generating astro stats 5 {"format":"es","expected":"esm"} matches the s
   "bundleName": StringContaining "test-astro-v5-server-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.22.4",
+    "version": "4.27.3",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -175,7 +175,7 @@ exports[`Generating astro stats 5 {"format":"esm","expected":"esm"} matches the 
   "bundleName": StringContaining "test-astro-v5-client-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.22.4",
+    "version": "4.27.3",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -196,7 +196,7 @@ exports[`Generating astro stats 5 {"format":"esm","expected":"esm"} matches the 
   "bundleName": StringContaining "test-astro-v5-server-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.22.4",
+    "version": "4.27.3",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -217,7 +217,7 @@ exports[`Generating astro stats 5 {"format":"module","expected":"esm"} matches t
   "bundleName": StringContaining "test-astro-v5-client-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.22.4",
+    "version": "4.27.3",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -238,7 +238,7 @@ exports[`Generating astro stats 5 {"format":"module","expected":"esm"} matches t
   "bundleName": StringContaining "test-astro-v5-server-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.22.4",
+    "version": "4.27.3",
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
