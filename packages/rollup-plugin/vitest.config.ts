@@ -1,10 +1,10 @@
 import replace from "@rollup/plugin-replace";
-import { defineProject } from "vitest/config";
+import { defineConfig } from "vitest/config";
 import { config } from "../../vitest.shared";
 
 const packageJson = await import("./package.json");
 
-export default defineProject({
+export default defineConfig({
   ...config,
   plugins: [
     {
