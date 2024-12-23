@@ -667,40 +667,6 @@ importers:
         specifier: npm:webpack@5.90.0
         version: webpack@5.90.0(esbuild@0.17.19)
 
-  integration-tests/test-apps/astro:
-    dependencies:
-      '@astrojs/check':
-        specifier: ^0.9.4
-        version: 0.9.4(prettier@3.2.4)(typescript@5.7.2)
-      '@astrojs/node':
-        specifier: ^8.3.4
-        version: 8.3.4(astro@4.16.14(@types/node@20.12.12)(rollup@4.27.3)(terser@5.27.0)(typescript@5.7.2))
-      '@astrojs/react':
-        specifier: ^3.6.3
-        version: 3.6.3(@types/node@20.12.12)(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.27.0)
-      '@types/react':
-        specifier: ^18.3.12
-        version: 18.3.12
-      '@types/react-dom':
-        specifier: ^18.3.1
-        version: 18.3.1
-      astro:
-        specifier: ^4.16.13
-        version: 4.16.14(@types/node@20.12.12)(rollup@4.27.3)(terser@5.27.0)(typescript@5.7.2)
-      react:
-        specifier: ^18.3.1
-        version: 18.3.1
-      react-dom:
-        specifier: ^18.3.1
-        version: 18.3.1(react@18.3.1)
-      typescript:
-        specifier: ^5.7.2
-        version: 5.7.2
-    devDependencies:
-      '@codecov/astro-plugin':
-        specifier: workspace:*
-        version: link:../../../packages/astro-plugin
-
   integration-tests/test-apps/bundle-analyzer/dotenv-vercel:
     devDependencies:
       '@codecov/bundle-analyzer':
