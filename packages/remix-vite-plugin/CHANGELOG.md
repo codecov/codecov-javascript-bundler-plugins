@@ -1,5 +1,17 @@
 # @codecov/remix-vite-plugin
 
+## 1.7.0
+
+### Minor Changes
+
+- d2e73a6: Add in support for Vite V6, Astro V5, and update related dependencies
+
+### Patch Changes
+
+- Updated dependencies [d2e73a6]
+  - @codecov/bundler-plugin-core@1.7.0
+  - @codecov/vite-plugin@1.7.0
+
 ## 1.6.0
 
 ### Minor Changes
