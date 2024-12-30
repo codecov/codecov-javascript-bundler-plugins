@@ -1,5 +1,11 @@
 # @codecov/bundler-plugin-core
 
+## 1.7.0
+
+### Minor Changes
+
+- d2e73a6: Add in support for Vite V6, Astro V5, and update related dependencies
+
 ## 1.6.0
 
 ### Minor Changes

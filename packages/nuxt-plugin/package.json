@@ -1,6 +1,6 @@
 {
   "name": "@codecov/nuxt-plugin",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "Official Codecov Nuxt plugin",
   "author": "Codecov",
   "license": "MIT",
