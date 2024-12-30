@@ -1,5 +1,5 @@
 import replace from "@rollup/plugin-replace";
-import { defineProject } from "vitest/config";
+import { defineConfig } from "vitest/config";
 import { config } from "../../vitest.shared";
 import "ts-node/register";
 
@@ -10,16 +10,12 @@ const packageJson = await import("./package.json", {
   assert: { type: "json" },
 });
 
-const setupTsNode = {
+export default defineConfig({
+  ...config,
   files: ["./setup.ts"],
   transformMode: {
     web: [/\.tsx?$/],
   },
-};
-
-export default defineProject({
-  ...config,
-  ...setupTsNode,
   plugins: [
     // @ts-expect-error - using rollup plugin
     {

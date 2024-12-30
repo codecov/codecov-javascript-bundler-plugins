@@ -1,11 +1,11 @@
-import { describe, it, expect, afterAll, beforeEach } from "vitest";
+import { describe, it, expect, afterAll, beforeAll } from "vitest";
 import childProcess from "child_process";
 import * as td from "testdouble";
 import { SPAWN_PROCESS_BUFFER_SIZE } from "../constants.ts";
 
 import { findGitService, parseGitService, splitPath } from "../findGitService";
 
-describe.concurrent("findGitService", () => {
+describe("findGitService", () => {
   const spawnSync = td.replace(childProcess, "spawnSync");
 
   afterAll(() => {
@@ -13,7 +13,7 @@ describe.concurrent("findGitService", () => {
   });
 
   describe('git remote "origin" exists', () => {
-    beforeEach(() => {
+    beforeAll(() => {
       td.when(
         spawnSync("git", ["remote"], {
           maxBuffer: SPAWN_PROCESS_BUFFER_SIZE,
@@ -37,7 +37,7 @@ describe.concurrent("findGitService", () => {
   });
 
   describe('git remote "origin" does not exist', () => {
-    beforeEach(() => {
+    beforeAll(() => {
       td.when(
         spawnSync("git", ["remote"], {
           maxBuffer: SPAWN_PROCESS_BUFFER_SIZE,
@@ -63,7 +63,7 @@ describe.concurrent("findGitService", () => {
   });
 
   describe("there are no remotes", () => {
-    beforeEach(() => {
+    beforeAll(() => {
       td.when(
         spawnSync("git", ["remote"], {
           maxBuffer: SPAWN_PROCESS_BUFFER_SIZE,

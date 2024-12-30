@@ -3,9 +3,9 @@ import { $ } from "bun";
 import { describe, it, expect, afterEach, beforeEach } from "bun:test";
 import { GenerateConfig } from "../../../scripts/gen-config";
 
-const astroApp = "test-apps/astro";
+const astroApp = (version: number) => `test-apps/astro-${version}`;
 
-const VERSIONS = [4];
+const VERSIONS = [4, 5];
 
 const FORMATS = [
   { format: "es", expected: "esm" },
@@ -22,11 +22,11 @@ describe("Generating astro stats", () => {
           configFileName: "astro",
           format,
           detectFormat: "esm",
-          version: `v4`,
-          detectVersion: "v4",
+          version: `v${version}`,
+          detectVersion: `v4`,
           file_format: "mjs",
           enableSourceMaps: false,
-          overrideOutputPath: `${astroApp}/astro.config.mjs`,
+          overrideOutputPath: `${astroApp(version)}/astro.config.mjs`,
         });
 
         await config.createConfig();
@@ -34,8 +34,8 @@ describe("Generating astro stats", () => {
       });
 
       afterEach(async () => {
-        await $`rm -rf ${astroApp}/astro.config.mjs`;
-        await $`rm -rf ${astroApp}/dist`;
+        await $`rm -rf ${astroApp(version)}/astro.config.mjs`;
+        await $`rm -rf ${astroApp(version)}/dist`;
         await $`rm -rf ./fixtures/generate-bundle-stats/astro/dist`;
       });
 
@@ -46,7 +46,7 @@ describe("Generating astro stats", () => {
           const API_URL = `http://localhost:8000/test-url/${id}/200/false`;
 
           // prepare and build the app
-          await $`cd test-apps/astro && API_URL=${API_URL} pnpm run build`;
+          await $`cd test-apps/astro-${version} && API_URL=${API_URL} pnpm run build`;
 
           const serverBundleName = `test-astro-v${version}-server-esm`;
           const clientBundleName = `test-astro-v${version}-client-${expected}`;
@@ -150,11 +150,11 @@ describe("Generating astro stats", () => {
           configFileName: "astro",
           format: "esm",
           detectFormat: "esm",
-          version: `v4`,
+          version: `v${version}`,
           detectVersion: "v4",
           file_format: "mjs",
           enableSourceMaps: false,
-          overrideOutputPath: `${astroApp}/astro.config.mjs`,
+          overrideOutputPath: `${astroApp(version)}/astro.config.mjs`,
         });
 
         await config.createConfig();
@@ -163,8 +163,8 @@ describe("Generating astro stats", () => {
       });
 
       afterEach(async () => {
-        await $`rm -rf ${astroApp}/astro.config.mjs`;
-        await $`rm -rf ${astroApp}/dist`;
+        await $`rm -rf ${astroApp(version)}/astro.config.mjs`;
+        await $`rm -rf ${astroApp(version)}/dist`;
         await $`rm -rf ./fixtures/generate-bundle-stats/astro/dist`;
       });
 
@@ -176,7 +176,7 @@ describe("Generating astro stats", () => {
 
           // prepare and build the app
           const { exitCode, stdout } =
-            await $`cd test-apps/astro && API_URL=${API_URL} pnpm run build`.nothrow();
+            await $`cd test-apps/astro-${version} && API_URL=${API_URL} pnpm run build`.nothrow();
 
           expect(exitCode).toBe(1);
           expect(stdout.toString()).toContain(

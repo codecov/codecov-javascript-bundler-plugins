@@ -1,6 +1,6 @@
-import { defineProject } from "vitest/config";
+import { defineConfig } from "vitest/config";
 import { config } from "../../vitest.shared";
 
-export default defineProject({
+export default defineConfig({
   ...config,
 });
