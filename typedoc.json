@@ -12,5 +12,5 @@
   "excludeNotDocumented": true,
   "useTsLinkResolution": true,
   "githubPages": true,
-  "plugin": ["./typedoc/plugin-remove-references.js"]
+  "plugin": ["./typedoc/plugin-remove-references.mjs"]
 }

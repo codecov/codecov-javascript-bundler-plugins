@@ -22,9 +22,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-const { ReflectionKind, Converter } = require("typedoc");
+import { ReflectionKind, Converter } from "typedoc";
 
-function load({ application }) {
+export function load({ application }) {
   application.converter.on(Converter.EVENT_RESOLVE_BEGIN, (context) => {
     for (const reflection of context.project.getReflectionsByKind(
       ReflectionKind.Reference,
@@ -33,5 +33,3 @@ function load({ application }) {
     }
   });
 }
-
-module.exports = { load };

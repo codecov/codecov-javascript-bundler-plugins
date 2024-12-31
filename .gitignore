@@ -137,4 +137,4 @@ dist
 
 # typedoc generated files
 typedoc/*
-!typedoc/plugin-remove-references.js
+!typedoc/plugin-remove-references.mjs
