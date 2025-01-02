@@ -12,4 +12,4 @@
 "@codecov/bundle-analyzer": minor
 ---
 
-Add Sentry to the bundler plugins to start collecting issues and telemerty
+Add Sentry to the bundler plugins to start collecting issues and telemetry
