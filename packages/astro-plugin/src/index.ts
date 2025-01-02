@@ -42,7 +42,6 @@ const astroPluginFactory = createVitePlugin<AstroPluginFactoryOptions, true>(
 
     const plugins: UnpluginOptions[] = [];
     const options = normalizedOptions.options;
-    const output = new Output(options);
     const sentryConfig = createSentryInstance({
       enableTelemetry: options.telemetry,
       isDryRun: options.dryRun,
@@ -52,7 +51,7 @@ const astroPluginFactory = createVitePlugin<AstroPluginFactoryOptions, true>(
       bundler: unpluginMetaContext.framework,
       metaFramework: "astro",
     });
-
+    const output = new Output(options, sentryConfig);
     if (options.enableBundleAnalysis) {
       plugins.push(
         telemetryPlugin({

@@ -38,7 +38,6 @@ const codecovNuxtPluginFactory = createVitePlugin<Options, true>(
 
     const plugins: UnpluginOptions[] = [];
     const options = normalizedOptions.options;
-    const output = new Output(options);
     const sentryConfig = createSentryInstance({
       enableTelemetry: options.telemetry,
       isDryRun: options.dryRun,
@@ -48,6 +47,7 @@ const codecovNuxtPluginFactory = createVitePlugin<Options, true>(
       bundler: unpluginMetaContext.framework,
       metaFramework: "nuxt",
     });
+    const output = new Output(options, sentryConfig);
 
     if (options.enableBundleAnalysis) {
       plugins.push(

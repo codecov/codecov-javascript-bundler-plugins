@@ -46,7 +46,6 @@ const codecovWebpackPluginFactory = createWebpackPlugin<Options, true>(
 
     const plugins: UnpluginOptions[] = [];
     const options = normalizedOptions.options;
-    const output = new Output(options);
     const sentryConfig = createSentryInstance({
       enableTelemetry: options.telemetry,
       isDryRun: options.dryRun,
@@ -55,6 +54,7 @@ const codecovWebpackPluginFactory = createWebpackPlugin<Options, true>(
       options,
       bundler: unpluginMetaContext.framework,
     });
+    const output = new Output(options, sentryConfig);
 
     if (options.enableBundleAnalysis) {
       plugins.push(
