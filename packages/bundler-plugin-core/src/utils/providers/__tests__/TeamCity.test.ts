@@ -73,6 +73,7 @@ describe("TeamCity Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await TeamCity.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -115,6 +116,7 @@ describe("TeamCity Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await TeamCity.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -164,6 +166,7 @@ describe("TeamCity Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await TeamCity.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -200,6 +203,7 @@ describe("TeamCity Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await TeamCity.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);

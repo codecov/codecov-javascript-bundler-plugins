@@ -19,6 +19,7 @@ module.exports = {
       bundleName: "test-webpack-v5",
       uploadToken: "test-token",
       apiUrl: process.env.API_URL,
+      telemetry: false,
     }),
   ],
 };

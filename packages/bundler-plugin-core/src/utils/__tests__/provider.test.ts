@@ -47,6 +47,7 @@ describe("detectProvider", () => {
         dryRun: true,
         enableBundleAnalysis: true,
         retryCount: 0,
+        telemetry: false,
       });
 
       const result = await detectProvider(inputs, output);
@@ -65,6 +66,7 @@ describe("detectProvider", () => {
         dryRun: true,
         enableBundleAnalysis: true,
         retryCount: 0,
+        telemetry: false,
       });
 
       try {
