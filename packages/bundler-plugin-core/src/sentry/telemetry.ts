@@ -40,9 +40,9 @@ export function createSentryInstance({
   sentryScope: Scope;
   sentryClient: Client;
 } {
-  // setting to undefined will ensure that no data is sent
-  let sampleRate = undefined;
-  let tracesSampleRate = undefined;
+  // setting to 0 will ensure that no data is sent
+  let sampleRate = 0;
+  let tracesSampleRate = 0;
   // just being really explicit here as to what we're checking for
   // currently we're not tracking dry runs as they're more for debugging, and
   // are not interacting with our systems - up for debate whether we want to
