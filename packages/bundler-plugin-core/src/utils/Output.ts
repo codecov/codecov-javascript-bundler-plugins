@@ -148,33 +148,34 @@ class Output {
   }
 
   async write(emitError?: boolean) {
-    await startSpan(
+    if (this.dryRun) return;
+
+    if (!this.bundleName || this.bundleName === "") return;
+
+    const args: UploadOverrides = {
+      branch: this.branch,
+      build: this.build,
+      pr: this.pr,
+      sha: this.sha,
+      slug: this.slug,
+    };
+    const envs = process.env;
+    const inputs: ProviderUtilInputs = { envs, args };
+
+    return await startSpan(
       {
         name: "Output Write",
         op: "output.write",
         scope: this.sentryScope,
         forceTransaction: true,
       },
-      async () => {
-        if (this.dryRun) return;
-
-        if (!this.bundleName || this.bundleName === "") return;
-
-        const args: UploadOverrides = {
-          branch: this.branch,
-          build: this.build,
-          pr: this.pr,
-          sha: this.sha,
-          slug: this.slug,
-        };
-        const envs = process.env;
-        const inputs: ProviderUtilInputs = { envs, args };
-
+      async (outputWriteSpan) => {
         const provider = await startSpan(
           {
             name: "Detect Provider",
             op: "output.write.detectProvider",
             scope: this.sentryScope,
+            parentSpan: outputWriteSpan,
           },
           async () => {
             let detectedProvider;
@@ -236,6 +237,7 @@ class Output {
             name: "Get Pre-Signed URL",
             op: "output.write.getPreSignedURL",
             scope: this.sentryScope,
+            parentSpan: outputWriteSpan,
           },
           async () => {
             try {
@@ -281,6 +283,7 @@ class Output {
             name: "Upload Stats",
             op: "output.write.uploadStats",
             scope: this.sentryScope,
+            parentSpan: outputWriteSpan,
           },
           async () => {
             try {
