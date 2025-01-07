@@ -212,6 +212,7 @@ class Output {
             },
           );
 
+          // early return if no provider
           if (!provider) return;
 
           if (this.sentryScope) {
@@ -231,8 +232,7 @@ class Output {
             }
           }
 
-          let url = "";
-          await startSpan(
+          const presignedURL = await startSpan(
             {
               name: "Get Pre-Signed URL",
               op: "output.write.getPreSignedURL",
@@ -240,6 +240,7 @@ class Output {
               parentSpan: outputWriteSpan,
             },
             async () => {
+              let url = "";
               try {
                 url = await getPreSignedURL({
                   apiUrl: this.apiUrl,
@@ -275,8 +276,13 @@ class Output {
                 });
                 return;
               }
+
+              return url;
             },
           );
+
+          // early return if no url
+          if (!presignedURL || presignedURL === "") return;
 
           await startSpan(
             {
@@ -288,7 +294,7 @@ class Output {
             async () => {
               try {
                 await uploadStats({
-                  preSignedUrl: url,
+                  preSignedUrl: presignedURL,
                   bundleName: this.bundleName,
                   message: this.bundleStatsToJson(),
                   retryCount: this?.retryCount,
