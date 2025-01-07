@@ -445,17 +445,11 @@ describe("Output", () => {
         setup({});
         const sentryClient = {
           captureMessage: vi.fn(),
-          getScope: vi.fn().mockReturnValue({
-            clone: vi.fn(),
-          }),
         } as unknown as Client;
 
         const sentryScope = {
           getClient: vi.fn(),
           setTag: vi.fn(),
-          getScope: vi.fn().mockReturnValue({
-            clone: vi.fn(),
-          }),
           addBreadcrumb: vi.fn(),
         } as unknown as Scope;
 
