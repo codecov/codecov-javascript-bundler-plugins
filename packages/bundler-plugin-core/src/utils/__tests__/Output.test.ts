@@ -18,6 +18,15 @@ import { Output } from "../Output";
 
 vi.mock("../provider");
 
+vi.mock("@sentry/core", async () => {
+  const original = await vi.importActual("@sentry/core");
+  return {
+    ...original,
+    startSpan: (_data: unknown, callback: (...args: unknown[]) => unknown) =>
+      callback(),
+  };
+});
+
 const mockedDetectProvider = detectProvider as Mock;
 
 afterEach(() => {
@@ -436,11 +445,17 @@ describe("Output", () => {
         setup({});
         const sentryClient = {
           captureMessage: vi.fn(),
+          getScope: vi.fn().mockReturnValue({
+            clone: vi.fn(),
+          }),
         } as unknown as Client;
 
         const sentryScope = {
           getClient: vi.fn(),
           setTag: vi.fn(),
+          getScope: vi.fn().mockReturnValue({
+            clone: vi.fn(),
+          }),
           addBreadcrumb: vi.fn(),
         } as unknown as Scope;
 
