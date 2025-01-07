@@ -161,174 +161,177 @@ class Output {
     };
     const envs = process.env;
     const inputs: ProviderUtilInputs = { envs, args };
+    try {
+      return await startSpan(
+        {
+          name: "Output Write",
+          op: "output.write",
+          scope: this.sentryScope,
+          forceTransaction: true,
+        },
+        async (outputWriteSpan) => {
+          const provider = await startSpan(
+            {
+              name: "Detect Provider",
+              op: "output.write.detectProvider",
+              scope: this.sentryScope,
+              parentSpan: outputWriteSpan,
+            },
+            async () => {
+              let detectedProvider;
+              try {
+                detectedProvider = await detectProvider(inputs, this);
+              } catch (error) {
+                if (this.sentryClient && this.sentryScope) {
+                  this.sentryScope.addBreadcrumb({
+                    category: "output.write.detectProvider",
+                    level: "error",
+                    data: { error },
+                  });
+                  // this is being set as info because this could be caused by user error
+                  this.sentryClient.captureMessage(
+                    "Error in detectProvider",
+                    "info",
+                    undefined,
+                    this.sentryScope,
+                  );
+                  await safeFlushTelemetry(this.sentryClient);
+                }
 
-    return await startSpan(
-      {
-        name: "Output Write",
-        op: "output.write",
-        scope: this.sentryScope,
-        forceTransaction: true,
-      },
-      async (outputWriteSpan) => {
-        const provider = await startSpan(
-          {
-            name: "Detect Provider",
-            op: "output.write.detectProvider",
-            scope: this.sentryScope,
-            parentSpan: outputWriteSpan,
-          },
-          async () => {
-            let detectedProvider;
-            try {
-              detectedProvider = await detectProvider(inputs, this);
-            } catch (error) {
-              if (this.sentryClient && this.sentryScope) {
-                this.sentryScope.addBreadcrumb({
-                  category: "output.write.detectProvider",
-                  level: "error",
-                  data: { error },
+                if (emitError) {
+                  throw error;
+                }
+
+                debug(`Error getting provider: "${error}"`, {
+                  enabled: this.debug,
                 });
-                // this is being set as info because this could be caused by user error
-                this.sentryClient.captureMessage(
-                  "Error in detectProvider",
-                  "info",
-                  undefined,
-                  this.sentryScope,
-                );
-                await safeFlushTelemetry(this.sentryClient);
+                return;
               }
 
-              if (emitError) {
-                throw error;
-              }
+              return detectedProvider;
+            },
+          );
 
-              debug(`Error getting provider: "${error}"`, {
-                enabled: this.debug,
-              });
-              return;
+          if (!provider) return;
+
+          if (this.sentryScope) {
+            this.sentryScope.setTag("service", provider.service);
+
+            const slug = provider.slug ?? "";
+            const repoIndex = slug.lastIndexOf("/") + 1;
+            // -1 to trim the trailing slash
+            const owner = slug.substring(0, repoIndex - 1).trimEnd();
+            if (owner.length > 0) {
+              this.sentryScope.setTag("owner", owner);
             }
 
-            return detectedProvider;
-          },
-        );
-
-        if (!provider) return;
-
-        if (this.sentryScope) {
-          this.sentryScope.setTag("service", provider.service);
-
-          const slug = provider.slug ?? "";
-          const repoIndex = slug.lastIndexOf("/") + 1;
-          // -1 to trim the trailing slash
-          const owner = slug.substring(0, repoIndex - 1).trimEnd();
-          if (owner.length > 0) {
-            this.sentryScope.setTag("owner", owner);
+            const repo = slug.substring(repoIndex, slug.length);
+            if (repo.length > 0) {
+              this.sentryScope.setTag("repo", repo);
+            }
           }
 
-          const repo = slug.substring(repoIndex, slug.length);
-          if (repo.length > 0) {
-            this.sentryScope.setTag("repo", repo);
+          let url = "";
+          await startSpan(
+            {
+              name: "Get Pre-Signed URL",
+              op: "output.write.getPreSignedURL",
+              scope: this.sentryScope,
+              parentSpan: outputWriteSpan,
+            },
+            async () => {
+              try {
+                url = await getPreSignedURL({
+                  apiUrl: this.apiUrl,
+                  uploadToken: this.uploadToken,
+                  gitService: this.gitService,
+                  oidc: this.oidc,
+                  retryCount: this.retryCount,
+                  serviceParams: provider,
+                });
+              } catch (error) {
+                if (this.sentryClient && this.sentryScope) {
+                  this.sentryScope.addBreadcrumb({
+                    category: "output.write.getPreSignedURL",
+                    level: "error",
+                    data: { error },
+                  });
+                  // only setting this as info because this could be caused by user error
+                  this.sentryClient.captureMessage(
+                    "Error in getPreSignedURL",
+                    "info",
+                    undefined,
+                    this.sentryScope,
+                  );
+                  await safeFlushTelemetry(this.sentryClient);
+                }
+
+                if (emitError) {
+                  throw error;
+                }
+
+                debug(`Error getting pre-signed URL: "${error}"`, {
+                  enabled: this.debug,
+                });
+                return;
+              }
+            },
+          );
+
+          await startSpan(
+            {
+              name: "Upload Stats",
+              op: "output.write.uploadStats",
+              scope: this.sentryScope,
+              parentSpan: outputWriteSpan,
+            },
+            async () => {
+              try {
+                await uploadStats({
+                  preSignedUrl: url,
+                  bundleName: this.bundleName,
+                  message: this.bundleStatsToJson(),
+                  retryCount: this?.retryCount,
+                });
+              } catch (error) {
+                // this is being set as an error because this could not be caused by a user error
+                if (this.sentryClient && this.sentryScope) {
+                  this.sentryScope.addBreadcrumb({
+                    category: "output.write.uploadStats",
+                    level: "error",
+                    data: { error },
+                  });
+                  this.sentryClient.captureMessage(
+                    "Error in uploadStats",
+                    "error",
+                    undefined,
+                    this.sentryScope,
+                  );
+                  await safeFlushTelemetry(this.sentryClient);
+                }
+
+                if (emitError) {
+                  throw error;
+                }
+
+                debug(`Error uploading stats: "${error}"`, {
+                  enabled: this.debug,
+                });
+                return;
+              }
+            },
+          );
+
+          if (this.sentryClient) {
+            await safeFlushTelemetry(this.sentryClient);
           }
-        }
 
-        let url = "";
-        await startSpan(
-          {
-            name: "Get Pre-Signed URL",
-            op: "output.write.getPreSignedURL",
-            scope: this.sentryScope,
-            parentSpan: outputWriteSpan,
-          },
-          async () => {
-            try {
-              url = await getPreSignedURL({
-                apiUrl: this.apiUrl,
-                uploadToken: this.uploadToken,
-                gitService: this.gitService,
-                oidc: this.oidc,
-                retryCount: this.retryCount,
-                serviceParams: provider,
-              });
-            } catch (error) {
-              if (this.sentryClient && this.sentryScope) {
-                this.sentryScope.addBreadcrumb({
-                  category: "output.write.getPreSignedURL",
-                  level: "error",
-                  data: { error },
-                });
-                // only setting this as info because this could be caused by user error
-                this.sentryClient.captureMessage(
-                  "Error in getPreSignedURL",
-                  "info",
-                  undefined,
-                  this.sentryScope,
-                );
-                await safeFlushTelemetry(this.sentryClient);
-              }
-
-              if (emitError) {
-                throw error;
-              }
-
-              debug(`Error getting pre-signed URL: "${error}"`, {
-                enabled: this.debug,
-              });
-              return;
-            }
-          },
-        );
-
-        await startSpan(
-          {
-            name: "Upload Stats",
-            op: "output.write.uploadStats",
-            scope: this.sentryScope,
-            parentSpan: outputWriteSpan,
-          },
-          async () => {
-            try {
-              await uploadStats({
-                preSignedUrl: url,
-                bundleName: this.bundleName,
-                message: this.bundleStatsToJson(),
-                retryCount: this?.retryCount,
-              });
-            } catch (error) {
-              // this is being set as an error because this could not be caused by a user error
-              if (this.sentryClient && this.sentryScope) {
-                this.sentryScope.addBreadcrumb({
-                  category: "output.write.uploadStats",
-                  level: "error",
-                  data: { error },
-                });
-                this.sentryClient.captureMessage(
-                  "Error in uploadStats",
-                  "error",
-                  undefined,
-                  this.sentryScope,
-                );
-                await safeFlushTelemetry(this.sentryClient);
-              }
-
-              if (emitError) {
-                throw error;
-              }
-
-              debug(`Error uploading stats: "${error}"`, {
-                enabled: this.debug,
-              });
-              return;
-            }
-          },
-        );
-
-        if (this.sentryClient) {
-          await safeFlushTelemetry(this.sentryClient);
-        }
-
-        return;
-      },
-    );
+          return;
+        },
+      );
+    } catch (error) {
+      throw error;
+    }
   }
 
   bundleStatsToJson() {
