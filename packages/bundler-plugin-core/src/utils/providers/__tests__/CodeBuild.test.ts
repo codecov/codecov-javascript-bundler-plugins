@@ -68,6 +68,7 @@ describe("CodeBuild Params", () => {
         dryRun: true,
         enableBundleAnalysis: true,
         retryCount: 0,
+        telemetry: false,
       });
       const params = await CodeBuild.getServiceParams(inputs, output);
       expect(params).toMatchObject(expected);
@@ -113,6 +114,7 @@ describe("CodeBuild Params", () => {
         dryRun: true,
         enableBundleAnalysis: true,
         retryCount: 0,
+        telemetry: false,
       });
       const params = await CodeBuild.getServiceParams(inputs, output);
       expect(params).toMatchObject(expected);

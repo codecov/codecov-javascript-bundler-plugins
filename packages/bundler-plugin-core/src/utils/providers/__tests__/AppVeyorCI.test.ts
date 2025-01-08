@@ -88,6 +88,7 @@ describe("AppveyorCI Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await AppVeyorCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -130,6 +131,7 @@ describe("AppveyorCI Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await AppVeyorCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -171,6 +173,7 @@ describe("AppveyorCI Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await AppVeyorCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -200,6 +203,7 @@ describe("AppveyorCI Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await AppVeyorCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);

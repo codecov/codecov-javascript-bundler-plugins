@@ -10,9 +10,16 @@ import {
   checkNodeVersion,
   Output,
   handleErrors,
+  createSentryInstance,
+  telemetryPlugin,
 } from "@codecov/bundler-plugin-core";
 
 import { viteBundleAnalysisPlugin } from "./vite-bundle-analysis/viteBundleAnalysisPlugin";
+
+// @ts-expect-error this value is being replaced by rollup
+const PLUGIN_NAME = __PACKAGE_NAME__ as string;
+// @ts-expect-error this value is being replaced by rollup
+const PLUGIN_VERSION = __PACKAGE_VERSION__ as string;
 
 const codecovVitePluginFactory = createVitePlugin<Options, true>(
   (userOptions, unpluginMetaContext) => {
@@ -32,9 +39,29 @@ const codecovVitePluginFactory = createVitePlugin<Options, true>(
 
     const plugins: UnpluginOptions[] = [];
     const options = normalizedOptions.options;
+    const sentryConfig = createSentryInstance({
+      telemetry: options.telemetry,
+      isDryRun: options.dryRun,
+      pluginName: PLUGIN_NAME,
+      pluginVersion: PLUGIN_VERSION,
+      options,
+      bundler: unpluginMetaContext.framework,
+    });
+    const output = new Output(options, sentryConfig);
+
     if (options.enableBundleAnalysis) {
-      const output = new Output(normalizedOptions.options);
-      plugins.push(viteBundleAnalysisPlugin({ output }));
+      plugins.push(
+        telemetryPlugin({
+          sentryClient: sentryConfig.sentryClient,
+          sentryScope: sentryConfig.sentryScope,
+          telemetry: options.telemetry,
+        }),
+        viteBundleAnalysisPlugin({
+          output,
+          pluginName: PLUGIN_NAME,
+          pluginVersion: PLUGIN_VERSION,
+        }),
+      );
     }
 
     return plugins;

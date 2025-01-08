@@ -8,18 +8,29 @@ import {
   afterAll,
   type MockInstance,
   type Mock,
+  beforeEach,
 } from "vitest";
+import { type Scope, type Client } from "@sentry/core";
+import chalk from "chalk";
 
 import { detectProvider } from "../provider";
 import { Output } from "../Output";
-import chalk from "chalk";
 
 vi.mock("../provider");
+
+vi.mock("@sentry/core", async () => {
+  const original = await vi.importActual("@sentry/core");
+  return {
+    ...original,
+    startSpan: (_data: unknown, callback: (...args: unknown[]) => unknown) =>
+      callback(),
+  };
+});
 
 const mockedDetectProvider = detectProvider as Mock;
 
 afterEach(() => {
-  vi.resetAllMocks();
+  vi.clearAllMocks();
 });
 
 let consoleSpy: MockInstance;
@@ -113,6 +124,7 @@ describe("Output", () => {
         enableBundleAnalysis: true,
         retryCount: 1,
         uploadToken: "token",
+        telemetry: false,
       });
 
       output.start();
@@ -140,6 +152,7 @@ describe("Output", () => {
           enableBundleAnalysis: true,
           retryCount: 1,
           uploadToken: "token",
+          telemetry: false,
         });
 
         output.start();
@@ -159,6 +172,7 @@ describe("Output", () => {
           enableBundleAnalysis: true,
           retryCount: 1,
           uploadToken: "token",
+          telemetry: false,
         });
 
         output.end();
@@ -178,6 +192,7 @@ describe("Output", () => {
           enableBundleAnalysis: true,
           retryCount: 1,
           uploadToken: "token",
+          telemetry: false,
         });
 
         output.setPlugin("test-plugin", "0.0.1");
@@ -199,6 +214,7 @@ describe("Output", () => {
           enableBundleAnalysis: true,
           retryCount: 1,
           uploadToken: "token",
+          telemetry: false,
         });
 
         output.setPlugin("test-plugin", "0.0.1");
@@ -224,6 +240,7 @@ describe("Output", () => {
           enableBundleAnalysis: true,
           retryCount: 1,
           uploadToken: "token",
+          telemetry: false,
         });
 
         output.setBundleName("new-bundle");
@@ -242,6 +259,7 @@ describe("Output", () => {
           enableBundleAnalysis: true,
           retryCount: 1,
           uploadToken: "token",
+          telemetry: false,
         });
 
         output.setBundleName("new-bundle");
@@ -265,6 +283,7 @@ describe("Output", () => {
           enableBundleAnalysis: true,
           retryCount: 1,
           uploadToken: "token",
+          telemetry: false,
         });
         output.start();
         output.end();
@@ -309,6 +328,7 @@ describe("Output", () => {
           enableBundleAnalysis: true,
           retryCount: 1,
           uploadToken: "token",
+          telemetry: false,
         });
         output.start();
         output.end();
@@ -316,6 +336,160 @@ describe("Output", () => {
         await output.write();
 
         expect(preSignedUrlBody).not.toHaveBeenCalled();
+      });
+    });
+
+    describe("fails to detect provider", () => {
+      beforeEach(() => {
+        mockedDetectProvider.mockRejectedValue(
+          new Error("Failed to detect provider"),
+        );
+      });
+
+      it("throws an error", async () => {
+        const output = new Output({
+          apiUrl: "http://localhost",
+          bundleName: "output-test",
+          debug: false,
+          dryRun: false,
+          enableBundleAnalysis: true,
+          retryCount: 1,
+          uploadToken: "token",
+          telemetry: false,
+        });
+
+        output.start();
+        output.end();
+
+        try {
+          await output.write();
+        } catch (error) {
+          expect(error).toBeInstanceOf(Error);
+          expect((error as Error).message).toBe("Failed to detect provider");
+        }
+      });
+
+      it("logs error when debug is enabled", async () => {
+        const output = new Output({
+          apiUrl: "http://localhost",
+          bundleName: "output-test",
+          debug: true,
+          dryRun: false,
+          enableBundleAnalysis: true,
+          retryCount: 1,
+          uploadToken: "token",
+          telemetry: false,
+        });
+
+        output.start();
+        output.end();
+
+        await output.write();
+
+        expect(consoleSpy).toHaveBeenCalledWith(
+          `[codecov] ${chalk.italic.yellow(
+            'Error getting provider: "Error: Failed to detect provider"',
+          )}`,
+        );
+      });
+
+      it("captures a message to sentry", async () => {
+        const sentryClient = {
+          captureMessage: vi.fn(),
+        } as unknown as Client;
+
+        const sentryScope = {
+          getClient: vi.fn(),
+          setTag: vi.fn(),
+          addBreadcrumb: vi.fn(),
+        } as unknown as Scope;
+
+        const output = new Output(
+          {
+            apiUrl: "http://localhost",
+            bundleName: "output-test",
+            debug: true,
+            dryRun: false,
+            enableBundleAnalysis: true,
+            retryCount: 1,
+            uploadToken: "token",
+            telemetry: false,
+          },
+          { sentryClient, sentryScope },
+        );
+
+        output.start();
+        output.end();
+
+        await output.write();
+
+        // eslint-disable-next-line @typescript-eslint/unbound-method
+        expect(sentryClient.captureMessage).toHaveBeenCalledWith(
+          "Error in detectProvider",
+          "info",
+          undefined,
+          sentryScope,
+        );
+
+        // eslint-disable-next-line @typescript-eslint/unbound-method
+        expect(sentryScope.addBreadcrumb).toHaveBeenCalledWith({
+          category: "output.write.detectProvider",
+          level: "error",
+          data: { error: Error("Failed to detect provider") },
+        });
+      });
+    });
+
+    describe("successful detection of provider", () => {
+      it("sets the owner and repo tags", async () => {
+        setup({});
+        const sentryClient = {
+          captureMessage: vi.fn(),
+        } as unknown as Client;
+
+        const sentryScope = {
+          getClient: vi.fn(),
+          setTag: vi.fn(),
+          addBreadcrumb: vi.fn(),
+        } as unknown as Scope;
+
+        const output = new Output(
+          {
+            apiUrl: "http://localhost",
+            bundleName: "output-test",
+            debug: false,
+            dryRun: false,
+            enableBundleAnalysis: true,
+            retryCount: 1,
+            uploadToken: "token",
+            telemetry: false,
+          },
+          { sentryClient, sentryScope },
+        );
+
+        output.start();
+        output.end();
+
+        await output.write();
+
+        // eslint-disable-next-line @typescript-eslint/unbound-method
+        expect(sentryScope.setTag).toHaveBeenNthCalledWith(
+          1,
+          "service",
+          "github",
+        );
+        // eslint-disable-next-line @typescript-eslint/unbound-method
+        expect(sentryScope.setTag).toHaveBeenNthCalledWith(
+          2,
+          "owner",
+          "codecov",
+        );
+        // eslint-disable-next-line @typescript-eslint/unbound-method
+        expect(sentryScope.setTag).toHaveBeenNthCalledWith(
+          3,
+          "repo",
+          "codecov-javascript-bundler-plugins",
+        );
       });
     });
 
@@ -331,6 +505,7 @@ describe("Output", () => {
           enableBundleAnalysis: true,
           retryCount: 1,
           uploadToken: "token",
+          telemetry: false,
         });
 
         output.start();
@@ -350,6 +525,7 @@ describe("Output", () => {
           enableBundleAnalysis: true,
           retryCount: 1,
           uploadToken: "token",
+          telemetry: false,
         });
 
         output.start();
@@ -375,6 +551,7 @@ describe("Output", () => {
           enableBundleAnalysis: true,
           retryCount: 1,
           uploadToken: "token",
+          telemetry: false,
         });
 
         output.start();
@@ -383,6 +560,54 @@ describe("Output", () => {
         await expect(output.write(true)).rejects.toThrow(
           "Failed to fetch pre-signed URL",
         );
+      });
+
+      it("captures message to sentry", async () => {
+        setup({ urlSendError: true });
+
+        const sentryClient = {
+          captureMessage: vi.fn(),
+        } as unknown as Client;
+
+        const sentryScope = {
+          getClient: vi.fn(),
+          setTag: vi.fn(),
+          addBreadcrumb: vi.fn(),
+        } as unknown as Scope;
+
+        const output = new Output(
+          {
+            apiUrl: "http://localhost",
+            bundleName: "output-test",
+            debug: false,
+            dryRun: false,
+            enableBundleAnalysis: true,
+            retryCount: 1,
+            uploadToken: "token",
+            telemetry: false,
+          },
+          { sentryClient, sentryScope },
+        );
+
+        output.start();
+        output.end();
+
+        await output.write();
+
+        // eslint-disable-next-line @typescript-eslint/unbound-method
+        expect(sentryClient.captureMessage).toHaveBeenCalledWith(
+          "Error in getPreSignedURL",
+          "info",
+          undefined,
+          sentryScope,
+        );
+
+        // eslint-disable-next-line @typescript-eslint/unbound-method
+        expect(sentryScope.addBreadcrumb).toHaveBeenCalledWith({
+          category: "output.write.getPreSignedURL",
+          level: "error",
+          data: { error: Error("Failed to fetch pre-signed URL") },
+        });
       });
     });
 
@@ -401,6 +626,7 @@ describe("Output", () => {
           enableBundleAnalysis: true,
           retryCount: 1,
           uploadToken: "token",
+          telemetry: false,
         });
 
         output.start();
@@ -448,6 +674,7 @@ describe("Output", () => {
           enableBundleAnalysis: true,
           retryCount: 1,
           uploadToken: "token",
+          telemetry: false,
         });
 
         output.start();
@@ -471,6 +698,7 @@ describe("Output", () => {
           enableBundleAnalysis: true,
           retryCount: 1,
           uploadToken: "token",
+          telemetry: false,
         });
 
         output.start();
@@ -500,6 +728,7 @@ describe("Output", () => {
           enableBundleAnalysis: true,
           retryCount: 1,
           uploadToken: "token",
+          telemetry: false,
         });
 
         output.start();
@@ -508,6 +737,58 @@ describe("Output", () => {
         await expect(output.write(true)).rejects.toThrow(
           "Failed to upload stats",
         );
+      });
+
+      it("captures message to sentry", async () => {
+        setup({
+          urlData: { url: "http://localhost/upload/stats/" },
+          urlStatus: 200,
+          statsSendError: true,
+        });
+
+        const sentryClient = {
+          captureMessage: vi.fn(),
+        } as unknown as Client;
+
+        const sentryScope = {
+          getClient: vi.fn(),
+          setTag: vi.fn(),
+          addBreadcrumb: vi.fn(),
+        } as unknown as Scope;
+
+        const output = new Output(
+          {
+            apiUrl: "http://localhost",
+            bundleName: "output-test",
+            debug: false,
+            dryRun: false,
+            enableBundleAnalysis: true,
+            retryCount: 1,
+            uploadToken: "token",
+            telemetry: false,
+          },
+          { sentryClient, sentryScope },
+        );
+
+        output.start();
+        output.end();
+
+        await output.write();
+
+        // eslint-disable-next-line @typescript-eslint/unbound-method
+        expect(sentryClient.captureMessage).toHaveBeenCalledWith(
+          "Error in uploadStats",
+          "error",
+          undefined,
+          sentryScope,
+        );
+
+        // eslint-disable-next-line @typescript-eslint/unbound-method
+        expect(sentryScope.addBreadcrumb).toHaveBeenCalledWith({
+          category: "output.write.uploadStats",
+          level: "error",
+          data: { error: Error("Failed to upload stats") },
+        });
       });
     });
 
@@ -528,6 +809,7 @@ describe("Output", () => {
           enableBundleAnalysis: true,
           retryCount: 1,
           uploadToken: "token",
+          telemetry: false,
         });
 
         output.start();

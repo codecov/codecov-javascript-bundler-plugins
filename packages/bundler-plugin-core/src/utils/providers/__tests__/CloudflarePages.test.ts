@@ -65,6 +65,7 @@ describe("CloudflarePages Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await CloudflarePages.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -104,6 +105,7 @@ describe("CloudflarePages Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await CloudflarePages.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -133,6 +135,7 @@ describe("CloudflarePages Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await CloudflarePages.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);

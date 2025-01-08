@@ -39,6 +39,7 @@ const tests: Test[] = [
         retryCount: 3,
         enableBundleAnalysis: false,
         debug: false,
+        telemetry: true,
       },
     },
   },
@@ -62,6 +63,7 @@ const tests: Test[] = [
         },
         debug: true,
         gitService: "bitbucket",
+        telemetry: false,
         oidc: {
           useGitHubOIDC: true,
           gitHubOIDCTokenAudience: "https://codecov.io",
@@ -87,6 +89,7 @@ const tests: Test[] = [
         },
         debug: true,
         gitService: "bitbucket",
+        telemetry: false,
         oidc: {
           useGitHubOIDC: true,
           gitHubOIDCTokenAudience: "https://codecov.io",
@@ -128,6 +131,8 @@ const tests: Test[] = [
         debug: "true",
         // @ts-expect-error - testing invalid input
         gitService: 123,
+        // @ts-expect-error - testing invalid input
+        telemetry: "true",
         oidc: {
           // @ts-expect-error - testing invalid input
           useGitHubOIDC: "true",
@@ -155,6 +160,7 @@ const tests: Test[] = [
         "`gitService` must be a valid git service.",
         "`useGitHubOIDC` must be a boolean.",
         "`gitHubOIDCTokenAudience` must be a string.",
+        "`telemetry` must be a boolean.",
       ],
     },
   },

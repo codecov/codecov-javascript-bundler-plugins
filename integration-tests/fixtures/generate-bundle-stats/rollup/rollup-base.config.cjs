@@ -22,6 +22,7 @@ module.exports = defineConfig({
       bundleName: "test-rollup-v3",
       uploadToken: "test-token",
       apiUrl: process.env.API_URL,
+      telemetry: false,
     }),
   ],
 });

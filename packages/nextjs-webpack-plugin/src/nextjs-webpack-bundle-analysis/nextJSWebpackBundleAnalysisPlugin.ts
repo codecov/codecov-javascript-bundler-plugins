@@ -1,5 +1,5 @@
 import { red, type ExtendedBAUploadPlugin } from "@codecov/bundler-plugin-core";
-import type * as webpack from "webpack";
+import type * as TWebpack from "webpack";
 
 import {
   _internal_processAssets as processAssets,
@@ -7,20 +7,15 @@ import {
   _internal_processModules as processModules,
 } from "@codecov/webpack-plugin";
 
-// @ts-expect-error this value is being replaced by rollup
-const PLUGIN_NAME = __PACKAGE_NAME__ as string;
-// @ts-expect-error this value is being replaced by rollup
-const PLUGIN_VERSION = __PACKAGE_VERSION__ as string;
-
 export const nextJSWebpackBundleAnalysisPlugin: ExtendedBAUploadPlugin<{
-  webpack: typeof webpack | null;
-}> = ({ output, options: { webpack } }) => ({
+  webpack: typeof TWebpack | null;
+}> = ({ output, pluginName, pluginVersion, options }) => ({
   version: output.version,
-  name: PLUGIN_NAME,
-  pluginVersion: PLUGIN_VERSION,
+  name: pluginName,
+  pluginVersion,
   buildStart: () => {
     output.start();
-    output.setPlugin(PLUGIN_NAME, PLUGIN_VERSION);
+    output.setPlugin(pluginName, pluginVersion);
   },
   buildEnd: () => {
     output.end();
@@ -29,8 +24,8 @@ export const nextJSWebpackBundleAnalysisPlugin: ExtendedBAUploadPlugin<{
     await output.write();
   },
   webpack(compiler) {
-    compiler.hooks.thisCompilation.tap(PLUGIN_NAME, (compilation) => {
-      if (!webpack) {
+    compiler.hooks.thisCompilation.tap(pluginName, (compilation) => {
+      if (!options.webpack) {
         red(
           "Unable to run bundle analysis, Webpack wasn't passed successfully.",
         );
@@ -39,10 +34,17 @@ export const nextJSWebpackBundleAnalysisPlugin: ExtendedBAUploadPlugin<{
 
       compilation.hooks.processAssets.tapPromise(
         {
-          name: PLUGIN_NAME,
-          stage: webpack.Compilation.PROCESS_ASSETS_STAGE_REPORT,
+          name: pluginName,
+          stage: options.webpack.Compilation.PROCESS_ASSETS_STAGE_REPORT,
         },
         async () => {
+          if (!options.webpack) {
+            red(
+              "Unable to run bundle analysis, Webpack wasn't passed successfully.",
+            );
+            return;
+          }
+
           output.setBundleName(output.originalBundleName);
           // Webpack base chunk format options: https://webpack.js.org/configuration/output/#outputchunkformat
           if (typeof compilation.outputOptions.chunkFormat === "string") {
@@ -70,7 +72,7 @@ export const nextJSWebpackBundleAnalysisPlugin: ExtendedBAUploadPlugin<{
 
           output.bundler = {
             name: "webpack",
-            version: webpack.version,
+            version: options.webpack.version,
           };
 
           const outputOptions = compilation.outputOptions;
@@ -101,7 +103,7 @@ export const nextJSWebpackBundleAnalysisPlugin: ExtendedBAUploadPlugin<{
 
           // only output file if running dry run
           if (output.dryRun) {
-            const { RawSource } = webpack.sources;
+            const { RawSource } = options.webpack.sources;
             compilation.emitAsset(
               `${output.bundleName}-stats.json`,
               new RawSource(output.bundleStatsToJson()),

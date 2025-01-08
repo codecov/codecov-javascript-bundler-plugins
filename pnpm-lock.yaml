@@ -1017,6 +1017,9 @@ importers:
       '@actions/github':
         specifier: ^6.0.0
         version: 6.0.0
+      '@sentry/core':
+        specifier: ^8.42.0
+        version: 8.42.0
       chalk:
         specifier: 4.1.2
         version: 4.1.2
@@ -4693,6 +4696,10 @@ packages:
 
   '@rushstack/eslint-patch@1.7.2':
     resolution: {integrity: sha512-RbhOOTCNoCrbfkRyoXODZp75MlpiHMgbE5MEBZAnnnLyQNgrigEj4p0lzsMDyc1zVsJDLrivB58tgg3emX0eEA==}
+
+  '@sentry/core@8.42.0':
+    resolution: {integrity: sha512-ac6O3pgoIbU6rpwz6LlwW0wp3/GAHuSI0C5IsTgIY6baN8rOBnlAtG6KrHDDkGmUQ2srxkDJu9n1O6Td3cBCqw==}
+    engines: {node: '>=14.18'}
 
   '@shikijs/core@1.23.1':
     resolution: {integrity: sha512-NuOVgwcHgVC6jBVH5V7iblziw6iQbWWHrj5IlZI3Fqu2yx9awH7OIQkXIcsHsUmY19ckwSgUMgrqExEyP5A0TA==}
@@ -16494,6 +16501,8 @@ snapshots:
     optional: true
 
   '@rushstack/eslint-patch@1.7.2': {}
+
+  '@sentry/core@8.42.0': {}
 
   '@shikijs/core@1.23.1':
     dependencies:

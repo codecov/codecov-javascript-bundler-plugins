@@ -69,6 +69,7 @@ describe("Local Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await Local.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -107,6 +108,7 @@ describe("Local Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await Local.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -125,6 +127,7 @@ describe("Local Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const spawnSync = td.replace(childProcess, "spawnSync");
     await expect(Local.getServiceParams(inputs, output)).rejects.toThrow();
@@ -188,6 +191,7 @@ describe("Local Params", () => {
         dryRun: true,
         enableBundleAnalysis: true,
         retryCount: 0,
+        telemetry: false,
       });
       const params = await Local.getServiceParams(inputs, output);
       expect(params.slug).toBe("testOrg/testRepo");
@@ -226,6 +230,7 @@ describe("Local Params", () => {
         dryRun: true,
         enableBundleAnalysis: true,
         retryCount: 0,
+        telemetry: false,
       });
       await expect(Local.getServiceParams(inputs, output)).rejects.toThrow();
     });
@@ -264,6 +269,7 @@ describe("Local Params", () => {
         dryRun: true,
         enableBundleAnalysis: true,
         retryCount: 0,
+        telemetry: false,
       });
       const params = await Local.getServiceParams(inputs, output);
       expect(params.slug).toBe("testOrg/testRepo");

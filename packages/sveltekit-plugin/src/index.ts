@@ -10,10 +10,17 @@ import {
   checkNodeVersion,
   Output,
   handleErrors,
+  createSentryInstance,
+  telemetryPlugin,
 } from "@codecov/bundler-plugin-core";
 import { _internal_viteBundleAnalysisPlugin } from "@codecov/vite-plugin";
 
 import { sveltekitBundleAnalysisPlugin } from "./sveltekit-bundle-analysis/sveltekitBundleAnalysisPlugin";
+
+// @ts-expect-error this value is being replaced by rollup
+const PLUGIN_NAME = __PACKAGE_NAME__ as string;
+// @ts-expect-error this value is being replaced by rollup
+const PLUGIN_VERSION = __PACKAGE_VERSION__ as string;
 
 const codecovSvelteKitPluginFactory = createVitePlugin<Options, true>(
   (userOptions, unpluginMetaContext) => {
@@ -32,12 +39,36 @@ const codecovSvelteKitPluginFactory = createVitePlugin<Options, true>(
     }
 
     const plugins: UnpluginOptions[] = [];
-    const output = new Output(normalizedOptions.options);
     const options = normalizedOptions.options;
+
+    const sentryConfig = createSentryInstance({
+      telemetry: options.telemetry,
+      isDryRun: options.dryRun,
+      pluginName: PLUGIN_NAME,
+      pluginVersion: PLUGIN_VERSION,
+      options,
+      bundler: unpluginMetaContext.framework,
+      metaFramework: "sveltekit",
+    });
+    const output = new Output(options, sentryConfig);
+
     if (options.enableBundleAnalysis) {
       plugins.push(
-        sveltekitBundleAnalysisPlugin({ output }),
-        _internal_viteBundleAnalysisPlugin({ output }),
+        telemetryPlugin({
+          sentryClient: sentryConfig.sentryClient,
+          sentryScope: sentryConfig.sentryScope,
+          telemetry: options.telemetry,
+        }),
+        sveltekitBundleAnalysisPlugin({
+          output,
+          pluginName: PLUGIN_NAME,
+          pluginVersion: PLUGIN_VERSION,
+        }),
+        _internal_viteBundleAnalysisPlugin({
+          output,
+          pluginName: PLUGIN_NAME,
+          pluginVersion: PLUGIN_VERSION,
+        }),
       );
     }
 

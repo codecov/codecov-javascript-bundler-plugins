@@ -68,6 +68,7 @@ describe("GitLabCI Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await GitLabCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -105,6 +106,7 @@ describe("GitLabCI Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await GitLabCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -139,6 +141,7 @@ describe("GitLabCI Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await GitLabCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
@@ -159,6 +162,7 @@ describe("GitLabCI Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
 
     it("can get the slug from http", async () => {
@@ -250,6 +254,7 @@ describe("GitLabCI Params", () => {
       dryRun: true,
       enableBundleAnalysis: true,
       retryCount: 0,
+      telemetry: false,
     });
     const params = await GitLabCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);

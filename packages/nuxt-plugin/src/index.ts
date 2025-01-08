@@ -6,6 +6,8 @@ import {
   checkNodeVersion,
   Output,
   handleErrors,
+  createSentryInstance,
+  telemetryPlugin,
 } from "@codecov/bundler-plugin-core";
 import { _internal_viteBundleAnalysisPlugin } from "@codecov/vite-plugin";
 import { addVitePlugin, defineNuxtModule } from "@nuxt/kit";
@@ -13,8 +15,10 @@ import { addVitePlugin, defineNuxtModule } from "@nuxt/kit";
 import { nuxtBundleAnalysisPlugin } from "./nuxt-bundle-analysis/nuxtBundleAnalysisPlugin";
 import { type NuxtModule } from "nuxt/schema";
 
-// @ts-expect-error - This is a placeholder for the package name.
+// @ts-expect-error this value is being replaced by rollup
 const PLUGIN_NAME = __PACKAGE_NAME__ as string;
+// @ts-expect-error this value is being replaced by rollup
+const PLUGIN_VERSION = __PACKAGE_VERSION__ as string;
 
 const codecovNuxtPluginFactory = createVitePlugin<Options, true>(
   (userOptions, unpluginMetaContext) => {
@@ -33,12 +37,35 @@ const codecovNuxtPluginFactory = createVitePlugin<Options, true>(
     }
 
     const plugins: UnpluginOptions[] = [];
-    const output = new Output(normalizedOptions.options);
     const options = normalizedOptions.options;
+    const sentryConfig = createSentryInstance({
+      telemetry: options.telemetry,
+      isDryRun: options.dryRun,
+      pluginName: PLUGIN_NAME,
+      pluginVersion: PLUGIN_VERSION,
+      options,
+      bundler: unpluginMetaContext.framework,
+      metaFramework: "nuxt",
+    });
+    const output = new Output(options, sentryConfig);
+
     if (options.enableBundleAnalysis) {
       plugins.push(
-        nuxtBundleAnalysisPlugin({ output }),
-        _internal_viteBundleAnalysisPlugin({ output }),
+        telemetryPlugin({
+          sentryClient: sentryConfig.sentryClient,
+          sentryScope: sentryConfig.sentryScope,
+          telemetry: options.telemetry,
+        }),
+        nuxtBundleAnalysisPlugin({
+          output,
+          pluginName: PLUGIN_NAME,
+          pluginVersion: PLUGIN_VERSION,
+        }),
+        _internal_viteBundleAnalysisPlugin({
+          output,
+          pluginName: PLUGIN_NAME,
+          pluginVersion: PLUGIN_VERSION,
+        }),
       );
     }
 

@@ -11,6 +11,7 @@ const config: ReturnType<typeof defineNuxtConfig> = defineNuxtConfig({
         bundleName: "test-nuxt-v3",
         uploadToken: "test-token",
         apiUrl: process.env.API_URL,
+        telemetry: false,
       },
     ],
   ],

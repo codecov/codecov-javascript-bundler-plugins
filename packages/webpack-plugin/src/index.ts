@@ -10,6 +10,8 @@ import {
   checkNodeVersion,
   Output,
   handleErrors,
+  createSentryInstance,
+  telemetryPlugin,
 } from "@codecov/bundler-plugin-core";
 
 import { webpackBundleAnalysisPlugin } from "./webpack-bundle-analysis/webpackBundleAnalysisPlugin";
@@ -20,6 +22,11 @@ import {
   processChunks,
   processModules,
 } from "./webpack-bundle-analysis/utils";
+
+// @ts-expect-error this value is being replaced by rollup
+const PLUGIN_NAME = __PACKAGE_NAME__ as string;
+// @ts-expect-error this value is being replaced by rollup
+const PLUGIN_VERSION = __PACKAGE_VERSION__ as string;
 
 const codecovWebpackPluginFactory = createWebpackPlugin<Options, true>(
   (userOptions, unpluginMetaContext) => {
@@ -38,12 +45,28 @@ const codecovWebpackPluginFactory = createWebpackPlugin<Options, true>(
     }
 
     const plugins: UnpluginOptions[] = [];
-    const output = new Output(normalizedOptions.options);
     const options = normalizedOptions.options;
+    const sentryConfig = createSentryInstance({
+      telemetry: options.telemetry,
+      isDryRun: options.dryRun,
+      pluginName: PLUGIN_NAME,
+      pluginVersion: PLUGIN_VERSION,
+      options,
+      bundler: unpluginMetaContext.framework,
+    });
+    const output = new Output(options, sentryConfig);
+
     if (options.enableBundleAnalysis) {
       plugins.push(
+        telemetryPlugin({
+          sentryClient: sentryConfig.sentryClient,
+          sentryScope: sentryConfig.sentryScope,
+          telemetry: options.telemetry,
+        }),
         webpackBundleAnalysisPlugin({
           output,
+          pluginName: PLUGIN_NAME,
+          pluginVersion: PLUGIN_VERSION,
         }),
       );
     }
