@@ -19,7 +19,7 @@ import { cyan } from "../utils/logging";
 const stackParser = createStackParser(nodeStackLineParser());
 
 interface CreateSentryInstanceOptions {
-  enableTelemetry: boolean;
+  telemetry: boolean;
   isDryRun: boolean;
   pluginName: string;
   pluginVersion: string;
@@ -29,7 +29,7 @@ interface CreateSentryInstanceOptions {
 }
 
 export function createSentryInstance({
-  enableTelemetry,
+  telemetry,
   isDryRun,
   pluginName,
   pluginVersion,
@@ -47,7 +47,7 @@ export function createSentryInstance({
   // currently we're not tracking dry runs as they're more for debugging, and
   // are not interacting with our systems - up for debate whether we want to
   // keep this
-  if (enableTelemetry === true && isDryRun === false) {
+  if (telemetry === true && isDryRun === false) {
     sampleRate = 1;
     tracesSampleRate = 1;
   }
@@ -83,7 +83,7 @@ export function createSentryInstance({
     },
 
     // We create a transport that stalls sending events until we know that we're allowed to
-    transport: makeOptionallyEnabledNodeTransport(enableTelemetry),
+    transport: makeOptionallyEnabledNodeTransport(telemetry),
   };
 
   const client = new ServerRuntimeClient(clientOptions);
@@ -158,18 +158,18 @@ export async function safeFlushTelemetry(sentryClient: Client) {
 interface TelemetryPluginOptions {
   sentryClient: Client;
   sentryScope: Scope;
-  shouldSendTelemetry: boolean;
+  telemetry: boolean;
 }
 
 export function telemetryPlugin({
   sentryClient,
   sentryScope,
-  shouldSendTelemetry,
+  telemetry,
 }: TelemetryPluginOptions): UnpluginOptions {
   return {
     name: "codecov-telemetry-plugin",
     async buildStart() {
-      if (shouldSendTelemetry) {
+      if (telemetry) {
         cyan(
           "Sending telemetry data on issues and performance to Codecov. To disable telemetry, set `options.telemetry` to `false`.",
         );

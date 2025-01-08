@@ -41,7 +41,7 @@ const codecovRemixVitePluginFactory = createVitePlugin<Options, true>(
     const plugins: UnpluginOptions[] = [];
     const options = normalizedOptions.options;
     const sentryConfig = createSentryInstance({
-      enableTelemetry: options.telemetry,
+      telemetry: options.telemetry,
       isDryRun: options.dryRun,
       pluginName: PLUGIN_NAME,
       pluginVersion: PLUGIN_VERSION,
@@ -56,7 +56,7 @@ const codecovRemixVitePluginFactory = createVitePlugin<Options, true>(
         telemetryPlugin({
           sentryClient: sentryConfig.sentryClient,
           sentryScope: sentryConfig.sentryScope,
-          shouldSendTelemetry: options.telemetry,
+          telemetry: options.telemetry,
         }),
         remixBundleAnalysisPlugin({
           output,

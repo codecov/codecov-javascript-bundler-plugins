@@ -42,7 +42,7 @@ const codecovSvelteKitPluginFactory = createVitePlugin<Options, true>(
     const options = normalizedOptions.options;
 
     const sentryConfig = createSentryInstance({
-      enableTelemetry: options.telemetry,
+      telemetry: options.telemetry,
       isDryRun: options.dryRun,
       pluginName: PLUGIN_NAME,
       pluginVersion: PLUGIN_VERSION,
@@ -57,7 +57,7 @@ const codecovSvelteKitPluginFactory = createVitePlugin<Options, true>(
         telemetryPlugin({
           sentryClient: sentryConfig.sentryClient,
           sentryScope: sentryConfig.sentryScope,
-          shouldSendTelemetry: options.telemetry,
+          telemetry: options.telemetry,
         }),
         sveltekitBundleAnalysisPlugin({
           output,

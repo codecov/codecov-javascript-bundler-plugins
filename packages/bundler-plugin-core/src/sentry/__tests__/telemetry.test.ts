@@ -24,7 +24,7 @@ describe("telemetry", () => {
   describe("createSentryInstance", () => {
     it("creates instance with telemetry enabled", () => {
       const { sentryClient, sentryScope } = createSentryInstance({
-        enableTelemetry: true,
+        telemetry: true,
         isDryRun: false,
         pluginName: "test-plugin",
         pluginVersion: "1.0.0",
@@ -37,7 +37,7 @@ describe("telemetry", () => {
 
     it("creates instance with telemetry disabled", () => {
       const { sentryClient, sentryScope } = createSentryInstance({
-        enableTelemetry: false,
+        telemetry: false,
         isDryRun: false,
         pluginName: "test-plugin",
         pluginVersion: "1.0.0",
@@ -151,7 +151,7 @@ describe("telemetry", () => {
       const plugin = telemetryPlugin({
         sentryClient: client,
         sentryScope: scope,
-        shouldSendTelemetry: true,
+        telemetry: true,
       });
 
       // @ts-expect-error: buildStart is not defined in the type
@@ -174,7 +174,7 @@ describe("telemetry", () => {
       const plugin = telemetryPlugin({
         sentryClient: client,
         sentryScope: scope,
-        shouldSendTelemetry: false,
+        telemetry: false,
       });
 
       // @ts-expect-error: buildStart is not defined in the type
