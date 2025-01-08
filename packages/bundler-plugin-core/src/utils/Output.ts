@@ -336,7 +336,9 @@ class Output {
         },
       );
     } catch (error) {
-      throw error;
+      if (emitError) {
+        throw error;
+      }
     }
   }
 
