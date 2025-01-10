@@ -495,30 +495,30 @@ jobs:
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           ASTRO_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
-          ASTRO_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
+          ASTRO_API_URL: ${{ secrets.CODECOV_STAGING_URL }}
           ASTRO_5_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
-          ASTRO_5_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
+          ASTRO_5_API_URL: ${{ secrets.CODECOV_STAGING_URL }}
           BUNDLE_ANALYZER_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
-          BUNDLE_ANALYZER_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
+          BUNDLE_ANALYZER_API_URL: ${{ secrets.CODECOV_STAGING_URL }}
           NEXT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
-          NEXT_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
+          NEXT_API_URL: ${{ secrets.CODECOV_STAGING_URL }}
           NUXT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
-          NUXT_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
-          OIDC_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
+          NUXT_API_URL: ${{ secrets.CODECOV_STAGING_URL }}
+          OIDC_API_URL: ${{ secrets.CODECOV_STAGING_URL }}
           REMIX_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
-          REMIX_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
+          REMIX_API_URL: ${{ secrets.CODECOV_STAGING_URL }}
           ROLLUP_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
-          ROLLUP_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
+          ROLLUP_API_URL: ${{ secrets.CODECOV_STAGING_URL }}
           SOLIDSTART_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
-          SOLIDSTART_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
+          SOLIDSTART_API_URL: ${{ secrets.CODECOV_STAGING_URL }}
           SVELTEKIT_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
-          SVELTEKIT_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
+          SVELTEKIT_API_URL: ${{ secrets.CODECOV_STAGING_URL }}
           VITE_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
-          VITE_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
+          VITE_API_URL: ${{ secrets.CODECOV_STAGING_URL }}
           TOKENLESS_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
-          TOKENLESS_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
+          TOKENLESS_API_URL: ${{ secrets.CODECOV_STAGING_URL }}
           WEBPACK_UPLOAD_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
-          WEBPACK_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
+          WEBPACK_API_URL: ${{ secrets.CODECOV_STAGING_URL }}
         run: pnpm run build
 
   upload-plugin-stats-production:
@@ -658,5 +658,5 @@ jobs:
         working-directory: ./packages/${{ matrix.package }}
         env:
           PLUGIN_CODECOV_TOKEN: ${{ secrets.CODECOV_ORG_TOKEN_STAGING }}
-          PLUGIN_CODECOV_API_URL: ${{ secrets.CODECOV_STAGING_API_URL }}
+          PLUGIN_CODECOV_API_URL: ${{ secrets.CODECOV_STAGING_URL }}
         run: pnpm run build
