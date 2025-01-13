@@ -2,6 +2,8 @@ import { z } from "zod";
 import { type Options } from "../types.ts";
 import { red } from "./logging.ts";
 
+export const DEFAULT_API_URL = "https://api.codecov.io";
+
 export type NormalizedOptions = z.infer<
   ReturnType<typeof optionsSchemaFactory>
 > &
@@ -87,7 +89,7 @@ const optionsSchemaFactory = (options: Options) =>
       .url({
         message: `apiUrl: \`${options?.apiUrl}\` is not a valid URL.`,
       })
-      .default("https://api.codecov.io"),
+      .default(DEFAULT_API_URL),
     bundleName: z
       .string({
         invalid_type_error: "`bundleName` must be a string.",

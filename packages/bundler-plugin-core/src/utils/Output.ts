@@ -239,7 +239,7 @@ class Output {
               scope: this.sentryScope,
               parentSpan: outputWriteSpan,
             },
-            async () => {
+            async (getPreSignedURLSpan) => {
               let url = "";
               try {
                 url = await getPreSignedURL({
@@ -249,6 +249,8 @@ class Output {
                   oidc: this.oidc,
                   retryCount: this.retryCount,
                   serviceParams: provider,
+                  sentryScope: this.sentryScope,
+                  sentrySpan: getPreSignedURLSpan,
                 });
               } catch (error) {
                 if (this.sentryClient && this.sentryScope) {
@@ -291,13 +293,15 @@ class Output {
               scope: this.sentryScope,
               parentSpan: outputWriteSpan,
             },
-            async () => {
+            async (uploadStatsSpan) => {
               try {
                 await uploadStats({
                   preSignedUrl: presignedURL,
                   bundleName: this.bundleName,
                   message: this.bundleStatsToJson(),
-                  retryCount: this?.retryCount,
+                  retryCount: this.retryCount,
+                  sentryScope: this.sentryScope,
+                  sentrySpan: uploadStatsSpan,
                 });
               } catch (error) {
                 // this is being set as an error because this could not be caused by a user error

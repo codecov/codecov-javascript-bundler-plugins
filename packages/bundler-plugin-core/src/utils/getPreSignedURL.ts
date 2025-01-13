@@ -1,4 +1,11 @@
 import * as Core from "@actions/core";
+import {
+  spanToTraceHeader,
+  spanToBaggageHeader,
+  startSpan,
+  type Scope,
+  type Span,
+} from "@sentry/core";
 import { z } from "zod";
 import { FailedFetchError } from "../errors/FailedFetchError.ts";
 import { UploadLimitReachedError } from "../errors/UploadLimitReachedError.ts";
@@ -10,6 +17,7 @@ import { findGitService } from "./findGitService.ts";
 import { UndefinedGitServiceError } from "../errors/UndefinedGitServiceError.ts";
 import { FailedOIDCFetchError } from "../errors/FailedOIDCFetchError.ts";
 import { BadOIDCServiceError } from "../errors/BadOIDCServiceError.ts";
+import { DEFAULT_API_URL } from "./normalizeOptions.ts";
 
 interface GetPreSignedURLArgs {
   apiUrl: string;
@@ -21,6 +29,8 @@ interface GetPreSignedURLArgs {
     useGitHubOIDC: boolean;
     gitHubOIDCTokenAudience: string;
   };
+  sentryScope?: Scope;
+  sentrySpan?: Span;
 }
 
 type RequestBody = Record<string, string | null | undefined>;
@@ -38,6 +48,8 @@ export const getPreSignedURL = async ({
   retryCount,
   gitService,
   oidc,
+  sentryScope,
+  sentrySpan,
 }: GetPreSignedURLArgs) => {
   const headers = new Headers({
     "Content-Type": "application/json",
@@ -84,22 +96,85 @@ export const getPreSignedURL = async ({
     }
   }
 
+  // Add Sentry headers if the API URL is the default i.e. Codecov itself
+  if (sentrySpan && apiUrl === DEFAULT_API_URL) {
+    // Create `sentry-trace` header
+    const sentryTraceHeader = spanToTraceHeader(sentrySpan);
+
+    // Create `baggage` header
+    const sentryBaggageHeader = spanToBaggageHeader(sentrySpan);
+
+    if (sentryTraceHeader && sentryBaggageHeader) {
+      headers.set("sentry-trace", sentryTraceHeader);
+      headers.set("baggage", sentryBaggageHeader);
+    }
+  }
+
   let response: Response;
   try {
-    const body = preProcessBody(requestBody);
-    response = await fetchWithRetry({
-      retryCount,
-      url: `${apiUrl}${API_ENDPOINT}`,
-      name: "`get-pre-signed-url`",
-      requestData: {
-        method: "POST",
-        headers: headers,
-        body: JSON.stringify(body),
+    response = await startSpan(
+      {
+        name: "Fetching Pre-Signed URL",
+        op: "http.client",
+        scope: sentryScope,
+        parentSpan: sentrySpan,
       },
-    });
+      async (getPreSignedURLSpan) => {
+        let wrappedResponse: Response;
+        const HTTP_METHOD = "POST";
+        const URL = `${apiUrl}${API_ENDPOINT}`;
+
+        if (getPreSignedURLSpan) {
+          getPreSignedURLSpan.setAttribute("http.request.method", HTTP_METHOD);
+        }
+
+        // we only want to set the URL attribute if the API URL is the default i.e. Codecov itself
+        if (getPreSignedURLSpan && apiUrl === DEFAULT_API_URL) {
+          getPreSignedURLSpan.setAttribute("http.request.url", URL);
+        }
+
+        try {
+          const body = preProcessBody(requestBody);
+          wrappedResponse = await fetchWithRetry({
+            retryCount,
+            url: URL,
+            name: "`get-pre-signed-url`",
+            requestData: {
+              method: HTTP_METHOD,
+              headers: headers,
+              body: JSON.stringify(body),
+            },
+          });
+        } catch (e) {
+          red("Failed to fetch pre-signed URL");
+          throw new FailedFetchError("Failed to fetch pre-signed URL", {
+            cause: e,
+          });
+        }
+
+        // Add attributes only if the span is present
+        if (getPreSignedURLSpan) {
+          // Set attributes for the response
+          getPreSignedURLSpan.setAttribute(
+            "http.response.status_code",
+            wrappedResponse.status,
+          );
+          getPreSignedURLSpan.setAttribute(
+            "http.response_content_length",
+            Number(wrappedResponse.headers.get("content-length")),
+          );
+          getPreSignedURLSpan.setAttribute(
+            "http.response.status_text",
+            wrappedResponse.statusText,
+          );
+        }
+
+        return wrappedResponse;
+      },
+    );
   } catch (e) {
-    red("Failed to fetch pre-signed URL");
-    throw new FailedFetchError("Failed to fetch pre-signed URL", { cause: e });
+    // re-throwing the error here
+    throw e;
   }
 
   if (response.status === 429) {
