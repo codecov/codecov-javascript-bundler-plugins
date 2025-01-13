@@ -15,7 +15,7 @@ exports[`Generating sveltekit stats 2 {"format":"es","expected":"esm"} matches t
   "outputPath": StringContaining ".svelte-kit",
   "plugin": {
     "name": StringMatching "@codecov/sveltekit-plugin",
-    "version": "1.7.0",
+    "version": "1.8.0",
   },
   "version": "3",
 }
@@ -36,7 +36,7 @@ exports[`Generating sveltekit stats 2 {"format":"es","expected":"esm"} matches t
   "outputPath": StringContaining ".svelte-kit",
   "plugin": {
     "name": StringMatching "@codecov/sveltekit-plugin",
-    "version": "1.7.0",
+    "version": "1.8.0",
   },
   "version": "3",
 }
@@ -57,7 +57,7 @@ exports[`Generating sveltekit stats 2 {"format":"esm","expected":"esm"} matches 
   "outputPath": StringContaining ".svelte-kit",
   "plugin": {
     "name": StringMatching "@codecov/sveltekit-plugin",
-    "version": "1.7.0",
+    "version": "1.8.0",
   },
   "version": "3",
 }
@@ -78,7 +78,7 @@ exports[`Generating sveltekit stats 2 {"format":"esm","expected":"esm"} matches 
   "outputPath": StringContaining ".svelte-kit",
   "plugin": {
     "name": StringMatching "@codecov/sveltekit-plugin",
-    "version": "1.7.0",
+    "version": "1.8.0",
   },
   "version": "3",
 }
@@ -99,7 +99,7 @@ exports[`Generating sveltekit stats 2 {"format":"module","expected":"esm"} match
   "outputPath": StringContaining ".svelte-kit",
   "plugin": {
     "name": StringMatching "@codecov/sveltekit-plugin",
-    "version": "1.7.0",
+    "version": "1.8.0",
   },
   "version": "3",
 }
@@ -120,7 +120,7 @@ exports[`Generating sveltekit stats 2 {"format":"module","expected":"esm"} match
   "outputPath": StringContaining ".svelte-kit",
   "plugin": {
     "name": StringMatching "@codecov/sveltekit-plugin",
-    "version": "1.7.0",
+    "version": "1.8.0",
   },
   "version": "3",
 }
