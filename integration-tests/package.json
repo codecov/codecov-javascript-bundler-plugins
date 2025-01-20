@@ -26,18 +26,16 @@
     "format:check": "prettier '**/*.{cjs,mjs,ts,tsx,md,json}' --ignore-path ../.gitignore --ignore-unknown --no-error-on-unmatched-pattern --check"
   },
   "dependencies": {
-    "lodash": "^4.17.21",
-    "solid-start": "^0.3.11",
-    "vite-plugin-solid": "^2.11.0"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@codecov/astro-plugin": "workspace:*",
+    "@codecov/bundle-analyzer": "workspace:^",
     "@codecov/bundler-plugin-core": "workspace:^",
     "@codecov/nuxt-plugin": "workspace:^",
     "@codecov/remix-vite-plugin": "workspace:^",
     "@codecov/rollup-plugin": "workspace:^",
     "@codecov/solidstart-plugin": "workspace:^",
-    "@codecov/bundle-analyzer": "workspace:^",
     "@codecov/sveltekit-plugin": "workspace:^",
     "@codecov/vite-plugin": "workspace:^",
     "@codecov/webpack-plugin": "workspace:^",
@@ -56,6 +54,7 @@
     "rollupV3": "npm:rollup@3.29.5",
     "rollupV4": "npm:rollup@4.22.4",
     "ts-node": "^10.9.2",
+    "vite-plugin-solid": "^2.11.0",
     "viteV4": "npm:vite@4.5.5",
     "viteV5": "npm:vite@5.2.14",
     "viteV6": "npm:vite@6.0.3",
