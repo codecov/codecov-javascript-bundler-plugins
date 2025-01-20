@@ -1,5 +1,19 @@
 # @codecov/nuxt-plugin
 
+## 1.8.0
+
+### Minor Changes
+
+- 01de9e5: Add Sentry to the bundler plugins to start collecting issues and telemetry
+
+### Patch Changes
+
+- 01de9e5: Fix issue not using the correct webpack in the nextjs plugin
+- Updated dependencies [01de9e5]
+- Updated dependencies [01de9e5]
+  - @codecov/bundler-plugin-core@1.8.0
+  - @codecov/vite-plugin@1.8.0
+
 ## 1.7.0
 
 ### Minor Changes
