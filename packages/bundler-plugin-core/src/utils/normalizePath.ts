@@ -56,7 +56,7 @@ export const normalizePath = (path: string, format: string): string => {
   }
 
   // handle vite legacy builds
-  if (path.includes("legacy")) {
+  if (normalizedPath === path && path.includes("legacy")) {
     const regexReplacement =
       /(?<leadingDelimiter>\S+-legacy-)(?<hash>[0-9a-zA-Z\/+=_\/+=-]+)(?<endingDelimiter>.\S+)/i;
 
