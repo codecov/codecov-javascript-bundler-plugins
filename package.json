@@ -46,7 +46,7 @@
     "typedoc": "^0.27.5",
     "typescript": "^5.3.3",
     "vite": "^6.0.3",
-    "vitest": "^2.1.8"
+    "vitest": "^2.1.9"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,css,scss,md,json}": [
