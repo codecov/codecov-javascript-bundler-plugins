@@ -55,6 +55,17 @@ export const normalizePath = (path: string, format: string): string => {
     );
   }
 
+  // handle vite legacy builds
+  if (path.includes("legacy")) {
+    const regexReplacement =
+      /(?<leadingDelimiter>\S+-legacy-)(?<hash>[0-9a-zA-Z\/+=_\/+=-]+)(?<endingDelimiter>.\S+)/i;
+
+    normalizedPath = normalizedPath.replace(
+      regexReplacement,
+      "$<leadingDelimiter>*$<endingDelimiter>",
+    );
+  }
+
   // if the path is the same as the normalized path, and the path contains a
   // hash, then we can assume that something went wrong and we should just
   // replace/brute force the hash with a wildcard

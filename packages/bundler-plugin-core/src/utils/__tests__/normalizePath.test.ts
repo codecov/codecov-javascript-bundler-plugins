@@ -115,6 +115,16 @@ const tests: Test[] = [
     },
     expected: "test.*.chunk.js",
   },
+  {
+    name: "should handle vite legacy builds",
+    input: {
+      path: "test-legacy-12345678.js",
+      // in testing i've found that the format is just an empty string so we
+      // have to brute force it in a different way
+      format: "",
+    },
+    expected: "test-legacy-*.js",
+  },
 ];
 
 describe("normalizePath", () => {
