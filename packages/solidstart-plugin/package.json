@@ -52,7 +52,7 @@
   "devDependencies": {
     "@rollup/plugin-replace": "^5.0.5",
     "@types/node": "^20.11.15",
-    "@vitest/coverage-v8": "^2.1.8",
+    "@vitest/coverage-v8": "^2.1.9",
     "codecovProdRollupPlugin": "npm:@codecov/rollup-plugin@1.5.0",
     "msw": "^2.7.0",
     "ts-node": "^10.9.2",
