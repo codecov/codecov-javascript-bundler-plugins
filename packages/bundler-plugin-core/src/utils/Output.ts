@@ -2,6 +2,7 @@ import { type Client, type Scope, startSpan } from "@sentry/core";
 import {
   type Asset,
   type Chunk,
+  type MetaFramework,
   type Module,
   type OutputPayload,
   type ProviderUtilInputs,
@@ -14,6 +15,10 @@ import { uploadStats } from "./uploadStats.ts";
 import { type ValidGitService } from "./normalizeOptions";
 import { debug } from "./logging.ts";
 import { safeFlushTelemetry } from "../sentry/telemetry.ts";
+
+interface OtherOptions {
+  metaFramework: MetaFramework;
+}
 
 interface SentryConfig {
   sentryClient?: Client;
@@ -47,6 +52,7 @@ class Output {
     name: string;
     version: string;
   };
+  metaFramework: MetaFramework;
   outputPath?: string;
   builtAt?: number;
   duration?: number;
@@ -66,7 +72,11 @@ class Output {
   sentryClient?: Client;
   sentryScope?: Scope;
 
-  constructor(userOptions: NormalizedOptions, sentryConfig?: SentryConfig) {
+  constructor(
+    userOptions: NormalizedOptions,
+    otherOptions: OtherOptions,
+    sentryConfig?: SentryConfig,
+  ) {
     this.version = "3";
     this.apiUrl = userOptions.apiUrl;
     this.dryRun = userOptions.dryRun;
@@ -80,7 +90,7 @@ class Output {
     this.telemetry = userOptions.telemetry;
     this.sentryClient = sentryConfig?.sentryClient;
     this.sentryScope = sentryConfig?.sentryScope;
-
+    this.metaFramework = otherOptions.metaFramework;
     if (userOptions.uploadOverrides) {
       this.branch = userOptions.uploadOverrides.branch;
       this.build = userOptions.uploadOverrides.build;

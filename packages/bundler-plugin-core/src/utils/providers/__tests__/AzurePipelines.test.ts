@@ -58,15 +58,18 @@ describe("Azure Pipelines CI Params", () => {
       }),
     ).thenReturn({ stdout: Buffer.from("") });
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "AzurePipelines-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "AzurePipelines-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await AzurePipelines.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
@@ -101,15 +104,18 @@ describe("Azure Pipelines CI Params", () => {
       execFileSync("git", ["show", "--no-patch", "--format=%P"]),
     ).thenReturn(Buffer.from("nonmergesha23456789012345678901234567890"));
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "AzurePipelines-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "AzurePipelines-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await AzurePipelines.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
@@ -144,15 +150,18 @@ describe("Azure Pipelines CI Params", () => {
       execFileSync("git", ["show", "--no-patch", "--format=%P"]),
     ).thenReturn(Buffer.from("nonmergesha23456789012345678901234567890"));
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "AzurePipelines-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "AzurePipelines-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await AzurePipelines.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
@@ -190,15 +199,18 @@ describe("Azure Pipelines CI Params", () => {
       stdout: Buffer.from("https://github.com/testOrg/testRepo.git"),
     });
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "AzurePipelines-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "AzurePipelines-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await AzurePipelines.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
@@ -237,15 +249,18 @@ describe("Azure Pipelines CI Params", () => {
       ),
     );
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "AzurePipelines-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "AzurePipelines-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await AzurePipelines.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
@@ -278,15 +293,18 @@ describe("Azure Pipelines CI Params", () => {
       slug: "testOrg/otherTestRepo",
     };
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "AzurePipelines-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "AzurePipelines-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await AzurePipelines.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });

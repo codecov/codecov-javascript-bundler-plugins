@@ -40,15 +40,18 @@ describe("detectProvider", () => {
         },
       };
 
-      const output = new Output({
-        apiUrl: "http://localhost",
-        bundleName: "provider-test",
-        debug: false,
-        dryRun: true,
-        enableBundleAnalysis: true,
-        retryCount: 0,
-        telemetry: false,
-      });
+      const output = new Output(
+        {
+          apiUrl: "http://localhost",
+          bundleName: "provider-test",
+          debug: false,
+          dryRun: true,
+          enableBundleAnalysis: true,
+          retryCount: 0,
+          telemetry: false,
+        },
+        { metaFramework: "vite" },
+      );
 
       const result = await detectProvider(inputs, output);
       expect(result.service).toEqual("appveyor");
@@ -59,15 +62,18 @@ describe("detectProvider", () => {
     it("throws an error", async () => {
       let error;
 
-      const output = new Output({
-        apiUrl: "http://localhost",
-        bundleName: "provider-test",
-        debug: false,
-        dryRun: true,
-        enableBundleAnalysis: true,
-        retryCount: 0,
-        telemetry: false,
-      });
+      const output = new Output(
+        {
+          apiUrl: "http://localhost",
+          bundleName: "provider-test",
+          debug: false,
+          dryRun: true,
+          enableBundleAnalysis: true,
+          retryCount: 0,
+          telemetry: false,
+        },
+        { metaFramework: "vite" },
+      );
 
       try {
         const inputs: ProviderUtilInputs = {

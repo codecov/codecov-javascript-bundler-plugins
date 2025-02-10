@@ -50,7 +50,12 @@ const codecovSvelteKitPluginFactory = createVitePlugin<Options, true>(
       bundler: unpluginMetaContext.framework,
       metaFramework: "sveltekit",
     });
-    const output = new Output(options, sentryConfig);
+
+    const output = new Output(
+      options,
+      { metaFramework: unpluginMetaContext.framework },
+      sentryConfig,
+    );
 
     if (options.enableBundleAnalysis) {
       plugins.push(

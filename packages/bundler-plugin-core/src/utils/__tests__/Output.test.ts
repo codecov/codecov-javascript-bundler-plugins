@@ -116,16 +116,19 @@ describe("Output", () => {
     });
 
     it("should set builtAt to the current time", () => {
-      const output = new Output({
-        apiUrl: "http://localhost",
-        bundleName: "output-test",
-        debug: false,
-        dryRun: false,
-        enableBundleAnalysis: true,
-        retryCount: 1,
-        uploadToken: "token",
-        telemetry: false,
-      });
+      const output = new Output(
+        {
+          apiUrl: "http://localhost",
+          bundleName: "output-test",
+          debug: false,
+          dryRun: false,
+          enableBundleAnalysis: true,
+          retryCount: 1,
+          uploadToken: "token",
+          telemetry: false,
+        },
+        { metaFramework: "vite" },
+      );
 
       output.start();
 
@@ -144,16 +147,19 @@ describe("Output", () => {
 
     describe("builtAt is set", () => {
       it("should set duration to the difference between now and builtAt", () => {
-        const output = new Output({
-          apiUrl: "http://localhost",
-          bundleName: "output-test",
-          debug: false,
-          dryRun: false,
-          enableBundleAnalysis: true,
-          retryCount: 1,
-          uploadToken: "token",
-          telemetry: false,
-        });
+        const output = new Output(
+          {
+            apiUrl: "http://localhost",
+            bundleName: "output-test",
+            debug: false,
+            dryRun: false,
+            enableBundleAnalysis: true,
+            retryCount: 1,
+            uploadToken: "token",
+            telemetry: false,
+          },
+          { metaFramework: "vite" },
+        );
 
         output.start();
         output.end();
@@ -164,16 +170,19 @@ describe("Output", () => {
 
     describe("builtAt is not set", () => {
       it("should set duration to the difference between now and 0", () => {
-        const output = new Output({
-          apiUrl: "http://localhost",
-          bundleName: "output-test",
-          debug: false,
-          dryRun: false,
-          enableBundleAnalysis: true,
-          retryCount: 1,
-          uploadToken: "token",
-          telemetry: false,
-        });
+        const output = new Output(
+          {
+            apiUrl: "http://localhost",
+            bundleName: "output-test",
+            debug: false,
+            dryRun: false,
+            enableBundleAnalysis: true,
+            retryCount: 1,
+            uploadToken: "token",
+            telemetry: false,
+          },
+          { metaFramework: "vite" },
+        );
 
         output.end();
         expect(output?.duration).toBe(1000);
@@ -184,16 +193,19 @@ describe("Output", () => {
   describe("setPlugin method", () => {
     describe("frozen is not set", () => {
       it("sets the plugin details", () => {
-        const output = new Output({
-          apiUrl: "http://localhost",
-          bundleName: "output-test",
-          debug: false,
-          dryRun: false,
-          enableBundleAnalysis: true,
-          retryCount: 1,
-          uploadToken: "token",
-          telemetry: false,
-        });
+        const output = new Output(
+          {
+            apiUrl: "http://localhost",
+            bundleName: "output-test",
+            debug: false,
+            dryRun: false,
+            enableBundleAnalysis: true,
+            retryCount: 1,
+            uploadToken: "token",
+            telemetry: false,
+          },
+          { metaFramework: "vite" },
+        );
 
         output.setPlugin("test-plugin", "0.0.1");
 
@@ -206,16 +218,19 @@ describe("Output", () => {
 
     describe("locking the plugin details", () => {
       it("does not change the plugin details", () => {
-        const output = new Output({
-          apiUrl: "http://localhost",
-          bundleName: "output-test",
-          debug: false,
-          dryRun: false,
-          enableBundleAnalysis: true,
-          retryCount: 1,
-          uploadToken: "token",
-          telemetry: false,
-        });
+        const output = new Output(
+          {
+            apiUrl: "http://localhost",
+            bundleName: "output-test",
+            debug: false,
+            dryRun: false,
+            enableBundleAnalysis: true,
+            retryCount: 1,
+            uploadToken: "token",
+            telemetry: false,
+          },
+          { metaFramework: "vite" },
+        );
 
         output.setPlugin("test-plugin", "0.0.1");
         output.lockPluginDetails();
@@ -232,16 +247,19 @@ describe("Output", () => {
   describe("setBundleName method", () => {
     describe("bundle name is not locked", () => {
       it("sets the bundle name", () => {
-        const output = new Output({
-          apiUrl: "http://localhost",
-          bundleName: "output-test",
-          debug: false,
-          dryRun: false,
-          enableBundleAnalysis: true,
-          retryCount: 1,
-          uploadToken: "token",
-          telemetry: false,
-        });
+        const output = new Output(
+          {
+            apiUrl: "http://localhost",
+            bundleName: "output-test",
+            debug: false,
+            dryRun: false,
+            enableBundleAnalysis: true,
+            retryCount: 1,
+            uploadToken: "token",
+            telemetry: false,
+          },
+          { metaFramework: "vite" },
+        );
 
         output.setBundleName("new-bundle");
 
@@ -251,16 +269,19 @@ describe("Output", () => {
 
     describe("bundle name is locked", () => {
       it("does not change the bundle name", () => {
-        const output = new Output({
-          apiUrl: "http://localhost",
-          bundleName: "output-test",
-          debug: false,
-          dryRun: false,
-          enableBundleAnalysis: true,
-          retryCount: 1,
-          uploadToken: "token",
-          telemetry: false,
-        });
+        const output = new Output(
+          {
+            apiUrl: "http://localhost",
+            bundleName: "output-test",
+            debug: false,
+            dryRun: false,
+            enableBundleAnalysis: true,
+            retryCount: 1,
+            uploadToken: "token",
+            telemetry: false,
+          },
+          { metaFramework: "vite" },
+        );
 
         output.setBundleName("new-bundle");
         output.lockBundleName();
@@ -275,16 +296,19 @@ describe("Output", () => {
     describe("dryRun is enabled", () => {
       it("immediately returns", async () => {
         const { preSignedUrlBody } = setup({});
-        const output = new Output({
-          apiUrl: "http://localhost",
-          bundleName: "output-test",
-          debug: false,
-          dryRun: false,
-          enableBundleAnalysis: true,
-          retryCount: 1,
-          uploadToken: "token",
-          telemetry: false,
-        });
+        const output = new Output(
+          {
+            apiUrl: "http://localhost",
+            bundleName: "output-test",
+            debug: false,
+            dryRun: false,
+            enableBundleAnalysis: true,
+            retryCount: 1,
+            uploadToken: "token",
+            telemetry: false,
+          },
+          { metaFramework: "vite" },
+        );
         output.start();
         output.end();
 
@@ -298,15 +322,18 @@ describe("Output", () => {
       it("immediately returns", async () => {
         const { preSignedUrlBody } = setup({});
 
-        // @ts-expect-error - no bundle name included for test
-        const output = new Output({
-          apiUrl: "http://localhost",
-          debug: false,
-          dryRun: false,
-          enableBundleAnalysis: true,
-          retryCount: 1,
-          uploadToken: "token",
-        });
+        const output = new Output(
+          // @ts-expect-error - no bundle name included for test
+          {
+            apiUrl: "http://localhost",
+            debug: false,
+            dryRun: false,
+            enableBundleAnalysis: true,
+            retryCount: 1,
+            uploadToken: "token",
+          },
+          { metaFramework: "vite" },
+        );
 
         output.start();
         output.end();
@@ -320,16 +347,19 @@ describe("Output", () => {
     describe("bundle name is empty", () => {
       it("immediately returns", async () => {
         const { preSignedUrlBody } = setup({});
-        const output = new Output({
-          apiUrl: "http://localhost",
-          bundleName: "output-test",
-          debug: false,
-          dryRun: false,
-          enableBundleAnalysis: true,
-          retryCount: 1,
-          uploadToken: "token",
-          telemetry: false,
-        });
+        const output = new Output(
+          {
+            apiUrl: "http://localhost",
+            bundleName: "output-test",
+            debug: false,
+            dryRun: false,
+            enableBundleAnalysis: true,
+            retryCount: 1,
+            uploadToken: "token",
+            telemetry: false,
+          },
+          { metaFramework: "vite" },
+        );
         output.start();
         output.end();
 
@@ -347,16 +377,19 @@ describe("Output", () => {
       });
 
       it("throws an error", async () => {
-        const output = new Output({
-          apiUrl: "http://localhost",
-          bundleName: "output-test",
-          debug: false,
-          dryRun: false,
-          enableBundleAnalysis: true,
-          retryCount: 1,
-          uploadToken: "token",
-          telemetry: false,
-        });
+        const output = new Output(
+          {
+            apiUrl: "http://localhost",
+            bundleName: "output-test",
+            debug: false,
+            dryRun: false,
+            enableBundleAnalysis: true,
+            retryCount: 1,
+            uploadToken: "token",
+            telemetry: false,
+          },
+          { metaFramework: "vite" },
+        );
 
         output.start();
         output.end();
@@ -370,16 +403,19 @@ describe("Output", () => {
       });
 
       it("logs error when debug is enabled", async () => {
-        const output = new Output({
-          apiUrl: "http://localhost",
-          bundleName: "output-test",
-          debug: true,
-          dryRun: false,
-          enableBundleAnalysis: true,
-          retryCount: 1,
-          uploadToken: "token",
-          telemetry: false,
-        });
+        const output = new Output(
+          {
+            apiUrl: "http://localhost",
+            bundleName: "output-test",
+            debug: true,
+            dryRun: false,
+            enableBundleAnalysis: true,
+            retryCount: 1,
+            uploadToken: "token",
+            telemetry: false,
+          },
+          { metaFramework: "vite" },
+        );
 
         output.start();
         output.end();
@@ -415,6 +451,7 @@ describe("Output", () => {
             uploadToken: "token",
             telemetry: false,
           },
+          { metaFramework: "vite" },
           { sentryClient, sentryScope },
         );
 
@@ -464,6 +501,7 @@ describe("Output", () => {
             uploadToken: "token",
             telemetry: false,
           },
+          { metaFramework: "vite" },
           { sentryClient, sentryScope },
         );
 
@@ -497,16 +535,19 @@ describe("Output", () => {
       it("immediately returns", async () => {
         setup({ urlSendError: true });
 
-        const output = new Output({
-          apiUrl: "http://localhost",
-          bundleName: "output-test",
-          debug: false,
-          dryRun: false,
-          enableBundleAnalysis: true,
-          retryCount: 1,
-          uploadToken: "token",
-          telemetry: false,
-        });
+        const output = new Output(
+          {
+            apiUrl: "http://localhost",
+            bundleName: "output-test",
+            debug: false,
+            dryRun: false,
+            enableBundleAnalysis: true,
+            retryCount: 1,
+            uploadToken: "token",
+            telemetry: false,
+          },
+          { metaFramework: "vite" },
+        );
 
         output.start();
         output.end();
@@ -517,16 +558,19 @@ describe("Output", () => {
       it("logs error when debug is enabled", async () => {
         setup({ urlSendError: true });
 
-        const output = new Output({
-          apiUrl: "http://localhost",
-          bundleName: "output-test",
-          debug: true,
-          dryRun: false,
-          enableBundleAnalysis: true,
-          retryCount: 1,
-          uploadToken: "token",
-          telemetry: false,
-        });
+        const output = new Output(
+          {
+            apiUrl: "http://localhost",
+            bundleName: "output-test",
+            debug: true,
+            dryRun: false,
+            enableBundleAnalysis: true,
+            retryCount: 1,
+            uploadToken: "token",
+            telemetry: false,
+          },
+          { metaFramework: "vite" },
+        );
 
         output.start();
         output.end();
@@ -543,16 +587,19 @@ describe("Output", () => {
       it("optionally emits error", async () => {
         setup({ urlSendError: true });
 
-        const output = new Output({
-          apiUrl: "http://localhost",
-          bundleName: "output-test",
-          debug: false,
-          dryRun: false,
-          enableBundleAnalysis: true,
-          retryCount: 1,
-          uploadToken: "token",
-          telemetry: false,
-        });
+        const output = new Output(
+          {
+            apiUrl: "http://localhost",
+            bundleName: "output-test",
+            debug: false,
+            dryRun: false,
+            enableBundleAnalysis: true,
+            retryCount: 1,
+            uploadToken: "token",
+            telemetry: false,
+          },
+          { metaFramework: "vite" },
+        );
 
         output.start();
         output.end();
@@ -586,6 +633,7 @@ describe("Output", () => {
             uploadToken: "token",
             telemetry: false,
           },
+          { metaFramework: "vite" },
           { sentryClient, sentryScope },
         );
 
@@ -618,16 +666,19 @@ describe("Output", () => {
           urlStatus: 200,
         });
 
-        const output = new Output({
-          apiUrl: "http://localhost",
-          bundleName: "output-test",
-          debug: false,
-          dryRun: false,
-          enableBundleAnalysis: true,
-          retryCount: 1,
-          uploadToken: "token",
-          telemetry: false,
-        });
+        const output = new Output(
+          {
+            apiUrl: "http://localhost",
+            bundleName: "output-test",
+            debug: false,
+            dryRun: false,
+            enableBundleAnalysis: true,
+            retryCount: 1,
+            uploadToken: "token",
+            telemetry: false,
+          },
+          { metaFramework: "vite" },
+        );
 
         output.start();
         output.end();
@@ -666,16 +717,19 @@ describe("Output", () => {
           statsSendError: true,
         });
 
-        const output = new Output({
-          apiUrl: "http://localhost",
-          bundleName: "output-test",
-          debug: false,
-          dryRun: false,
-          enableBundleAnalysis: true,
-          retryCount: 1,
-          uploadToken: "token",
-          telemetry: false,
-        });
+        const output = new Output(
+          {
+            apiUrl: "http://localhost",
+            bundleName: "output-test",
+            debug: false,
+            dryRun: false,
+            enableBundleAnalysis: true,
+            retryCount: 1,
+            uploadToken: "token",
+            telemetry: false,
+          },
+          { metaFramework: "vite" },
+        );
 
         output.start();
         output.end();
@@ -690,16 +744,19 @@ describe("Output", () => {
           statsSendError: true,
         });
 
-        const output = new Output({
-          apiUrl: "http://localhost",
-          bundleName: "output-test",
-          debug: true,
-          dryRun: false,
-          enableBundleAnalysis: true,
-          retryCount: 1,
-          uploadToken: "token",
-          telemetry: false,
-        });
+        const output = new Output(
+          {
+            apiUrl: "http://localhost",
+            bundleName: "output-test",
+            debug: true,
+            dryRun: false,
+            enableBundleAnalysis: true,
+            retryCount: 1,
+            uploadToken: "token",
+            telemetry: false,
+          },
+          { metaFramework: "vite" },
+        );
 
         output.start();
         output.end();
@@ -720,16 +777,19 @@ describe("Output", () => {
           statsSendError: true,
         });
 
-        const output = new Output({
-          apiUrl: "http://localhost",
-          bundleName: "output-test",
-          debug: false,
-          dryRun: false,
-          enableBundleAnalysis: true,
-          retryCount: 1,
-          uploadToken: "token",
-          telemetry: false,
-        });
+        const output = new Output(
+          {
+            apiUrl: "http://localhost",
+            bundleName: "output-test",
+            debug: false,
+            dryRun: false,
+            enableBundleAnalysis: true,
+            retryCount: 1,
+            uploadToken: "token",
+            telemetry: false,
+          },
+          { metaFramework: "vite" },
+        );
 
         output.start();
         output.end();
@@ -767,6 +827,7 @@ describe("Output", () => {
             uploadToken: "token",
             telemetry: false,
           },
+          { metaFramework: "vite" },
           { sentryClient, sentryScope },
         );
 
@@ -801,16 +862,19 @@ describe("Output", () => {
           statsStatus: 200,
         });
 
-        const output = new Output({
-          apiUrl: "http://localhost",
-          bundleName: "output-test",
-          debug: false,
-          dryRun: false,
-          enableBundleAnalysis: true,
-          retryCount: 1,
-          uploadToken: "token",
-          telemetry: false,
-        });
+        const output = new Output(
+          {
+            apiUrl: "http://localhost",
+            bundleName: "output-test",
+            debug: false,
+            dryRun: false,
+            enableBundleAnalysis: true,
+            retryCount: 1,
+            uploadToken: "token",
+            telemetry: false,
+          },
+          { metaFramework: "vite" },
+        );
 
         output.start();
         output.end();

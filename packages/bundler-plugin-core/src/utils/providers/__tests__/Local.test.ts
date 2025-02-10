@@ -62,15 +62,18 @@ describe("Local Params", () => {
       slug: "owner/repo",
     };
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "Local-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "Local-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await Local.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
@@ -101,15 +104,18 @@ describe("Local Params", () => {
       slug: "owner/repo",
     };
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "Local-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "Local-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await Local.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
@@ -120,15 +126,18 @@ describe("Local Params", () => {
       envs: {},
     };
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "Local-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "Local-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const spawnSync = td.replace(childProcess, "spawnSync");
     await expect(Local.getServiceParams(inputs, output)).rejects.toThrow();
 
@@ -184,15 +193,18 @@ describe("Local Params", () => {
         stdout: Buffer.from("testSHA"),
       });
 
-      const output = new Output({
-        apiUrl: "http://localhost",
-        bundleName: "Local-test",
-        debug: false,
-        dryRun: true,
-        enableBundleAnalysis: true,
-        retryCount: 0,
-        telemetry: false,
-      });
+      const output = new Output(
+        {
+          apiUrl: "http://localhost",
+          bundleName: "Local-test",
+          debug: false,
+          dryRun: true,
+          enableBundleAnalysis: true,
+          retryCount: 0,
+          telemetry: false,
+        },
+        { metaFramework: "vite" },
+      );
       const params = await Local.getServiceParams(inputs, output);
       expect(params.slug).toBe("testOrg/testRepo");
     });
@@ -223,15 +235,18 @@ describe("Local Params", () => {
         stdout: Buffer.from("testSHA"),
       });
 
-      const output = new Output({
-        apiUrl: "http://localhost",
-        bundleName: "Local-test",
-        debug: false,
-        dryRun: true,
-        enableBundleAnalysis: true,
-        retryCount: 0,
-        telemetry: false,
-      });
+      const output = new Output(
+        {
+          apiUrl: "http://localhost",
+          bundleName: "Local-test",
+          debug: false,
+          dryRun: true,
+          enableBundleAnalysis: true,
+          retryCount: 0,
+          telemetry: false,
+        },
+        { metaFramework: "vite" },
+      );
       await expect(Local.getServiceParams(inputs, output)).rejects.toThrow();
     });
 
@@ -262,15 +277,18 @@ describe("Local Params", () => {
         stdout: Buffer.from("testSHA"),
       });
 
-      const output = new Output({
-        apiUrl: "http://localhost",
-        bundleName: "Local-test",
-        debug: false,
-        dryRun: true,
-        enableBundleAnalysis: true,
-        retryCount: 0,
-        telemetry: false,
-      });
+      const output = new Output(
+        {
+          apiUrl: "http://localhost",
+          bundleName: "Local-test",
+          debug: false,
+          dryRun: true,
+          enableBundleAnalysis: true,
+          retryCount: 0,
+          telemetry: false,
+        },
+        { metaFramework: "vite" },
+      );
       const params = await Local.getServiceParams(inputs, output);
       expect(params.slug).toBe("testOrg/testRepo");
     });

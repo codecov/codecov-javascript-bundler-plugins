@@ -61,15 +61,18 @@ describe("CodeBuild Params", () => {
         slug: "repo",
       };
 
-      const output = new Output({
-        apiUrl: "http://localhost",
-        bundleName: "CodeBuild-test",
-        debug: false,
-        dryRun: true,
-        enableBundleAnalysis: true,
-        retryCount: 0,
-        telemetry: false,
-      });
+      const output = new Output(
+        {
+          apiUrl: "http://localhost",
+          bundleName: "CodeBuild-test",
+          debug: false,
+          dryRun: true,
+          enableBundleAnalysis: true,
+          retryCount: 0,
+          telemetry: false,
+        },
+        { metaFramework: "vite" },
+      );
       const params = await CodeBuild.getServiceParams(inputs, output);
       expect(params).toMatchObject(expected);
     });
@@ -107,15 +110,18 @@ describe("CodeBuild Params", () => {
         slug: "testOrg/testRepo",
       };
 
-      const output = new Output({
-        apiUrl: "http://localhost",
-        bundleName: "CodeBuild-test",
-        debug: false,
-        dryRun: true,
-        enableBundleAnalysis: true,
-        retryCount: 0,
-        telemetry: false,
-      });
+      const output = new Output(
+        {
+          apiUrl: "http://localhost",
+          bundleName: "CodeBuild-test",
+          debug: false,
+          dryRun: true,
+          enableBundleAnalysis: true,
+          retryCount: 0,
+          telemetry: false,
+        },
+        { metaFramework: "vite" },
+      );
       const params = await CodeBuild.getServiceParams(inputs, output);
       expect(params).toMatchObject(expected);
     });

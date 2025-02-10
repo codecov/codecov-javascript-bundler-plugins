@@ -65,15 +65,18 @@ describe("CI Providers", () => {
           },
         };
 
-        const output = new Output({
-          apiUrl: "http://localhost",
-          bundleName: "service-test",
-          debug: false,
-          dryRun: true,
-          enableBundleAnalysis: true,
-          retryCount: 0,
-          telemetry: false,
-        });
+        const output = new Output(
+          {
+            apiUrl: "http://localhost",
+            bundleName: "service-test",
+            debug: false,
+            dryRun: true,
+            enableBundleAnalysis: true,
+            retryCount: 0,
+            telemetry: false,
+          },
+          { metaFramework: "vite" },
+        );
 
         const serviceParams = await provider.getServiceParams(inputs, output);
 
@@ -94,15 +97,18 @@ describe("CI Providers", () => {
           },
         };
 
-        const output = new Output({
-          apiUrl: "http://localhost",
-          bundleName: "service-test",
-          debug: false,
-          dryRun: true,
-          enableBundleAnalysis: true,
-          retryCount: 0,
-          telemetry: false,
-        });
+        const output = new Output(
+          {
+            apiUrl: "http://localhost",
+            bundleName: "service-test",
+            debug: false,
+            dryRun: true,
+            enableBundleAnalysis: true,
+            retryCount: 0,
+            telemetry: false,
+          },
+          { metaFramework: "vite" },
+        );
 
         const serviceParams = await provider.getServiceParams(inputs, output);
 
