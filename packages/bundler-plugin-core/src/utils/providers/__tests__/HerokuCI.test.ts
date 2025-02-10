@@ -60,15 +60,18 @@ describe("HerokuCI Params", () => {
       }),
     ).thenReturn({ stdout: Buffer.from("") });
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "Heroku-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "Heroku-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await HerokuCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
@@ -102,15 +105,18 @@ describe("HerokuCI Params", () => {
       stdout: Buffer.from("https://github.com/testOrg/testRepo.git"),
     });
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "Heroku-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "Heroku-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await HerokuCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
@@ -140,15 +146,18 @@ describe("HerokuCI Params", () => {
       slug: "testOrg/testRepo",
     };
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "Heroku-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "Heroku-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await HerokuCI.getServiceParams(inputs, output);
     expect(expected).toBeTruthy();
     expect(params).toMatchObject(expected);

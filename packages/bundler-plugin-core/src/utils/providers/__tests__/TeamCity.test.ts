@@ -66,15 +66,18 @@ describe("TeamCity Params", () => {
       }),
     ).thenReturn({ stdout: Buffer.from("") });
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "TeamCity-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "TeamCity-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await TeamCity.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
@@ -109,15 +112,18 @@ describe("TeamCity Params", () => {
       stdout: Buffer.from("https://github.com/testOrg/testRepo.git"),
     });
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "TeamCity-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "TeamCity-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await TeamCity.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
@@ -159,15 +165,18 @@ describe("TeamCity Params", () => {
       slug: "testOrg/testRepo",
     };
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "TeamCity-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "TeamCity-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await TeamCity.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
@@ -196,15 +205,18 @@ describe("TeamCity Params", () => {
       slug: null,
     };
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "TeamCity-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "TeamCity-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await TeamCity.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });

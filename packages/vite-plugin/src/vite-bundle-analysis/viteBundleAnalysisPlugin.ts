@@ -78,6 +78,7 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
               fileName: fileName,
               source: item.source,
               formatString: assetFormatString,
+              metaFramework: output.metaFramework,
             });
             assets.push(asset);
           } else if (item?.type === "chunk") {
@@ -90,6 +91,7 @@ export const viteBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
               fileName,
               source: item.code,
               formatString: chunkFormatString,
+              metaFramework: output.metaFramework,
             });
             assets.push(asset);
 

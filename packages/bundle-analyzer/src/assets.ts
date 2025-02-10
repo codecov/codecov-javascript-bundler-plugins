@@ -55,7 +55,11 @@ export const getAsset = async (
 
   // normalize the file name if a pattern is provided. By default (when pattern is ""), this
   // will replace anything "hashlike" with *. For example index-1dca144e.js --> index-*.js
-  const normalizedName = normalizePath(fileName, normalizeAssetsPattern);
+  const normalizedName = normalizePath(
+    fileName,
+    normalizeAssetsPattern,
+    "bundle-analyzer",
+  );
 
   return {
     name: fileName,

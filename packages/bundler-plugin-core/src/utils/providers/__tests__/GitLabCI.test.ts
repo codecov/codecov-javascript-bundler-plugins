@@ -61,15 +61,18 @@ describe("GitLabCI Params", () => {
       }),
     ).thenReturn({ stdout: Buffer.from("") });
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "GLCI-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "GLCI-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await GitLabCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
@@ -99,15 +102,18 @@ describe("GitLabCI Params", () => {
       slug: "testOrg/testRepo",
     };
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "GLCI-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "GLCI-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await GitLabCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
@@ -134,15 +140,18 @@ describe("GitLabCI Params", () => {
       slug: "testOrg/testRepo",
     };
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "GLCI-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "GLCI-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await GitLabCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
@@ -155,15 +164,18 @@ describe("GitLabCI Params", () => {
       },
     };
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "GLCI-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "GLCI-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
 
     it("can get the slug from http", async () => {
       inputs.envs.CI_BUILD_REPO = "https://gitlab.com/testOrg/testRepo.git";
@@ -247,15 +259,18 @@ describe("GitLabCI Params", () => {
       slug: "testOrg/testRepo",
     };
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "GLCI-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "GLCI-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await GitLabCI.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });

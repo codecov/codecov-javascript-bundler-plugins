@@ -34,7 +34,11 @@ describe("processAssets", () => {
         // This is a fairly complex type to mock out, so we're just using the values that are needed for this test
       } as unknown as Compilation;
 
-      const processedAssets = await processAssets({ assets, compilation });
+      const processedAssets = await processAssets({
+        assets,
+        compilation,
+        metaFramework: "webpack",
+      });
 
       expect(processedAssets).toEqual([
         {
@@ -77,7 +81,11 @@ describe("processAssets", () => {
         // This is a fairly complex type to mock out, so we're just using the values that are needed for this test
       } as unknown as Compilation;
 
-      const processedAssets = await processAssets({ assets, compilation });
+      const processedAssets = await processAssets({
+        assets,
+        compilation,
+        metaFramework: "webpack",
+      });
 
       expect(processedAssets).toEqual([
         {
@@ -126,7 +134,11 @@ describe("processAssets", () => {
         // This is a fairly complex type to mock out, so we're just using the values that are needed for this test
       } as unknown as Compilation;
 
-      const processedAssets = await processAssets({ assets, compilation });
+      const processedAssets = await processAssets({
+        assets,
+        compilation,
+        metaFramework: "webpack",
+      });
 
       expect(processedAssets).toEqual([
         {

@@ -82,6 +82,7 @@ export const nextJSWebpackBundleAnalysisPlugin: ExtendedBAUploadPlugin<{
             const collectedAssets = await processAssets({
               assets,
               compilation,
+              metaFramework: output.metaFramework,
             });
 
             output.assets = collectedAssets;

@@ -59,15 +59,18 @@ describe("Netlify Params", () => {
       slug: null,
     };
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "Netlify-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "Netlify-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await Netlify.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
@@ -100,15 +103,18 @@ describe("Netlify Params", () => {
       slug: "testOrg/testRepo",
     };
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "Netlify-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "Netlify-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await Netlify.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
@@ -130,15 +136,18 @@ describe("Netlify Params", () => {
       slug: null,
     };
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "Netlify-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "Netlify-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await Netlify.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });

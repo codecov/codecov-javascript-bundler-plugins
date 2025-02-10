@@ -1,4 +1,4 @@
-import { type UnpluginOptions } from "unplugin";
+import { type UnpluginContextMeta, type UnpluginOptions } from "unplugin";
 import { type Output } from "./utils/Output";
 import { type ValidGitService } from "./utils/normalizeOptions";
 
@@ -6,6 +6,10 @@ export interface Dependency {
   name: string;
   version: string;
 }
+
+export type MetaFramework =
+  | UnpluginContextMeta["framework"]
+  | "bundle-analyzer";
 
 export interface Asset {
   name: string;

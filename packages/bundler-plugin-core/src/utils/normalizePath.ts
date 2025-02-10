@@ -1,3 +1,5 @@
+import { type MetaFramework } from "../types";
+
 const HASH_REGEX = /[a-f0-9]{8,}/i;
 const POTENTIAL_HASHES = ["[contenthash", "[fullhash", "[chunkhash", "[hash"];
 
@@ -9,7 +11,11 @@ interface HashMatch {
   hashIndex: number;
 }
 
-export const normalizePath = (path: string, format: string): string => {
+export const normalizePath = (
+  path: string,
+  format: string,
+  metaFramework: MetaFramework,
+): string => {
   // grab all potential hashes in the format string
   const matches: HashMatch[] = [];
   for (const hash of POTENTIAL_HASHES) {
@@ -51,6 +57,21 @@ export const normalizePath = (path: string, format: string): string => {
     // replace the hash with a wildcard and the delimiters
     normalizedPath = normalizedPath.replace(
       HASH_REPLACE_REGEX,
+      "$<leadingDelimiter>*$<endingDelimiter>",
+    );
+  }
+
+  // handle vite legacy builds
+  if (
+    normalizedPath === path &&
+    metaFramework === "vite" &&
+    path.includes("legacy")
+  ) {
+    const regexReplacement =
+      /(?<leadingDelimiter>\S+-legacy\S)(?<hash>[0-9a-zA-Z\/+=_\/+=-]+)(?<endingDelimiter>.\S+)/i;
+
+    normalizedPath = normalizedPath.replace(
+      regexReplacement,
       "$<leadingDelimiter>*$<endingDelimiter>",
     );
   }
