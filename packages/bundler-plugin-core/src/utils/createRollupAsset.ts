@@ -1,3 +1,4 @@
+import { type MetaFramework } from "../types";
 import { getCompressedSize } from "./getCompressedSize.ts";
 import { normalizePath } from "./normalizePath.ts";
 
@@ -5,12 +6,14 @@ interface CreateAssetOptions {
   fileName: string;
   source: Uint8Array | string;
   formatString: string;
+  metaFramework: MetaFramework;
 }
 
 export const createRollupAsset = async ({
   source,
   fileName,
   formatString,
+  metaFramework,
 }: CreateAssetOptions) => {
   const size =
     source instanceof Buffer
@@ -26,6 +29,6 @@ export const createRollupAsset = async ({
     name: fileName,
     size: size,
     gzipSize: gzipSize,
-    normalized: normalizePath(fileName, formatString),
+    normalized: normalizePath(fileName, formatString, metaFramework),
   };
 };
