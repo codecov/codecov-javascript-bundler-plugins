@@ -61,15 +61,18 @@ describe("Buildkite Params", () => {
       slug: "testOrg/testRepo",
     };
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "Buildkite-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "Buildkite-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await Buildkite.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
@@ -102,15 +105,18 @@ describe("Buildkite Params", () => {
       slug: "testOrg/testRepo",
     };
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "Buildkite-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "Buildkite-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await Buildkite.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });

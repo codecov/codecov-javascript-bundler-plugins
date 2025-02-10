@@ -90,7 +90,9 @@ const createReport = async (
   normalizedBundleAnalyzerOptions: NormalizedBundleAnalyzerOptions,
 ): Promise<Output> => {
   // initialize report
-  const output: Output = new Output(normalizedCoreOptions);
+  const output: Output = new Output(normalizedCoreOptions, {
+    metaFramework: "bundle-analyzer",
+  });
   output.start();
   output.setPlugin(PLUGIN_NAME, PLUGIN_VERSION);
 

@@ -11,16 +11,19 @@ describe("viteBundleAnalysisPlugin", () => {
   describe("when called", () => {
     it("returns a plugin object", () => {
       const plugin = viteBundleAnalysisPlugin({
-        output: new Output({
-          apiUrl: "http://localhost",
-          bundleName: "test-bundle",
-          debug: false,
-          dryRun: true,
-          enableBundleAnalysis: true,
-          retryCount: 1,
-          uploadToken: "test-token",
-          telemetry: false,
-        }),
+        output: new Output(
+          {
+            apiUrl: "http://localhost",
+            bundleName: "test-bundle",
+            debug: false,
+            dryRun: true,
+            enableBundleAnalysis: true,
+            retryCount: 1,
+            uploadToken: "test-token",
+            telemetry: false,
+          },
+          { metaFramework: "vite" },
+        ),
         pluginName: PLUGIN_NAME,
         pluginVersion: PLUGIN_VERSION,
       });

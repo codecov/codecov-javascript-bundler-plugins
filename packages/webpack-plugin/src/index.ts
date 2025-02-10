@@ -54,7 +54,12 @@ const codecovWebpackPluginFactory = createWebpackPlugin<Options, true>(
       options,
       bundler: unpluginMetaContext.framework,
     });
-    const output = new Output(options, sentryConfig);
+
+    const output = new Output(
+      options,
+      { metaFramework: unpluginMetaContext.framework },
+      sentryConfig,
+    );
 
     if (options.enableBundleAnalysis) {
       plugins.push(

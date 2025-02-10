@@ -11,16 +11,19 @@ describe("webpackBundleAnalysisPlugin", () => {
   describe("when called", () => {
     it("returns a plugin object", () => {
       const plugin = webpackBundleAnalysisPlugin({
-        output: new Output({
-          apiUrl: "http://localhost",
-          bundleName: "test-bundle",
-          debug: false,
-          dryRun: true,
-          enableBundleAnalysis: true,
-          retryCount: 1,
-          uploadToken: "test-token",
-          telemetry: false,
-        }),
+        output: new Output(
+          {
+            apiUrl: "http://localhost",
+            bundleName: "test-bundle",
+            debug: false,
+            dryRun: true,
+            enableBundleAnalysis: true,
+            retryCount: 1,
+            uploadToken: "test-token",
+            telemetry: false,
+          },
+          { metaFramework: "webpack" },
+        ),
         pluginName: PLUGIN_NAME,
         pluginVersion: PLUGIN_VERSION,
       });

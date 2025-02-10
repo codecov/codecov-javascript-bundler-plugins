@@ -58,15 +58,18 @@ describe("CloudflarePages Params", () => {
       slug: null,
     };
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "CloudflarePages-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "CloudflarePages-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await CloudflarePages.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
@@ -98,15 +101,18 @@ describe("CloudflarePages Params", () => {
       slug: "testOrg/testRepo",
     };
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "CloudflarePages-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "CloudflarePages-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await CloudflarePages.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
@@ -128,15 +134,18 @@ describe("CloudflarePages Params", () => {
       slug: null,
     };
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "CloudflarePages-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "CloudflarePages-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await CloudflarePages.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });

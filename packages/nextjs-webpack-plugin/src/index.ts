@@ -55,7 +55,13 @@ const codecovNextJSWebpackPluginFactory = createWebpackPlugin<
     bundler: unpluginMetaContext.framework,
     metaFramework: "nextjs",
   });
-  const output = new Output(options, sentryConfig);
+
+  const output = new Output(
+    options,
+    { metaFramework: unpluginMetaContext.framework },
+    sentryConfig,
+  );
+
   if (options.enableBundleAnalysis) {
     plugins.push(
       telemetryPlugin({

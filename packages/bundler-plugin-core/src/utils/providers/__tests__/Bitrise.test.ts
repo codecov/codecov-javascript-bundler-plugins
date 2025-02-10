@@ -77,15 +77,18 @@ describe("Bitrise Params", () => {
       }),
     ).thenReturn({ stdout: Buffer.from("") });
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "Bitrise-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "Bitrise-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await Bitrise.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
@@ -122,15 +125,18 @@ describe("Bitrise Params", () => {
       stdout: Buffer.from("https://github.com/testOrg/testRepo.git"),
     });
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "Bitrise-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "Bitrise-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await Bitrise.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
@@ -167,15 +173,18 @@ describe("Bitrise Params", () => {
       stdout: Buffer.from("https://github.com/testOrg/testRepo.git"),
     });
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "Bitrise-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "Bitrise-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await Bitrise.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
@@ -222,15 +231,18 @@ describe("Bitrise Params", () => {
       stdout: Buffer.from("https://github.com/testOrg/testRepo.git"),
     });
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "Bitrise-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "Bitrise-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await Bitrise.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });

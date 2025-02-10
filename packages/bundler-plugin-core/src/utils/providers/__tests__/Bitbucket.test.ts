@@ -62,15 +62,18 @@ describe("Bitbucket Params", () => {
       slug: null,
     };
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "Bitbucket-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "Bitbucket-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await Bitbucket.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
@@ -98,15 +101,18 @@ describe("Bitbucket Params", () => {
       slug: "testOwner/testSlug",
     };
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "Bitbucket-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "Bitbucket-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await Bitbucket.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
@@ -133,15 +139,18 @@ describe("Bitbucket Params", () => {
       slug: "testOwner/testSlug",
     };
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "Bitbucket-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "Bitbucket-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await Bitbucket.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
@@ -176,15 +185,18 @@ describe("Bitbucket Params", () => {
       }),
     ).thenReturn({ stdout: Buffer.from("0e8f15380b54") });
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "Bitbucket-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "Bitbucket-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await Bitbucket.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });
@@ -221,15 +233,18 @@ describe("Bitbucket Params", () => {
       slug: "overwriteOwner/overwriteRepo",
     };
 
-    const output = new Output({
-      apiUrl: "http://localhost",
-      bundleName: "Bitbucket-test",
-      debug: false,
-      dryRun: true,
-      enableBundleAnalysis: true,
-      retryCount: 0,
-      telemetry: false,
-    });
+    const output = new Output(
+      {
+        apiUrl: "http://localhost",
+        bundleName: "Bitbucket-test",
+        debug: false,
+        dryRun: true,
+        enableBundleAnalysis: true,
+        retryCount: 0,
+        telemetry: false,
+      },
+      { metaFramework: "vite" },
+    );
     const params = await Bitbucket.getServiceParams(inputs, output);
     expect(params).toMatchObject(expected);
   });

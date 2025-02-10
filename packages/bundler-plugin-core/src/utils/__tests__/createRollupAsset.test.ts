@@ -8,6 +8,7 @@ describe("createRollupAsset", () => {
       fileName: "test.D4lWaVuy.js",
       source: Buffer.from("test"),
       formatString: "[name].[hash].js",
+      metaFramework: "rollup",
     });
 
     expect(asset.name).toBe("test.D4lWaVuy.js");
@@ -18,6 +19,7 @@ describe("createRollupAsset", () => {
       fileName: "test.D4lWaVuy.js",
       source: Buffer.from("test"),
       formatString: "[name].[hash].js",
+      metaFramework: "rollup",
     });
 
     expect(asset.normalized).toBe("test.*.js");
@@ -29,6 +31,7 @@ describe("createRollupAsset", () => {
         fileName: "test.D4lWaVuy.js",
         source: Buffer.from("test"),
         formatString: "[name].[hash].js",
+        metaFramework: "rollup",
       });
 
       expect(asset.size).toBe(4);
@@ -39,6 +42,7 @@ describe("createRollupAsset", () => {
         fileName: "test.D4lWaVuy.js",
         source: Buffer.from("test"),
         formatString: "[name].[hash].js",
+        metaFramework: "rollup",
       });
       expect(asset.gzipSize).toBe(24);
     });
@@ -50,6 +54,7 @@ describe("createRollupAsset", () => {
         fileName: "test.D4lWaVuy.js",
         source: "test",
         formatString: "[name].[hash].js",
+        metaFramework: "rollup",
       });
 
       expect(asset.size).toBe(4);
@@ -60,6 +65,7 @@ describe("createRollupAsset", () => {
         fileName: "test.D4lWaVuy.js",
         source: "test",
         formatString: "[name].[hash].js",
+        metaFramework: "rollup",
       });
       expect(asset.gzipSize).toBe(24);
     });
