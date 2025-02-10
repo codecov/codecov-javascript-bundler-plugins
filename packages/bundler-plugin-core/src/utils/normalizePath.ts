@@ -68,7 +68,7 @@ export const normalizePath = (
     path.includes("legacy")
   ) {
     const regexReplacement =
-      /(?<leadingDelimiter>\S+-legacy-)(?<hash>[0-9a-zA-Z\/+=_\/+=-]+)(?<endingDelimiter>.\S+)/i;
+      /(?<leadingDelimiter>\S+-legacy\S)(?<hash>[0-9a-zA-Z\/+=_\/+=-]+)(?<endingDelimiter>.\S+)/i;
 
     normalizedPath = normalizedPath.replace(
       regexReplacement,

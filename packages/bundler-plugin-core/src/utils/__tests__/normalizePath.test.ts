@@ -132,13 +132,13 @@ const tests: Test[] = [
   {
     name: "should handle vite legacy builds",
     input: {
-      path: "test-legacy-12345678.js",
+      path: "test-legacy.12345678.js",
       // in testing i've found that the format is just an empty string so we
       // have to brute force it in a different way
       format: "",
       metaFramework: "vite",
     },
-    expected: "test-legacy-*.js",
+    expected: "test-legacy.*.js",
   },
 ];
 
