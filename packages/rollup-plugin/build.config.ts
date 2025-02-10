@@ -6,6 +6,7 @@ export default defineBuildConfig({
   entries: ["./src/index"],
   outDir: "dist",
   declaration: "compatible",
+  sourcemap: true,
   externals: ["rollup"],
   rollup: {
     dts: {
