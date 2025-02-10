@@ -1,5 +1,17 @@
 # @codecov/bundler-plugin-core
 
+## 1.9.0
+
+### Minor Changes
+
+- 392003d: Inline @sentry/core dependency
+- 043b250: Update normalizePath to handle Vite legacy builds as they currently are not being normalized
+
+### Patch Changes
+
+- 06f90eb: Remove minification from plugin build
+- 553176a: Dependency updates to the lockfile
+
 ## 1.8.0
 
 ### Minor Changes
