@@ -9,7 +9,6 @@ export default defineBuildConfig({
   entries: ["./src/index.ts", "./src/cli.ts"],
   outDir: "dist",
   declaration: "compatible",
-  sourcemap: true,
   rollup: {
     dts: {
       compilerOptions: {
