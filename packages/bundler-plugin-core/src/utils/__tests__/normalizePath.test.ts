@@ -1,11 +1,12 @@
 import { describe, expect, it } from "vitest";
 import { normalizePath } from "../normalizePath";
-
+import { type MetaFramework } from "../../types";
 interface Test {
   name: string;
   input: {
     path: string;
     format: string;
+    metaFramework: MetaFramework;
   };
   expected: string;
 }
@@ -16,6 +17,7 @@ const tests: Test[] = [
     input: {
       path: "test.123.chunk.js",
       format: "[name].[hash].chunk.js",
+      metaFramework: "webpack",
     },
     expected: "test.*.chunk.js",
   },
@@ -24,6 +26,7 @@ const tests: Test[] = [
     input: {
       path: "test.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=-.js",
       format: "[name].[hash].js",
+      metaFramework: "webpack",
     },
     expected: "test.*.js",
   },
@@ -32,6 +35,7 @@ const tests: Test[] = [
     input: {
       path: "test.123.chunk.js",
       format: "[name].[contenthash].chunk.js",
+      metaFramework: "webpack",
     },
     expected: "test.*.chunk.js",
   },
@@ -40,6 +44,7 @@ const tests: Test[] = [
     input: {
       path: "test.123.chunk.js",
       format: "[name].[fullhash].chunk.js",
+      metaFramework: "webpack",
     },
     expected: "test.*.chunk.js",
   },
@@ -48,6 +53,7 @@ const tests: Test[] = [
     input: {
       path: "test.123.chunk.js",
       format: "[name].[chunkhash].chunk.js",
+      metaFramework: "webpack",
     },
     expected: "test.*.chunk.js",
   },
@@ -56,6 +62,7 @@ const tests: Test[] = [
     input: {
       path: "test.123.456.chunk.js",
       format: "[name].[hash].[chunkhash].chunk.js",
+      metaFramework: "webpack",
     },
     expected: "test.*.*.chunk.js",
   },
@@ -64,6 +71,7 @@ const tests: Test[] = [
     input: {
       path: "test.12345678.chunk.js",
       format: "[name].chunk.js",
+      metaFramework: "webpack",
     },
     expected: "test.*.chunk.js",
   },
@@ -72,6 +80,7 @@ const tests: Test[] = [
     input: {
       path: "test.12345678.js",
       format: "[name].[hash][extname]",
+      metaFramework: "webpack",
     },
     expected: "test.*.js",
   },
@@ -80,6 +89,7 @@ const tests: Test[] = [
     input: {
       path: "test.12345678",
       format: "[name].[hash]",
+      metaFramework: "webpack",
     },
     expected: "test.*",
   },
@@ -88,6 +98,7 @@ const tests: Test[] = [
     input: {
       path: "test.CoScjXRp_rD9HKS--kYO73.chunk.js",
       format: "[name].[hash:22].chunk.js",
+      metaFramework: "webpack",
     },
     expected: "test.*.chunk.js",
   },
@@ -96,6 +107,7 @@ const tests: Test[] = [
     input: {
       path: "test.CoScjXRp_rD9HKS--kYO73.chunk.js",
       format: "[name].[contenthash:22].chunk.js",
+      metaFramework: "webpack",
     },
     expected: "test.*.chunk.js",
   },
@@ -104,6 +116,7 @@ const tests: Test[] = [
     input: {
       path: "test.CoScjXRp_rD9HKS--kYO73.chunk.js",
       format: "[name].[fullhash:22].chunk.js",
+      metaFramework: "webpack",
     },
     expected: "test.*.chunk.js",
   },
@@ -112,6 +125,7 @@ const tests: Test[] = [
     input: {
       path: "test.CoScjXRp_rD9HKS--kYO73.chunk.js",
       format: "[name].[chunkhash:22].chunk.js",
+      metaFramework: "webpack",
     },
     expected: "test.*.chunk.js",
   },
@@ -122,6 +136,7 @@ const tests: Test[] = [
       // in testing i've found that the format is just an empty string so we
       // have to brute force it in a different way
       format: "",
+      metaFramework: "vite",
     },
     expected: "test-legacy-*.js",
   },
@@ -129,7 +144,11 @@ const tests: Test[] = [
 
 describe("normalizePath", () => {
   it.each(tests)("$name", ({ input, expected }) => {
-    const expectation = normalizePath(input.path, input.format);
+    const expectation = normalizePath(
+      input.path,
+      input.format,
+      input.metaFramework,
+    );
     expect(expectation).toEqual(expected);
   });
 });
