@@ -70,6 +70,7 @@ export const webpackBundleAnalysisPlugin: BundleAnalysisUploadPlugin = ({
             const collectedAssets = await processAssets({
               assets,
               compilation,
+              metaFramework: output.metaFramework,
             });
 
             output.assets = collectedAssets;
