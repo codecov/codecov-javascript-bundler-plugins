@@ -15,9 +15,6 @@ export default defineBuildConfig({
       },
     },
     emitCJS: true,
-    esbuild: {
-      minify: true,
-    },
     replace: {
       preventAssignment: true,
       values: {

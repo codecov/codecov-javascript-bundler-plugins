@@ -14,9 +14,6 @@ export default defineBuildConfig({
       },
     },
     emitCJS: true,
-    esbuild: {
-      minify: true,
-    },
   },
   hooks: {
     "rollup:options": (ctx, opts) => {
