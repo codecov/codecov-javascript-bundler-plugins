@@ -105,6 +105,7 @@ describe("getAsset", () => {
     expect(normalizePath).toHaveBeenCalledWith(
       path.relative(mockParentPath, mockFilePath),
       "",
+      "bundle-analyzer",
     );
     expect(asset).toEqual({
       name: path.relative(mockParentPath, mockFilePath),
@@ -127,6 +128,7 @@ describe("getAsset", () => {
     expect(normalizePath).toHaveBeenCalledWith(
       path.relative(mockParentPath, mockFilePath),
       inputPattern,
+      "bundle-analyzer",
     );
 
     expect(asset.normalized).toBe(expectedNormalizedName);
