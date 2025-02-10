@@ -3,6 +3,7 @@ import {
   normalizePath,
   type Asset,
   getCompressedSize,
+  type MetaFramework,
 } from "@codecov/bundler-plugin-core";
 import { type StatsAsset, type Compilation } from "webpack";
 import { findFilenameFormat } from "./findFileFormat.ts";
@@ -10,11 +11,13 @@ import { findFilenameFormat } from "./findFileFormat.ts";
 export interface ProcessAssetsArgs {
   assets: StatsAsset[];
   compilation: Compilation;
+  metaFramework: MetaFramework;
 }
 
 export const processAssets = async ({
   assets,
   compilation,
+  metaFramework,
 }: ProcessAssetsArgs) => {
   const outputOptions = compilation.outputOptions;
   const collectedAssets: Asset[] = [];
@@ -67,7 +70,7 @@ export const processAssets = async ({
         name: asset.name,
         size: asset.size,
         gzipSize: compressedSize,
-        normalized: normalizePath(asset.name, format),
+        normalized: normalizePath(asset.name, format, metaFramework),
       });
     }),
   );
