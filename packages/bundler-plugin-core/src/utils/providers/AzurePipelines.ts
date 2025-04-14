@@ -107,8 +107,9 @@ function _getSHA(
   }
 
   let commit = envs?.BUILD_SOURCEVERSION ?? null;
+  const skip_merge_commit_from_pr = Boolean(envs?.SYSTEM_SKIP_MERGE_COMMIT_FROM_PR);
 
-  if (_getPR(inputs, output)) {
+  if (!skip_merge_commit_from_pr && _getPR(inputs, output)) {
     const mergeCommitRegex = /^[a-z0-9]{40} [a-z0-9]{40}$/;
     const mergeCommitMessage = childProcess
       .execFileSync("git", ["show", "--no-patch", "--format=%P"])
