@@ -54,7 +54,7 @@ describe("GitHub Actions Params", () => {
       headLabel = "",
     }: {
       data?: object;
-      eventName?: "" | "pull_request" | "pull_request_target";
+      eventName?: "" | "pull_request" | "pull_request_target" | "merge_group";
       baseLabel?: string;
       headLabel?: string;
     } = { data: {}, eventName: "" },
@@ -63,22 +63,35 @@ describe("GitHub Actions Params", () => {
     mocks.baseLabel.mockReturnValue(baseLabel);
     mocks.headLabel.mockReturnValue(headLabel);
 
-    vi.mocked(GitHub).context = {
-      eventName,
-      payload: {
-        // @ts-expect-error - forcing the payload to be a PullRequestEvent
-        pull_request: {
-          head: {
-            sha: "test-head-sha",
-            label: headLabel,
-          },
-          base: {
-            sha: "test-base-sha",
-            label: baseLabel,
+    if (["pull_request", "pull_request_target"].includes(eventName)) {
+      vi.mocked(GitHub).context = {
+        eventName,
+        payload: {
+          // @ts-expect-error - forcing the payload to be a PullRequestEvent
+          pull_request: {
+            head: {
+              sha: "test-head-sha",
+              label: headLabel,
+            },
+            base: {
+              sha: "test-base-sha",
+              label: baseLabel,
+            },
           },
         },
-      },
-    };
+      };
+    } else if (eventName === "merge_group") {
+      // @ts-expect-error - forcing the payload to be a MergeGroupEvent
+      vi.mocked(GitHub).context = {
+        eventName,
+        payload: {
+          merge_group: {
+            base_sha: "test-base-sha",
+            head_sha: "test-head-sha",
+          },
+        },
+      };
+    }
 
     server.use(
       http.get(
@@ -264,7 +277,7 @@ describe("GitHub Actions Params", () => {
       build: "2",
       buildURL: "https://github.com/testOrg/testRepo/actions/runs/2",
       commit: "test-head-sha",
-      compareSha: null,
+      compareSha: "test-base-sha",
       job: "testWorkflow",
       pr: "1",
       service: "github-actions",
@@ -324,7 +337,66 @@ describe("GitHub Actions Params", () => {
         build: "2",
         buildURL: "https://github.com/testOrg/testRepo/actions/runs/2",
         commit: "test-head-sha",
-        compareSha: null,
+        compareSha: "test-base-sha",
+        job: "testWorkflow",
+        pr: "1",
+        service: "github-actions",
+        slug: "testOrg/testRepo",
+      };
+      expect(params).toMatchObject(expected);
+    });
+
+    it("gets the correct branch from a merge group CI run", async () => {
+      setup({
+        data: {
+          jobs: [
+            {
+              id: 1,
+              name: "fakeJob",
+              html_url: "https://fake.com",
+            },
+          ],
+        },
+        eventName: "merge_group",
+        baseLabel: "codecov:baseBranch",
+        headLabel: "testOrg:headBranch",
+      });
+
+      const inputs: ProviderUtilInputs = {
+        args: { ...createEmptyArgs() },
+        envs: {
+          GITHUB_ACTIONS: "true",
+          GITHUB_HEAD_REF: "branch",
+          GITHUB_JOB: "testJob",
+          GITHUB_REF: "refs/pull/1/merge",
+          GITHUB_REPOSITORY: "testOrg/testRepo",
+          GITHUB_RUN_ID: "2",
+          GITHUB_SERVER_URL: "https://github.com",
+          GITHUB_SHA: "test-head-sha",
+          GITHUB_WORKFLOW: "testWorkflow",
+        },
+      };
+
+      const output = new Output(
+        {
+          apiUrl: "http://localhost",
+          bundleName: "GHA-test",
+          debug: false,
+          dryRun: true,
+          enableBundleAnalysis: true,
+          retryCount: 0,
+          telemetry: false,
+        },
+        { metaFramework: "vite" },
+      );
+      const params = await GitHubActions.getServiceParams(inputs, output);
+
+      const expected: ProviderServiceParams = {
+        branch: "branch",
+        build: "2",
+        buildURL: "https://github.com/testOrg/testRepo/actions/runs/2",
+        commit: "test-head-sha",
+        compareSha: "test-base-sha",
         job: "testWorkflow",
         pr: "1",
         service: "github-actions",
@@ -383,7 +455,7 @@ describe("GitHub Actions Params", () => {
         build: "2",
         buildURL: "https://github.com/testOrg/testRepo/actions/runs/2",
         commit: "test-head-sha",
-        compareSha: null,
+        compareSha: "test-base-sha",
         job: "testWorkflow",
         pr: "1",
         service: "github-actions",
@@ -451,7 +523,7 @@ describe("GitHub Actions Params", () => {
       build: "2",
       buildURL: "https://github.com/testOrg/testRepo/actions/runs/2/jobs/2",
       commit: "test-head-sha",
-      compareSha: null,
+      compareSha: "test-base-sha",
       job: "testWorkflow",
       pr: "1",
       service: "github-actions",

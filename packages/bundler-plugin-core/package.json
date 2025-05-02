@@ -47,7 +47,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@octokit/webhooks-definitions": "^3.67.3",
+    "@octokit/webhooks-types": "^7.6.1",
     "@sentry/core": "^8.42.0",
     "@types/node": "^20.11.15",
     "@types/semver": "^7.5.6",
