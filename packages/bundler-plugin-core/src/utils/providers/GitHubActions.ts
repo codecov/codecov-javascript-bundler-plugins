@@ -7,7 +7,10 @@ import {
 } from "../../types.ts";
 import { type Output } from "../Output.ts";
 import { debug } from "../logging.ts";
-import { type PullRequestEvent } from "@octokit/webhooks-definitions/schema";
+import {
+  type PullRequestEvent,
+  type MergeGroupEvent,
+} from "@octokit/webhooks-types";
 
 export function detect(envs: ProviderEnvs): boolean {
   return Boolean(envs?.GITHUB_ACTIONS);
@@ -184,9 +187,12 @@ function _getSHA(
 
   const context = GitHub.context;
   let commit = envs?.GITHUB_SHA;
-  if (["pull_request", " pull_request_target"].includes(context.eventName)) {
+  if (["pull_request", "pull_request_target"].includes(context.eventName)) {
     const payload = context.payload as PullRequestEvent;
     commit = payload.pull_request.head.sha;
+  } else if ("merge_group" === context.eventName) {
+    const payload = context.payload as MergeGroupEvent;
+    commit = payload.merge_group.head_sha;
   }
 
   debug(`Using commit: ${commit ?? null}`, { enabled: output.debug });
@@ -205,9 +211,12 @@ function _getCompareSHA(
 
   let compareSha = null;
   const context = GitHub.context;
-  if (["pull_request", " pull_request_target"].includes(context.eventName)) {
+  if (["pull_request", "pull_request_target"].includes(context.eventName)) {
     const payload = context.payload as PullRequestEvent;
     compareSha = payload.pull_request.base.sha;
+  } else if ("merge_group" === context.eventName) {
+    const payload = context.payload as MergeGroupEvent;
+    compareSha = payload.merge_group.base_sha;
   }
 
   debug(`Using compareSha: ${compareSha}`, { enabled: output.debug });
