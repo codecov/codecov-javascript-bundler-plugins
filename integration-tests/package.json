@@ -55,9 +55,9 @@
     "rollupV4": "npm:rollup@4.22.4",
     "ts-node": "^10.9.2",
     "vite-plugin-solid": "^2.11.0",
-    "viteV4": "npm:vite@4.5.5",
-    "viteV5": "npm:vite@5.2.14",
-    "viteV6": "npm:vite@6.0.3",
+    "viteV4": "npm:vite@4.5.14",
+    "viteV5": "npm:vite@5.4.19",
+    "viteV6": "npm:vite@6.3.5",
     "vue-routerV4": "npm:vue-router@4.3.0",
     "vueV3": "npm:vue@3.4.21",
     "webpackV5": "npm:webpack@5.90.0"

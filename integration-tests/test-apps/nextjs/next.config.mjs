@@ -10,6 +10,7 @@ export default {
         uploadToken: "test-token",
         apiUrl: process.env.API_URL,
         webpack: options.webpack,
+        telemetry: false,
         debug: true,
       }),
     );
