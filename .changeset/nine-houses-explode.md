@@ -1,11 +1,11 @@
 ---
-"@codecov/remix-vite-plugin": minor
-"@codecov/solidstart-plugin": minor
-"@codecov/sveltekit-plugin": minor
-"@codecov/bundle-analyzer": minor
-"@codecov/astro-plugin": minor
-"@codecov/nuxt-plugin": minor
-"@codecov/vite-plugin": minor
+"@codecov/remix-vite-plugin": patch
+"@codecov/solidstart-plugin": patch
+"@codecov/sveltekit-plugin": patch
+"@codecov/bundle-analyzer": patch
+"@codecov/astro-plugin": patch
+"@codecov/nuxt-plugin": patch
+"@codecov/vite-plugin": patch
 ---
 
 Bump vite version
