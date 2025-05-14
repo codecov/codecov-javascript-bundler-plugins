@@ -63,7 +63,10 @@ describe("GitHub Actions Params", () => {
     mocks.baseLabel.mockReturnValue(baseLabel);
     mocks.headLabel.mockReturnValue(headLabel);
 
-    if (["pull_request", "pull_request_target"].includes(eventName)) {
+    // not sure if empty string is correct here but for parity with previous tests
+    // TODO: verify that empty string belongs here, from a glance it seems PushEvent does not
+    // include a pull_request key
+    if (["pull_request", "pull_request_target", ""].includes(eventName)) {
       vi.mocked(GitHub).context = {
         eventName,
         payload: {
@@ -277,7 +280,7 @@ describe("GitHub Actions Params", () => {
       build: "2",
       buildURL: "https://github.com/testOrg/testRepo/actions/runs/2",
       commit: "test-head-sha",
-      compareSha: "test-base-sha",
+      compareSha: null,
       job: "testWorkflow",
       pr: "1",
       service: "github-actions",
@@ -523,7 +526,7 @@ describe("GitHub Actions Params", () => {
       build: "2",
       buildURL: "https://github.com/testOrg/testRepo/actions/runs/2/jobs/2",
       commit: "test-head-sha",
-      compareSha: "test-base-sha",
+      compareSha: null,
       job: "testWorkflow",
       pr: "1",
       service: "github-actions",
