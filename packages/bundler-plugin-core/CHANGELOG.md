@@ -1,5 +1,12 @@
 # @codecov/bundler-plugin-core
 
+## 1.9.1
+
+### Patch Changes
+
+- 8a6f939: Fix typo in event type matching, add merge group handling
+- 4b36ee2: Update `next` to 14.2.25
+
 ## 1.9.0
 
 ### Minor Changes

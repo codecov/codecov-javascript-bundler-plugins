@@ -1,5 +1,18 @@
 # @codecov/astro-plugin
 
+## 1.9.1
+
+### Patch Changes
+
+- 1db06c3: Bump vite version
+- 8a6f939: Fix typo in event type matching, add merge group handling
+- 4b36ee2: Update `next` to 14.2.25
+- Updated dependencies [1db06c3]
+- Updated dependencies [8a6f939]
+- Updated dependencies [4b36ee2]
+  - @codecov/vite-plugin@1.9.1
+  - @codecov/bundler-plugin-core@1.9.1
+
 ## 1.9.0
 
 ### Minor Changes

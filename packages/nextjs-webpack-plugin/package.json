@@ -1,6 +1,6 @@
 {
   "name": "@codecov/nextjs-webpack-plugin",
-  "version": "1.9.0",
+  "version": "1.9.1",
   "description": "Official Codecov NextJS (Webpack) plugin",
   "author": "Codecov",
   "license": "MIT",
