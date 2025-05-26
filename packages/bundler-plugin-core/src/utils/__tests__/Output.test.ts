@@ -693,6 +693,7 @@ describe("Output", () => {
             headers: new Headers({
               Authorization: "token token",
               "Content-Type": "application/json",
+              "User-Agent": "codecov-bundler_plugin/1.9.1",
             }),
             body: JSON.stringify({
               branch: "main",

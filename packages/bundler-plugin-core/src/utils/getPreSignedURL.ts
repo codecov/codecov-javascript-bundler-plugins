@@ -7,6 +7,7 @@ import {
   type Span,
 } from "@sentry/core";
 import { z } from "zod";
+import { version } from "../../package.json" with { type: "json" };
 import { FailedFetchError } from "../errors/FailedFetchError.ts";
 import { UploadLimitReachedError } from "../errors/UploadLimitReachedError.ts";
 import { type ProviderServiceParams } from "../types.ts";
@@ -53,6 +54,7 @@ export const getPreSignedURL = async ({
 }: GetPreSignedURLArgs) => {
   const headers = new Headers({
     "Content-Type": "application/json",
+    "User-Agent": `codecov-bundler_plugin/${version}`,
   });
 
   const requestBody: RequestBody = serviceParams;
