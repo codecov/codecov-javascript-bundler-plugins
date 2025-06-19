@@ -54,7 +54,7 @@ export const getPreSignedURL = async ({
 }: GetPreSignedURLArgs) => {
   const headers = new Headers({
     "Content-Type": "application/json",
-    "User-Agent": `codecov-bundler_plugin/${version}`,
+    "User-Agent": `codecov-bundler-plugin/${version}`,
   });
 
   const requestBody: RequestBody = serviceParams;
