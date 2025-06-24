@@ -54,7 +54,7 @@
     "@vitest/coverage-v8": "^2.1.9",
     "codecovProdRollupPlugin": "npm:@codecov/rollup-plugin@1.5.0",
     "msw": "^2.7.0",
-    "rollup": "4.22.4",
+    "rollup": "4.34.6",
     "ts-node": "^10.9.2",
     "typedoc": "^0.27.5",
     "typescript": "^5.3.3",
