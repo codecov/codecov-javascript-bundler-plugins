@@ -29,3 +29,5 @@ It supports the following features:
 - [Sentry Discord](https://discord.gg/Ww9hbqr)
 
 this is a test
+
+another commit
