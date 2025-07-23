@@ -27,6 +27,6 @@ jobs:
         run: |
           ./overwatch-cli \
             --auth-token ${{ secrets.OVERWATCH_SENTRY_AUTH_TOKEN }} \
-            --organization-slug sentry \
+            --organization-slug codecov \
             --upload-empty-on-error \
             typescript --package-manager pnpm --eslint-pattern src
