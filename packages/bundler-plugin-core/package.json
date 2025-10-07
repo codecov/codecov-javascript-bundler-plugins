@@ -4,6 +4,11 @@
   "description": "Official Codecov Bundler Plugin Core",
   "author": "Codecov",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codecov/codecov-javascript-bundler-plugins.git",
+    "directory": "packages/bundler-plugin-core"
+  },
   "type": "module",
   "exports": {
     ".": {

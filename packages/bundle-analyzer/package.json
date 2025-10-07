@@ -4,6 +4,11 @@
   "description": "Official Codecov Bundle Analyzer",
   "author": "Codecov",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codecov/codecov-javascript-bundler-plugins.git",
+    "directory": "packages/bundle-analyzer"
+  },
   "keywords": [
     "Codecov",
     "bundle-analyzer",

@@ -4,6 +4,11 @@
   "description": "Official Codecov NextJS (Webpack) plugin",
   "author": "Codecov",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codecov/codecov-javascript-bundler-plugins.git",
+    "directory": "packages/nextjs-webpack-plugin"
+  },
   "keywords": [
     "Codecov",
     "NextJS",

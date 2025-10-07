@@ -4,6 +4,11 @@
   "description": "Official Codecov Remix plugin",
   "author": "Codecov",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codecov/codecov-javascript-bundler-plugins.git",
+    "directory": "packages/remix-vite-plugin"
+  },
   "keywords": [
     "Codecov",
     "Remix",
