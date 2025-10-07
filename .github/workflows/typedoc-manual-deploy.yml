@@ -3,6 +3,9 @@ name: Publish TypeDocs
 on:
   workflow_dispatch:
 
+permissions:
+  content: read
+
 jobs:
   deploy_docs:
     permissions:
