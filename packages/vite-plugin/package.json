@@ -1,6 +1,6 @@
 {
   "name": "@codecov/vite-plugin",
-  "version": "1.9.1",
+  "version": "1.9.2",
   "description": "Official Codecov Vite plugin",
   "author": "Codecov",
   "license": "MIT",
@@ -62,7 +62,7 @@
     "vitest": "^2.1.9"
   },
   "peerDependencies": {
-    "vite": "4.x || 5.x || 6.x"
+    "vite": "4.x || 5.x || 6.x || 7.x"
   },
   "volta": {
     "extends": "../../package.json"
