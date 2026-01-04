@@ -1,0 +1,76 @@
+{
+  "name": "@codecov/rspack-plugin",
+  "version": "1.0.0",
+  "description": "Official Codecov Rspack plugin",
+  "author": "Codecov",
+  "license": "MIT",
+  "keywords": [
+    "Codecov",
+    "Rspack",
+    "bundler",
+    "plugin"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "build": "unbuild",
+    "dev": "unbuild --stub && node --watch-path=src dist/index.mjs",
+    "clean": "rm -rf dist  node_modules",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "pnpm lint --fix",
+    "format": "prettier '**/*.{cjs,mjs,ts,tsx,md,json}' --ignore-path ../.gitignore --ignore-unknown --no-error-on-unmatched-pattern --write",
+    "format:check": "prettier '**/*.{cjs,mjs,ts,tsx,md,json}' --ignore-path ../.gitignore --ignore-unknown --no-error-on-unmatched-pattern --check",
+    "test:unit": "vitest run",
+    "test:unit:watch": "vitest watch",
+    "test:unit:ci": "vitest --coverage --reporter=junit --outputFile=./rspack-plugin.junit.xml run",
+    "test:unit:update": "vitest -u run",
+    "generate:typedoc": "typedoc --options ./typedoc.json"
+  },
+  "dependencies": {
+    "@codecov/bundler-plugin-core": "workspace:^"
+  },
+  "devDependencies": {
+    "@rspack/core": "^1.0.0",
+    "@rollup/plugin-replace": "^5.0.5",
+    "@types/node": "^20.10.0",
+    "@vitest/coverage-v8": "^2.1.9",
+    "codecovProdRollupPlugin": "npm:@codecov/rollup-plugin@1.5.0",
+    "ts-node": "^10.9.2",
+    "typedoc": "^0.27.5",
+    "typescript": "^5.3.3",
+    "unbuild": "^2.0.0",
+    "vitest": "^2.1.9"
+  },
+  "peerDependencies": {
+    "@rspack/core": "^0.5.0 || ^1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@rspack/core": {
+      "optional": true
+    }
+  },
+  "volta": {
+    "extends": "../../package.json"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
