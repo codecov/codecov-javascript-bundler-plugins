@@ -9,7 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/node": "^9.0.0",
+    "@astrojs/node": "^10.0.0",
     "@astrojs/react": "^4.1.1",
     "@codecov/astro-plugin": "workspace:*",
     "@types/react": "^19.0.1",
