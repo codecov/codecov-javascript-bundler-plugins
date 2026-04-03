@@ -1,5 +1,5 @@
 import replace from "@rollup/plugin-replace";
-import type { Plugin } from "vite";
+import { type Plugin } from "vite";
 import { defineConfig } from "vitest/config";
 import { config } from "../../vitest.shared";
 

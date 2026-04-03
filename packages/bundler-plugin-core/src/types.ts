@@ -59,8 +59,9 @@ export interface BundleAnalysisUploadPluginArgs {
   pluginVersion: string;
 }
 
-export interface ExtendedBAUploadArgs<TArgs extends object>
-  extends BundleAnalysisUploadPluginArgs {
+export interface ExtendedBAUploadArgs<
+  TArgs extends object,
+> extends BundleAnalysisUploadPluginArgs {
   options: TArgs;
 }
 

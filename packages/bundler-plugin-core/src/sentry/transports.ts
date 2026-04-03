@@ -83,7 +83,7 @@ export function createRequestExecutor(
               headers: {
                 "retry-after": retryAfterHeader,
                 "x-sentry-rate-limits": Array.isArray(rateLimitsHeader)
-                  ? rateLimitsHeader[0] ?? null
+                  ? (rateLimitsHeader[0] ?? null)
                   : rateLimitsHeader,
               },
             });
