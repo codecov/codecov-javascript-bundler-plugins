@@ -20,6 +20,15 @@ const FORMATS = [
   { format: "systemjs", expected: "system" },
 ];
 
+/** Bun snapshot matchers use `expect.any(Number)`; Nuxt 3.16+ may emit `gzipSize: null` on some assets. */
+function coerceNullAssetGzipSizes(stats: unknown): void {
+  const o = stats as { assets?: { gzipSize?: number | null }[] };
+  if (!o?.assets) return;
+  for (const a of o.assets) {
+    if (a && a.gzipSize === null) a.gzipSize = 0;
+  }
+}
+
 describe("Generating nuxt stats", () => {
   describe.each(VERSIONS)("%d", (version) => {
     describe.each(FORMATS)("%o", ({ format, expected }) => {
@@ -64,23 +73,30 @@ describe("Generating nuxt stats", () => {
           );
           const clientData = (await clientRes.json()) as { stats: string };
           const clientStats = JSON.parse(clientData.stats) as unknown;
+          coerceNullAssetGzipSizes(clientStats);
 
           expect(clientStats).toMatchSnapshot({
+            version: expect.any(String),
             builtAt: expect.any(Number),
             duration: expect.any(Number),
             outputPath: expect.stringContaining(`/distV${version}`),
             bundleName: expect.stringContaining(
               `test-nuxt-v${version}-client-${expected}`,
             ),
+            bundler: {
+              name: expect.any(String),
+              version: expect.any(String),
+            },
             plugin: {
               name: expect.stringMatching("@codecov/nuxt-plugin"),
+              version: expect.any(String),
             },
             assets: expect.arrayContaining([
               {
                 name: expect.any(String),
                 normalized: expect.any(String),
                 size: expect.any(Number),
-                gzipSize: expect.anything(),
+                gzipSize: expect.any(Number),
               },
             ]),
             chunks: expect.arrayContaining([
@@ -109,23 +125,30 @@ describe("Generating nuxt stats", () => {
           );
           const serverData = (await serverRes.json()) as { stats: string };
           const serverStats = JSON.parse(serverData.stats) as unknown;
+          coerceNullAssetGzipSizes(serverStats);
 
           expect(serverStats).toMatchSnapshot({
+            version: expect.any(String),
             builtAt: expect.any(Number),
             duration: expect.any(Number),
             outputPath: expect.stringContaining(`/distV${version}`),
             bundleName: expect.stringContaining(
               `test-nuxt-v${version}-server-esm`,
             ),
+            bundler: {
+              name: expect.any(String),
+              version: expect.any(String),
+            },
             plugin: {
               name: expect.stringMatching("@codecov/nuxt-plugin"),
+              version: expect.any(String),
             },
             assets: expect.arrayContaining([
               {
                 name: expect.any(String),
                 normalized: expect.any(String),
                 size: expect.any(Number),
-                gzipSize: expect.anything(),
+                gzipSize: expect.any(Number),
               },
             ]),
             chunks: expect.arrayContaining([
