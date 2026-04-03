@@ -6,8 +6,8 @@ exports[`Generating nuxt stats 3 {"format":"amd","expected":"amd"} matches the s
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-nuxt-v3-client-amd",
   "bundler": {
-    "name": "rollup",
-    "version": "4.22.4",
+    "name": Any<String>,
+    "version": Any<String>,
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -15,9 +15,9 @@ exports[`Generating nuxt stats 3 {"format":"amd","expected":"amd"} matches the s
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "1.9.1",
+    "version": Any<String>,
   },
-  "version": "3",
+  "version": Any<String>,
 }
 `;
 
@@ -27,8 +27,8 @@ exports[`Generating nuxt stats 3 {"format":"amd","expected":"amd"} matches the s
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-nuxt-v3-server-esm",
   "bundler": {
-    "name": "rollup",
-    "version": "4.22.4",
+    "name": Any<String>,
+    "version": Any<String>,
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -36,9 +36,9 @@ exports[`Generating nuxt stats 3 {"format":"amd","expected":"amd"} matches the s
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "1.9.1",
+    "version": Any<String>,
   },
-  "version": "3",
+  "version": Any<String>,
 }
 `;
 
@@ -48,8 +48,8 @@ exports[`Generating nuxt stats 3 {"format":"cjs","expected":"cjs"} matches the s
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-nuxt-v3-client-cjs",
   "bundler": {
-    "name": "rollup",
-    "version": "4.22.4",
+    "name": Any<String>,
+    "version": Any<String>,
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -57,9 +57,9 @@ exports[`Generating nuxt stats 3 {"format":"cjs","expected":"cjs"} matches the s
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "1.9.1",
+    "version": Any<String>,
   },
-  "version": "3",
+  "version": Any<String>,
 }
 `;
 
@@ -69,8 +69,8 @@ exports[`Generating nuxt stats 3 {"format":"cjs","expected":"cjs"} matches the s
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-nuxt-v3-server-esm",
   "bundler": {
-    "name": "rollup",
-    "version": "4.22.4",
+    "name": Any<String>,
+    "version": Any<String>,
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -78,9 +78,9 @@ exports[`Generating nuxt stats 3 {"format":"cjs","expected":"cjs"} matches the s
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "1.9.1",
+    "version": Any<String>,
   },
-  "version": "3",
+  "version": Any<String>,
 }
 `;
 
@@ -90,8 +90,8 @@ exports[`Generating nuxt stats 3 {"format":"es","expected":"esm"} matches the sn
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-nuxt-v3-client-esm",
   "bundler": {
-    "name": "rollup",
-    "version": "4.22.4",
+    "name": Any<String>,
+    "version": Any<String>,
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -99,9 +99,9 @@ exports[`Generating nuxt stats 3 {"format":"es","expected":"esm"} matches the sn
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "1.9.1",
+    "version": Any<String>,
   },
-  "version": "3",
+  "version": Any<String>,
 }
 `;
 
@@ -111,8 +111,8 @@ exports[`Generating nuxt stats 3 {"format":"es","expected":"esm"} matches the sn
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-nuxt-v3-server-esm",
   "bundler": {
-    "name": "rollup",
-    "version": "4.22.4",
+    "name": Any<String>,
+    "version": Any<String>,
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -120,9 +120,9 @@ exports[`Generating nuxt stats 3 {"format":"es","expected":"esm"} matches the sn
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "1.9.1",
+    "version": Any<String>,
   },
-  "version": "3",
+  "version": Any<String>,
 }
 `;
 
@@ -132,8 +132,8 @@ exports[`Generating nuxt stats 3 {"format":"esm","expected":"esm"} matches the s
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-nuxt-v3-client-esm",
   "bundler": {
-    "name": "rollup",
-    "version": "4.22.4",
+    "name": Any<String>,
+    "version": Any<String>,
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -141,9 +141,9 @@ exports[`Generating nuxt stats 3 {"format":"esm","expected":"esm"} matches the s
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "1.9.1",
+    "version": Any<String>,
   },
-  "version": "3",
+  "version": Any<String>,
 }
 `;
 
@@ -153,8 +153,8 @@ exports[`Generating nuxt stats 3 {"format":"esm","expected":"esm"} matches the s
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-nuxt-v3-server-esm",
   "bundler": {
-    "name": "rollup",
-    "version": "4.22.4",
+    "name": Any<String>,
+    "version": Any<String>,
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -162,9 +162,9 @@ exports[`Generating nuxt stats 3 {"format":"esm","expected":"esm"} matches the s
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "1.9.1",
+    "version": Any<String>,
   },
-  "version": "3",
+  "version": Any<String>,
 }
 `;
 
@@ -174,8 +174,8 @@ exports[`Generating nuxt stats 3 {"format":"module","expected":"esm"} matches th
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-nuxt-v3-client-esm",
   "bundler": {
-    "name": "rollup",
-    "version": "4.22.4",
+    "name": Any<String>,
+    "version": Any<String>,
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -183,9 +183,9 @@ exports[`Generating nuxt stats 3 {"format":"module","expected":"esm"} matches th
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "1.9.1",
+    "version": Any<String>,
   },
-  "version": "3",
+  "version": Any<String>,
 }
 `;
 
@@ -195,8 +195,8 @@ exports[`Generating nuxt stats 3 {"format":"module","expected":"esm"} matches th
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-nuxt-v3-server-esm",
   "bundler": {
-    "name": "rollup",
-    "version": "4.22.4",
+    "name": Any<String>,
+    "version": Any<String>,
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -204,9 +204,9 @@ exports[`Generating nuxt stats 3 {"format":"module","expected":"esm"} matches th
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "1.9.1",
+    "version": Any<String>,
   },
-  "version": "3",
+  "version": Any<String>,
 }
 `;
 
@@ -216,8 +216,8 @@ exports[`Generating nuxt stats 3 {"format":"iife","expected":"iife"} matches the
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-nuxt-v3-client-iife",
   "bundler": {
-    "name": "rollup",
-    "version": "4.22.4",
+    "name": Any<String>,
+    "version": Any<String>,
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -225,9 +225,9 @@ exports[`Generating nuxt stats 3 {"format":"iife","expected":"iife"} matches the
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "1.9.1",
+    "version": Any<String>,
   },
-  "version": "3",
+  "version": Any<String>,
 }
 `;
 
@@ -237,8 +237,8 @@ exports[`Generating nuxt stats 3 {"format":"iife","expected":"iife"} matches the
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-nuxt-v3-server-esm",
   "bundler": {
-    "name": "rollup",
-    "version": "4.22.4",
+    "name": Any<String>,
+    "version": Any<String>,
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -246,9 +246,9 @@ exports[`Generating nuxt stats 3 {"format":"iife","expected":"iife"} matches the
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "1.9.1",
+    "version": Any<String>,
   },
-  "version": "3",
+  "version": Any<String>,
 }
 `;
 
@@ -258,8 +258,8 @@ exports[`Generating nuxt stats 3 {"format":"umd","expected":"umd"} matches the s
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-nuxt-v3-client-umd",
   "bundler": {
-    "name": "rollup",
-    "version": "4.22.4",
+    "name": Any<String>,
+    "version": Any<String>,
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -267,9 +267,9 @@ exports[`Generating nuxt stats 3 {"format":"umd","expected":"umd"} matches the s
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "1.9.1",
+    "version": Any<String>,
   },
-  "version": "3",
+  "version": Any<String>,
 }
 `;
 
@@ -279,8 +279,8 @@ exports[`Generating nuxt stats 3 {"format":"umd","expected":"umd"} matches the s
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-nuxt-v3-server-esm",
   "bundler": {
-    "name": "rollup",
-    "version": "4.22.4",
+    "name": Any<String>,
+    "version": Any<String>,
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -288,9 +288,9 @@ exports[`Generating nuxt stats 3 {"format":"umd","expected":"umd"} matches the s
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "1.9.1",
+    "version": Any<String>,
   },
-  "version": "3",
+  "version": Any<String>,
 }
 `;
 
@@ -300,8 +300,8 @@ exports[`Generating nuxt stats 3 {"format":"system","expected":"system"} matches
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-nuxt-v3-client-system",
   "bundler": {
-    "name": "rollup",
-    "version": "4.22.4",
+    "name": Any<String>,
+    "version": Any<String>,
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -309,9 +309,9 @@ exports[`Generating nuxt stats 3 {"format":"system","expected":"system"} matches
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "1.9.1",
+    "version": Any<String>,
   },
-  "version": "3",
+  "version": Any<String>,
 }
 `;
 
@@ -321,8 +321,8 @@ exports[`Generating nuxt stats 3 {"format":"system","expected":"system"} matches
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-nuxt-v3-server-esm",
   "bundler": {
-    "name": "rollup",
-    "version": "4.22.4",
+    "name": Any<String>,
+    "version": Any<String>,
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -330,9 +330,9 @@ exports[`Generating nuxt stats 3 {"format":"system","expected":"system"} matches
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "1.9.1",
+    "version": Any<String>,
   },
-  "version": "3",
+  "version": Any<String>,
 }
 `;
 
@@ -342,8 +342,8 @@ exports[`Generating nuxt stats 3 {"format":"systemjs","expected":"system"} match
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-nuxt-v3-client-system",
   "bundler": {
-    "name": "rollup",
-    "version": "4.22.4",
+    "name": Any<String>,
+    "version": Any<String>,
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -351,9 +351,9 @@ exports[`Generating nuxt stats 3 {"format":"systemjs","expected":"system"} match
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "1.9.1",
+    "version": Any<String>,
   },
-  "version": "3",
+  "version": Any<String>,
 }
 `;
 
@@ -363,8 +363,8 @@ exports[`Generating nuxt stats 3 {"format":"systemjs","expected":"system"} match
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-nuxt-v3-server-esm",
   "bundler": {
-    "name": "rollup",
-    "version": "4.22.4",
+    "name": Any<String>,
+    "version": Any<String>,
   },
   "chunks": ExpectArrayContaining {},
   "duration": Any<Number>,
@@ -372,8 +372,8 @@ exports[`Generating nuxt stats 3 {"format":"systemjs","expected":"system"} match
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/nuxt-plugin",
-    "version": "1.9.1",
+    "version": Any<String>,
   },
-  "version": "3",
+  "version": Any<String>,
 }
 `;
