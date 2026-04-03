@@ -26,7 +26,7 @@
     "format:check": "prettier '**/*.{cjs,mjs,ts,tsx,md,json}' --ignore-path ../.gitignore --ignore-unknown --no-error-on-unmatched-pattern --check"
   },
   "dependencies": {
-    "lodash": "^4.17.21"
+    "lodash": "^4.18.0"
   },
   "devDependencies": {
     "@codecov/astro-plugin": "workspace:*",
@@ -39,9 +39,9 @@
     "@codecov/sveltekit-plugin": "workspace:^",
     "@codecov/vite-plugin": "workspace:^",
     "@codecov/webpack-plugin": "workspace:^",
-    "@remix-run/dev": "^2.17.2",
-    "@remix-run/node": "^2.17.2",
-    "@remix-run/react": "^2.17.2",
+    "@remix-run/dev": "^2.17.4",
+    "@remix-run/node": "^2.17.4",
+    "@remix-run/react": "^2.17.4",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@solidjs/start": "^1.0.10",
@@ -50,16 +50,16 @@
     "@types/node": "^20.11.15",
     "bun": "^1.1.4",
     "isbot": "^4.1.0",
-    "nuxt": "^3.16.0",
+    "nuxt": "~3.16.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "rollupV3": "npm:rollup@3.29.5",
-    "rollupV4": "npm:rollup@4.22.4",
+    "rollupV3": "npm:rollup@3.30.0",
+    "rollupV4": "npm:rollup@4.59.1",
     "ts-node": "^10.9.2",
     "vite-plugin-solid": "^2.11.0",
     "viteV4": "npm:vite@4.5.14",
     "viteV5": "npm:vite@5.4.19",
-    "viteV6": "npm:vite@6.3.5",
+    "viteV6": "npm:vite@6.4.1",
     "vue-routerV4": "npm:vue-router@4.3.0",
     "vueV3": "npm:vue@3.4.21",
     "webpackV5": "npm:webpack@5.90.0"
