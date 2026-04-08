@@ -6,7 +6,7 @@ Bump `@actions/core` to ^3.0.0 and `@actions/github` to ^9.0.0, and set `engines
 
 **@actions/core** ([actions/toolkit `packages/core/RELEASES.md`](https://github.com/actions/toolkit/blob/main/packages/core/RELEASES.md))
 
-- **v3.0.0**: ESM-only release; CommonJS callers must use dynamic `import()` instead of `require()`. `@codecov/bundler-plugin-core` already ships as ESM (`"type": "module"`), so this does not change how the package is consumed from modern bundlers and Node ESM.
+- **v3.0.0**: ESM-only release; apps that `require("@actions/core")` directly must use dynamic `import()`. **`@codecov/bundler-plugin-core` bundles `@actions/core` and `@actions/github` into `dist/index.cjs`**, so `require("@codecov/bundler-plugin-core")` (e.g. Rollup/Webpack CJS configs) keeps working.
 - **v2.x** (between 1.x and 3.x): Node 24 support and `@actions/http-client` upgrades (including 3.x in the 2.x line).
 
 **@actions/github** ([actions/toolkit `packages/github/RELEASES.md`](https://github.com/actions/toolkit/blob/main/packages/github/RELEASES.md))
@@ -18,4 +18,5 @@ Bump `@actions/core` to ^3.0.0 and `@actions/github` to ^9.0.0, and set `engines
 **Impact here**
 
 - Runtime behavior we rely on is unchanged: `context` for GitHub Actions metadata and `getIDToken()` for OIDC uploads are still the supported APIs.
+- **Build**: unbuild inlines `@actions/*` (and their transitive deps) like `@sentry/core`; `failOnWarn: false` suppresses expected “inlined implicit external” noise. Published `dist` is larger (~9 MB CJS) but avoids `ERR_PACKAGE_PATH_NOT_EXPORTED` for CJS consumers.
 - **Node 18** is no longer a supported runtime for this package; use **Node 20+** (aligned with `@actions/github` 8+ and this repo’s Volta pin on Node 20).
