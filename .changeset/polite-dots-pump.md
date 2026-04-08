@@ -1,6 +1,18 @@
 ---
+"@codecov/astro-plugin": major
+"@codecov/bundle-analyzer": major
 "@codecov/bundler-plugin-core": major
+"@codecov/nextjs-webpack-plugin": major
+"@codecov/nuxt-plugin": major
+"@codecov/remix-vite-plugin": major
+"@codecov/rollup-plugin": major
+"@codecov/solidstart-plugin": major
+"@codecov/sveltekit-plugin": major
+"@codecov/vite-plugin": major
+"@codecov/webpack-plugin": major
 ---
+
+Version 2.0.0 addresses critical security issues and dependency updates. It also drops support for Node 18
 
 Bump `@actions/core` to ^3.0.0 and `@actions/github` to ^9.0.0, and set `engines.node` to `>=20.0.0` to match upstream. **Semver major** because supported Node.js drops below 20 (breaking for anyone still on Node 18).
 
