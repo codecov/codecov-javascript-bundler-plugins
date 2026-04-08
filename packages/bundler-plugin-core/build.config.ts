@@ -7,6 +7,8 @@ export default defineBuildConfig({
   outDir: "dist",
   declaration: "compatible",
   sourcemap: true,
+  // Inlining @actions/* pulls transitive deps (octokit, undici, …); unbuild warns about each.
+  failOnWarn: false,
   rollup: {
     dts: {
       compilerOptions: {
@@ -29,7 +31,13 @@ export default defineBuildConfig({
         isResolved?: boolean,
       ) => boolean;
       opts.external = (source, importer, isResolved) => {
-        if (source === "@sentry/core") {
+        // Bundle these into dist so CJS consumers never `require()` them.
+        // @actions/* v3+ is ESM-only (no CJS "main"); externalizing breaks Rollup/Webpack CJS configs.
+        if (
+          source === "@sentry/core" ||
+          source === "@actions/core" ||
+          source === "@actions/github"
+        ) {
           return false;
         }
         return isExternal(source, importer, isResolved);
