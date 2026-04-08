@@ -1,4 +1,3 @@
-import * as GitHub from "@actions/github";
 import { HttpResponse, http } from "msw";
 import { setupServer } from "msw/node";
 import { createEmptyArgs } from "../../../../test-utils/helpers.ts";
@@ -26,10 +25,25 @@ const mocks = vi.hoisted(() => ({
   headLabel: vi.fn().mockReturnValue(""),
 }));
 
+/** Holds overrides; @actions/github v9+ exports `context` as read-only in ESM. */
+const mockGitHubContext = vi.hoisted(() => ({
+  override: undefined as
+    | undefined
+    | {
+        eventName: string;
+        payload: Record<string, unknown>;
+      },
+}));
+
 vi.mock("@actions/github", async (importOriginal) => {
   // eslint-disable-next-line @typescript-eslint/consistent-type-imports
   const original = await importOriginal<typeof import("@actions/github")>();
-  return original;
+  return {
+    ...original,
+    get context() {
+      return mockGitHubContext.override ?? original.context;
+    },
+  };
 });
 
 beforeAll(() => {
@@ -38,6 +52,7 @@ beforeAll(() => {
 
 afterEach(() => {
   server.resetHandlers();
+  mockGitHubContext.override = undefined;
   vi.resetAllMocks();
 });
 
@@ -67,10 +82,9 @@ describe("GitHub Actions Params", () => {
     // TODO: verify that empty string belongs here, from a glance it seems PushEvent does not
     // include a pull_request key
     if (["pull_request", "pull_request_target", ""].includes(eventName)) {
-      vi.mocked(GitHub).context = {
+      mockGitHubContext.override = {
         eventName,
         payload: {
-          // @ts-expect-error - forcing the payload to be a PullRequestEvent
           pull_request: {
             head: {
               sha: "test-head-sha",
@@ -84,8 +98,7 @@ describe("GitHub Actions Params", () => {
         },
       };
     } else if (eventName === "merge_group") {
-      // @ts-expect-error - forcing the payload to be a MergeGroupEvent
-      vi.mocked(GitHub).context = {
+      mockGitHubContext.override = {
         eventName,
         payload: {
           merge_group: {
