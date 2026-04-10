@@ -640,8 +640,8 @@ importers:
         specifier: ^18.2.0
         version: 18.3.1(react@18.3.1)
       rollupV3:
-        specifier: npm:rollup@3.29.5
-        version: rollup@3.29.5
+        specifier: npm:rollup@3.30.0
+        version: rollup@3.30.0
       rollupV4:
         specifier: npm:rollup@4.22.4
         version: rollup@4.22.4
@@ -10461,6 +10461,11 @@ packages:
 
   rollup@3.29.5:
     resolution: {integrity: sha512-GVsDdsbJzzy4S/v3dqWPJ7EfvZJfCHiDqe80IyrF59LYuP+e6U1LJoUqeuqRbwAWoMNoXivMNeNAOf5E22VA1w==}
+    engines: {node: '>=14.18.0', npm: '>=8.0.0'}
+    hasBin: true
+
+  rollup@3.30.0:
+    resolution: {integrity: sha512-kQvGasUgN+AlWGliFn2POSajRQEsULVYFGTvOZmK06d7vCD+YhZztt70kGk3qaeAXeWYL5eO7zx+rAubBc55eA==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
 
@@ -24710,6 +24715,10 @@ snapshots:
       fsevents: 2.3.3
 
   rollup@3.29.5:
+    optionalDependencies:
+      fsevents: 2.3.3
+
+  rollup@3.30.0:
     optionalDependencies:
       fsevents: 2.3.3
 
