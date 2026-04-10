@@ -168,7 +168,7 @@ describe("Generating remix stats", () => {
 
       afterEach(async () => {
         await $`rm -rf ${remixApp}/vite.config.ts`;
-        await $`rm -rf ${remixApp}/vite.config.ts.timestamp-*`;
+        await $`rm -rf ${remixApp}/vite.config.ts.timestamp-*`.nothrow();
         await $`rm -rf ${remixApp}/build`;
         await $`rm -rf ./fixtures/generate-bundle-stats/remix/build`;
       });

@@ -6,7 +6,7 @@ import { GenerateConfig } from "../../../scripts/gen-config";
 const webpackPath = (version: number) =>
   `node_modules/webpackV${version}/bin/webpack.js`;
 const webpackConfig = (version: number, format: string) =>
-  `fixtures/generate-bundle-stats/webpack/webpack-v${version}-${format}.config.*`;
+  `fixtures/generate-bundle-stats/webpack/webpack-v${version}-${format}.config.cjs`;
 const webpackApp = "test-apps/webpack";
 
 const VERSIONS = [5];

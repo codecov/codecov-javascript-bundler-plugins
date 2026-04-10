@@ -1,10 +1,10 @@
-// Bun Snapshot v1, https://goo.gl/fbAQLP
+// Bun Snapshot v1, https://bun.sh/docs/test/snapshots
 
 exports[`Generating vite stats v4 {"format":"amd","expected":"amd"} matches the snapshot 1`] = `
 {
   "assets": [
     {
-      "gzipSize": 26821,
+      "gzipSize": 26644,
       "name": "assets/index-b7a309be.js",
       "normalized": "assets/index-*.js",
       "size": 72360,
@@ -86,7 +86,7 @@ exports[`Generating vite stats v4 {"format":"amd","expected":"amd"} matches the 
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -96,7 +96,7 @@ exports[`Generating vite stats v4 {"format":"cjs","expected":"cjs"} matches the 
 {
   "assets": [
     {
-      "gzipSize": 26812,
+      "gzipSize": 26631,
       "name": "assets/index-7de22500.js",
       "normalized": "assets/index-*.js",
       "size": 72342,
@@ -178,7 +178,7 @@ exports[`Generating vite stats v4 {"format":"cjs","expected":"cjs"} matches the 
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -188,7 +188,7 @@ exports[`Generating vite stats v4 {"format":"es","expected":"esm"} matches the s
 {
   "assets": [
     {
-      "gzipSize": 27169,
+      "gzipSize": 26978,
       "name": "assets/index-320c8eaf.js",
       "normalized": "assets/index-*.js",
       "size": 73071,
@@ -270,7 +270,7 @@ exports[`Generating vite stats v4 {"format":"es","expected":"esm"} matches the s
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -280,7 +280,7 @@ exports[`Generating vite stats v4 {"format":"esm","expected":"esm"} matches the 
 {
   "assets": [
     {
-      "gzipSize": 27169,
+      "gzipSize": 26978,
       "name": "assets/index-320c8eaf.js",
       "normalized": "assets/index-*.js",
       "size": 73071,
@@ -362,7 +362,7 @@ exports[`Generating vite stats v4 {"format":"esm","expected":"esm"} matches the 
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -372,7 +372,7 @@ exports[`Generating vite stats v4 {"format":"module","expected":"esm"} matches t
 {
   "assets": [
     {
-      "gzipSize": 27169,
+      "gzipSize": 26978,
       "name": "assets/index-320c8eaf.js",
       "normalized": "assets/index-*.js",
       "size": 73071,
@@ -454,7 +454,7 @@ exports[`Generating vite stats v4 {"format":"module","expected":"esm"} matches t
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -464,7 +464,7 @@ exports[`Generating vite stats v4 {"format":"iife","expected":"iife"} matches th
 {
   "assets": [
     {
-      "gzipSize": 26821,
+      "gzipSize": 26643,
       "name": "assets/index-646c8a11.js",
       "normalized": "assets/index-*.js",
       "size": 72356,
@@ -546,7 +546,7 @@ exports[`Generating vite stats v4 {"format":"iife","expected":"iife"} matches th
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -556,7 +556,7 @@ exports[`Generating vite stats v4 {"format":"umd","expected":"umd"} matches the 
 {
   "assets": [
     {
-      "gzipSize": 26850,
+      "gzipSize": 26678,
       "name": "assets/index-5458a54a.js",
       "normalized": "assets/index-*.js",
       "size": 72423,
@@ -638,7 +638,7 @@ exports[`Generating vite stats v4 {"format":"umd","expected":"umd"} matches the 
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -648,7 +648,7 @@ exports[`Generating vite stats v4 {"format":"system","expected":"system"} matche
 {
   "assets": [
     {
-      "gzipSize": 26850,
+      "gzipSize": 26666,
       "name": "assets/index-2fd1a797.js",
       "normalized": "assets/index-*.js",
       "size": 72405,
@@ -730,7 +730,7 @@ exports[`Generating vite stats v4 {"format":"system","expected":"system"} matche
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -740,7 +740,7 @@ exports[`Generating vite stats v4 {"format":"systemjs","expected":"system"} matc
 {
   "assets": [
     {
-      "gzipSize": 26850,
+      "gzipSize": 26666,
       "name": "assets/index-2fd1a797.js",
       "normalized": "assets/index-*.js",
       "size": 72405,
@@ -822,7 +822,7 @@ exports[`Generating vite stats v4 {"format":"systemjs","expected":"system"} matc
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -832,7 +832,7 @@ exports[`Generating vite stats v4 source maps are enabled does not include any s
 {
   "assets": [
     {
-      "gzipSize": 27198,
+      "gzipSize": 27010,
       "name": "assets/index-320c8eaf.js",
       "normalized": "assets/index-*.js",
       "size": 73114,
@@ -914,7 +914,7 @@ exports[`Generating vite stats v4 source maps are enabled does not include any s
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -924,7 +924,7 @@ exports[`Generating vite stats v5 {"format":"amd","expected":"amd"} matches the 
 {
   "assets": [
     {
-      "gzipSize": 26821,
+      "gzipSize": 26645,
       "name": "assets/index-D0r0olUW.js",
       "normalized": "assets/index-*.js",
       "size": 72360,
@@ -1006,7 +1006,7 @@ exports[`Generating vite stats v5 {"format":"amd","expected":"amd"} matches the 
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -1016,7 +1016,7 @@ exports[`Generating vite stats v5 {"format":"cjs","expected":"cjs"} matches the 
 {
   "assets": [
     {
-      "gzipSize": 26812,
+      "gzipSize": 26632,
       "name": "assets/index-_9bu_Rar.js",
       "normalized": "assets/index-*.js",
       "size": 72342,
@@ -1098,7 +1098,7 @@ exports[`Generating vite stats v5 {"format":"cjs","expected":"cjs"} matches the 
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -1108,7 +1108,7 @@ exports[`Generating vite stats v5 {"format":"es","expected":"esm"} matches the s
 {
   "assets": [
     {
-      "gzipSize": 27169,
+      "gzipSize": 26981,
       "name": "assets/index-Cq3U4pkx.js",
       "normalized": "assets/index-*.js",
       "size": 73071,
@@ -1190,7 +1190,7 @@ exports[`Generating vite stats v5 {"format":"es","expected":"esm"} matches the s
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -1200,7 +1200,7 @@ exports[`Generating vite stats v5 {"format":"esm","expected":"esm"} matches the 
 {
   "assets": [
     {
-      "gzipSize": 27169,
+      "gzipSize": 26981,
       "name": "assets/index-Cq3U4pkx.js",
       "normalized": "assets/index-*.js",
       "size": 73071,
@@ -1282,7 +1282,7 @@ exports[`Generating vite stats v5 {"format":"esm","expected":"esm"} matches the 
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -1292,7 +1292,7 @@ exports[`Generating vite stats v5 {"format":"module","expected":"esm"} matches t
 {
   "assets": [
     {
-      "gzipSize": 27169,
+      "gzipSize": 26981,
       "name": "assets/index-Cq3U4pkx.js",
       "normalized": "assets/index-*.js",
       "size": 73071,
@@ -1374,7 +1374,7 @@ exports[`Generating vite stats v5 {"format":"module","expected":"esm"} matches t
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -1384,7 +1384,7 @@ exports[`Generating vite stats v5 {"format":"iife","expected":"iife"} matches th
 {
   "assets": [
     {
-      "gzipSize": 26821,
+      "gzipSize": 26645,
       "name": "assets/index-B31DUBuo.js",
       "normalized": "assets/index-*.js",
       "size": 72356,
@@ -1466,7 +1466,7 @@ exports[`Generating vite stats v5 {"format":"iife","expected":"iife"} matches th
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -1476,7 +1476,7 @@ exports[`Generating vite stats v5 {"format":"umd","expected":"umd"} matches the 
 {
   "assets": [
     {
-      "gzipSize": 26850,
+      "gzipSize": 26679,
       "name": "assets/index-BFgpG9Ne.js",
       "normalized": "assets/index-*.js",
       "size": 72423,
@@ -1558,7 +1558,7 @@ exports[`Generating vite stats v5 {"format":"umd","expected":"umd"} matches the 
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -1568,7 +1568,7 @@ exports[`Generating vite stats v5 {"format":"system","expected":"system"} matche
 {
   "assets": [
     {
-      "gzipSize": 26850,
+      "gzipSize": 26668,
       "name": "assets/index-Cn9uVtOh.js",
       "normalized": "assets/index-*.js",
       "size": 72405,
@@ -1650,7 +1650,7 @@ exports[`Generating vite stats v5 {"format":"system","expected":"system"} matche
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -1660,7 +1660,7 @@ exports[`Generating vite stats v5 {"format":"systemjs","expected":"system"} matc
 {
   "assets": [
     {
-      "gzipSize": 26850,
+      "gzipSize": 26668,
       "name": "assets/index-Cn9uVtOh.js",
       "normalized": "assets/index-*.js",
       "size": 72405,
@@ -1742,7 +1742,7 @@ exports[`Generating vite stats v5 {"format":"systemjs","expected":"system"} matc
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -1752,7 +1752,7 @@ exports[`Generating vite stats v5 source maps are enabled does not include any s
 {
   "assets": [
     {
-      "gzipSize": 27198,
+      "gzipSize": 27010,
       "name": "assets/index-Cq3U4pkx.js",
       "normalized": "assets/index-*.js",
       "size": 73114,
@@ -1834,7 +1834,7 @@ exports[`Generating vite stats v5 source maps are enabled does not include any s
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -1844,7 +1844,7 @@ exports[`Generating vite stats v6 {"format":"amd","expected":"amd"} matches the 
 {
   "assets": [
     {
-      "gzipSize": 26835,
+      "gzipSize": 26666,
       "name": "assets/index-BQsq0t7E.js",
       "normalized": "assets/index-*.js",
       "size": 72422,
@@ -1933,7 +1933,7 @@ exports[`Generating vite stats v6 {"format":"amd","expected":"amd"} matches the 
   "outputPath": StringContaining "/distV6",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -1943,7 +1943,7 @@ exports[`Generating vite stats v6 {"format":"cjs","expected":"cjs"} matches the 
 {
   "assets": [
     {
-      "gzipSize": 26852,
+      "gzipSize": 26679,
       "name": "assets/index-C4o0PbSK.js",
       "normalized": "assets/index-*.js",
       "size": 72402,
@@ -2032,7 +2032,7 @@ exports[`Generating vite stats v6 {"format":"cjs","expected":"cjs"} matches the 
   "outputPath": StringContaining "/distV6",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -2042,7 +2042,7 @@ exports[`Generating vite stats v6 {"format":"es","expected":"esm"} matches the s
 {
   "assets": [
     {
-      "gzipSize": 27189,
+      "gzipSize": 26997,
       "name": "assets/index-Cc5984px.js",
       "normalized": "assets/index-*.js",
       "size": 73131,
@@ -2131,7 +2131,7 @@ exports[`Generating vite stats v6 {"format":"es","expected":"esm"} matches the s
   "outputPath": StringContaining "/distV6",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -2141,7 +2141,7 @@ exports[`Generating vite stats v6 {"format":"esm","expected":"esm"} matches the 
 {
   "assets": [
     {
-      "gzipSize": 27189,
+      "gzipSize": 26997,
       "name": "assets/index-Cc5984px.js",
       "normalized": "assets/index-*.js",
       "size": 73131,
@@ -2230,7 +2230,7 @@ exports[`Generating vite stats v6 {"format":"esm","expected":"esm"} matches the 
   "outputPath": StringContaining "/distV6",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -2240,7 +2240,7 @@ exports[`Generating vite stats v6 {"format":"module","expected":"esm"} matches t
 {
   "assets": [
     {
-      "gzipSize": 27189,
+      "gzipSize": 26997,
       "name": "assets/index-Cc5984px.js",
       "normalized": "assets/index-*.js",
       "size": 73131,
@@ -2329,7 +2329,7 @@ exports[`Generating vite stats v6 {"format":"module","expected":"esm"} matches t
   "outputPath": StringContaining "/distV6",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -2339,7 +2339,7 @@ exports[`Generating vite stats v6 {"format":"iife","expected":"iife"} matches th
 {
   "assets": [
     {
-      "gzipSize": 26836,
+      "gzipSize": 26670,
       "name": "assets/index-C2FevV0y.js",
       "normalized": "assets/index-*.js",
       "size": 72418,
@@ -2428,7 +2428,7 @@ exports[`Generating vite stats v6 {"format":"iife","expected":"iife"} matches th
   "outputPath": StringContaining "/distV6",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -2438,7 +2438,7 @@ exports[`Generating vite stats v6 {"format":"umd","expected":"umd"} matches the 
 {
   "assets": [
     {
-      "gzipSize": 26875,
+      "gzipSize": 26707,
       "name": "assets/index-CaYdJAO0.js",
       "normalized": "assets/index-*.js",
       "size": 72485,
@@ -2527,7 +2527,7 @@ exports[`Generating vite stats v6 {"format":"umd","expected":"umd"} matches the 
   "outputPath": StringContaining "/distV6",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -2537,7 +2537,7 @@ exports[`Generating vite stats v6 {"format":"system","expected":"system"} matche
 {
   "assets": [
     {
-      "gzipSize": 26874,
+      "gzipSize": 26699,
       "name": "assets/index-CZb5YUA8.js",
       "normalized": "assets/index-*.js",
       "size": 72467,
@@ -2626,7 +2626,7 @@ exports[`Generating vite stats v6 {"format":"system","expected":"system"} matche
   "outputPath": StringContaining "/distV6",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -2636,7 +2636,7 @@ exports[`Generating vite stats v6 {"format":"systemjs","expected":"system"} matc
 {
   "assets": [
     {
-      "gzipSize": 26874,
+      "gzipSize": 26699,
       "name": "assets/index-CZb5YUA8.js",
       "normalized": "assets/index-*.js",
       "size": 72467,
@@ -2725,7 +2725,7 @@ exports[`Generating vite stats v6 {"format":"systemjs","expected":"system"} matc
   "outputPath": StringContaining "/distV6",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -2735,7 +2735,7 @@ exports[`Generating vite stats v6 source maps are enabled does not include any s
 {
   "assets": [
     {
-      "gzipSize": 27219,
+      "gzipSize": 27028,
       "name": "assets/index-Cc5984px.js",
       "normalized": "assets/index-*.js",
       "size": 73174,
@@ -2824,7 +2824,7 @@ exports[`Generating vite stats v6 source maps are enabled does not include any s
   "outputPath": StringContaining "/distV6",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }

@@ -1,10 +1,10 @@
-// Bun Snapshot v1, https://goo.gl/fbAQLP
+// Bun Snapshot v1, https://bun.sh/docs/test/snapshots
 
 exports[`Generating webpack stats 5 {"format":"array-push","expected":"array-push"} matches the snapshot 1`] = `
 {
   "assets": [
     {
-      "gzipSize": 25250,
+      "gzipSize": 25115,
       "name": "main-2c458a0c7e378af1ec1a.js",
       "normalized": "main-*.js",
       "size": 70959,
@@ -70,7 +70,7 @@ exports[`Generating webpack stats 5 {"format":"array-push","expected":"array-pus
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/webpack-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -80,7 +80,7 @@ exports[`Generating webpack stats 5 {"format":"commonjs","expected":"cjs"} match
 {
   "assets": [
     {
-      "gzipSize": 25250,
+      "gzipSize": 25115,
       "name": "main-2c458a0c7e378af1ec1a.js",
       "normalized": "main-*.js",
       "size": 70959,
@@ -146,7 +146,7 @@ exports[`Generating webpack stats 5 {"format":"commonjs","expected":"cjs"} match
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/webpack-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -156,7 +156,7 @@ exports[`Generating webpack stats 5 {"format":"module","expected":"esm"} matches
 {
   "assets": [
     {
-      "gzipSize": 25250,
+      "gzipSize": 25115,
       "name": "main-2c458a0c7e378af1ec1a.js",
       "normalized": "main-*.js",
       "size": 70959,
@@ -222,7 +222,7 @@ exports[`Generating webpack stats 5 {"format":"module","expected":"esm"} matches
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/webpack-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -232,7 +232,7 @@ exports[`Generating webpack stats 5 source maps are enabled does not include any
 {
   "assets": [
     {
-      "gzipSize": 25250,
+      "gzipSize": 25115,
       "name": "main-2c458a0c7e378af1ec1a.js",
       "normalized": "main-*.js",
       "size": 70959,
@@ -298,7 +298,7 @@ exports[`Generating webpack stats 5 source maps are enabled does not include any
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/webpack-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }

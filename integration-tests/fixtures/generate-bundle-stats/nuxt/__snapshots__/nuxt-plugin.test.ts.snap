@@ -1,4 +1,4 @@
-// Bun Snapshot v1, https://goo.gl/fbAQLP
+// Bun Snapshot v1, https://bun.sh/docs/test/snapshots
 
 exports[`Generating nuxt stats 3 {"format":"amd","expected":"amd"} matches the snapshot 1`] = `
 {

@@ -7,7 +7,7 @@
   "type": "module",
   "scripts": {
     "test:e2e": "bun test fixtures/*",
-    "test:e2e:update": "bun test --update-snapshots",
+    "test:e2e:update": "bun test fixtures/* --update-snapshots --max-concurrency=1",
     "test:e2e:astro": "bun test fixtures/**/astro/*",
     "test:e2e:bundle-analyzer": "bun test fixtures/**/bundle-analyzer/*",
     "test:e2e:nextjs": "bun test fixtures/**/nextjs/*",
