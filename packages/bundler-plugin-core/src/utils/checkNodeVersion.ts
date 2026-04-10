@@ -2,7 +2,7 @@ import { satisfies } from "semver";
 import { type UnpluginContextMeta } from "unplugin";
 import { red } from "./logging";
 
-const NODE_VERSION_RANGE = ">=18.18.0";
+const NODE_VERSION_RANGE = ">=20.0.0";
 
 export function checkNodeVersion(unpluginMetaContext: UnpluginContextMeta) {
   if (!satisfies(process.version, NODE_VERSION_RANGE)) {
