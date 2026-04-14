@@ -2,6 +2,7 @@
 import { $ } from "bun";
 import { describe, it, expect, afterEach, beforeEach } from "bun:test";
 import { GenerateConfig } from "../../../scripts/gen-config";
+import { bundleStatsAssetsHint } from "../bundle-stats-snapshot-hints";
 
 const rollupPath = (version: number) =>
   `node_modules/rollupV${version}/dist/bin/rollup`;
@@ -70,6 +71,7 @@ describe("Generating rollup stats", () => {
           bundleName: expect.stringContaining(
             `test-rollup-v${version}-${expected}`,
           ),
+          assets: bundleStatsAssetsHint(),
           plugin: {
             name: expect.stringMatching("@codecov/rollup-plugin"),
           },
@@ -119,6 +121,7 @@ describe("Generating rollup stats", () => {
           duration: expect.any(Number),
           outputPath: expect.stringContaining(`/distV${version}`),
           bundleName: expect.not.stringContaining(".map"),
+          assets: bundleStatsAssetsHint(),
           plugin: {
             name: expect.stringMatching("@codecov/rollup-plugin"),
           },

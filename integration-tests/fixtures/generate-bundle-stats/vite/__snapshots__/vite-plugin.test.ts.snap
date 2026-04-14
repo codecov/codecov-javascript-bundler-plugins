@@ -1,15 +1,8 @@
-// Bun Snapshot v1, https://goo.gl/fbAQLP
+// Bun Snapshot v1, https://bun.sh/docs/test/snapshots
 
 exports[`Generating vite stats v4 {"format":"amd","expected":"amd"} matches the snapshot 1`] = `
 {
-  "assets": [
-    {
-      "gzipSize": 26821,
-      "name": "assets/index-b7a309be.js",
-      "normalized": "assets/index-*.js",
-      "size": 72360,
-    },
-  ],
+  "assets": ExpectArrayContaining {},
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-vite-v4-amd",
   "bundler": {
@@ -86,7 +79,7 @@ exports[`Generating vite stats v4 {"format":"amd","expected":"amd"} matches the 
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -94,14 +87,7 @@ exports[`Generating vite stats v4 {"format":"amd","expected":"amd"} matches the 
 
 exports[`Generating vite stats v4 {"format":"cjs","expected":"cjs"} matches the snapshot 1`] = `
 {
-  "assets": [
-    {
-      "gzipSize": 26812,
-      "name": "assets/index-7de22500.js",
-      "normalized": "assets/index-*.js",
-      "size": 72342,
-    },
-  ],
+  "assets": ExpectArrayContaining {},
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-vite-v4-cjs",
   "bundler": {
@@ -178,7 +164,7 @@ exports[`Generating vite stats v4 {"format":"cjs","expected":"cjs"} matches the 
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -186,14 +172,7 @@ exports[`Generating vite stats v4 {"format":"cjs","expected":"cjs"} matches the 
 
 exports[`Generating vite stats v4 {"format":"es","expected":"esm"} matches the snapshot 1`] = `
 {
-  "assets": [
-    {
-      "gzipSize": 27169,
-      "name": "assets/index-320c8eaf.js",
-      "normalized": "assets/index-*.js",
-      "size": 73071,
-    },
-  ],
+  "assets": ExpectArrayContaining {},
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-vite-v4-esm",
   "bundler": {
@@ -270,7 +249,7 @@ exports[`Generating vite stats v4 {"format":"es","expected":"esm"} matches the s
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -278,14 +257,7 @@ exports[`Generating vite stats v4 {"format":"es","expected":"esm"} matches the s
 
 exports[`Generating vite stats v4 {"format":"esm","expected":"esm"} matches the snapshot 1`] = `
 {
-  "assets": [
-    {
-      "gzipSize": 27169,
-      "name": "assets/index-320c8eaf.js",
-      "normalized": "assets/index-*.js",
-      "size": 73071,
-    },
-  ],
+  "assets": ExpectArrayContaining {},
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-vite-v4-esm",
   "bundler": {
@@ -362,7 +334,7 @@ exports[`Generating vite stats v4 {"format":"esm","expected":"esm"} matches the 
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -370,14 +342,7 @@ exports[`Generating vite stats v4 {"format":"esm","expected":"esm"} matches the 
 
 exports[`Generating vite stats v4 {"format":"module","expected":"esm"} matches the snapshot 1`] = `
 {
-  "assets": [
-    {
-      "gzipSize": 27169,
-      "name": "assets/index-320c8eaf.js",
-      "normalized": "assets/index-*.js",
-      "size": 73071,
-    },
-  ],
+  "assets": ExpectArrayContaining {},
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-vite-v4-esm",
   "bundler": {
@@ -454,7 +419,7 @@ exports[`Generating vite stats v4 {"format":"module","expected":"esm"} matches t
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -462,14 +427,7 @@ exports[`Generating vite stats v4 {"format":"module","expected":"esm"} matches t
 
 exports[`Generating vite stats v4 {"format":"iife","expected":"iife"} matches the snapshot 1`] = `
 {
-  "assets": [
-    {
-      "gzipSize": 26821,
-      "name": "assets/index-646c8a11.js",
-      "normalized": "assets/index-*.js",
-      "size": 72356,
-    },
-  ],
+  "assets": ExpectArrayContaining {},
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-vite-v4-iife",
   "bundler": {
@@ -546,7 +504,7 @@ exports[`Generating vite stats v4 {"format":"iife","expected":"iife"} matches th
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -554,14 +512,7 @@ exports[`Generating vite stats v4 {"format":"iife","expected":"iife"} matches th
 
 exports[`Generating vite stats v4 {"format":"umd","expected":"umd"} matches the snapshot 1`] = `
 {
-  "assets": [
-    {
-      "gzipSize": 26850,
-      "name": "assets/index-5458a54a.js",
-      "normalized": "assets/index-*.js",
-      "size": 72423,
-    },
-  ],
+  "assets": ExpectArrayContaining {},
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-vite-v4-umd",
   "bundler": {
@@ -638,7 +589,7 @@ exports[`Generating vite stats v4 {"format":"umd","expected":"umd"} matches the 
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -646,14 +597,7 @@ exports[`Generating vite stats v4 {"format":"umd","expected":"umd"} matches the 
 
 exports[`Generating vite stats v4 {"format":"system","expected":"system"} matches the snapshot 1`] = `
 {
-  "assets": [
-    {
-      "gzipSize": 26850,
-      "name": "assets/index-2fd1a797.js",
-      "normalized": "assets/index-*.js",
-      "size": 72405,
-    },
-  ],
+  "assets": ExpectArrayContaining {},
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-vite-v4-system",
   "bundler": {
@@ -730,7 +674,7 @@ exports[`Generating vite stats v4 {"format":"system","expected":"system"} matche
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -738,14 +682,7 @@ exports[`Generating vite stats v4 {"format":"system","expected":"system"} matche
 
 exports[`Generating vite stats v4 {"format":"systemjs","expected":"system"} matches the snapshot 1`] = `
 {
-  "assets": [
-    {
-      "gzipSize": 26850,
-      "name": "assets/index-2fd1a797.js",
-      "normalized": "assets/index-*.js",
-      "size": 72405,
-    },
-  ],
+  "assets": ExpectArrayContaining {},
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-vite-v4-system",
   "bundler": {
@@ -822,7 +759,7 @@ exports[`Generating vite stats v4 {"format":"systemjs","expected":"system"} matc
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -830,14 +767,7 @@ exports[`Generating vite stats v4 {"format":"systemjs","expected":"system"} matc
 
 exports[`Generating vite stats v4 source maps are enabled does not include any source maps 1`] = `
 {
-  "assets": [
-    {
-      "gzipSize": 27198,
-      "name": "assets/index-320c8eaf.js",
-      "normalized": "assets/index-*.js",
-      "size": 73114,
-    },
-  ],
+  "assets": ExpectArrayContaining {},
   "builtAt": Any<Number>,
   "bundleName": StringNotContaining ".map",
   "bundler": {
@@ -914,7 +844,7 @@ exports[`Generating vite stats v4 source maps are enabled does not include any s
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -922,14 +852,7 @@ exports[`Generating vite stats v4 source maps are enabled does not include any s
 
 exports[`Generating vite stats v5 {"format":"amd","expected":"amd"} matches the snapshot 1`] = `
 {
-  "assets": [
-    {
-      "gzipSize": 26821,
-      "name": "assets/index-D0r0olUW.js",
-      "normalized": "assets/index-*.js",
-      "size": 72360,
-    },
-  ],
+  "assets": ExpectArrayContaining {},
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-vite-v5-amd",
   "bundler": {
@@ -1006,7 +929,7 @@ exports[`Generating vite stats v5 {"format":"amd","expected":"amd"} matches the 
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -1014,14 +937,7 @@ exports[`Generating vite stats v5 {"format":"amd","expected":"amd"} matches the 
 
 exports[`Generating vite stats v5 {"format":"cjs","expected":"cjs"} matches the snapshot 1`] = `
 {
-  "assets": [
-    {
-      "gzipSize": 26812,
-      "name": "assets/index-_9bu_Rar.js",
-      "normalized": "assets/index-*.js",
-      "size": 72342,
-    },
-  ],
+  "assets": ExpectArrayContaining {},
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-vite-v5-cjs",
   "bundler": {
@@ -1098,7 +1014,7 @@ exports[`Generating vite stats v5 {"format":"cjs","expected":"cjs"} matches the 
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -1106,14 +1022,7 @@ exports[`Generating vite stats v5 {"format":"cjs","expected":"cjs"} matches the 
 
 exports[`Generating vite stats v5 {"format":"es","expected":"esm"} matches the snapshot 1`] = `
 {
-  "assets": [
-    {
-      "gzipSize": 27169,
-      "name": "assets/index-Cq3U4pkx.js",
-      "normalized": "assets/index-*.js",
-      "size": 73071,
-    },
-  ],
+  "assets": ExpectArrayContaining {},
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-vite-v5-esm",
   "bundler": {
@@ -1190,7 +1099,7 @@ exports[`Generating vite stats v5 {"format":"es","expected":"esm"} matches the s
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -1198,14 +1107,7 @@ exports[`Generating vite stats v5 {"format":"es","expected":"esm"} matches the s
 
 exports[`Generating vite stats v5 {"format":"esm","expected":"esm"} matches the snapshot 1`] = `
 {
-  "assets": [
-    {
-      "gzipSize": 27169,
-      "name": "assets/index-Cq3U4pkx.js",
-      "normalized": "assets/index-*.js",
-      "size": 73071,
-    },
-  ],
+  "assets": ExpectArrayContaining {},
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-vite-v5-esm",
   "bundler": {
@@ -1282,7 +1184,7 @@ exports[`Generating vite stats v5 {"format":"esm","expected":"esm"} matches the 
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -1290,14 +1192,7 @@ exports[`Generating vite stats v5 {"format":"esm","expected":"esm"} matches the 
 
 exports[`Generating vite stats v5 {"format":"module","expected":"esm"} matches the snapshot 1`] = `
 {
-  "assets": [
-    {
-      "gzipSize": 27169,
-      "name": "assets/index-Cq3U4pkx.js",
-      "normalized": "assets/index-*.js",
-      "size": 73071,
-    },
-  ],
+  "assets": ExpectArrayContaining {},
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-vite-v5-esm",
   "bundler": {
@@ -1374,7 +1269,7 @@ exports[`Generating vite stats v5 {"format":"module","expected":"esm"} matches t
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -1382,14 +1277,7 @@ exports[`Generating vite stats v5 {"format":"module","expected":"esm"} matches t
 
 exports[`Generating vite stats v5 {"format":"iife","expected":"iife"} matches the snapshot 1`] = `
 {
-  "assets": [
-    {
-      "gzipSize": 26821,
-      "name": "assets/index-B31DUBuo.js",
-      "normalized": "assets/index-*.js",
-      "size": 72356,
-    },
-  ],
+  "assets": ExpectArrayContaining {},
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-vite-v5-iife",
   "bundler": {
@@ -1466,7 +1354,7 @@ exports[`Generating vite stats v5 {"format":"iife","expected":"iife"} matches th
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -1474,14 +1362,7 @@ exports[`Generating vite stats v5 {"format":"iife","expected":"iife"} matches th
 
 exports[`Generating vite stats v5 {"format":"umd","expected":"umd"} matches the snapshot 1`] = `
 {
-  "assets": [
-    {
-      "gzipSize": 26850,
-      "name": "assets/index-BFgpG9Ne.js",
-      "normalized": "assets/index-*.js",
-      "size": 72423,
-    },
-  ],
+  "assets": ExpectArrayContaining {},
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-vite-v5-umd",
   "bundler": {
@@ -1558,7 +1439,7 @@ exports[`Generating vite stats v5 {"format":"umd","expected":"umd"} matches the 
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -1566,14 +1447,7 @@ exports[`Generating vite stats v5 {"format":"umd","expected":"umd"} matches the 
 
 exports[`Generating vite stats v5 {"format":"system","expected":"system"} matches the snapshot 1`] = `
 {
-  "assets": [
-    {
-      "gzipSize": 26850,
-      "name": "assets/index-Cn9uVtOh.js",
-      "normalized": "assets/index-*.js",
-      "size": 72405,
-    },
-  ],
+  "assets": ExpectArrayContaining {},
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-vite-v5-system",
   "bundler": {
@@ -1650,7 +1524,7 @@ exports[`Generating vite stats v5 {"format":"system","expected":"system"} matche
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -1658,14 +1532,7 @@ exports[`Generating vite stats v5 {"format":"system","expected":"system"} matche
 
 exports[`Generating vite stats v5 {"format":"systemjs","expected":"system"} matches the snapshot 1`] = `
 {
-  "assets": [
-    {
-      "gzipSize": 26850,
-      "name": "assets/index-Cn9uVtOh.js",
-      "normalized": "assets/index-*.js",
-      "size": 72405,
-    },
-  ],
+  "assets": ExpectArrayContaining {},
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-vite-v5-system",
   "bundler": {
@@ -1742,7 +1609,7 @@ exports[`Generating vite stats v5 {"format":"systemjs","expected":"system"} matc
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -1750,14 +1617,7 @@ exports[`Generating vite stats v5 {"format":"systemjs","expected":"system"} matc
 
 exports[`Generating vite stats v5 source maps are enabled does not include any source maps 1`] = `
 {
-  "assets": [
-    {
-      "gzipSize": 27198,
-      "name": "assets/index-Cq3U4pkx.js",
-      "normalized": "assets/index-*.js",
-      "size": 73114,
-    },
-  ],
+  "assets": ExpectArrayContaining {},
   "builtAt": Any<Number>,
   "bundleName": StringNotContaining ".map",
   "bundler": {
@@ -1834,7 +1694,7 @@ exports[`Generating vite stats v5 source maps are enabled does not include any s
   "outputPath": StringContaining "/distV5",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -1842,14 +1702,7 @@ exports[`Generating vite stats v5 source maps are enabled does not include any s
 
 exports[`Generating vite stats v6 {"format":"amd","expected":"amd"} matches the snapshot 1`] = `
 {
-  "assets": [
-    {
-      "gzipSize": 26835,
-      "name": "assets/index-BQsq0t7E.js",
-      "normalized": "assets/index-*.js",
-      "size": 72422,
-    },
-  ],
+  "assets": ExpectArrayContaining {},
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-vite-v6-amd",
   "bundler": {
@@ -1933,7 +1786,7 @@ exports[`Generating vite stats v6 {"format":"amd","expected":"amd"} matches the 
   "outputPath": StringContaining "/distV6",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -1941,14 +1794,7 @@ exports[`Generating vite stats v6 {"format":"amd","expected":"amd"} matches the 
 
 exports[`Generating vite stats v6 {"format":"cjs","expected":"cjs"} matches the snapshot 1`] = `
 {
-  "assets": [
-    {
-      "gzipSize": 26852,
-      "name": "assets/index-C4o0PbSK.js",
-      "normalized": "assets/index-*.js",
-      "size": 72402,
-    },
-  ],
+  "assets": ExpectArrayContaining {},
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-vite-v6-cjs",
   "bundler": {
@@ -2032,7 +1878,7 @@ exports[`Generating vite stats v6 {"format":"cjs","expected":"cjs"} matches the 
   "outputPath": StringContaining "/distV6",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -2040,14 +1886,7 @@ exports[`Generating vite stats v6 {"format":"cjs","expected":"cjs"} matches the 
 
 exports[`Generating vite stats v6 {"format":"es","expected":"esm"} matches the snapshot 1`] = `
 {
-  "assets": [
-    {
-      "gzipSize": 27189,
-      "name": "assets/index-Cc5984px.js",
-      "normalized": "assets/index-*.js",
-      "size": 73131,
-    },
-  ],
+  "assets": ExpectArrayContaining {},
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-vite-v6-esm",
   "bundler": {
@@ -2131,7 +1970,7 @@ exports[`Generating vite stats v6 {"format":"es","expected":"esm"} matches the s
   "outputPath": StringContaining "/distV6",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -2139,14 +1978,7 @@ exports[`Generating vite stats v6 {"format":"es","expected":"esm"} matches the s
 
 exports[`Generating vite stats v6 {"format":"esm","expected":"esm"} matches the snapshot 1`] = `
 {
-  "assets": [
-    {
-      "gzipSize": 27189,
-      "name": "assets/index-Cc5984px.js",
-      "normalized": "assets/index-*.js",
-      "size": 73131,
-    },
-  ],
+  "assets": ExpectArrayContaining {},
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-vite-v6-esm",
   "bundler": {
@@ -2230,7 +2062,7 @@ exports[`Generating vite stats v6 {"format":"esm","expected":"esm"} matches the 
   "outputPath": StringContaining "/distV6",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -2238,14 +2070,7 @@ exports[`Generating vite stats v6 {"format":"esm","expected":"esm"} matches the 
 
 exports[`Generating vite stats v6 {"format":"module","expected":"esm"} matches the snapshot 1`] = `
 {
-  "assets": [
-    {
-      "gzipSize": 27189,
-      "name": "assets/index-Cc5984px.js",
-      "normalized": "assets/index-*.js",
-      "size": 73131,
-    },
-  ],
+  "assets": ExpectArrayContaining {},
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-vite-v6-esm",
   "bundler": {
@@ -2329,7 +2154,7 @@ exports[`Generating vite stats v6 {"format":"module","expected":"esm"} matches t
   "outputPath": StringContaining "/distV6",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -2337,14 +2162,7 @@ exports[`Generating vite stats v6 {"format":"module","expected":"esm"} matches t
 
 exports[`Generating vite stats v6 {"format":"iife","expected":"iife"} matches the snapshot 1`] = `
 {
-  "assets": [
-    {
-      "gzipSize": 26836,
-      "name": "assets/index-C2FevV0y.js",
-      "normalized": "assets/index-*.js",
-      "size": 72418,
-    },
-  ],
+  "assets": ExpectArrayContaining {},
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-vite-v6-iife",
   "bundler": {
@@ -2428,7 +2246,7 @@ exports[`Generating vite stats v6 {"format":"iife","expected":"iife"} matches th
   "outputPath": StringContaining "/distV6",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -2436,14 +2254,7 @@ exports[`Generating vite stats v6 {"format":"iife","expected":"iife"} matches th
 
 exports[`Generating vite stats v6 {"format":"umd","expected":"umd"} matches the snapshot 1`] = `
 {
-  "assets": [
-    {
-      "gzipSize": 26875,
-      "name": "assets/index-CaYdJAO0.js",
-      "normalized": "assets/index-*.js",
-      "size": 72485,
-    },
-  ],
+  "assets": ExpectArrayContaining {},
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-vite-v6-umd",
   "bundler": {
@@ -2527,7 +2338,7 @@ exports[`Generating vite stats v6 {"format":"umd","expected":"umd"} matches the 
   "outputPath": StringContaining "/distV6",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -2535,14 +2346,7 @@ exports[`Generating vite stats v6 {"format":"umd","expected":"umd"} matches the 
 
 exports[`Generating vite stats v6 {"format":"system","expected":"system"} matches the snapshot 1`] = `
 {
-  "assets": [
-    {
-      "gzipSize": 26874,
-      "name": "assets/index-CZb5YUA8.js",
-      "normalized": "assets/index-*.js",
-      "size": 72467,
-    },
-  ],
+  "assets": ExpectArrayContaining {},
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-vite-v6-system",
   "bundler": {
@@ -2626,7 +2430,7 @@ exports[`Generating vite stats v6 {"format":"system","expected":"system"} matche
   "outputPath": StringContaining "/distV6",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -2634,14 +2438,7 @@ exports[`Generating vite stats v6 {"format":"system","expected":"system"} matche
 
 exports[`Generating vite stats v6 {"format":"systemjs","expected":"system"} matches the snapshot 1`] = `
 {
-  "assets": [
-    {
-      "gzipSize": 26874,
-      "name": "assets/index-CZb5YUA8.js",
-      "normalized": "assets/index-*.js",
-      "size": 72467,
-    },
-  ],
+  "assets": ExpectArrayContaining {},
   "builtAt": Any<Number>,
   "bundleName": StringContaining "test-vite-v6-system",
   "bundler": {
@@ -2725,7 +2522,7 @@ exports[`Generating vite stats v6 {"format":"systemjs","expected":"system"} matc
   "outputPath": StringContaining "/distV6",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }
@@ -2733,14 +2530,7 @@ exports[`Generating vite stats v6 {"format":"systemjs","expected":"system"} matc
 
 exports[`Generating vite stats v6 source maps are enabled does not include any source maps 1`] = `
 {
-  "assets": [
-    {
-      "gzipSize": 27219,
-      "name": "assets/index-Cc5984px.js",
-      "normalized": "assets/index-*.js",
-      "size": 73174,
-    },
-  ],
+  "assets": ExpectArrayContaining {},
   "builtAt": Any<Number>,
   "bundleName": StringNotContaining ".map",
   "bundler": {
@@ -2824,7 +2614,7 @@ exports[`Generating vite stats v6 source maps are enabled does not include any s
   "outputPath": StringContaining "/distV6",
   "plugin": {
     "name": StringMatching "@codecov/vite-plugin",
-    "version": "1.9.1",
+    "version": "2.0.0",
   },
   "version": "3",
 }

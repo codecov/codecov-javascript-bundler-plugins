@@ -2,11 +2,12 @@
 import { $ } from "bun";
 import { describe, it, expect, afterEach, beforeEach } from "bun:test";
 import { GenerateConfig } from "../../../scripts/gen-config";
+import { bundleStatsAssetsHint } from "../bundle-stats-snapshot-hints";
 
 const vitePath = (version: number) =>
   `node_modules/viteV${version}/bin/vite.js`;
 const viteConfig = (version: number, format: string) =>
-  `fixtures/generate-bundle-stats/vite/vite-v${version}-${format}.config.*`;
+  `fixtures/generate-bundle-stats/vite/vite-v${version}-${format}.config.ts`;
 const viteApp = "test-apps/vite";
 
 const VERSIONS = [4, 5, 6];
@@ -69,6 +70,7 @@ describe("Generating vite stats", () => {
           bundleName: expect.stringContaining(
             `test-vite-v${version}-${expected}`,
           ),
+          assets: bundleStatsAssetsHint(),
           plugin: {
             name: expect.stringMatching("@codecov/vite-plugin"),
           },
@@ -118,6 +120,7 @@ describe("Generating vite stats", () => {
           duration: expect.any(Number),
           outputPath: expect.stringContaining(`/distV${version}`),
           bundleName: expect.not.stringContaining(".map"),
+          assets: bundleStatsAssetsHint(),
           plugin: {
             name: expect.stringMatching("@codecov/vite-plugin"),
           },

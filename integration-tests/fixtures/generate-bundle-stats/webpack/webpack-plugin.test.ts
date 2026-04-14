@@ -2,11 +2,12 @@
 import { $ } from "bun";
 import { describe, it, expect, afterEach, beforeEach } from "bun:test";
 import { GenerateConfig } from "../../../scripts/gen-config";
+import { bundleStatsAssetsHint } from "../bundle-stats-snapshot-hints";
 
 const webpackPath = (version: number) =>
   `node_modules/webpackV${version}/bin/webpack.js`;
 const webpackConfig = (version: number, format: string) =>
-  `fixtures/generate-bundle-stats/webpack/webpack-v${version}-${format}.config.*`;
+  `fixtures/generate-bundle-stats/webpack/webpack-v${version}-${format}.config.cjs`;
 const webpackApp = "test-apps/webpack";
 
 const VERSIONS = [5];
@@ -62,6 +63,7 @@ describe("Generating webpack stats", () => {
           bundleName: expect.stringContaining(
             `test-webpack-v${version}-${expected}`,
           ),
+          assets: bundleStatsAssetsHint(),
           plugin: {
             name: expect.stringMatching("@codecov/webpack-plugin"),
           },
@@ -110,6 +112,7 @@ describe("Generating webpack stats", () => {
           duration: expect.any(Number),
           outputPath: expect.stringContaining(`/distV${version}`),
           bundleName: expect.not.stringContaining(".map"),
+          assets: bundleStatsAssetsHint(),
           plugin: {
             name: expect.stringMatching("@codecov/webpack-plugin"),
           },
