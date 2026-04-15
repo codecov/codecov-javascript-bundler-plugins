@@ -1,6 +1,6 @@
 {
   "name": "@codecov/solidstart-plugin",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Official Codecov SolidStart plugin",
   "author": "Codecov",
   "license": "MIT",

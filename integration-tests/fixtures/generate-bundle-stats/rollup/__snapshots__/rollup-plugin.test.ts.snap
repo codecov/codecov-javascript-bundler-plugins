@@ -65,7 +65,7 @@ exports[`Generating rollup stats 3 {"format":"amd","expected":"amd"} matches the
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "2.0.0",
+    "version": "2.0.1",
   },
   "version": "3",
 }
@@ -136,7 +136,7 @@ exports[`Generating rollup stats 3 {"format":"cjs","expected":"cjs"} matches the
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "2.0.0",
+    "version": "2.0.1",
   },
   "version": "3",
 }
@@ -207,7 +207,7 @@ exports[`Generating rollup stats 3 {"format":"es","expected":"esm"} matches the 
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "2.0.0",
+    "version": "2.0.1",
   },
   "version": "3",
 }
@@ -278,7 +278,7 @@ exports[`Generating rollup stats 3 {"format":"esm","expected":"esm"} matches the
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "2.0.0",
+    "version": "2.0.1",
   },
   "version": "3",
 }
@@ -349,7 +349,7 @@ exports[`Generating rollup stats 3 {"format":"module","expected":"esm"} matches 
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "2.0.0",
+    "version": "2.0.1",
   },
   "version": "3",
 }
@@ -420,7 +420,7 @@ exports[`Generating rollup stats 3 {"format":"iife","expected":"iife"} matches t
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "2.0.0",
+    "version": "2.0.1",
   },
   "version": "3",
 }
@@ -491,7 +491,7 @@ exports[`Generating rollup stats 3 {"format":"umd","expected":"umd"} matches the
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "2.0.0",
+    "version": "2.0.1",
   },
   "version": "3",
 }
@@ -562,7 +562,7 @@ exports[`Generating rollup stats 3 {"format":"system","expected":"system"} match
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "2.0.0",
+    "version": "2.0.1",
   },
   "version": "3",
 }
@@ -633,7 +633,7 @@ exports[`Generating rollup stats 3 {"format":"systemjs","expected":"system"} mat
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "2.0.0",
+    "version": "2.0.1",
   },
   "version": "3",
 }
@@ -704,7 +704,7 @@ exports[`Generating rollup stats 3 source maps are enabled does not include any 
   "outputPath": StringContaining "/distV3",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "2.0.0",
+    "version": "2.0.1",
   },
   "version": "3",
 }
@@ -775,7 +775,7 @@ exports[`Generating rollup stats 4 {"format":"amd","expected":"amd"} matches the
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "2.0.0",
+    "version": "2.0.1",
   },
   "version": "3",
 }
@@ -846,7 +846,7 @@ exports[`Generating rollup stats 4 {"format":"cjs","expected":"cjs"} matches the
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "2.0.0",
+    "version": "2.0.1",
   },
   "version": "3",
 }
@@ -917,7 +917,7 @@ exports[`Generating rollup stats 4 {"format":"es","expected":"esm"} matches the 
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "2.0.0",
+    "version": "2.0.1",
   },
   "version": "3",
 }
@@ -988,7 +988,7 @@ exports[`Generating rollup stats 4 {"format":"esm","expected":"esm"} matches the
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "2.0.0",
+    "version": "2.0.1",
   },
   "version": "3",
 }
@@ -1059,7 +1059,7 @@ exports[`Generating rollup stats 4 {"format":"module","expected":"esm"} matches 
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "2.0.0",
+    "version": "2.0.1",
   },
   "version": "3",
 }
@@ -1130,7 +1130,7 @@ exports[`Generating rollup stats 4 {"format":"iife","expected":"iife"} matches t
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "2.0.0",
+    "version": "2.0.1",
   },
   "version": "3",
 }
@@ -1201,7 +1201,7 @@ exports[`Generating rollup stats 4 {"format":"umd","expected":"umd"} matches the
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "2.0.0",
+    "version": "2.0.1",
   },
   "version": "3",
 }
@@ -1272,7 +1272,7 @@ exports[`Generating rollup stats 4 {"format":"system","expected":"system"} match
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "2.0.0",
+    "version": "2.0.1",
   },
   "version": "3",
 }
@@ -1343,7 +1343,7 @@ exports[`Generating rollup stats 4 {"format":"systemjs","expected":"system"} mat
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "2.0.0",
+    "version": "2.0.1",
   },
   "version": "3",
 }
@@ -1414,7 +1414,7 @@ exports[`Generating rollup stats 4 source maps are enabled does not include any 
   "outputPath": StringContaining "/distV4",
   "plugin": {
     "name": StringMatching "@codecov/rollup-plugin",
-    "version": "2.0.0",
+    "version": "2.0.1",
   },
   "version": "3",
 }

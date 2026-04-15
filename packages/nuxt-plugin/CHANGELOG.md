@@ -1,5 +1,14 @@
 # @codecov/nuxt-plugin
 
+## 2.0.1
+
+### Patch Changes
+
+- 5e6157b: No functional change, fixing release automation
+- Updated dependencies [5e6157b]
+  - @codecov/bundler-plugin-core@2.0.1
+  - @codecov/vite-plugin@2.0.1
+
 ## 2.0.0
 
 ### Major Changes

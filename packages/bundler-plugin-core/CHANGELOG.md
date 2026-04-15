@@ -1,5 +1,11 @@
 # @codecov/bundler-plugin-core
 
+## 2.0.1
+
+### Patch Changes
+
+- 5e6157b: No functional change, fixing release automation
+
 ## 2.0.0
 
 ### Major Changes
