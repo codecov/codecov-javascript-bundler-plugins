@@ -7,6 +7,7 @@ import {
   type Span,
 } from "@sentry/core";
 import { z } from "zod";
+import { AuthenticationError } from "../errors/AuthenticationError.ts";
 import { FailedFetchError } from "../errors/FailedFetchError.ts";
 import { UploadLimitReachedError } from "../errors/UploadLimitReachedError.ts";
 import { type ProviderServiceParams } from "../types.ts";
@@ -119,7 +120,7 @@ export const getPreSignedURL = async ({
         scope: sentryScope,
         parentSpan: sentrySpan,
       },
-      async (getPreSignedURLSpan) => {
+      async (getPreSignedURLSpan: Span | undefined) => {
         let wrappedResponse: Response;
         const HTTP_METHOD = "POST";
         const URL = `${apiUrl}${API_ENDPOINT}`;
@@ -182,11 +183,41 @@ export const getPreSignedURL = async ({
     throw new UploadLimitReachedError("Upload limit reached");
   }
 
-  if (!response.ok) {
+  if (response.status >= 400 && response.status < 500) {
+    // Attempt to parse a server-provided error message to give users actionable feedback
+    let serverMessage = "";
+    try {
+      const errorBody = await response.clone().json();
+      serverMessage = errorBody?.message ?? "";
+    } catch {
+      // ignore parse failures
+    }
+    const responseStatusWithText = `${response.status} - ${response.statusText}`;
+    const msgDetail = serverMessage ?? responseStatusWithText;
     red(
-      `Failed to get pre-signed URL, bad response: "${response.status} - ${response.statusText}"`,
+      `Failed to get presigned URL, bad response: ${msgDetail}`,
     );
-    throw new FailedFetchError("Failed to get pre-signed URL");
+    if (
+      serverMessage.toLowerCase().includes("token") ||
+      response.status === 401 ||
+      response.status === 403
+    ) {
+      red(
+        "Set uploadToken in your Codecov plugin config or enable tokenless uploads for your public repository.",
+      );
+      throw new AuthenticationError(
+        serverMessage || `Authentication failed: ${responseStatusWithText}`,
+      );
+    }
+    throw new FailedFetchError(
+      `Failed to get presigned URL (client), bad response: ${responseStatusWithText}`,
+    );
+  }
+  
+  if (!response.ok) {
+    const msg = `Failed to get presigned URL (server), bad response: ${response.status} - ${response.statusText}`;
+    red(msg);
+    throw new FailedFetchError(msg);
   }
 
   let data;

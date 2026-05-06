@@ -1,4 +1,4 @@
-import { type Client, type Scope, startSpan } from "@sentry/core";
+import { type Client, type Scope, startSpan, type Span } from "@sentry/core";
 import {
   type Asset,
   type Chunk,
@@ -8,6 +8,7 @@ import {
   type ProviderUtilInputs,
   type UploadOverrides,
 } from "../types.ts";
+import { AuthenticationError } from "../errors/AuthenticationError.ts";
 import { getPreSignedURL } from "./getPreSignedURL.ts";
 import { type NormalizedOptions } from "./normalizeOptions.ts";
 import { detectProvider } from "./provider.ts";
@@ -249,7 +250,7 @@ class Output {
               scope: this.sentryScope,
               parentSpan: outputWriteSpan,
             },
-            async (getPreSignedURLSpan) => {
+            async (getPreSignedURLSpan: Span | undefined) => {
               let url = "";
               try {
                 url = await getPreSignedURL({
@@ -264,19 +265,23 @@ class Output {
                 });
               } catch (error) {
                 if (this.sentryClient && this.sentryScope) {
-                  this.sentryScope.addBreadcrumb({
-                    category: "output.write.getPreSignedURL",
-                    level: "error",
-                    data: { error },
-                  });
-                  // only setting this as info because this could be caused by user error
-                  this.sentryClient.captureMessage(
-                    "Error in getPreSignedURL",
-                    "info",
-                    undefined,
-                    this.sentryScope,
-                  );
-                  await safeFlushTelemetry(this.sentryClient);
+                  // if the user gets an authentication error, something is wrong with their setup
+                  // so we don't want to log it to sentry
+                  if (!(error instanceof AuthenticationError)) {
+                    this.sentryScope.addBreadcrumb({
+                      category: "output.write.getPreSignedURL",
+                      level: "error",
+                      data: { error },
+                    });
+                    // only setting this as info because this could be caused by user error
+                    this.sentryClient.captureMessage(
+                      "Error in getPreSignedURL",
+                      "info",
+                      undefined,
+                      this.sentryScope,
+                    );
+                    await safeFlushTelemetry(this.sentryClient);
+                  }
                 }
 
                 if (emitError) {
