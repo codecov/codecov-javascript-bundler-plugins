@@ -194,9 +194,7 @@ export const getPreSignedURL = async ({
     }
     const responseStatusWithText = `${response.status} - ${response.statusText}`;
     const msgDetail = serverMessage ?? responseStatusWithText;
-    red(
-      `Failed to get presigned URL, bad response: ${msgDetail}`,
-    );
+    red(`Failed to get presigned URL, bad response: ${msgDetail}`);
     if (
       serverMessage.toLowerCase().includes("token") ||
       response.status === 401 ||
@@ -213,7 +211,7 @@ export const getPreSignedURL = async ({
       `Failed to get presigned URL (client), bad response: ${responseStatusWithText}`,
     );
   }
-  
+
   if (!response.ok) {
     const msg = `Failed to get presigned URL (server), bad response: ${response.status} - ${response.statusText}`;
     red(msg);

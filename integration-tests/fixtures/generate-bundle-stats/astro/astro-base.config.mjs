@@ -16,8 +16,8 @@ export default defineConfig({
     rollupOptions: {
       output: {
         format: "esm",
-      }
-    }
+      },
+    },
   },
   integrations: [
     react(),

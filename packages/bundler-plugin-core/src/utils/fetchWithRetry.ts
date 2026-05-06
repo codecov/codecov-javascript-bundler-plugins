@@ -28,7 +28,9 @@ export const fetchWithRetry = async ({
       if (!response.ok) {
         // 4xx errors are permanent client errors - no need to retry
         if (response.status >= 400 && response.status < 500) {
-          debug(`${name} received ${response.status} client error, not retrying`);
+          debug(
+            `${name} received ${response.status} client error, not retrying`,
+          );
           return response;
         }
         throw new BadResponseError("Response not ok");
