@@ -40,6 +40,10 @@ const PreSignedURLSchema = z.object({
   url: z.string(),
 });
 
+const ApiErrorBodySchema = z.object({
+  detail: z.string().optional(),
+});
+
 const API_ENDPOINT = "/upload/bundle_analysis/v1";
 
 export const getPreSignedURL = async ({
@@ -187,14 +191,15 @@ export const getPreSignedURL = async ({
     // Attempt to parse a server-provided error message to give users actionable feedback
     let serverMessage = "";
     try {
-      const errorBody = await response.clone().json();
-      serverMessage = errorBody?.message ?? "";
+      const raw: unknown = await response.clone().json();
+      const parsed = ApiErrorBodySchema.safeParse(raw);
+      serverMessage = parsed.success ? parsed.data.detail ?? "" : "";
     } catch {
       // ignore parse failures
     }
     const responseStatusWithText = `${response.status} - ${response.statusText}`;
-    const msgDetail = serverMessage ?? responseStatusWithText;
-    red(`Failed to get presigned URL, bad response: ${msgDetail}`);
+    const msgDetail = serverMessage || responseStatusWithText;
+    red(`Failed to get pre-signed URL, bad response: ${msgDetail}`);
     if (
       serverMessage.toLowerCase().includes("token") ||
       response.status === 401 ||
@@ -208,12 +213,12 @@ export const getPreSignedURL = async ({
       );
     }
     throw new FailedFetchError(
-      `Failed to get presigned URL (client), bad response: ${responseStatusWithText}`,
+      `Failed to get pre-signed URL (client), bad response: ${responseStatusWithText}`,
     );
   }
 
   if (!response.ok) {
-    const msg = `Failed to get presigned URL (server), bad response: ${response.status} - ${response.statusText}`;
+    const msg = `Failed to get pre-signed URL (server), bad response: ${response.status} - ${response.statusText}`;
     red(msg);
     throw new FailedFetchError(msg);
   }

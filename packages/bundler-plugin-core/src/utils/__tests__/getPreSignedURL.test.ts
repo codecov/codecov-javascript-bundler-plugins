@@ -302,30 +302,85 @@ describe("getPreSignedURL", () => {
     });
 
     describe('http response is not "ok"', () => {
-      it("throws an error", async () => {
-        const { consoleSpy } = setup({
-          data: { url: "http://example.com" },
-          status: 400,
+      describe("4xx error", () => {
+        it("throws an error", async () => {
+          let requestCount = 0;
+          const consoleSpy = vi
+            .spyOn(console, "log")
+            .mockImplementation(() => null);
+
+          server.use(
+            http.post(
+              "http://localhost/upload/bundle_analysis/v1",
+              async ({ request }) => {
+                requestCount += 1;
+                const requestBody = await request.json();
+                requestBodyMock(requestBody);
+
+                if (request.headers.get("Authorization")) {
+                  requestTokenMock(request.headers.get("Authorization"));
+                }
+
+                return HttpResponse.json(
+                  { detail: "Bad Request" },
+                  { status: 400 },
+                );
+              },
+            ),
+          );
+
+          let error;
+          try {
+            await getPreSignedURL({
+              apiUrl: "http://localhost",
+              uploadToken: "cool-upload-token",
+              retryCount: 3,
+              serviceParams: {
+                commit: "123",
+              },
+            });
+          } catch (e) {
+            error = e;
+          }
+
+          expect(requestCount).toBe(1);
+          expect(error).toBeInstanceOf(FailedFetchError);
+          expect(consoleSpy).toHaveBeenCalledWith(
+            `[codecov] ${Chalk.red(
+              "Failed to get pre-signed URL, bad response: Bad Request",
+            )}`,
+          );
         });
+      });
 
-        let error;
-        try {
-          await getPreSignedURL({
-            apiUrl: "http://localhost",
-            uploadToken: "cool-upload-token",
-            retryCount: 0,
-            serviceParams: {
-              commit: "123",
-            },
+      describe("non-4xx error", () => {
+        it("throws an error", async () => {
+          const { consoleSpy } = setup({
+            data: { url: "http://example.com" },
+            status: 503,
           });
-        } catch (e) {
-          error = e;
-        }
 
-        expect(error).toBeInstanceOf(FailedFetchError);
-        expect(consoleSpy).toHaveBeenCalledWith(
-          `[codecov] ${Chalk.red('Failed to get pre-signed URL, bad response: "400 - Bad Request"')}`,
-        );
+          let error;
+          try {
+            await getPreSignedURL({
+              apiUrl: "http://localhost",
+              uploadToken: "cool-upload-token",
+              retryCount: 0,
+              serviceParams: {
+                commit: "123",
+              },
+            });
+          } catch (e) {
+            error = e;
+          }
+
+          expect(error).toBeInstanceOf(FailedFetchError);
+          expect(consoleSpy).toHaveBeenCalledWith(
+            `[codecov] ${Chalk.red(
+              "Failed to get pre-signed URL (server), bad response: 503 - Service Unavailable",
+            )}`,
+          );
+        });
       });
     });
 
