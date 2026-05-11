@@ -35,6 +35,7 @@ interface SetupArgs {
   retryCount?: number;
   sendError?: boolean;
   failFetch?: boolean;
+  retryFailureStatus?: number;
 }
 
 describe("fetchWithRetry", () => {
@@ -50,6 +51,7 @@ describe("fetchWithRetry", () => {
     sendError = false,
     failFetch = false,
     retryCount = 0,
+    retryFailureStatus = 503,
   }: SetupArgs) {
     consoleSpy = vi.spyOn(console, "log").mockImplementation(() => null);
 
@@ -64,7 +66,9 @@ describe("fetchWithRetry", () => {
         }
 
         retryCount -= 1;
-        return new HttpResponse("not found", { status: 404 });
+        return new HttpResponse("service unavailable", {
+          status: retryFailureStatus,
+        });
       }),
     );
   }
@@ -92,6 +96,7 @@ describe("fetchWithRetry", () => {
       setup({
         data: { url: "http://example.com" },
         retryCount: 2,
+        retryFailureStatus: 503,
       });
 
       const urlPromise = await fetchWithRetry({
@@ -105,12 +110,43 @@ describe("fetchWithRetry", () => {
     });
   });
 
+  describe("when the initial response is a 4xx error", () => {
+    it("returns the response without retrying", async () => {
+      let requestCount = 0;
+      consoleSpy = vi.spyOn(console, "log").mockImplementation(() => null);
+
+      server.use(
+        http.all("http://localhost", () => {
+          requestCount += 1;
+          return HttpResponse.json(
+            { message: "Bad Request", detail: "example error body" },
+            { status: 400 },
+          );
+        }),
+      );
+
+      const response = await fetchWithRetry({
+        url: "http://localhost",
+        requestData: {},
+        retryCount: 5,
+      });
+
+      expect(requestCount).toBe(1);
+      expect(response.status).toBe(400);
+      await expect(response.json()).resolves.toEqual({
+        message: "Bad Request",
+        detail: "example error body",
+      });
+    });
+  });
+
   describe("retry count exceeds limit", () => {
     it("returns the response", async () => {
       setup({
         data: { url: "http://example.com" },
         retryCount: 2,
         failFetch: true,
+        retryFailureStatus: 503,
       });
 
       const response = await fetchWithRetry({
@@ -119,7 +155,7 @@ describe("fetchWithRetry", () => {
         retryCount: 1,
       });
 
-      expect(response.status).toBe(404);
+      expect(response.status).toBe(503);
     });
   });
 
