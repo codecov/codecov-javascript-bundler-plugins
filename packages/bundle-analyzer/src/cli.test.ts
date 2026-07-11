@@ -223,10 +223,20 @@ describe("test CLI functions directly", () => {
     fs.unlinkSync(configFilePath); // Clean up after test
 
     expect(consoleSpy).toHaveBeenCalled();
-    // the CLI argument should override anything supplied in the config file
-    expect(consoleSpy.mock.calls[0]?.[0]).toContain(
-      `bundleName":"this-is-the-name"`,
-    );
+    // the CLI argument should override anything supplied in the config file.
+    // Importing ./cli triggers a stray top-level runCli invocation, so match
+    // the report this test produced rather than assuming a call index.
+    const loggedReports = consoleSpy.mock.calls.map((call) => String(call[0]));
+    expect(
+      loggedReports.some((report) =>
+        report.includes(`bundleName":"this-is-the-name"`),
+      ),
+    ).toBe(true);
+    expect(
+      loggedReports.some((report) =>
+        report.includes(`bundleName":"this-name-should-be-ignored"`),
+      ),
+    ).toBe(false);
   });
 
   it("should load options from a configuration file with error if file does not exist", async () => {
