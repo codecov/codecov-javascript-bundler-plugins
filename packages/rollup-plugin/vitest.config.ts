@@ -7,6 +7,7 @@ const packageJson = await import("./package.json");
 export default defineConfig({
   ...config,
   plugins: [
+    //@ts-expect-error handle conflicting version types
     {
       ...replace({
         preventAssignment: true,
