@@ -7,22 +7,29 @@ import {
   afterEach,
   beforeEach,
 } from "vitest";
-import { execSync, execFileSync } from "node:child_process";
+import { exec, execFile } from "node:child_process";
+import { promisify } from "node:util";
 import path from "node:path";
 import * as url from "node:url";
 import fs from "node:fs";
 
-export const runCLI = (args: string[]): string | undefined => {
+const execAsync = promisify(exec);
+const execFileAsync = promisify(execFile);
+
+// Spawn the CLI asynchronously: a synchronous spawn blocks the vitest worker
+// thread, which under vitest 3.2 trips the "onTaskUpdate" RPC timeout on slower
+// machines (e.g. CI) even though the test itself passes.
+export const runCLI = async (args: string[]): Promise<string | undefined> => {
   const cliPath = path.resolve(
     path.dirname(url.fileURLToPath(import.meta.url)),
     "../src/cli.ts",
   );
 
   try {
-    const cmd = "npx";
-    const allArgs = ["tsx", cliPath, ...args];
-
-    return execFileSync(cmd, allArgs, { encoding: "utf-8" });
+    const { stdout } = await execFileAsync("npx", ["tsx", cliPath, ...args], {
+      encoding: "utf-8",
+    });
+    return stdout;
   } catch (error) {
     if (error instanceof Error) {
       return JSON.stringify(error);
@@ -32,9 +39,9 @@ export const runCLI = (args: string[]): string | undefined => {
 };
 
 describe("CLI script", () => {
-  beforeAll(() => {
+  beforeAll(async () => {
     // Ensure the build completes before tests
-    execSync("pnpm run build", { stdio: "inherit" });
+    await execAsync("pnpm run build");
 
     // Verify that the build directory exists
     const thisBuildPath = path.resolve(
@@ -53,18 +60,18 @@ describe("CLI script", () => {
     vi.clearAllMocks();
   });
 
-  it("should exit with an error if build directory paths are missing", () => {
-    const output = runCLI([]);
+  it("should exit with an error if build directory paths are missing", async () => {
+    const output = await runCLI([]);
     expect(output).toContain(
       "Not enough non-option arguments: got 0, need at least 1",
     );
   });
 
-  it("should exit with success if upload token is in an env var", () => {
+  it("should exit with success if upload token is in an env var", async () => {
     const originalToken = process.env.CODECOV_UPLOAD_TOKEN;
     process.env.CODECOV_UPLOAD_TOKEN = "token123";
 
-    const output = runCLI([
+    const output = await runCLI([
       "./src",
       "../bundle-analyzer",
       "--bundle-name=someName",
@@ -80,8 +87,8 @@ describe("CLI script", () => {
     );
   });
 
-  it("should exit with success when valid inputs are provided", () => {
-    const output = runCLI([
+  it("should exit with success when valid inputs are provided", async () => {
+    const output = await runCLI([
       "./src",
       "../bundle-analyzer",
       "--bundle-name=someName",
@@ -96,8 +103,8 @@ describe("CLI script", () => {
     );
   });
 
-  it("should log an error message if the directory doesn't exist", () => {
-    const output = runCLI([
+  it("should log an error message if the directory doesn't exist", async () => {
+    const output = await runCLI([
       "./doesnt-exist",
       "--bundle-name=someName",
       "--upload-token=token123",
@@ -106,8 +113,8 @@ describe("CLI script", () => {
     expect(output).toContain("An error occurred:");
   });
 
-  it("should handle multiple ignore patterns correctly", () => {
-    const output = runCLI([
+  it("should handle multiple ignore patterns correctly", async () => {
+    const output = await runCLI([
       "./src",
       "../bundle-analyzer",
       "--bundle-name=someName",
@@ -125,8 +132,8 @@ describe("CLI script", () => {
     expect(output).not.toContain(".test.js");
   });
 
-  it("should log an error for invalid CLI arguments", () => {
-    const output = runCLI([
+  it("should log an error for invalid CLI arguments", async () => {
+    const output = await runCLI([
       "./src",
       "../bundle-analyzer",
       "--bundle-name=someName",
