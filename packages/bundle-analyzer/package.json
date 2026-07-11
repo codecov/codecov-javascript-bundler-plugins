@@ -49,7 +49,7 @@
     "format:check": "prettier '**/*.{cjs,mjs,ts,tsx,md,json}' --ignore-path ../.gitignore --ignore-unknown --no-error-on-unmatched-pattern --check",
     "test:unit": "vitest run",
     "test:unit:watch": "vitest watch",
-    "test:unit:ci": "vitest --coverage --reporter=junit --outputFile=./bundle-analyzer.junit.xml run",
+    "test:unit:ci": "vitest --coverage --reporter=default --reporter=junit --outputFile=./bundle-analyzer.junit.xml run",
     "test:unit:update": "vitest -u run",
     "generate:typedoc": "typedoc --options ./typedoc.json"
   },
