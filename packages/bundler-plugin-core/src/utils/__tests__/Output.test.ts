@@ -15,6 +15,7 @@ import chalk from "chalk";
 
 import { detectProvider } from "../provider";
 import { Output } from "../Output";
+import { FailedFetchError } from "../../errors/FailedFetchError";
 
 vi.mock("../provider");
 
@@ -654,7 +655,11 @@ describe("Output", () => {
         expect(sentryScope.addBreadcrumb).toHaveBeenCalledWith({
           category: "output.write.getPreSignedURL",
           level: "error",
-          data: { error: Error("Failed to fetch pre-signed URL") },
+          data: {
+            error: new FailedFetchError("Failed to fetch pre-signed URL", {
+              cause: new Error("Failed to fetch pre-signed URL"),
+            }),
+          },
         });
       });
     });
@@ -848,7 +853,7 @@ describe("Output", () => {
         expect(sentryScope.addBreadcrumb).toHaveBeenCalledWith({
           category: "output.write.uploadStats",
           level: "error",
-          data: { error: Error("Failed to upload stats") },
+          data: { error: new FailedFetchError("Failed to upload stats") },
         });
       });
     });

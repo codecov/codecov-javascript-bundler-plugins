@@ -12,6 +12,14 @@ const packageJson = await import("./package.json", {
 
 export default defineConfig({
   ...config,
+  test: {
+    ...config.test,
+    // CLI tests spawn `npx tsx` subprocesses (the first invocation downloads
+    // tsx); vitest 3.2 enforces timeouts on synchronous test bodies, so the
+    // default 5s is not enough for these process spawns and the build hook.
+    testTimeout: 60_000,
+    hookTimeout: 60_000,
+  },
   files: ["./setup.ts"],
   transformMode: {
     web: [/\.tsx?$/],
