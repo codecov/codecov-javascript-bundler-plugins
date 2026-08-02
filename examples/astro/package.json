@@ -11,14 +11,14 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
-    "@astrojs/node": "^8.3.4",
-    "@astrojs/react": "^3.6.3",
+    "@astrojs/node": "^10.1.4",
+    "@astrojs/react": "^5.0.7",
     "@codecov/astro-plugin": "workspace:*",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
-    "astro": "^4.16.18",
+    "astro": "^6.4.6",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.3"
   }
 }

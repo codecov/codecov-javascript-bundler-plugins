@@ -17,7 +17,7 @@ describe("Bundle Analyzer Integration Tests", () => {
 
   it("should generate a report and match the snapshot", async () => {
     const id = `bundle-analyzer-${Date.now()}`;
-    const API_URL = `http://localhost:8000/test-url/${id}/200/false`;
+    const API_URL = `http://127.0.0.1:8000/test-url/${id}/200/false`;
 
     // prepare, build, and run
     await $`cd ${bundleAnalyzerApp} && pnpm run build`;
@@ -31,7 +31,7 @@ describe("Bundle Analyzer Integration Tests", () => {
 
     // fetch stats from the server
     const res = await fetch(
-      `http://localhost:8000/get-stats-by-bundle-name/${id}/bundle-analyzer`,
+      `http://127.0.0.1:8000/get-stats-by-bundle-name/${id}/bundle-analyzer`,
     );
     const data = (await res.json()) as { stats: string };
     const stats = JSON.parse(data.stats) as unknown;

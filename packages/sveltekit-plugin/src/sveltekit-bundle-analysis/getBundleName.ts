@@ -4,7 +4,8 @@ export function getBundleName(
   format: string,
   name: string | undefined,
 ) {
-  let bundleName = name ? `${initialName}-${name}` : initialName;
+  const outputName = name?.startsWith("__sveltekit_") ? undefined : name;
+  let bundleName = outputName ? `${initialName}-${outputName}` : initialName;
 
   const dir = initialDir.includes("server")
     ? "server"

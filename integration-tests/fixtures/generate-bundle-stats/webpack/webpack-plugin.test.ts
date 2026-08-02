@@ -46,13 +46,13 @@ describe("Generating webpack stats", () => {
         const id = `webpack-v${version}-${format}-${Date.now()}`;
         const webpack = webpackPath(version);
         const configFile = webpackConfig(version, format);
-        const API_URL = `http://localhost:8000/test-url/${id}/200/false`;
+        const API_URL = `http://127.0.0.1:8000/test-url/${id}/200/false`;
 
         // build the app
         await $`API_URL=${API_URL} node ${webpack} --config ${configFile}`;
 
         // fetch stats from the server
-        const res = await fetch(`http://localhost:8000/get-stats/${id}`);
+        const res = await fetch(`http://127.0.0.1:8000/get-stats/${id}`);
         const data = (await res.json()) as { stats: string };
         const stats = JSON.parse(data.stats) as unknown;
 
@@ -97,13 +97,13 @@ describe("Generating webpack stats", () => {
         const id = `webpack-v${version}-sourcemaps-${Date.now()}`;
         const webpack = webpackPath(version);
         const configFile = webpackConfig(version, "module");
-        const API_URL = `http://localhost:8000/test-url/${id}/200/false`;
+        const API_URL = `http://127.0.0.1:8000/test-url/${id}/200/false`;
 
         // build the app
         await $`API_URL=${API_URL} node ${webpack} --config ${configFile}`;
 
         // fetch stats from the server
-        const res = await fetch(`http://localhost:8000/get-stats/${id}`);
+        const res = await fetch(`http://127.0.0.1:8000/get-stats/${id}`);
         const data = (await res.json()) as { stats: string };
         const stats = JSON.parse(data.stats) as unknown;
 
@@ -147,7 +147,7 @@ describe("Generating webpack stats", () => {
         const id = `webpack-v${version}-sourcemaps-${Date.now()}`;
         const webpack = webpackPath(version);
         const configFile = webpackConfig(version, "module");
-        const API_URL = `http://localhost:8000/test-url/${id}/200/false`;
+        const API_URL = `http://127.0.0.1:8000/test-url/${id}/200/false`;
 
         // build the app
         const { exitCode, stdout } =

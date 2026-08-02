@@ -24,6 +24,14 @@ export const astroBundleAnalysisPlugin: AstroBundleAnalysisPlugin = ({
   pluginVersion,
   vite: {
     generateBundle(this, options) {
+      const environmentName = (
+        this as typeof this & { environment?: { name?: string } }
+      ).environment?.name;
+
+      if (environmentName === "prerender") {
+        return;
+      }
+
       // TODO - remove this once we hard fail on not having a bundle name
       // don't need to do anything if the bundle name is not present or empty
       if (!output.bundleName || output.bundleName === "") {
@@ -33,7 +41,7 @@ export const astroBundleAnalysisPlugin: AstroBundleAnalysisPlugin = ({
 
       const name = getBundleName(
         output.originalBundleName,
-        target,
+        environmentName === "client" ? "client" : target,
         options.format,
         options.name,
       );
