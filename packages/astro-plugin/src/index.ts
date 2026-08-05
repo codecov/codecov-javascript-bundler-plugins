@@ -10,7 +10,6 @@ import {
 } from "@codecov/bundler-plugin-core";
 import { _internal_viteBundleAnalysisPlugin } from "@codecov/vite-plugin";
 import { type AstroIntegration } from "astro";
-import { type PluginOption } from "vite";
 
 import { astroBundleAnalysisPlugin } from "./astro-bundle-analysis/astroBundleAnalysisPlugin";
 
@@ -23,6 +22,27 @@ interface AstroPluginFactoryOptions extends Options {
   // type can be found from the AstroIntegration type
   target: "client" | "server";
 }
+
+interface EnvironmentAwarePlugin {
+  applyToEnvironment?: (environment: { name: string }) => boolean;
+}
+
+const skipAstroPrerenderEnvironment = (plugin: unknown): void => {
+  if (Array.isArray(plugin)) {
+    plugin.forEach(skipAstroPrerenderEnvironment);
+    return;
+  }
+
+  if (!plugin || typeof plugin !== "object") {
+    return;
+  }
+
+  const environmentAwarePlugin = plugin as EnvironmentAwarePlugin;
+  const applyToEnvironment = environmentAwarePlugin.applyToEnvironment;
+  environmentAwarePlugin.applyToEnvironment = (environment) =>
+    environment.name !== "prerender" &&
+    (applyToEnvironment?.(environment) ?? true);
+};
 
 const astroPluginFactory = createVitePlugin<AstroPluginFactoryOptions, true>(
   ({ target, ...userOptions }, unpluginMetaContext) => {
@@ -118,8 +138,11 @@ const codecovAstroPlugin = (options: Options): AstroIntegration => ({
         const astroPlugin = astroPluginFactory({
           ...options,
           target,
-        }) as PluginOption;
-        vite.plugins.push(astroPlugin);
+        });
+        skipAstroPrerenderEnvironment(astroPlugin);
+        vite.plugins.push(
+          astroPlugin as unknown as (typeof vite.plugins)[number],
+        );
       }
     },
   },

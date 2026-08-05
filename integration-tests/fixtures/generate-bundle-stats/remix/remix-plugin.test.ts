@@ -47,7 +47,7 @@ describe("Generating remix stats", () => {
         "matches the snapshot",
         async () => {
           const id = `remix-v${version}-${format}-${Date.now()}`;
-          const API_URL = `http://localhost:8000/test-url/${id}/200/false`;
+          const API_URL = `http://127.0.0.1:8000/test-url/${id}/200/false`;
 
           // prepare and build the app
           await $`cd test-apps/remix && API_URL=${API_URL} pnpm run build`;
@@ -57,7 +57,7 @@ describe("Generating remix stats", () => {
 
           // fetch stats from the server
           const clientRes = await fetch(
-            `http://localhost:8000/get-stats-by-bundle-name/${id}/${clientBundleName}`,
+            `http://127.0.0.1:8000/get-stats-by-bundle-name/${id}/${clientBundleName}`,
           );
           const clientData = (await clientRes.json()) as { stats: string };
           const clientStats = JSON.parse(clientData.stats) as unknown;
@@ -102,7 +102,7 @@ describe("Generating remix stats", () => {
 
           // fetch stats from the server
           const serverRes = await fetch(
-            `http://localhost:8000/get-stats-by-bundle-name/${id}/${serverBundleName}`,
+            `http://127.0.0.1:8000/get-stats-by-bundle-name/${id}/${serverBundleName}`,
           );
           const serverData = (await serverRes.json()) as { stats: string };
           const serverStats = JSON.parse(serverData.stats) as unknown;
@@ -177,7 +177,7 @@ describe("Generating remix stats", () => {
         "warns users and exits process with a code 1",
         async () => {
           const id = `remix-v${version}-${Date.now()}`;
-          const API_URL = `http://localhost:8000/test-url/${id}/200/false`;
+          const API_URL = `http://127.0.0.1:8000/test-url/${id}/200/false`;
 
           // prepare and build the app
           const { exitCode, stdout } =

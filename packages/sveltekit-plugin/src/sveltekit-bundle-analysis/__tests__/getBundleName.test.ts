@@ -7,6 +7,16 @@ describe("getBundleName", () => {
     expect(name).toBe("test-bundle-test-iife");
   });
 
+  it("ignores SvelteKit generated output names", () => {
+    const name = getBundleName(
+      "test-bundle",
+      ".svelte-kit/output/client",
+      "es",
+      "__sveltekit_1si8qcb.app",
+    );
+    expect(name).toBe("test-bundle-client-esm");
+  });
+
   it("returns bundle name with appended format", () => {
     const name = getBundleName("test-bundle", "", "iife", undefined);
     expect(name).toBe("test-bundle-iife");

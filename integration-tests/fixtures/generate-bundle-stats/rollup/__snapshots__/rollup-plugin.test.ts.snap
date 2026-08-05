@@ -1,4 +1,4 @@
-// Bun Snapshot v1, https://bun.sh/docs/test/snapshots
+// Bun Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Generating rollup stats 3 {"format":"amd","expected":"amd"} matches the snapshot 1`] = `
 {
@@ -7,14 +7,14 @@ exports[`Generating rollup stats 3 {"format":"amd","expected":"amd"} matches the
   "bundleName": StringContaining "test-rollup-v3-amd",
   "bundler": {
     "name": "rollup",
-    "version": "3.29.4",
+    "version": "3.30.0",
   },
   "chunks": [
     {
       "dynamicImports": [],
       "entry": true,
       "files": [
-        "main-1cbfd464.js",
+        "main-6f24514f.js",
       ],
       "id": "main",
       "initial": false,
@@ -37,15 +37,15 @@ exports[`Generating rollup stats 3 {"format":"amd","expected":"amd"} matches the
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js?commonjs-module",
       "size": 27,
     },
     {
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560240,
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js",
+      "size": 562211,
     },
     {
       "chunkUniqueIds": [
@@ -78,14 +78,14 @@ exports[`Generating rollup stats 3 {"format":"cjs","expected":"cjs"} matches the
   "bundleName": StringContaining "test-rollup-v3-cjs",
   "bundler": {
     "name": "rollup",
-    "version": "3.29.4",
+    "version": "3.30.0",
   },
   "chunks": [
     {
       "dynamicImports": [],
       "entry": true,
       "files": [
-        "main-420d8aeb.js",
+        "main-d7538cef.js",
       ],
       "id": "main",
       "initial": false,
@@ -108,15 +108,15 @@ exports[`Generating rollup stats 3 {"format":"cjs","expected":"cjs"} matches the
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js?commonjs-module",
       "size": 27,
     },
     {
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560240,
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js",
+      "size": 562211,
     },
     {
       "chunkUniqueIds": [
@@ -149,14 +149,14 @@ exports[`Generating rollup stats 3 {"format":"es","expected":"esm"} matches the 
   "bundleName": StringContaining "test-rollup-v3-esm",
   "bundler": {
     "name": "rollup",
-    "version": "3.29.4",
+    "version": "3.30.0",
   },
   "chunks": [
     {
       "dynamicImports": [],
       "entry": true,
       "files": [
-        "main-6ff1e9ca.js",
+        "main-14296bbb.js",
       ],
       "id": "main",
       "initial": false,
@@ -179,15 +179,15 @@ exports[`Generating rollup stats 3 {"format":"es","expected":"esm"} matches the 
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js?commonjs-module",
       "size": 27,
     },
     {
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560240,
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js",
+      "size": 562211,
     },
     {
       "chunkUniqueIds": [
@@ -220,14 +220,14 @@ exports[`Generating rollup stats 3 {"format":"esm","expected":"esm"} matches the
   "bundleName": StringContaining "test-rollup-v3-esm",
   "bundler": {
     "name": "rollup",
-    "version": "3.29.4",
+    "version": "3.30.0",
   },
   "chunks": [
     {
       "dynamicImports": [],
       "entry": true,
       "files": [
-        "main-6ff1e9ca.js",
+        "main-14296bbb.js",
       ],
       "id": "main",
       "initial": false,
@@ -250,15 +250,15 @@ exports[`Generating rollup stats 3 {"format":"esm","expected":"esm"} matches the
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js?commonjs-module",
       "size": 27,
     },
     {
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560240,
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js",
+      "size": 562211,
     },
     {
       "chunkUniqueIds": [
@@ -291,14 +291,14 @@ exports[`Generating rollup stats 3 {"format":"module","expected":"esm"} matches 
   "bundleName": StringContaining "test-rollup-v3-esm",
   "bundler": {
     "name": "rollup",
-    "version": "3.29.4",
+    "version": "3.30.0",
   },
   "chunks": [
     {
       "dynamicImports": [],
       "entry": true,
       "files": [
-        "main-6ff1e9ca.js",
+        "main-14296bbb.js",
       ],
       "id": "main",
       "initial": false,
@@ -321,15 +321,15 @@ exports[`Generating rollup stats 3 {"format":"module","expected":"esm"} matches 
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js?commonjs-module",
       "size": 27,
     },
     {
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560240,
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js",
+      "size": 562211,
     },
     {
       "chunkUniqueIds": [
@@ -362,14 +362,14 @@ exports[`Generating rollup stats 3 {"format":"iife","expected":"iife"} matches t
   "bundleName": StringContaining "test-rollup-v3-iife",
   "bundler": {
     "name": "rollup",
-    "version": "3.29.4",
+    "version": "3.30.0",
   },
   "chunks": [
     {
       "dynamicImports": [],
       "entry": true,
       "files": [
-        "main-cc182ba1.js",
+        "main-6f13f137.js",
       ],
       "id": "main",
       "initial": false,
@@ -392,15 +392,15 @@ exports[`Generating rollup stats 3 {"format":"iife","expected":"iife"} matches t
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js?commonjs-module",
       "size": 27,
     },
     {
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560240,
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js",
+      "size": 562211,
     },
     {
       "chunkUniqueIds": [
@@ -433,14 +433,14 @@ exports[`Generating rollup stats 3 {"format":"umd","expected":"umd"} matches the
   "bundleName": StringContaining "test-rollup-v3-umd",
   "bundler": {
     "name": "rollup",
-    "version": "3.29.4",
+    "version": "3.30.0",
   },
   "chunks": [
     {
       "dynamicImports": [],
       "entry": true,
       "files": [
-        "main-cdb2522f.js",
+        "main-2fc4dfd0.js",
       ],
       "id": "main",
       "initial": false,
@@ -463,15 +463,15 @@ exports[`Generating rollup stats 3 {"format":"umd","expected":"umd"} matches the
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js?commonjs-module",
       "size": 27,
     },
     {
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560240,
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js",
+      "size": 562211,
     },
     {
       "chunkUniqueIds": [
@@ -504,14 +504,14 @@ exports[`Generating rollup stats 3 {"format":"system","expected":"system"} match
   "bundleName": StringContaining "test-rollup-v3-system",
   "bundler": {
     "name": "rollup",
-    "version": "3.29.4",
+    "version": "3.30.0",
   },
   "chunks": [
     {
       "dynamicImports": [],
       "entry": true,
       "files": [
-        "main-b7135d24.js",
+        "main-fc2536b6.js",
       ],
       "id": "main",
       "initial": false,
@@ -534,15 +534,15 @@ exports[`Generating rollup stats 3 {"format":"system","expected":"system"} match
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js?commonjs-module",
       "size": 27,
     },
     {
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560240,
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js",
+      "size": 562211,
     },
     {
       "chunkUniqueIds": [
@@ -575,14 +575,14 @@ exports[`Generating rollup stats 3 {"format":"systemjs","expected":"system"} mat
   "bundleName": StringContaining "test-rollup-v3-system",
   "bundler": {
     "name": "rollup",
-    "version": "3.29.4",
+    "version": "3.30.0",
   },
   "chunks": [
     {
       "dynamicImports": [],
       "entry": true,
       "files": [
-        "main-b7135d24.js",
+        "main-fc2536b6.js",
       ],
       "id": "main",
       "initial": false,
@@ -605,15 +605,15 @@ exports[`Generating rollup stats 3 {"format":"systemjs","expected":"system"} mat
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js?commonjs-module",
       "size": 27,
     },
     {
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560240,
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js",
+      "size": 562211,
     },
     {
       "chunkUniqueIds": [
@@ -646,14 +646,14 @@ exports[`Generating rollup stats 3 source maps are enabled does not include any 
   "bundleName": StringNotContaining ".map",
   "bundler": {
     "name": "rollup",
-    "version": "3.29.4",
+    "version": "3.30.0",
   },
   "chunks": [
     {
       "dynamicImports": [],
       "entry": true,
       "files": [
-        "main-6ff1e9ca.js",
+        "main-14296bbb.js",
       ],
       "id": "main",
       "initial": false,
@@ -676,15 +676,15 @@ exports[`Generating rollup stats 3 source maps are enabled does not include any 
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js?commonjs-module",
       "size": 27,
     },
     {
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560240,
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js",
+      "size": 562211,
     },
     {
       "chunkUniqueIds": [
@@ -717,14 +717,14 @@ exports[`Generating rollup stats 4 {"format":"amd","expected":"amd"} matches the
   "bundleName": StringContaining "test-rollup-v4-amd",
   "bundler": {
     "name": "rollup",
-    "version": "4.22.4",
+    "version": "4.60.1",
   },
   "chunks": [
     {
       "dynamicImports": [],
       "entry": true,
       "files": [
-        "main-Bz9ahex4.js",
+        "main-Df2W2Ljo.js",
       ],
       "id": "main",
       "initial": false,
@@ -747,15 +747,15 @@ exports[`Generating rollup stats 4 {"format":"amd","expected":"amd"} matches the
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js?commonjs-module",
       "size": 27,
     },
     {
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560240,
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js",
+      "size": 562101,
     },
     {
       "chunkUniqueIds": [
@@ -788,14 +788,14 @@ exports[`Generating rollup stats 4 {"format":"cjs","expected":"cjs"} matches the
   "bundleName": StringContaining "test-rollup-v4-cjs",
   "bundler": {
     "name": "rollup",
-    "version": "4.22.4",
+    "version": "4.60.1",
   },
   "chunks": [
     {
       "dynamicImports": [],
       "entry": true,
       "files": [
-        "main-xb59kfqA.js",
+        "main-IC3CKzU2.js",
       ],
       "id": "main",
       "initial": false,
@@ -818,15 +818,15 @@ exports[`Generating rollup stats 4 {"format":"cjs","expected":"cjs"} matches the
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js?commonjs-module",
       "size": 27,
     },
     {
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560240,
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js",
+      "size": 562101,
     },
     {
       "chunkUniqueIds": [
@@ -859,14 +859,14 @@ exports[`Generating rollup stats 4 {"format":"es","expected":"esm"} matches the 
   "bundleName": StringContaining "test-rollup-v4-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.22.4",
+    "version": "4.60.1",
   },
   "chunks": [
     {
       "dynamicImports": [],
       "entry": true,
       "files": [
-        "main-DTMU6eC0.js",
+        "main-DsZqR5xx.js",
       ],
       "id": "main",
       "initial": false,
@@ -889,15 +889,15 @@ exports[`Generating rollup stats 4 {"format":"es","expected":"esm"} matches the 
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js?commonjs-module",
       "size": 27,
     },
     {
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560240,
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js",
+      "size": 562101,
     },
     {
       "chunkUniqueIds": [
@@ -930,14 +930,14 @@ exports[`Generating rollup stats 4 {"format":"esm","expected":"esm"} matches the
   "bundleName": StringContaining "test-rollup-v4-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.22.4",
+    "version": "4.60.1",
   },
   "chunks": [
     {
       "dynamicImports": [],
       "entry": true,
       "files": [
-        "main-DTMU6eC0.js",
+        "main-DsZqR5xx.js",
       ],
       "id": "main",
       "initial": false,
@@ -960,15 +960,15 @@ exports[`Generating rollup stats 4 {"format":"esm","expected":"esm"} matches the
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js?commonjs-module",
       "size": 27,
     },
     {
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560240,
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js",
+      "size": 562101,
     },
     {
       "chunkUniqueIds": [
@@ -1001,14 +1001,14 @@ exports[`Generating rollup stats 4 {"format":"module","expected":"esm"} matches 
   "bundleName": StringContaining "test-rollup-v4-esm",
   "bundler": {
     "name": "rollup",
-    "version": "4.22.4",
+    "version": "4.60.1",
   },
   "chunks": [
     {
       "dynamicImports": [],
       "entry": true,
       "files": [
-        "main-DTMU6eC0.js",
+        "main-DsZqR5xx.js",
       ],
       "id": "main",
       "initial": false,
@@ -1031,15 +1031,15 @@ exports[`Generating rollup stats 4 {"format":"module","expected":"esm"} matches 
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js?commonjs-module",
       "size": 27,
     },
     {
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560240,
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js",
+      "size": 562101,
     },
     {
       "chunkUniqueIds": [
@@ -1072,14 +1072,14 @@ exports[`Generating rollup stats 4 {"format":"iife","expected":"iife"} matches t
   "bundleName": StringContaining "test-rollup-v4-iife",
   "bundler": {
     "name": "rollup",
-    "version": "4.22.4",
+    "version": "4.60.1",
   },
   "chunks": [
     {
       "dynamicImports": [],
       "entry": true,
       "files": [
-        "main-B7VbaLUG.js",
+        "main-oTH3GulX.js",
       ],
       "id": "main",
       "initial": false,
@@ -1102,15 +1102,15 @@ exports[`Generating rollup stats 4 {"format":"iife","expected":"iife"} matches t
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js?commonjs-module",
       "size": 27,
     },
     {
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560240,
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js",
+      "size": 562101,
     },
     {
       "chunkUniqueIds": [
@@ -1143,14 +1143,14 @@ exports[`Generating rollup stats 4 {"format":"umd","expected":"umd"} matches the
   "bundleName": StringContaining "test-rollup-v4-umd",
   "bundler": {
     "name": "rollup",
-    "version": "4.22.4",
+    "version": "4.60.1",
   },
   "chunks": [
     {
       "dynamicImports": [],
       "entry": true,
       "files": [
-        "main-DXhL8JQx.js",
+        "main-D_1nnjap.js",
       ],
       "id": "main",
       "initial": false,
@@ -1173,15 +1173,15 @@ exports[`Generating rollup stats 4 {"format":"umd","expected":"umd"} matches the
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js?commonjs-module",
       "size": 27,
     },
     {
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560240,
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js",
+      "size": 562101,
     },
     {
       "chunkUniqueIds": [
@@ -1214,14 +1214,14 @@ exports[`Generating rollup stats 4 {"format":"system","expected":"system"} match
   "bundleName": StringContaining "test-rollup-v4-system",
   "bundler": {
     "name": "rollup",
-    "version": "4.22.4",
+    "version": "4.60.1",
   },
   "chunks": [
     {
       "dynamicImports": [],
       "entry": true,
       "files": [
-        "main-DwblAVj_.js",
+        "main-ChozhkL-.js",
       ],
       "id": "main",
       "initial": false,
@@ -1244,15 +1244,15 @@ exports[`Generating rollup stats 4 {"format":"system","expected":"system"} match
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js?commonjs-module",
       "size": 27,
     },
     {
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560240,
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js",
+      "size": 562101,
     },
     {
       "chunkUniqueIds": [
@@ -1285,14 +1285,14 @@ exports[`Generating rollup stats 4 {"format":"systemjs","expected":"system"} mat
   "bundleName": StringContaining "test-rollup-v4-system",
   "bundler": {
     "name": "rollup",
-    "version": "4.22.4",
+    "version": "4.60.1",
   },
   "chunks": [
     {
       "dynamicImports": [],
       "entry": true,
       "files": [
-        "main-DwblAVj_.js",
+        "main-ChozhkL-.js",
       ],
       "id": "main",
       "initial": false,
@@ -1315,15 +1315,15 @@ exports[`Generating rollup stats 4 {"format":"systemjs","expected":"system"} mat
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js?commonjs-module",
       "size": 27,
     },
     {
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560240,
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js",
+      "size": 562101,
     },
     {
       "chunkUniqueIds": [
@@ -1356,14 +1356,14 @@ exports[`Generating rollup stats 4 source maps are enabled does not include any 
   "bundleName": StringNotContaining ".map",
   "bundler": {
     "name": "rollup",
-    "version": "4.22.4",
+    "version": "4.60.1",
   },
   "chunks": [
     {
       "dynamicImports": [],
       "entry": true,
       "files": [
-        "main-DTMU6eC0.js",
+        "main-DsZqR5xx.js",
       ],
       "id": "main",
       "initial": false,
@@ -1386,15 +1386,15 @@ exports[`Generating rollup stats 4 source maps are enabled does not include any 
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js?commonjs-module",
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js?commonjs-module",
       "size": 27,
     },
     {
       "chunkUniqueIds": [
         "0-main",
       ],
-      "name": "../node_modules/.pnpm/lodash@4.17.21/node_modules/lodash/lodash.js",
-      "size": 560240,
+      "name": "../node_modules/.pnpm/lodash@4.18.0/node_modules/lodash/lodash.js",
+      "size": 562101,
     },
     {
       "chunkUniqueIds": [
