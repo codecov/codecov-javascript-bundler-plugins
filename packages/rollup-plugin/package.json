@@ -29,6 +29,11 @@
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codecov/codecov-javascript-bundler-plugins.git",
+    "directory": "packages/rollup-plugin"
+  },
   "scripts": {
     "type-check": "tsc --noEmit",
     "build": "unbuild",
