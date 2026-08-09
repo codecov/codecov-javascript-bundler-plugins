@@ -2,6 +2,7 @@ import { useState, lazy, Suspense } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
+import SomeComponent from "./SomeComponent";
 
 const IndexedLazyComponent = lazy(() => import("./IndexedLazyComponent"));
 const LazyComponent = lazy(() => import("./LazyComponent/LazyComponent"));
@@ -36,6 +37,9 @@ function App() {
       </Suspense>
       <Suspense fallback={null}>
         <LazyComponent />
+      </Suspense>
+      <Suspense fallback={null}>
+        <SomeComponent />
       </Suspense>
     </>
   );
