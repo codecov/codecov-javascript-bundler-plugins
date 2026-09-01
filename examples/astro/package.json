@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
-    "@astrojs/node": "^10.1.4",
+    "@astrojs/node": "^11.0.2",
     "@astrojs/react": "^5.0.7",
     "@codecov/astro-plugin": "workspace:*",
     "@types/react": "^18.3.12",
