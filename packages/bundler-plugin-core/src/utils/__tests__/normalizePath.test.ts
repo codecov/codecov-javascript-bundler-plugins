@@ -151,4 +151,81 @@ describe("normalizePath", () => {
     );
     expect(expectation).toEqual(expected);
   });
+
+  describe.each(["vite", "rollup"] as const)("%s asset names", (framework) => {
+    it.each([
+      {
+        path: "assets/maplibre-gl-AxBTEyzg.js",
+        format: "assets/[name]-[hash].js",
+        expected: "assets/maplibre-gl-*.js",
+      },
+      {
+        path: "assets/maplibre-gl-worker-Br3j0JGE.js",
+        format: "assets/[name]-[hash][extname]",
+        expected: "assets/maplibre-gl-worker-*.js",
+      },
+      {
+        path: "assets/preload-helper-BRbzi6Nc.js",
+        format: "assets/[name]-[hash].js",
+        expected: "assets/preload-helper-*.js",
+      },
+      {
+        path: "assets/my-worker-AB-CD_EF.js",
+        format: "assets/[name]-[hash].js",
+        expected: "assets/my-worker-*.js",
+      },
+      {
+        path: "assets/my-worker--BCDEFG-.js",
+        format: "assets/[name]-[hash].js",
+        expected: "assets/my-worker-*.js",
+      },
+      {
+        path: "assets/my-worker-AB-CD_EFGH.css",
+        format: "assets/[name]-[hash:10][extname]",
+        expected: "assets/my-worker-*.css",
+      },
+      {
+        path: "assets/name-abcdefgh.part-AxBTEyzg.js",
+        format: "assets/[name]-[hash].js",
+        expected: "assets/name-abcdefgh.part-*.js",
+      },
+      {
+        path: "assets/name-abcdefgh.part-AxBTEyzg.js",
+        format: "assets/[name]-[hash][extname]",
+        expected: "assets/name-abcdefgh.part-*.js",
+      },
+      {
+        path: "assets/my-worker-AxBTEyzg.min.js",
+        format: "assets/[name]-[hash].min.js",
+        expected: "assets/my-worker-*.min.js",
+      },
+      {
+        path: "assets/my-worker-AxBTEyzg.css",
+        format: "assets/[name]-[hash].[ext]",
+        expected: "assets/my-worker-*.css",
+      },
+      {
+        path: "assets/my-worker-AxBTEyzg.es.js",
+        format: "assets/[name]-[hash].[format].js",
+        expected: "assets/my-worker-*.es.js",
+      },
+      {
+        path: "my-components/assets/my-worker-AxBTEyzg",
+        format: "my-components/assets/[name]-[hash]",
+        expected: "my-components/assets/my-worker-*",
+      },
+      {
+        path: "assets/test.D4lWaVuy.js",
+        format: "assets/[name].[hash].js",
+        expected: "assets/test.*.js",
+      },
+      {
+        path: "assets/my-worker.js",
+        format: "assets/[name].js",
+        expected: "assets/my-worker.js",
+      },
+    ])("preserves $path using $format", ({ path, format, expected }) => {
+      expect(normalizePath(path, format, framework)).toBe(expected);
+    });
+  });
 });

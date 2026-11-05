@@ -46,12 +46,25 @@ export const normalizePath = (
     if (endingDelimiter === "[") {
       endingDelimiter = ".";
     }
-    const endingRegex = `(?<endingDelimiter>${escapeRegex(endingDelimiter)})`;
+    // Rollup hashes have a known width, even when the hash contains '-'.
+    // Match the full suffix so delimiters inside the name are preserved.
+    const isRollup = metaFramework === "vite" || metaFramework === "rollup";
+    const hashLength = format
+      .slice(match.hashIndex, match.hashIndex + closingBracketIndex)
+      .match(/:(\d+)$/)?.[1];
+    const hashQuantifier = isRollup ? `{${hashLength ?? "8"}}` : "+";
+    const endingPattern = isRollup
+      ? escapeRegex(format.slice(match.hashIndex + closingBracketIndex + 1))
+          .replace("\\[extname\\]", "\\.[^./]+")
+          .replace("\\[ext\\]", "[^./]+")
+          .replace("\\[format\\]", "[^./]+")
+      : escapeRegex(endingDelimiter);
+    const endingRegex = `(?<endingDelimiter>${endingPattern})${isRollup ? "$" : ""}`;
 
     // create a regex that will match the hash
     // potential values gathered from: https://en.wikipedia.org/wiki/Base64
     // added in `\-` and `\_` to account for the `-` `_` as they are included in the potential hashes: https://rollupjs.org/configuration-options/#output-hashcharacters
-    const regexString = `(${leadingRegex}(?<hash>[0-9a-zA-Z/+=_\/+=-]+)${endingRegex})`;
+    const regexString = `(${leadingRegex}(?<hash>[0-9a-zA-Z/+=_\/+=-]${hashQuantifier})${endingRegex})`;
     const HASH_REPLACE_REGEX = new RegExp(regexString, "i");
 
     // replace the hash with a wildcard and the delimiters
